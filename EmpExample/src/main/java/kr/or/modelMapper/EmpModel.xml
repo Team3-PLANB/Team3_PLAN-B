@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.model.EmpDAO">
+	<select id="listmember" resultType="kr.or.model.EmpDTO">
+		select * from Emp
+	</select>
+	
+	<select id="detail" resultType="kr.or.model.EmpDTO" parameterType="int">
+		select * from Emp where empno = #{empno}
+		
+	</select>
+	
+	<update id="ModifyMember" parameterType="kr.or.model.EmpDTO">
+		update Emp
+		set ename=#{ename}, job=#{job}, mgr=#{mgr},hiredate=#{hiredate}, sal=#{sal}, comm=#{comm}, deptno=#{deptno}
+		where empno=#{empno}
+	</update>
+	
+	<insert id="addMember" parameterType="kr.or.model.EmpDTO">
+		insert into Emp
+		values (#{empno},#{ename},#{job},#{mgr},sysdate,#{sal},#{comm},#{deptno})
+	</insert>
+	
+	<delete id="DeleteMember">
+		delete from emp
+		where empno=#{empno}
+	</delete>
+	
+	<select id="search" parameterType="String" resultType="kr.or.model.EmpDTO">
+		select * from emp where empno like '%' || #{empno} || '%'
+	</select>
+	
+</mapper>
