@@ -29,7 +29,7 @@
 				<div class="container">
 					<div class="row row-bottom-padded-md">
 						<div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
-							<h3>풋터!</h3>
+							<h3>풋터!수정해보기</h3>
 							<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
 						</div>
 						<div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
