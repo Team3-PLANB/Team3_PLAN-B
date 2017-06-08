@@ -11,11 +11,6 @@
 <context:annotation-config />
 <context:component-scan base-package="ncontroller" />
 
-<!-- 게시판 관련 DAO  생략 : @Repository class 걸면 생략가능 -->
-<bean id="noticedao" class="dao.NewNoticeDao"></bean>
-
-<!-- 회원관련 DAO     생략 : @Repository class 걸면 생략가능-->
-<bean id="newMemberDao" class="dao.NewMemberDao"></bean>
 
 <!--  Tiles 설정하기 -->
 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
