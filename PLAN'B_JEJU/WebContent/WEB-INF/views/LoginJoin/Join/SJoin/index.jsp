@@ -1,4 +1,5 @@
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -25,14 +26,14 @@
 	Facebook: 		https://www.facebook.com/fh5co
 	
 	
-	제작일 : 2017/06/06
-	제작자 : 이준성
-	제작 : 제발 이번에는 된다 얍~~~!!!!1
+	ì ìì¼ : 2017/06/06
+	ì ìì : ì´ì¤ì±
+	ì ì : ì ë° ì´ë²ìë ëë¤ ì~~~!!!!1
 	//////////////////////////////////////////////////////
 	 -->
 
 
-<!-- 다혜 -->
+<!-- ë¤í -->
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>

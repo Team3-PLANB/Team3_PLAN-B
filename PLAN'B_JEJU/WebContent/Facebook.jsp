@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 
 <html>
@@ -64,9 +67,6 @@
       });
 
 
-
-
-
       window.fbAsyncInit = function() {
 
 
@@ -88,16 +88,10 @@
         });
 
 
-       
-
-
         FB.getLoginStatus(function(response) {
 
 
             if (response.status === 'connected') {
-
-
-
 
 
                 FB.api('/me', function(fbUser) {
@@ -121,9 +115,6 @@
                     $('#link').html("<a href='"+fbUser.link+"'>"+fbUser.id+"</a>");
 
 
-
-
-
                     $('#response').html( '<pre>' + JSON.stringify(response) + '</pre>' );
 
 
@@ -135,8 +126,6 @@
 
                 });
 
-
-                 
 
 
             } else if (response.status === 'not_authorized') {
