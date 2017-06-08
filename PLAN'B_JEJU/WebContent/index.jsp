@@ -25,14 +25,14 @@
 	Facebook: 		https://www.facebook.com/fh5co
 	
 	
-	제작일 : 2017/06/06
-	제작자 : 이준성
-	제작 : 제발 이번에는 된다 얍~~~!!!!1
+	ì ìì¼ : 2017/06/06
+	ì ìì : ì´ì¤ì±
+	ì ì : ì ë° ì´ë²ìë ëë¤ ì~~~!!!!1
 	//////////////////////////////////////////////////////
 	 -->
 
 
-<!-- 다혜 -->
+<!-- ë¤í -->
   	<!-- Facebook and Twitter integration -->
 	<meta property="og:title" content=""/>
 	<meta property="og:image" content=""/>
@@ -79,7 +79,15 @@
 	<body>
 		<div id="fh5co-wrapper">
 		<div id="fh5co-page">
-
+	
+		<!-- START : a href 걸기-->
+	
+		타일 확인 링크
+		<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a>
+	
+		<!-- END : a href 걸기 -->
+		
+		
 		<header id="fh5co-header-section" class="sticky-banner">
 			<div class="container">
 				<div class="nav-header">

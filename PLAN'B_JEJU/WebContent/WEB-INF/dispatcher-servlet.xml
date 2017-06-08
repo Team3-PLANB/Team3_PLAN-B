@@ -9,7 +9,7 @@
                           ">
 <!-- 객체의 생성과 조립(injection) -->
 <context:annotation-config />
-<context:component-scan base-package="ncontroller" />
+<context:component-scan base-package="com.planb_jeju.controller" />
 
 
 <!--  Tiles 설정하기 -->

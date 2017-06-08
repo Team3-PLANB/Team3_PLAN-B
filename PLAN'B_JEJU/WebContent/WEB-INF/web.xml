@@ -22,7 +22,7 @@ xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns
   </servlet>
   <servlet-mapping>
     <servlet-name>dispatcher</servlet-name>
-    <url-pattern>*.htm</url-pattern>
+    <url-pattern>*.do</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>EncodingFilter</filter-name>
