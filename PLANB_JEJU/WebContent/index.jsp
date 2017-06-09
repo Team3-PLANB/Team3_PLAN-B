@@ -84,8 +84,9 @@
 		<!-- START : a href 걸기-->
 	
 		타일 확인 링크
-		<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a>
-	
+		<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a><br>
+		<a href="${pageContext.request.contextPath}/PLANA.do">플랜A 만들기</a><br>
+		<a href="${pageContext.request.contextPath}/MyPage/Message/msg.do">쪽지 만들기</a>
 		<!-- END : a href 걸기 -->
 		
 		
