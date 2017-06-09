@@ -22,22 +22,40 @@
 	<header id="fh5co-header-section" class="sticky-banner">
 			<div class="container">
 				<div class="nav-header">
+				<h1 id="fh5co-logo"><a href="index.html"><i class="icon-airplane"></i>PLAN'B 제주</a></h1>
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-					
+			
+	
 					<!-- START #fh5co-menu-wrap -->
+	
 					<nav id="fh5co-menu-wrap" role="navigation">
 						<ul class="sf-menu" id="fh5co-primary-menu">
-							<li class="active"><a href="index.html">일정 관리</a></li>
-							<li><a href="flight.html">히스토리</a></li>
-							<li><a href="hotel.html">나의 후기</a></li>
-							<li><a href="car.html">찜한 후기</a></li>
-							<li><a href="blog.html">쪽지함</a></li>
-							<li><a href="contact.html">회원정보수정</a></li>
+							<li class="active"><a href="index.html">일정 만들기</a></li>
+							<li><a href="flight.html">후기 게시판</a></li>
+							<li><a href="hotel.html">마이 페이지</a></li>
+							<li><a href="car.html">로그아웃</a></li>
 						</ul>
 					</nav>
+		
 				</div>
 			</div>
-		</header>
+		</header>		
+		
+			<div class="row">
+				<div class="text-center heading-section animate-box fadeInUp animated">
+					<h2>My PAGE</h2>
+				</div>
+			</div>		
+		
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2 text-centere-box">
+					<h4>일정 관리</h4>
+				</div>
+			</div>	
+		
+		
+			
+	
 			<div class="container">
 				<div class="row row-bottom-padded-md">
 					<div class="col-lg-4 col-md-4 col-sm-6">
