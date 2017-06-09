@@ -1,38 +1,43 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    
-    <link rel="shortcut icon" href="favicon.ico">
 
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+<head>
+	<link rel="shortcut icon" href="favicon.ico">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700,300" rel="stylesheet" type="text/css">
 	
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
 	<!-- Icomoon Icon Fonts-->
 	<link rel="stylesheet" href="css/icomoon.css">
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="css/bootstrap.css">
 	<!-- Superfish -->
 	<link rel="stylesheet" href="css/superfish.css">
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
 	<!-- Date Picker -->
 	<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-	<!-- CS Select -->
-	<link rel="stylesheet" href="css/cs-select.css">
-	<link rel="stylesheet" href="css/cs-skin-border.css">
-	
-	<link rel="stylesheet" href="css/style.css">
+
+	<link rel="stylesheet" href="css/style.css"> <!-- 이놈 손대보자 -->
+</head>
 
 
-<div id="fh5co-blog-section" class="fh5co-section-gray">
+<body>
+	<header id="fh5co-header-section" class="sticky-banner">
 			<div class="container">
-				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box fadeInUp animated">
-						<h3>후기목록?</h3>
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit est facilis maiores, perspiciatis accusamus asperiores sint consequuntur debitis.</p>
-					</div>
+				<div class="nav-header">
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
+					
+					<!-- START #fh5co-menu-wrap -->
+					<nav id="fh5co-menu-wrap" role="navigation">
+						<ul class="sf-menu" id="fh5co-primary-menu">
+							<li class="active"><a href="index.html">일정 관리</a></li>
+							<li><a href="flight.html">히스토리</a></li>
+							<li><a href="hotel.html">나의 후기</a></li>
+							<li><a href="car.html">찜한 후기</a></li>
+							<li><a href="blog.html">쪽지함</a></li>
+							<li><a href="contact.html">회원정보수정</a></li>
+						</ul>
+					</nav>
 				</div>
 			</div>
+		</header>
 			<div class="container">
 				<div class="row row-bottom-padded-md">
 					<div class="col-lg-4 col-md-4 col-sm-6">
@@ -86,4 +91,4 @@
 				</div>
 
 			</div>
-		</div>
+		</body>
