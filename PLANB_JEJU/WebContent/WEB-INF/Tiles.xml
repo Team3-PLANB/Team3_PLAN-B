@@ -114,6 +114,13 @@
     		<put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
          	<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp" /> 
     </definition>
+    <definition name="*.*.*" template="/WEB-INF/views/inc/planb_layout.jsp"> 
+         	<put-attribute name="title"   value="kosta notice list" />
+            <!-- <put-attribute name="css"     value="{2}.css"/> -->
+            <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
+    		<put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
+         	<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" /> 
+    </definition>
     <definition name="*.*" template="/WEB-INF/views/inc/planb_layout.jsp"> 
          	<put-attribute name="title"   value="kosta notice list" />
             <!-- <put-attribute name="css"     value="{2}.css"/> -->
@@ -125,13 +132,7 @@
     		<put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
          	<put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" /> 
     </definition> 
-    <definition name="*.*.*" template="/WEB-INF/views/inc/planb_layout.jsp"> 
-         	<put-attribute name="title"   value="kosta notice list" />
-            <!-- <put-attribute name="css"     value="{2}.css"/> -->
-            <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" />
-    		<put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" />
-         	<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" /> 
-    </definition>
+    
   
 </tiles-definitions>  
 
