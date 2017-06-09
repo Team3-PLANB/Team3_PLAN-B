@@ -12,6 +12,7 @@ public class IndexController {
 		System.out.println("LoginJoin/Join/NJoin.do 컨트롤러 들어옴");
 		//Tiles 이전
 		//return "index.jsp";
-		return "PLANA.index";
+		return "LoginJoin.Join.NJoin.joinForm";	
+		
 	}
 }
