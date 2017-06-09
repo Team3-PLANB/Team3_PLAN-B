@@ -6,8 +6,6 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-
-		<div class = "box-testimony animate-box">
 			<h3 style = "text-align: center">MY PAGE</h3>
 			<h4 style = "text-align: center">
 				<a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do">일정관리&nbsp;&nbsp;&nbsp;&nbsp;</a>
@@ -17,7 +15,8 @@
 				<a href="${pageContext.request.contextPath}/MyPage/Message/msg.do">쪽지함&nbsp;&nbsp;&nbsp;&nbsp;</a>
 				<a href="${pageContext.request.contextPath}/MyPage/Info/info.do">회원정보수정</a>
 			</h4>
-			
+
+			<div class = "box-testimony animate-box">
 		    <form method="post" action="" class="ccform">
 			    <div class="ccfield-prepend">
 
@@ -106,6 +105,7 @@ body {
 	display:block;
 	font-family: 'Lato',Arial,sans-serif;
 	font-size:14px;
+    border-radius: 4px;
 }
 
 .ccformfield {
