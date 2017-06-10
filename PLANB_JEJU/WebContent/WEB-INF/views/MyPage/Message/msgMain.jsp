@@ -6,41 +6,45 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-			<h3 style = "text-align: center">MY PAGE</h3>
-			<h4 style = "text-align: center">
-				<a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do">일정관리&nbsp;&nbsp;&nbsp;&nbsp;</a>
-				<a href="${pageContext.request.contextPath}/MyPage/History/history.do">히스토리&nbsp;&nbsp;&nbsp;&nbsp;</a>
-				<a href="${pageContext.request.contextPath}/MyPage/PostScript/postScriptMain.do">나의 후기&nbsp;&nbsp;&nbsp;&nbsp;</a>
-				<a href="${pageContext.request.contextPath}/MyPage/Like/like.do">찜한 후기&nbsp;&nbsp;&nbsp;&nbsp;</a>
-				<a href="${pageContext.request.contextPath}/MyPage/Message/msg.do">쪽지함&nbsp;&nbsp;&nbsp;&nbsp;</a>
-				<a href="${pageContext.request.contextPath}/MyPage/Info/info.do">회원정보수정</a>
-			</h4>
+<jsp:include page="../myPageMain.jsp"></jsp:include>
 
-			<div class = "box-testimony animate-box">
-		    <form method="post" action="" class="ccform">
-			    <div class="ccfield-prepend">
+<div class="container">
+  <div class="row">
+    <nav class="col-sm-3" >
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#section1" class = "active">받은 쪽지</a></li>
+        <li><a href="#section2" class = "active">보낸 쪽지</a></li>
+      </ul>
+    </nav>
+    <div class="col-sm-9">
+    	<ul class = ""></ul>
+    </div>
+  </div>
+</div>
+	
+<!--
+::: 쪽지쓰기 :::
+ 	<div class = "box-testimony animate-box">
+		<form method="post" action="" class="ccform">
+		    <div class="ccfield-prepend">
+		        <span class="ccform-addon"><i class="fa fa-envelope fa-2x"></i></span>
 
-			        <span class="ccform-addon"><i class="fa fa-envelope fa-2x"></i></span>
-
-			        <input class="ccformfield" type="text" placeholder="받는 사람 Email" required>
-			    </div>
-			    <br>
-			    <div class="ccfield-prepend">
-			        <span class="ccform-addon"><i class="fa fa-comment fa-2x"></i></span>
-			        <textarea class="ccformfield" name="comments" rows="8" placeholder="Message" required></textarea>
-			    </div>
-			    <div class="ccfield-prepend">
-			        <input class="ccbtn" type="submit" value="Submit">
-			    </div>
-			 </form>
-    	</div>
-<!-- 	</div>
-</div> -->
-
+		        <input class="ccformfield" type="text" placeholder="받는 사람 Email" required>
+		    </div>
+		    <br>
+		    <div class="ccfield-prepend">
+		        <span class="ccform-addon"><i class="fa fa-comment fa-2x"></i></span>
+		        <textarea class="ccformfield" name="comments" rows="8" placeholder="Message" required></textarea>
+		    </div>
+		    <div class="ccfield-prepend">
+		        <input class="ccbtn" type="submit" value="보내기">
+		    </div>
+		 </form>
+    </div>
+ -->
 
 <style>
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
-
 
 body {
 	background: #FFFFFF;
@@ -51,6 +55,11 @@ body {
 	margin:0;
 	padding:0;
 	padding-bottom:60px;
+}
+
+#active {
+	background-color: #F78536;
+	font-color: #FFFFFF;
 }
 .ccheader {
 	margin: 0 auto;
@@ -117,6 +126,7 @@ body {
 	background:#f8ae45;
 	color:#FFFFFF;
 	padding:12px 25px;
+	font-size: medium;
 	text-decoration:none;
 	font-weight:bold;
     margin: auto;
