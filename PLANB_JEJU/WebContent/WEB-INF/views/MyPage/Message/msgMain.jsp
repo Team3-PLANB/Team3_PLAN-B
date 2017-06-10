@@ -17,7 +17,13 @@
       </ul>
     </nav>
     <div class="col-sm-9">
-    	<ul class = ""></ul>
+    	<table>
+    		<tr>
+    			<td>보낸 사람</td>
+    			<td>내용</td>
+    			<td>받은 날짜</td>
+    		</tr>
+    	</table>
     </div>
   </div>
 </div>
