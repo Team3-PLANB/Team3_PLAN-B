@@ -87,6 +87,7 @@
 		<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a><br>
 		<a href="${pageContext.request.contextPath}/PLANA.do">플랜A 만들기</a><br>
 		<a href="${pageContext.request.contextPath}/MyPage/Message/msg.do">쪽지 만들기</a>
+		<a href="${pageContext.request.contextPath}/LoginJoin/Join/SJoin.do">일정테이블</a><br>
 		<!-- END : a href 걸기 -->
 		
 		
