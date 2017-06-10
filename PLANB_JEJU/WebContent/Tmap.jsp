@@ -72,17 +72,14 @@ $( function() {
         
         
         //경로 정보 로드
-      /*   function searchRoute(){
+/*         function searchRoute(){
             var routeFormat = new Tmap.Format.KML({extractStyles:true, extractAttributes:true});
             var startX = 14129105.461214;
             var startY = 4517042.1926406;
         
             var endX = 14136027.789587;
             var endY = 4517572.4745242;  
-           /*  var startX = 126.977233;
-            var startY = 37.565726;
-            var endX = 126.963041;
-            var endY = 37.560522; */
+     
            
             var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1&format=xml";
             urlStr += "&startX="+startX;
@@ -97,8 +94,8 @@ $( function() {
             var routeLayer = new Tmap.Layer.Vector("route", {protocol:prtcl, strategies:[new Tmap.Strategy.Fixed()]});
             routeLayer.events.register("featuresadded", routeLayer, onDrawnFeatures);
             map.addLayer(routeLayer);
-        }
-         */
+        } */
+         
         function search(){
         	
         	console.log(lonlat.lat);
@@ -110,7 +107,7 @@ $( function() {
             var endX = lonlat.lon;
             var endY = lonlat.lat; 
            
-           
+                       
             var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1&format=xml";
             urlStr += "&startX="+startX;
             urlStr += "&startY="+startY;
@@ -121,8 +118,13 @@ $( function() {
                                                 url: urlStr,
                                                 format:routeFormat
                                                 });
+            
+            var prtcl1 = prtcl.read();
+            console.log(prtcl1);
+            
             var routeLayer = new Tmap.Layer.Vector("route", {protocol:prtcl, strategies:[new Tmap.Strategy.Fixed()]});
-            routeLayer.events.register("featuresadded", routeLayer, onDrawnFeatures);
+
+            routeLayer.events.register("featuresadded", routeLayer, onDrawnFeatures);/* 레이어에 줌 이벤트 함수 등록 */
             map.addLayer(routeLayer);
         }
         //경로 그리기 후 해당영역으로 줌

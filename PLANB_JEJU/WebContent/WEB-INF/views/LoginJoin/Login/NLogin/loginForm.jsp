@@ -53,7 +53,7 @@
 
 <script>
 	$(document).ready(function(){
-		$('#social_login').hide();
+		$('#social_join').hide();
 		$('.nav').find('#login_tab').click(function(){
 			$('#social_join').hide();
 			$('#social_login').show();
@@ -76,10 +76,10 @@
 						<div class="tabulation animate-box fadeInUp animated">
 							<!-- Nav tabs -->
 							<ul class="nav nav-tabs" role="tablist">
-								<li role="presentation" class="active" id="join_tab">
+								<li role="presentation" id="join_tab">
 									<a href="#join" aria-controls="join" role="tab" data-toggle="tab">JOIN</a>
 								</li>
-								<li role="presentation" id="login_tab">
+								<li role="presentation" class="active" id="login_tab">
 									<a href="#login" aria-controls="login" role="tab" data-toggle="tab">LOGIN</a>
 								</li>
 							</ul>
