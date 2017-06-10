@@ -1,3 +1,4 @@
+
 package com.planb_jeju.controller;
 
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,14 @@ public class IndexController {
 		//Tiles 이전
 		//return "index.jsp";
 		return "LoginJoin.Join.NJoin.joinForm";	
+		
+	}
+	@RequestMapping("LoginJoin/Join/SJoin.do")
+	public String test(){
+		System.out.println("LoginJoin/Join/SJoin.do 컨트롤러 들어옴");
+		//Tiles 이전
+		//return "index.jsp";
+		return "LoginJoin.Join.SJoin.index";	
 		
 	}
 }

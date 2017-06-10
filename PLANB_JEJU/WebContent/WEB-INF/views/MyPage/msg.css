@@ -1,67 +1,3 @@
-<%-- 
-   @JSP : msgMain.jsp 
-   @Date : 2017-06-09
-   @Author : 홍단비
-   @Desc : 쪽지함 메인페이지
---%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="WEB-INF/views/Mypage/msg.css">
-
-<jsp:include page="../myPageMain.jsp"></jsp:include>
-
-<div class="container">
-  <div class="row">
-    <nav class="col-sm-2" >
-      <ul class="nav nav-pills nav-stacked">
-        <li><a href="#section1" class = "active">받은 쪽지</a></li>
-        <li><a href="#section2" class = "active">보낸 쪽지</a></li>
-      </ul>
-    </nav>
-    <div class="col-sm-10" >
-		<table class="responstable" >
-		  <tr>
-		    <th class="col-sm-1"/>
-		    <th class="col-sm-1"><span>Index</span></th>
-		    <th class="col-sm-1"><span>보낸 사람</span></th>
-		    <th class="col-sm-5"><span>내용</span></th>
-		    <th class="col-sm-2">받은 날짜</th>
-		  </tr>
-		  <tr>
-		    <td class="col-sm-1"><input type="checkbox"/></td>
-		    <td class="col-sm-1">1</td>
-		    <td class="col-sm-1">Steve</td>
-		    <td class="col-sm-5">Foo</td>
-		    <td class="col-sm-2">01/01/1978</td>
-		  </tr>
-
-		</table>
-		
-    </div>
-  </div>
-  <br>
-</div>
-	
-<!--
-::: 쪽지쓰기 :::
- 	<div class = "box-testimony animate-box">
-		<form method="post" action="" class="ccform">
-		    <div class="ccfield-prepend">
-		        <span class="ccform-addon"><i class="fa fa-envelope fa-2x"></i></span>
-
-		        <input class="ccformfield" type="text" placeholder="받는 사람 Email" required>
-		    </div>
-		    <br>
-		    <div class="ccfield-prepend">
-		        <span class="ccform-addon"><i class="fa fa-comment fa-2x"></i></span>
-		        <textarea class="ccformfield" name="comments" rows="8" placeholder="Message" required></textarea>
-		    </div>
-		    <div class="ccfield-prepend">
-		        <input class="ccbtn" type="submit" value="보내기">
-		    </div>
-		 </form>
-    </div>
- -->
- <style>
 @import "compass/css3";
 
 /*
@@ -75,7 +11,7 @@ If you like this solution, you might also want to check out the 1.0 version:
 */
 
 // Default options for table style
-$table-breakpoint: 400px;
+$table-breakpoint: 480px;
 $table-background-color: #F78536;
 $table-text-color: #024457;
 $table-outer-border: 1px solid #F78536;
@@ -104,7 +40,7 @@ $table-header-border: 1px solid #FFF;
   
   .responstable {
     margin: 1em 0;
-    width: 200px;
+    width: 100%;
     overflow: hidden;  
     background: $background-color;
     color: $text-color;
@@ -175,10 +111,26 @@ $table-header-border: 1px solid #FFF;
   $header-text-color: $table-header-text-color,
   $header-border: $table-header-border);
 
+// General styles
+
+body {
+  padding: 0 2em;
+  font-family: Arial, sans-serif;
+  color: #024457;
+  background: #f2f2f2;
+}
+
+h1 {
+  font-family: Verdana;
+  font-weight: normal;
+  color: #024457;
+  span {color: #167F92;}
+}
+
 
 @import url(https://fonts.googleapis.com/css?family=Lato:300,400,700);
 
-/* body {
+body {
 	background: #FFFFFF;
 	color: #fff;
 	font-weight: 400;
@@ -187,7 +139,7 @@ $table-header-border: 1px solid #FFF;
 	margin:0;
 	padding:0;
 	padding-bottom:60px;
-} */
+}
 
 #active {
 	background-color: #F78536;
@@ -272,5 +224,3 @@ $table-header-border: 1px solid #FFF;
 padding:12px 25px;
 	
 }
-
- </style>

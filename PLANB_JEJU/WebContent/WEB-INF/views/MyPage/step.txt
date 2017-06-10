@@ -66,3 +66,12 @@ body{
   line-height: 1.428571429;
   border-radius: 15px;
 }
+
+
+https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_collapsible2&stacked=h
+
+메인
+https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_ref_js_carousel2&stacked=h
+
+ajax 게시판 참고
+http://blog.naver.com/PostView.nhn?blogId=dowkekd9576&logNo=220816800951&parentCategoryNo=&categoryNo=&viewDate=&isShowPopularPosts=false&from=postView
