@@ -14,7 +14,7 @@
 	<!-- Date Picker -->
 	<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
 
-	<link rel="stylesheet" href="css/style.css"> <!-- 이놈 손대보자 -->
+	<link rel="stylesheet" href="css/history.css"> <!-- 이놈 손대보자 -->
 </head>
 
 
