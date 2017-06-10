@@ -41,6 +41,7 @@ $( function() {
             /* searchRoute(); */
         };
         
+        //맵 클릭시 이벤트 함수 -> 마커 출력
         function onClickMap(evt){
             /* console.log(evt.clientX);
             
@@ -71,36 +72,9 @@ $( function() {
         new Tmap.Pixel(document.getElementById('x').value,document.getElementById('y').value))) */
         
         
-        //경로 정보 로드
-/*         function searchRoute(){
-            var routeFormat = new Tmap.Format.KML({extractStyles:true, extractAttributes:true});
-            var startX = 14129105.461214;
-            var startY = 4517042.1926406;
         
-            var endX = 14136027.789587;
-            var endY = 4517572.4745242;  
-     
-           
-            var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1&format=xml";
-            urlStr += "&startX="+startX;
-            urlStr += "&startY="+startY;
-            urlStr += "&endX="+endX;
-            urlStr += "&endY="+endY;
-            urlStr += "&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d";
-            var prtcl = new Tmap.Protocol.HTTP({
-                                                url: urlStr,
-                                                format:routeFormat
-                                                });
-            var routeLayer = new Tmap.Layer.Vector("route", {protocol:prtcl, strategies:[new Tmap.Strategy.Fixed()]});
-            routeLayer.events.register("featuresadded", routeLayer, onDrawnFeatures);
-            map.addLayer(routeLayer);
-        } */
-         
+        //클릭시 경로 정보 로드
         function search(){
-        	
-        	
-        	
-        	
         	
         	
         	console.log(lonlat.lat);
@@ -114,46 +88,21 @@ $( function() {
             var endY = lonlat.lat; 
            
            
-            var routeFormat = new Tmap.Format.GeoJSON({extractStyles:true, extractAttributes:true}); 
-            var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1";/* JSON 타입 */
-            /* var routeFormat = new Tmap.Format.KML({extractStyles:true, extractAttributes:true}) *//* KML 타입 */
-            /* var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1&format=xml"; *//* KML타입 받아오는 파라메터 추가 */
+            /* var routeFormat = new Tmap.Format.GeoJSON({extractStyles:true, extractAttributes:true}); 
+            var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1"; *//* JSON 타입 */
+             var routeFormat = new Tmap.Format.KML({extractStyles:true, extractAttributes:true}) /* KML 타입 */
+             var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1&format=xml"; /* KML타입 받아오는 파라메터 추가 */
             urlStr += "&startX="+startX;
             urlStr += "&startY="+startY;
             urlStr += "&endX="+endX;
             urlStr += "&endY="+endY;
             urlStr += "&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d";
+            
+            
             var prtcl = new Tmap.Protocol.HTTP({
                                                 url: urlStr,
                                                 format:routeFormat
-                                                });
-            
-            var prtcl1 = prtcl.read();
-            console.log(prtcl1.priv);
-            
-            
-            var route = new Array();
-			
-			$.ajax({
-						url : urlStr,
-						type : 'GET',
-						dataType : 'json',
-						success : function(data) {
-							/* console.log(data.features[2].properties.description); */
-							
-							$.each(data.features, function(index, obj) {
-								console.log(obj);
-								route[index] = obj.properties.description;
-								
-						        $('body').append(route[index]);
-						        $('body').append('<br>');
-						        console.log(index);
-							}); 
-							
-						}
-			
-			
-					});
+                                                }); 
             
             
             var routeLayer = new Tmap.Layer.Vector("route", {protocol:prtcl, strategies:[new Tmap.Strategy.Fixed()]});
@@ -166,6 +115,104 @@ $( function() {
             map.zoomToExtent(this.getDataExtent());
         }
         
+        
+        /* Start : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
+        Tmap.Format.KML.prototype.parseData = function(data, options) {
+	        if(typeof data == "string") {
+	            data = Tmap.Format.XML.prototype.read.apply(this, [data]);
+	            console.log('data가 String');
+	        }
+	        console.log(data);
+	        var totalDistance = this.getElementsByTagNameNS(data, "*", "totalDistance");
+	        var totalTime = this.getElementsByTagNameNS(data, "*", "totalTime");
+	        /* console.log(totalDistance[0].firstChild.data);
+	        console.log(totalTime[0].firstChild.data); */
+	        // Loop throught the following node types in this order and
+	        // process the nodes found 
+	        var types = ["Link", "NetworkLink", "Style", "StyleMap", "Placemark"];
+	        for(var i=0, len=types.length; i<len; ++i) {
+	            var type = types[i];
+	
+	            var nodes = this.getElementsByTagNameNS(data, "*", type);
+				
+	            
+	            // skip to next type if no nodes are found
+	            if(nodes.length == 0) { 
+	                continue;
+	            }
+	
+	            switch (type.toLowerCase()) {
+	
+	                // Fetch external links 
+	                case "link":
+	                case "networklink":
+	                    this.parseLinks(nodes, options);
+	                    break;
+	
+	                // parse style information
+	                case "style":
+	                    if (this.extractStyles) {
+	                        this.parseStyles(nodes, options);
+	                    }
+	                    break;
+	                case "stylemap":
+	                    if (this.extractStyles) {
+	                        this.parseStyleMaps(nodes, options);
+	                    }
+	                    break;
+	
+	                // parse features
+	                case "placemark":
+	                	
+	                    this.parseFeatures(nodes, options);
+	                    break;
+	            }
+	            
+	        }
+	        
+	        console.log(this.features);
+	        
+	        for(var i=0, len=this.features.length; i<len; ++i) { 
+	        	console.log(this.features[i].data.description);
+	        	
+	        	 $('body').append(this.features[i].data.description);
+			     $('body').append('<br>');
+	        }
+	        
+	        
+	        return this.features;
+	    };
+	    
+	    /* 이하 코드는 해독 필요 어디다 쓰이는건지 이해못함 */
+    	var map, kmlLayer, select;
+		var paging;
+		var markers;
+		
+		var stylemap;
+		
+		
+		var context = {
+	        getColor: function(feature){
+	        	
+	            var color = '#aaaaaa';
+				if (feature.attributes.clazz && feature.attributes.clazz === 4) {
+					color = '#ee0000';
+				} else if(feature.cluster) {
+					var onlyFour = true;
+					for (var i = 0; i < feature.cluster.length; i++) {
+						if (onlyFour && feature.cluster[i].attributes.clazz !== 4) {
+							onlyFour = false;
+						}
+					}
+					if (onlyFour === true) {
+						color = '#ee0000';
+					}
+				}
+				return color;
+	        }
+	    };
+        
+        /* End : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
      
         </script>
 </head>
