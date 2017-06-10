@@ -113,7 +113,7 @@ html, body {
        origin:  {lat: 33.508139,lng: 126.491372},
        destination: {lat : 33.551459, lng : 126.828020},/* 33.556122, 126.796255 */
        /*  waypoints: [{location: 'Adelaide, SA'}, {location: 'Broken Hill, NSW'}], */
-      
+       waypoints: [{location: 'Adelaide, SA'}, {location: 'Broken Hill, NSW'}],
        /* waypoints: [{ location: new google.maps.LatLng(33.556122,126.796255)}], */
        travelMode: 'TRANSIT',
        avoidTolls: true
