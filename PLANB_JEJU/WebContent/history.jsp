@@ -30,21 +30,70 @@
 				</ul>
 			</nav>
 	  	 	</div>
+	  	 	<hr>
 		</div>
 	 </header>
-	 
-		 	
-	<ul id="fh5co-destination-list" class="animate-box fadeInUp animated">
-		<li class="one-forth text-center" style="background-image: url(images/place-1.jpg);">
-			<a href="#">
-				<div class="case-studies-summary">
-				<h2>제주시</h2>
-				</div>
-			</a>
-		</li>
-	</ul>
-	
+	<br>
+	<br>
+		<div style = "position: absolute; left: 580px;" >
+			<h2>나의 제주도 히스토리</h2>
+		</div>
+			
+<style type="text/css">
 
+.circle3 {
+ width:50px;
+ height:50px;
+ border-radius:25px;
+ -moz-border-radius : 25px;
+ -webkit-border-radius : 25px;
+ -ms-border-radius :25px;
+ -khtml-border-radius : 25px;
+ -o-border-radius :25px;
+ background:orange;
+ font:normal 11px/50px "나눔고딕", "고딕", "고딕";
+ color:#fff;
+ text-align:center;
+ display: inline;
+}
+
+</style>
+
+
+
+
+<div class="circle3" style="position: absolute; left: 200px; bottom: 400px">
+한라산
+</div>
+
+<div class="circle3" style="position: absolute; left: 440px; bottom: 400px">
+서귀포시
+</div>
+<div class="circle3" style="position: absolute; left: 680px; bottom: 400px">
+제주랜드
+</div>
+<div class="circle3" style="position: absolute; left: 920px; bottom: 400px">
+마라도
+</div>
+<div class="circle3" style="position: absolute; left: 1160px; bottom: 400px">
+쇠소깍
+</div>
+
+<div class="circle3" style="position: absolute; left: 200px; bottom: 200px">
+한라산
+</div>
+<div class="circle3" style="position: absolute; left: 440px; bottom: 200px">
+서귀포시
+</div>
+<div class="circle3" style="position: absolute; left: 680px; bottom: 200px">
+제주랜드
+</div>
+<div class="circle3" style="position: absolute; left: 920px; bottom: 200px">
+마라도
+</div>
+<div class="circle3" style="position: absolute; left: 1160px; bottom: 200px">
+쇠소깍
+</div>
 	
  
  
