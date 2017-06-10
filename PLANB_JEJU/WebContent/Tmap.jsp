@@ -13,8 +13,7 @@
 
 $( function() {
 	var lonlat; 
-	console.log('1');
-	console.log(lonlat);
+	
  } );
       //초기화 함수
         function init(){
