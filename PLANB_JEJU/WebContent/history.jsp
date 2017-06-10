@@ -33,17 +33,16 @@
 		</div>
 	 </header>
 	 
-	 	
-<ul id="fh5co-destination-list" class="animate-box fadeInUp animated">
+		 	
+	<ul id="fh5co-destination-list" class="animate-box fadeInUp animated">
 		<li class="one-forth text-center" style="background-image: url(images/place-1.jpg);">
 			<a href="#">
 				<div class="case-studies-summary">
 				<h2>제주시</h2>
-					</div>
-				</a>
-			</li>
-</ul>
-
+				</div>
+			</a>
+		</li>
+	</ul>
 	
 
 	
