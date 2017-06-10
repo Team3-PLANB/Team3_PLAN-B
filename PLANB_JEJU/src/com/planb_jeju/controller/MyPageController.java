@@ -48,16 +48,16 @@ public class MyPageController {
 	}	
 
 	/* 찜한 후기 - like() */
-	@RequestMapping("MyPage/Like/like.do")
+	@RequestMapping("MyPage/Like/likeMain.do")
 	public String like(){
-		System.out.println("MyPage/Like/like.do 컨트롤러 들어옴");
+		System.out.println("MyPage/Like/likeMain.do 컨트롤러 들어옴");
 		return "MyPage.Like.likeMain";
 	}	
 	
 	/* 쪽지함 - msg() */
-	@RequestMapping("MyPage/Message/msg.do")
+	@RequestMapping("MyPage/Message/msgMain.do")
 	public String msg(){
-		System.out.println("MyPage/Message/msg.do 컨트롤러 들어옴");
+		System.out.println("MyPage/Message/msgMain.do 컨트롤러 들어옴");
 		return "MyPage.Message.msgMain";
 	}
 	
