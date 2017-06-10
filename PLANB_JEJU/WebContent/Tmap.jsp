@@ -42,20 +42,20 @@ $( function() {
         };
         
         function onClickMap(evt){
-            console.log(evt.clientX);
+            /* console.log(evt.clientX);
             
             console.log(evt.clientY);
             console.log(map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY)));
             
-            console.log('2');
+            console.log('2'); */
             /* console.log(lonlat); */
             /* var lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY)); */
             lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY));
-            console.log('3');
             
+/*             
             console.log(lonlat);
             console.log(lonlat.lat);
-            console.log(lonlat.lon);
+            console.log(lonlat.lon); */
             var markerLayer = new Tmap.Layer.Markers();/* 마커 뿌릴 레이어 추가 */
             map.addLayer(markerLayer);
             
@@ -98,17 +98,26 @@ $( function() {
          
         function search(){
         	
+        	
+        	
+        	
+        	
+        	
         	console.log(lonlat.lat);
             console.log(lonlat.lon);
             
-        	var routeFormat = new Tmap.Format.KML({extractStyles:true, extractAttributes:true});
+        	
+        	
             var startX = 14129105.461214;
             var startY = 4517042.1926406;
             var endX = lonlat.lon;
             var endY = lonlat.lat; 
            
-                       
-            var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1&format=xml";
+           
+            var routeFormat = new Tmap.Format.GeoJSON({extractStyles:true, extractAttributes:true}); 
+            var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1";/* JSON 타입 */
+            /* var routeFormat = new Tmap.Format.KML({extractStyles:true, extractAttributes:true}) *//* KML 타입 */
+            /* var urlStr = "https://apis.skplanetx.com/tmap/routes?version=1&format=xml"; *//* KML타입 받아오는 파라메터 추가 */
             urlStr += "&startX="+startX;
             urlStr += "&startY="+startY;
             urlStr += "&endX="+endX;
@@ -120,7 +129,32 @@ $( function() {
                                                 });
             
             var prtcl1 = prtcl.read();
-            console.log(prtcl1);
+            console.log(prtcl1.priv);
+            
+            
+            var route = new Array();
+			
+			$.ajax({
+						url : urlStr,
+						type : 'GET',
+						dataType : 'json',
+						success : function(data) {
+							/* console.log(data.features[2].properties.description); */
+							
+							$.each(data.features, function(index, obj) {
+								console.log(obj);
+								route[index] = obj.properties.description;
+								
+						        $('body').append(route[index]);
+						        $('body').append('<br>');
+						        console.log(index);
+							}); 
+							
+						}
+			
+			
+					});
+            
             
             var routeLayer = new Tmap.Layer.Vector("route", {protocol:prtcl, strategies:[new Tmap.Strategy.Fixed()]});
 
