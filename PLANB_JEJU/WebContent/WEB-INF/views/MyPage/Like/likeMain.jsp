@@ -30,12 +30,6 @@
 <div id="fh5co-tours" class="fh5co-section-gray">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box fadeInUp animated">
-						<h3>컨텐츠2</h3>
-						<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-					</div>
-				</div>
-				<div class="row">
 					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
 						<div href="#"><img src="${pageContext.request.contextPath}/images/place-1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
 							<div class="desc">
