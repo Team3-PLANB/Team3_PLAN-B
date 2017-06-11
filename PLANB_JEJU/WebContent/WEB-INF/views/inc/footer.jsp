@@ -3,6 +3,20 @@
 <link rel="shortcut icon" href="favicon.ico">
 
 
+<!-- 2017.06.11 나영 style 추가 footer float적용 안되게끔 -->
+<html>
+<style>
+
+footer{
+	clear: both; 
+}
+#footer{
+	clear: both;    
+}
+.container{
+	clear: both; 
+}
+</style>
 
 <footer>
 			<div id="footer">
@@ -73,3 +87,5 @@
 				</div>
 			</div>
 		</footer>
+		
+</html>

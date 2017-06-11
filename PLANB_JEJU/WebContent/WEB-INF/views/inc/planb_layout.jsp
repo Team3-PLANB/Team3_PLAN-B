@@ -64,10 +64,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Index</title>
 	<link href="index.css" type="text/css" rel="stylesheet">
+	
 </head>
 <body>
 	 <!-- Header 영역 -->
-	 <tiles:insertAttribute name="header" />
+	 <tiles:insertAttribute name="header" /> 
 	 <!-- Main  영역 -->
 	 <div id="main">
 	 	<div class="top-wrapper clear">

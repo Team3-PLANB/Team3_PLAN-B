@@ -9,18 +9,26 @@
 	crossorigin="anonymous"></script>
 <script
 	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d"></script>
+
+<link rel="stylesheet" href="css/plana_tmap.css">
+
 <script type="text/javascript">
+
 
 $( function() {
 	var lonlat; 
+	
+	init();
+	
+	
 	
  } );
       //초기화 함수
         function init(){
             /* centerLL = new Tmap.LonLat(14145677.4, 4511257.6); */
-            centerLL = new Tmap.LonLat(37.565726, 126.977233);
+            centerLL = new Tmap.LonLat(14085866.64992, 3963136.5754785);
             map = new Tmap.Map({div:'map_div',
-                                width:'100%', 
+                                width:'80%', 
                                 height:'400px',
                                 transitionEffect:"resize",
                                 animation:true
@@ -28,7 +36,7 @@ $( function() {
             
           
             
-           
+            map.setCenter(centerLL,11);/* 센터값, 11 : 지도 표현 범위(10 : 제주도 전체) */
                  
             /*  var lonlat = new Tmap.LonLat(14135893.887852, 4518348.1852606); */
 
@@ -51,21 +59,27 @@ $( function() {
             console.log('2'); */
             /* console.log(lonlat); */
             /* var lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY)); */
-            lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY));
+            lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,(evt.clientY-100)));/* header 높이 만큼 처리 */
             
-/*             
+             
             console.log(lonlat);
             console.log(lonlat.lat);
-            console.log(lonlat.lon); */
+            console.log(lonlat.lon); 
             var markerLayer = new Tmap.Layer.Markers();/* 마커 뿌릴 레이어 추가 */
             map.addLayer(markerLayer);
             
             var size = new Tmap.Size(24,38);
-            var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2));
+             var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2)); 
+       
             var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); /* 마커 아이콘 */
+            var label = new Tmap.Label(0);
             
-            var marker = new Tmap.Marker(lonlat, icon);
+            var marker = new Tmap.Markers(lonlat, icon, label);
             markerLayer.addMarker(marker);
+           
+            if(marker.labelHtml==0){
+            	 console.log(marker.labelHtml);
+            }
         }
         
         /* alert(map.getLonLatFromPixel(
@@ -175,8 +189,12 @@ $( function() {
 	        for(var i=0, len=this.features.length; i<len; ++i) { 
 	        	console.log(this.features[i].data.description);
 	        	
-	        	 $('body').append(this.features[i].data.description);
-			     $('body').append('<br>');
+	        	var div_route_box = "<div class='btn-primary btn-outline btn-lg'>";
+	        	div_route_box+=this.features[i].data.description;
+	        	div_route_box+= "</div>";
+	        	
+	        	 $('#route_float').append(div_route_box);
+			     $('#route_float').append('<br>');
 	        }
 	        
 	        
@@ -216,8 +234,11 @@ $( function() {
      
         </script>
 </head>
-<body onload="init()">
-	<div id="map_div"></div>
-	<input type="button" id="btn" value="길찾기" onclick="search()" />
-</body>
+
+<div id= "body_map">
+	<div id="map_div" style="float : left; position : absolute "></div>
+	<div id="route_float">
+		<input type="button" id="btn" value="길찾기" class="btn btn-primary btn-outline btn-lg" onclick="search()" />
+	</div>
+</div>
 </html>
