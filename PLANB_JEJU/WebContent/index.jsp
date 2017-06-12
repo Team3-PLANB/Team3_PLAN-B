@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -85,11 +86,14 @@
 	
 		타일 확인 링크
 		<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a><br>
-		<a href="${pageContext.request.contextPath}/PLANA.do">Tmap 도착 마커 하나 길찾기 경로 kml 확인</a><br>
+ 		<security:authorize access="hasRole('ROLE_USER')">
+			<a href="${pageContext.request.contextPath}/PLANA.do">Tmap 도착 마커 하나 길찾기 경로 kml 확인</a><br>
+ 		</security:authorize>
 		<a href="${pageContext.request.contextPath}/PLANA.Marker2.do">Tmap 도착 마커 두개 길찾기 경로 확인</a><br>
 		<a href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do">쪽지 만들기</a>
 		<a href="${pageContext.request.contextPath}/LoginJoin/Join/SJoin.do">일정테이블</a><br>
 		<a href="${pageContext.request.contextPath}/MyPage/Like/likeMain.do">찜한 후기</a>
+
 		<!-- END : a href 걸기 -->
 		
 		
