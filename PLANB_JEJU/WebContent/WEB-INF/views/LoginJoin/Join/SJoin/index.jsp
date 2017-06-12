@@ -15,16 +15,16 @@
 	.sortable { font-size:10px; list-style-type: none; margin: 0; padding: 0; width: 60%;  width:200px; }
 	.sortable li { margin: 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 40px; }
 	.sortable li span { position: absolute; margin-left: -1.3em;}
-	.sortable .sort-handle {
+	/* .sortable .sort-handle {
 		display: none;
 	}
 	.sortable .ui-selected .sort-handle {
 		display: inline;
 		padding: 0 0.5em;
 		cursor: pointer;
-	}
-	li.ui-selecting { background: #FECA40; }
-  	li.ui-selected { background: #F39814; color: white; }
+	} */
+	/* li.ui-selecting { background: #FECA40; }
+  	li.ui-selected { background: #F39814; color: white; } */
 	.spinner{
 		padding:10px;
 		width:30px;
@@ -49,16 +49,12 @@
 			step : 15,
 			start : 0
 		});
-		/* $(".sortable").sortable({
-			handle: '.sort-handle',
-		});
-		$(".sortable").disableSelection();
-		$(".sortable").selectable({
-			cancel: '.sort-handle'
-		}); */
+		$(".sortable").sortable();
+		/* $(".sortable").disableSelection(); */
+		$(".sortable").selectable();
 		
-		$('.sortable').selectable({
-			cancel: '.sort-handle'
+		/* $('.sortable').selectable({
+			cancle: '.sort-handle'
 		}).sortable({
 			items: "> li",
 			handle: '.sort-handle',
@@ -70,14 +66,14 @@
 
 				var selected = item.parent().children('.ui-selected').clone();
 				item.data('multidrag', selected).siblings('.ui-selected').remove();
-				return $('<li/>').append(selected);
+				return $('</li>').append(selected);
 			},
 			stop: function(e, ui) {
 				var selected = ui.item.data('multidrag');
 				ui.item.after(selected);
 				ui.item.remove();
 			}
-		});
+		}); */
 
 		$("#accordion")
 		.accordion({
