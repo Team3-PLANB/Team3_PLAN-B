@@ -1,4 +1,5 @@
- <%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -130,7 +131,7 @@
 
 
 
-    
+
 
 
 			<div id="fh5co-tours" class="fh5co-section-gray">
@@ -149,27 +150,37 @@
 						<div class="col-md-6 animate-box">
 							<div class="row">
 								<div class="col-md-12">
-									<h4>저는 드라이브를 무척 좋아하는 편인데 첫 여행지부터 드라이브 코스를 추천해줘서 정말 기분 좋았습니다ㅎㅎ</h4>
+									<h4>저는 드라이브를 무척 좋아하는 편인데 첫 여행지부터 드라이브 코스를 추천해줘서 정말 기분
+										좋았습니다ㅎㅎ</h4>
 								</div>
 							</div>
+							<div class="blog-text">
+								<div class="prod-title">
+									<span class="comment"><a href="">찜콩<i
+											class="icon-bubble2"></i></a></span>
+								</div>
+							</div>
+							<input type="submit"
+								value="히스토리" class="btn btn-primary">
 						</div>
 						<div class="col-md-6 animate-box">
-							<img class="img-responsive" src="images/place-1.jpg"
-								alt="travel"> <a href="#" class="flight-book">
+							<img class="img-responsive" src="images/place-1.jpg" alt="travel">
+							<a href="#" class="flight-book">
 								<div class="plane-name">
 									<span class="p-flight">태그</span>
 								</div>
 								<div class="desc">
-									
+
 									<div class="left">
 										<span class="price"> <!-- <i class="icon-arrow-down22"></i> -->
 											#활동적#드라이브#자연#맑음#행복#또가자#제주감귤
 										</span>
 									</div>
 								</div>
-							</a> 
+							</a>
 						</div>
 					</div>
+					<a href="PostScript_Board_Root.jsp">목록으로<i class="icon-arrow-right22"></i></a>
 					
 				</div>
 			</div>
