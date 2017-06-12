@@ -40,7 +40,7 @@
 			<div class="day_txt">DAY1</div>
 			<div class="day_info">
 				<div class="day_info_left">
-					<div class="date">2015.08.01 (토)</div>
+					<div class="date">2017.06.12 (월)</div>
 					<div class="day_title">제주도</div>
 				</div>
 				<div class="day_info_right" style="display: none;"></div>
@@ -66,6 +66,7 @@
 						<div class="tag">유명한거리/지역</div>
 						<div class="sinfo_line"></div>
 						<div class="sinfo_txt">
+						<img src="css/history/like.png" style="height : 20px">
 							6 / 10 <span>1개의 평가</span>
 						</div>
 						<div class="clear"></div>
@@ -92,10 +93,13 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-		<div class="day_sch_distance">
-			<a
-				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.51010100,126.48125500&amp;from_name=용담 해안도로&amp;to_latlng=33.47822600,126.36708100&amp;to_name=애월 해안도로','2','1');">-&gt;
-				11.16km 추천경로</a>
+		<div>
+		
+		</div>
+		<div class="day_sch_distance" >
+		<img src="css/history/down.png" style="height : 20px">	
+			
+			<a>&emsp;&emsp;&emsp;&emsp;  11.16km 추천경로</a>
 		</div>
 		<div class="day_sch_box" data-id="1-2">
 			<div class="day_sch_num">
@@ -115,6 +119,7 @@
 						<div class="tag">유명한거리/지역</div>
 						<div class="sinfo_line"></div>
 						<div class="sinfo_txt">
+						<img src="css/history/like.png" style="height : 20px">
 							8 / 10 <span>4개의 평가</span>
 						</div>
 						<div class="clear"></div>
@@ -142,8 +147,10 @@
 			<div class="clear"></div>
 		</div>
 		<div class="day_sch_distance">
+		<img src="css/history/down.png" style="height : 20px">
+			
 			<a
-				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.47822600,126.36708100&amp;from_name=애월 해안도로&amp;to_latlng=33.39410800,126.23978400&amp;to_name=협재 해수욕장','2','1');">-&gt;
+				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.47822600,126.36708100&amp;from_name=애월 해안도로&amp;to_latlng=33.39410800,126.23978400&amp;to_name=협재 해수욕장','2','1');">&emsp;&emsp; &emsp;&emsp; 
 				15.06km 추천경로</a>
 		</div>
 		<div class="day_sch_box" data-id="1-3">
@@ -164,6 +171,7 @@
 						<div class="tag">해변/항구</div>
 						<div class="sinfo_line"></div>
 						<div class="sinfo_txt">
+						<img src="css/history/like.png" style="height : 20px">
 							9.2 / 10 <span>5개의 평가</span>
 						</div>
 						<div class="clear"></div>
@@ -191,8 +199,9 @@
 			<div class="clear"></div>
 		</div>
 		<div class="day_sch_distance">
+		<img src="css/history/down.png" style="height : 20px">	
 			<a
-				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.39410800,126.23978400&amp;from_name=협재 해수욕장&amp;to_latlng=33.34296839,126.17262312&amp;to_name=신창풍차해안도로','2','1');">-&gt;
+				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.39410800,126.23978400&amp;from_name=협재 해수욕장&amp;to_latlng=33.34296839,126.17262312&amp;to_name=신창풍차해안도로','2','1');">&emsp;&emsp; &emsp;&emsp; 
 				8.43km 추천경로</a>
 		</div>
 		<div class="day_sch_box" data-id="1-4">
@@ -213,6 +222,7 @@
 						<div class="tag">자연절경</div>
 						<div class="sinfo_line"></div>
 						<div class="sinfo_txt">
+						<img src="css/history/like.png" style="height : 20px">
 							6 / 10 <span>1개의 평가</span>
 						</div>
 						<div class="clear"></div>
@@ -240,8 +250,9 @@
 			<div class="clear"></div>
 		</div>
 		<div class="day_sch_distance">
+		<img src="css/history/down.png" style="height : 20px">	
 			<a
-				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.34296839,126.17262312&amp;from_name=신창풍차해안도로&amp;to_latlng=33.30584000,126.28942900&amp;to_name=오설록 티 뮤지엄','2','1');">-&gt;
+				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.34296839,126.17262312&amp;from_name=신창풍차해안도로&amp;to_latlng=33.30584000,126.28942900&amp;to_name=오설록 티 뮤지엄','2','1');">&emsp;&emsp; &emsp;&emsp; 
 				11.60km 추천경로</a>
 		</div>
 		<div class="day_sch_box" data-id="1-5">
@@ -262,6 +273,7 @@
 						<div class="tag">박물관</div>
 						<div class="sinfo_line"></div>
 						<div class="sinfo_txt">
+						<img src="css/history/like.png" style="height : 20px">
 							6.2 / 10 <span>7개의 평가</span>
 						</div>
 						<div class="clear"></div>
@@ -294,7 +306,7 @@
 			<div class="day_txt">DAY2</div>
 			<div class="day_info">
 				<div class="day_info_left">
-					<div class="date">2015.08.02 (일)</div>
+					<div class="date">2017.06.13 (화)</div>
 					<div class="day_title">제주도</div>
 				</div>
 				<div class="day_info_right" style="display: none;"></div>
@@ -317,7 +329,9 @@
 						onclick="window.open('/ko/city/jeju_312/attraction/moseulpo-port_7401');"
 						style="cursor: pointer;">모슬포항</div>
 					<div class="spot_info">
+					
 						<div class="tag">해변/항구</div>
+						
 						<div class="clear"></div>
 					</div>
 				</div>
@@ -343,8 +357,9 @@
 			<div class="clear"></div>
 		</div>
 		<div class="day_sch_distance">
+		<img src="css/history/down.png" style="height : 20px">	
 			<a
-				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.21435900,126.25169400&amp;from_name=모슬포항&amp;to_latlng=33.22432300,126.29802700&amp;to_name=사계 해안도로','2','1');">-&gt;
+				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.21435900,126.25169400&amp;from_name=모슬포항&amp;to_latlng=33.22432300,126.29802700&amp;to_name=사계 해안도로','2','1');">&emsp;&emsp; &emsp;&emsp; 
 				4.45km 추천경로</a>
 		</div>
 		<div class="day_sch_box" data-id="2-2">
@@ -388,8 +403,9 @@
 			<div class="clear"></div>
 		</div>
 		<div class="day_sch_distance">
+		<img src="css/history/down.png" style="height : 20px">	
 			<a
-				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.22432300,126.29802700&amp;from_name=사계 해안도로&amp;to_latlng=33.23747600,126.42509500&amp;to_name=중문·대포해안 주상 절리대','2','1');">-&gt;
+				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.22432300,126.29802700&amp;from_name=사계 해안도로&amp;to_latlng=33.23747600,126.42509500&amp;to_name=중문·대포해안 주상 절리대','2','1');">&emsp;&emsp; &emsp;&emsp; 
 				11.90km 추천경로</a>
 		</div>
 		<div class="day_sch_box" data-id="2-3">
@@ -410,6 +426,7 @@
 						<div class="tag">세계문화유산</div>
 						<div class="sinfo_line"></div>
 						<div class="sinfo_txt">
+						<img src="css/history/like.png" style="height : 20px">
 							10 / 10 <span>1개의 평가</span>
 						</div>
 						<div class="clear"></div>
@@ -436,8 +453,9 @@
 			<div class="clear"></div>
 		</div>
 		<div class="day_sch_distance">
+		<img src="css/history/down.png" style="height : 20px">	
 			<a
-				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.23747600,126.42509500&amp;from_name=중문·대포해안 주상 절리대&amp;to_latlng=33.24727600,126.55482500&amp;to_name=천지연 폭포','2','1');">-&gt;
+				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.23747600,126.42509500&amp;from_name=중문·대포해안 주상 절리대&amp;to_latlng=33.24727600,126.55482500&amp;to_name=천지연 폭포','2','1');">&emsp;&emsp; &emsp;&emsp; 
 				12.11km 추천경로</a>
 		</div>
 		<div class="day_sch_box" data-id="2-4">
@@ -458,6 +476,7 @@
 						<div class="tag">자연절경</div>
 						<div class="sinfo_line"></div>
 						<div class="sinfo_txt">
+						<img src="css/history/like.png" style="height : 20px">
 							10 / 10 <span>1개의 평가</span>
 						</div>
 						<div class="clear"></div>
@@ -485,8 +504,9 @@
 			<div class="clear"></div>
 		</div>
 		<div class="day_sch_distance">
+		<img src="css/history/down.png" style="height : 20px">	
 			<a
-				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.24727600,126.55482500&amp;from_name=천지연 폭포&amp;to_latlng=33.25169000,126.62246700&amp;to_name=쇠소깍','2','1');">-&gt;
+				href="javascript:et_modal('620px','700px','1','0','/ko/modal/directions?from_latlng=33.24727600,126.55482500&amp;from_name=천지연 폭포&amp;to_latlng=33.25169000,126.62246700&amp;to_name=쇠소깍','2','1');">&emsp;&emsp; &emsp;&emsp; 
 				6.31km 추천경로</a>
 		</div>
 		<div class="day_sch_box" data-id="2-5">
@@ -507,6 +527,7 @@
 						<div class="tag">자연절경</div>
 						<div class="sinfo_line"></div>
 						<div class="sinfo_txt">
+						<img src="css/history/like.png" style="height : 20px">
 							8.8 / 10 <span>9개의 평가</span>
 						</div>
 						<div class="clear"></div>
@@ -533,6 +554,6 @@
 			</div>
 			<div class="clear"></div>
 		</div>
-	</div>
-	
-			<div class="clear"></div>
+	 </div>
+	<div class="clear"></div>
+</div>

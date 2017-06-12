@@ -33,20 +33,16 @@
     height: 60px;
 }
 .day_info {
-    
-    width: 609px;
+    /* float: left; */
+    /* width: 609px; */
     background: white;
     border-top: 1px solid #e5e5e5;
     border-right: 1px solid #e5e5e5;
     height: 60px;
 }
 
-.day_sch_box {
-    width: 100%;
-    border: 1px solid #e5e5e5;
-    background: white;
-    min-height: 100px;
-}
+
+
 .date {
     font-size: 12px;
     color: #b3b3b3;
@@ -66,6 +62,12 @@
     background: white;
     min-height: 100px;
     
+}
+.page_left, .page_left_cmt {
+    float: left;
+    width: 744px;
+    min-height: 500px;
+    padding-right: 25px;
 }
 .day_sch_num {
     height: 10%;
@@ -176,10 +178,9 @@ element.style {
     border-right: 1px solid #e5e5e5;
     height: 28px;
     line-height: 30px;
-    background: url(/res/img/mypage/plan/sub/distance_line.gif) no-repeat;
     background-position: 57px center;
-    padding-left: 117px;
-    color: #555555;
+    padding-left: 46px;
+    color: orange;
     font-size: 12px;
 }
 .day_sch_distance a {
