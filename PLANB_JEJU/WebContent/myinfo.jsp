@@ -12,7 +12,7 @@
   <%
     String access_token = request.getParameter("access_token");
     String token_type = request.getParameter("token_type");
-    String redirectURI = URLEncoder.encode("http://127.0.0.1:8090/naver/myinfo.jsp", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://127.0.0.1:8090/PLANB_JEJU/myinfo.jsp", "UTF-8");
     String apiURL;
     apiURL = "https://openapi.naver.com/v1/nid/me";
     //apiURL += "Authorization=" + token_type +" "+ access_token;
