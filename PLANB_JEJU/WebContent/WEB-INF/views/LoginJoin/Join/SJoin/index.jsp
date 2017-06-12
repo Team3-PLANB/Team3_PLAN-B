@@ -12,22 +12,72 @@
 <!-- 상세보기 일정 -->
 
 <style>
-	#sortable { list-style-type: none; margin: 0; padding: 0; width: 60%;  width:200px; }
-	#sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 50px; }
-	#sortable li span { position: absolute; margin-left: -1.3em;}
+	.sortable { font-size:10px; list-style-type: none; margin: 0; padding: 0; width: 60%;  width:200px; }
+	.sortable li { margin: 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 40px; }
+	.sortable li span { position: absolute; margin-left: -1.3em;}
+	.sortable .sort-handle {
+		display: none;
+	}
+	.sortable .ui-selected .sort-handle {
+		display: inline;
+		padding: 0 0.5em;
+		cursor: pointer;
+	}
+	li.ui-selecting { background: #FECA40; }
+  	li.ui-selected { background: #F39814; color: white; }
+	.spinner{
+		padding:10px;
+		width:30px;
+		height:15px;
+	}
+	.group{
+		width:80%;
+		margin:15px;
+	}
+  	
 </style>
 
 <script>
 
 	$(document).ready(function() {
-		$('#spinner').spinner({
+		$('#schedulebox').animate({
+	        width: '+=30%'
+		});
+		$('.spinner').spinner({
 			min : 0,
 			max : 300,
 			step : 15,
 			start : 0
 		});
-		$("#sortable").sortable();
-		$("#sortable").disableSelection();
+		/* $(".sortable").sortable({
+			handle: '.sort-handle',
+		});
+		$(".sortable").disableSelection();
+		$(".sortable").selectable({
+			cancel: '.sort-handle'
+		}); */
+		
+		$('.sortable').selectable({
+			cancel: '.sort-handle'
+		}).sortable({
+			items: "> li",
+			handle: '.sort-handle',
+			helper: function(e, item) {
+				if ( ! item.hasClass('ui-selected') ) {
+					item.parent().children('.ui-selected').removeClass('ui-selected');
+					item.addClass('ui-selected');
+				}
+
+				var selected = item.parent().children('.ui-selected').clone();
+				item.data('multidrag', selected).siblings('.ui-selected').remove();
+				return $('<li/>').append(selected);
+			},
+			stop: function(e, ui) {
+				var selected = ui.item.data('multidrag');
+				ui.item.after(selected);
+				ui.item.remove();
+			}
+		});
 
 		$("#accordion")
 		.accordion({
@@ -49,68 +99,68 @@
 	});
 </script>
 
-
-<div style="background-color:#fcde11;width:30%;height:650px;overflow:scroll;" id="schedulebox" >
-	<div id="accordion">
-		<div class="group">
-			<h3>Section 1</h3>
-			<div>
-				<p>Mauris mauris ante, blandit et, ultrices a, suscipit eget,
-					quam. Integer ut neque. Vivamus nisi metus, molestie vel, gravida
-					in, condimentum sit amet, nunc. Nam a nibh. Donec suscipit eros.
-					Nam mi. Proin viverra leo ut odio. Curabitur malesuada. Vestibulum
-					a velit eu ante scelerisque vulputate.</p>
+<div style="height:650px;">
+	<div style="background-color:#fcde11;width:0px;height:650px;overflow:scroll;" id="schedulebox" >
+		<div id="accordion">
+			<div class="group">
+				<h3>Section 1</h3>
+				<div>
+					<ul class="sortable" >
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Section 2</h3>
+				<div>
+					<ul class="sortable" >
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Section 3</h3>
+				<div>
+					<ul class="sortable" >
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+					</ul>
+				</div>
+			</div>
+			<div class="group">
+				<h3>Section 4</h3>
+				<div>
+					<ul class="sortable" >
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
+					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+					</ul>
+				</div>
 			</div>
 		</div>
-		<div class="group">
-			<h3>Section 2</h3>
-			<div>
-				<p>Sed non urna. Donec et ante. Phasellus eu ligula. Vestibulum
-					sit amet purus. Vivamus hendrerit, dolor at aliquet laoreet, mauris
-					turpis porttitor velit, faucibus interdum tellus libero ac justo.
-					Vivamus non quam. In suscipit faucibus urna.</p>
-			</div>
-		</div>
-		<div class="group">
-			<h3>Section 3</h3>
-			<div>
-				<p>Nam enim risus, molestie et, porta ac, aliquam ac, risus.
-					Quisque lobortis. Phasellus pellentesque purus in massa. Aenean in
-					pede. Phasellus ac libero ac tellus pellentesque semper. Sed ac
-					felis. Sed commodo, magna quis lacinia ornare, quam ante aliquam
-					nisi, eu iaculis leo purus venenatis dui.</p>
-				<ul>
-					<li>List item one</li>
-					<li>List item two</li>
-					<li>List item three</li>
-				</ul>
-			</div>
-		</div>
-		<div class="group">
-			<h3>Section 4</h3>
-			<div>
-				<p>Cras dictum. Pellentesque habitant morbi tristique senectus
-					et netus et malesuada fames ac turpis egestas. Vestibulum ante
-					ipsum primis in faucibus orci luctus et ultrices posuere cubilia
-					Curae; Aenean lacinia mauris vel est.</p>
-				<p>Suspendisse eu nisl. Nullam ut libero. Integer dignissim
-					consequat lectus. Class aptent taciti sociosqu ad litora torquent
-					per conubia nostra, per inceptos himenaeos.</p>
-			</div>
-		</div>
-	</div>
-
-	<div style="padding:30px;">
-		<input id="spinner" style="width:30px;" name="during" value="0">분
+		
+		<input class="spinner" name="during" value="0">분
 	</div>
 	
-	<ul id="sortable" >
-	  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-	  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-	  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-	  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-	  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-	  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-	  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
-	</ul>
 </div>
