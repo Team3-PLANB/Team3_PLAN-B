@@ -17,10 +17,8 @@
 
 $( function() {
 	var lonlat; 
-	
+	var markerLayer;
 	init();
-	
-	
 	
  } );
       //초기화 함수
@@ -45,7 +43,8 @@ $( function() {
             
             map.events.register("click", map, onClickMap)
             
-            
+            markerLayer = new Tmap.Layer.Markers();
+            map.addLayer(markerLayer);
             /* searchRoute(); */
         };
         
@@ -65,19 +64,30 @@ $( function() {
             console.log(lonlat);
             console.log(lonlat.lat);
             console.log(lonlat.lon); 
-            var markerLayer = new Tmap.Layer.Markers();/* 마커 뿌릴 레이어 추가 */
-            map.addLayer(markerLayer);
+           /*  var markerLayer = new Tmap.Layer.Markers(); *//* 마커 뿌릴 레이어 추가 */
+            /* map.addLayer(markerLayer); */
             
             var size = new Tmap.Size(24,38);
              var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2)); 
        
             var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); /* 마커 아이콘 */
-            var label = new Tmap.Label(0);
+            
+            
+            
+            
+            var label = new Tmap.Label('0');
             
             var marker = new Tmap.Markers(lonlat, icon, label);
             markerLayer.addMarker(marker);
            
-            if(marker.labelHtml==0){
+            console.log(marker);
+            console.log(markerLayer.markers);
+            console.log(markerLayer.markers.length);
+            
+            /* markers.markers[0].popup.setContentHTML("수정할 label의 html 문자열"); */
+            console.log(markerLayer.markers[0].lonlat);
+            
+            if(marker.labelHtml=='0'){
             	 console.log(marker.labelHtml);
             }
         }
@@ -89,17 +99,44 @@ $( function() {
         
         //클릭시 경로 정보 로드
         function search(){
-        	
-        	
-        	console.log(lonlat.lat);
-            console.log(lonlat.lon);
+       	
+            var startX = markerLayer.markers[0].lonlat.lon;
+            var startY = markerLayer.markers[0].lonlat.lat;
             
-        	
-        	
-            var startX = 14129105.461214;
-            var startY = 4517042.1926406;
-            var endX = lonlat.lon;
-            var endY = lonlat.lat; 
+            var passList ="";
+            
+            for(var i = 1; i<markerLayer.markers.length-1; i++){
+            	
+             	/* 
+            	경유지1 X 좌표,
+            	경유지1 Y 좌표,
+            	경유지1 POI ID,
+            	경유지1 RP Flag,
+            	
+            	MPP1개수_경유지2 X 좌표,
+            	경유지2 Y 좌표,
+            	POIID,
+            	RP Flag, 
+            	MPP2개수
+            	
+            	14180382.309390113,4349064.210998647,1000559889,G,0
+            	*/ 
+            	
+            	passList += markerLayer.markers[i].lonlat.lon;
+                 passList += ",";
+                 passList += markerLayer.markers[i].lonlat.lat;
+                 passList += ",,G,0"
+                 
+                 if(i<markerLayer.markers.length-2){
+                	 passList += ",";
+                 }
+            }
+           
+            /* console.log(passList); */
+           
+            var endX = markerLayer.markers[markerLayer.markers.length-1].lonlat.lon;
+            var endY = markerLayer.markers[markerLayer.markers.length-1].lonlat.lat;
+         
            
            
             /* var routeFormat = new Tmap.Format.GeoJSON({extractStyles:true, extractAttributes:true}); 
@@ -110,8 +147,11 @@ $( function() {
             urlStr += "&startY="+startY;
             urlStr += "&endX="+endX;
             urlStr += "&endY="+endY;
+            urlStr += "&passList="+passList;
             urlStr += "&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d";
             
+            
+            console.log(urlStr);
             
             var prtcl = new Tmap.Protocol.HTTP({
                                                 url: urlStr,
@@ -136,7 +176,7 @@ $( function() {
 	            data = Tmap.Format.XML.prototype.read.apply(this, [data]);
 	            console.log('data가 String');
 	        }
-	        console.log(data);
+	        /* console.log(data); */
 	        var totalDistance = this.getElementsByTagNameNS(data, "*", "totalDistance");
 	        var totalTime = this.getElementsByTagNameNS(data, "*", "totalTime");
 	        /* console.log(totalDistance[0].firstChild.data);
@@ -184,7 +224,7 @@ $( function() {
 	            
 	        }
 	        
-	        console.log(this.features);
+	        /* console.log(this.features); */
 	        
 	        for(var i=0, len=this.features.length; i<len; ++i) { 
 	        	console.log(this.features[i].data.description);
