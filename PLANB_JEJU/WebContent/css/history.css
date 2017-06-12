@@ -33,7 +33,7 @@
     height: 60px;
 }
 .day_info {
-    float: left;
+    
     width: 609px;
     background: white;
     border-top: 1px solid #e5e5e5;
@@ -59,9 +59,7 @@
     font-size: 18px;
  
 }
-div, input, label, a, select, ul, li {
-    box-sizing: border-box;
-}
+
 .day_sch_box {
     width: 100%;
     border: 1px solid #e5e5e5;
@@ -97,20 +95,7 @@ div, input, label, a, select, ul, li {
 .clear {
     clear: both;
 }
-.sch_add_content {
-    width: 100%;
-    padding-left: 190px;
-    padding-right: 15px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
-.sch_add_content {
-    width: 100%;
-    padding-left: 190px;
-    padding-right: 15px;
-    padding-top: 20px;
-    padding-bottom: 20px;
-}
+
 .spot_btn {
     float: right;
     margin-left: 15px;
@@ -202,17 +187,12 @@ element.style {
     font-size: 12px;
 }
 
-.day_sch_distance {
-    width: 719px;
-    border-left: 1px solid #e5e5e5;
-    border-right: 1px solid #e5e5e5;
-    height: 28px;
-    line-height: 30px;
-    background: url(/res/img/mypage/plan/sub/distance_line.gif) no-repeat;
-    background-position: 57px center;
-    padding-left: 117px;
-    color: #555555;
-    font-size: 12px;
+.sch_add_content {
+    width: 100%;
+    padding-left: 190px;
+    padding-right: 15px;
+    padding-top: 20px;
+    padding-bottom: 20px;
 }
 /********************* 여기까지 어스토리 CSS **************************/
 body {
