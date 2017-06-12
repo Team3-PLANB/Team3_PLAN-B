@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 
 <link rel="shortcut icon" href="favicon.ico">
@@ -51,7 +55,8 @@
 	}
 </style>
 
-<script>
+
+<script type="text/javascript">
 	$(document).ready(function(){
 		$('#social_login').hide();
 		$('.nav').find('#login_tab').click(function(){
@@ -64,6 +69,21 @@
 		});
 	});
 </script>
+
+ <%
+    String clientId = "q6YKhoTAKENem9wjtax9";//애플리케이션 클라이언트 아이디값";
+    String redirectURI = URLEncoder.encode("http://127.0.0.1:8090/PLANB_JEJU/callback.jsp", "UTF-8");
+    SecureRandom random = new SecureRandom();
+    String state = new BigInteger(130, random).toString();
+    
+    	
+    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
+    apiURL += "&client_id=" + clientId;
+    apiURL += "&redirect_uri=" + redirectURI;
+    apiURL += "&state=" + state;
+    session.setAttribute("state", state);
+    
+ %>
 
 <div class="fh5co-hero">
 	<div class="fh5co-overlay"></div>
@@ -195,7 +215,7 @@
 												<a href="">
 													<img src="<%=request.getContextPath() %>/images/logo/005-google-plus.png">
 												</a>
-												<a href="">
+												<a href="<%=apiURL%>">
 													<img src="<%=request.getContextPath() %>/images/logo/naver.png">
 												</a>
 											</div>
