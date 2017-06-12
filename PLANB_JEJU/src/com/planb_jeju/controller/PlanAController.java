@@ -24,4 +24,14 @@ public class PlanAController {
 		return "PLANA.tmap_marker_a_to_b";
 
 	}
+	
+	
+	@RequestMapping("PLANA.datepick.do")
+	public String datepick() {
+		System.out.println("LoginJoin/Join/NJoin.do 컨트롤러 들어옴");
+		// Tiles 이전
+		// return "index.jsp";
+		return "PLANA.step1_datepicker";
+
+	}
 }
