@@ -9,7 +9,7 @@
   <body>
   <%
     String clientId = "q6YKhoTAKENem9wjtax9";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("http://127.0.0.1:8090/naver/callback.jsp", "UTF-8");
+    String redirectURI = URLEncoder.encode("http://192.168.0.128:8090/PLANB_JEJU/callback.jsp", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
     
