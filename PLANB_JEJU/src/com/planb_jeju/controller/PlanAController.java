@@ -5,14 +5,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class PlanAController {
-	//index.htm 요청 View(index.jsp)
-	
+	// index.htm 요청 View(index.jsp)
+
 	@RequestMapping("PLANA.do")
-	public String index(){
+	public String index() {
 		System.out.println("LoginJoin/Join/NJoin.do 컨트롤러 들어옴");
-		//Tiles 이전
-		//return "index.jsp";
-		return "PLANA.index";	
-		
+		// Tiles 이전
+		// return "index.jsp";
+		return "PLANA.tmap";
+
+	}
+
+	@RequestMapping("PLANA.Marker2.do")
+	public String markerAtoB() {
+		System.out.println("LoginJoin/Join/NJoin.do 컨트롤러 들어옴");
+		// Tiles 이전
+		// return "index.jsp";
+		return "PLANA.tmap_marker_a_to_b";
+
 	}
 }

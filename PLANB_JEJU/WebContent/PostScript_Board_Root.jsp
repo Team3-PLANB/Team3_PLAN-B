@@ -7,7 +7,7 @@
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
-<head> 
+<head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>PLAN'B JEJU - 후기 게시판</title>
@@ -72,6 +72,7 @@
 <link rel="stylesheet" href="css/cs-skin-border.css">
 
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/postscript.css">
 
 
 <!-- Modernizr JS -->
@@ -80,8 +81,15 @@
 <!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
-
+<script>
+	$(function(){
+		$('#like').click(function(){
+			alert("마이페이지에 담겼습니다.");
+		});
+	});
+</script>
 </head>
+
 <body>
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
@@ -131,45 +139,38 @@
 			<div id="fh5co-tours" class="fh5co-section-gray">
 				<div class="container">
 					<div class="row">
-						<div  
+						<div
 							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-							<h3>후기 게시판</h3>   
-							<p>루트 후기글과 여행지 후기글을 볼 수 있습니다.</p>
+							<h3>후기 게시판</h3>
+							<p>루트 후기 게시판입니다.</p>
 							<ul class="portfolio-filter" align="center">
-								<li><a class="btn btn-default default" href="#"
-									data-filter=".a">루트 후기</a></li>
-								<li><a class="btn btn-default" href="#" data-filter=".b">여행지
-										후기</a></li>
+								<li><a class="btn btn-default default"
+									href="PostScript_Board_Root.jsp" data-filter=".a">루트 후기</a></li>
+								<li><a class="btn btn-default"
+									href="PostScript_Board_Site.jsp" data-filter=".b">여행지 후기</a></li>
 							</ul>
 						</div>
 					</div>
 
 					<form action="">
-						<div align="center" class="col-md-6">
-							<input type="text" class="form-control"
-								placeholder="검색어를 입력해주세요."> 
-							<input type="submit"
-								value="검색하기" class="btn btn-primary">
-						</div>
-					</form>
-
-
-
-
-					<!-- 
-						<div class="col-md-6">
-
-							<input type="text" class="form-control"
-								placeholder="검색어를 입력해주세요.">
-
-
-						</div>
-						<div class="col-md-12">
-							<div class="form-group">
+						<div class="row animate-box" align="left">
+							<div class="col-md-4"></div>
+							<div class="col-md-4" align="right">
 								<input type="submit" value="검색하기" class="btn btn-primary">
 							</div>
+							<div class="col-md-4">
+								<input type="text" class="form-control"
+									placeholder="검색어를 입력해주세요.">
+							</div>
 						</div>
-					</div> -->
+					</form>
+					<br> <br>
+
+
+
+
+
+
 
 
 
@@ -177,16 +178,16 @@
 						<div class="row row-bottom-padded-md">
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="#"><img class="img-responsive"
+									<a href="PostScript_Detail_Root.jsp"><img class="img-responsive"
 										src="images/place-1.jpg" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="#">낮코밤코의 첫 제주도</a>
+												<a href="PostScript_Detail_Root.jsp">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment"><a href="">찜콩<i
-													class="icon-bubble2"></i></a></span>
+												class="comment" id="like"><a href="" >찜콩<i
+													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
 												<a href="#">쪽지 쓰기</a>
