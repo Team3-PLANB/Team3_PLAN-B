@@ -1,0 +1,23 @@
+/* .tmap_float {
+	width: 100%;
+	height: 400px;
+    float : left; 
+    position: absolute;
+}  */
+
+
+#route_float {
+    background-color: grey;
+    color: white;
+    padding: 15px;
+    width: 20%;
+    height: 400px;
+    float : right;
+    overflow:auto;
+} 
+
+.div_route_box {
+	
+}
+
+
