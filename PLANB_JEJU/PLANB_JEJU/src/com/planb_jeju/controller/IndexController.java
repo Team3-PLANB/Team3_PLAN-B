@@ -25,11 +25,11 @@ public class IndexController {
 		return "LoginJoin.Join.SJoin.index";	
 	}
 	
-	@RequestMapping("Login/NJoin.do")
+	@RequestMapping("Login/NLogin.do")
 	public String nLogin(){
 		System.out.println("LoginJoin/Login/NJoin.do 컨트롤러 들어옴");
 		//Tiles 이전
 		//return "index.jsp";
-		return "LoginJoin.Login.NJoin.loginForm";	
+		return "LoginJoin.Login.NLogin.loginForm";	
 	}
 }
