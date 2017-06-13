@@ -8,13 +8,14 @@
 	  					http://www.springframework.org/schema/security/spring-security.xsd" >
 
 <!-- /LoginJoin 이하 시큐리티 적용X -->
-<!-- <security:http pattern = "/LoginJoin" security="none" /> -->
+<!-- 	 <security:http pattern = "/LoginJoin" security="none" /> -->
 	 <security:http>
 	   <security:csrf disabled="true"/>
  	   <security:form-login login-page="/LoginJoin/Join/NJoin.do"
 	    					 authentication-failure-url="/PLANA.do"/>
 	 	<security:logout logout-success-url="/index.jsp" /> 
 		<security:intercept-url pattern="/MyPage/**" access="hasRole('ROLE_USER')" />
+ 		<security:intercept-url pattern="/PLANA/**" access="hasRole('ROLE_USER')" />
 	</security:http>
 <!-- password 인코딩 -->
 <security:authentication-manager>
