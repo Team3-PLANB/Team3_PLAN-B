@@ -66,6 +66,8 @@
 		<a href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do">쪽지 만들기</a>
 		<a href="${pageContext.request.contextPath}/LoginJoin/Join/SJoin.do">일정테이블</a><br>
 		<a href="${pageContext.request.contextPath}/MyPage/Like/likeMain.do">찜한 후기</a>
+		<br>
+		<a href="${pageContext.request.contextPath}/DBEx.do">Mysql확인</a>
 
 		<!-- END : a href 걸기 -->
 		

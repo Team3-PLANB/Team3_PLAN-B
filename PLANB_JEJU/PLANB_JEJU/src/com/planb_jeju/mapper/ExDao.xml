@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.planb_jeju.dao.ExDao">
+
+	<select id="getCount" resultType="Integer">
+		<!-- public int getCount(String field, String query) parameter 1개 이상인 경우 
+			String field => param1 String query => param2 -->
+		SELECT COUNT(*)
+		FROM member
+	</select>
+	
+</mapper>
