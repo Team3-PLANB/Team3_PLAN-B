@@ -7,12 +7,29 @@
 	  					http://www.springframework.org/schema/security 
 	  					http://www.springframework.org/schema/security/spring-security.xsd" >
 
-<!-- /LoginJoin 이하 시큐리티 적용X -->
+
+<!-- 시큐리티 적용X -->
+<security:http pattern="/css/**" security="none" />
+<security:http pattern="/js/**" security="none" /><!-- 
+<security:http pattern="/LoginJoin/**" security="none" /> -->
+
 <!-- <security:http pattern = "/LoginJoin" security="none" /> -->
-	 <security:http>
-	   <security:csrf disabled="true"/>
- 	   <security:form-login login-page="/LoginJoin/Join/NJoin.do"
-	    					 authentication-failure-url="/PLANA.do"/>
+<security:http use-expressions="true">
+	<security:csrf disabled="true"/>
+ 	
+ 	<!-- 로그인 -->
+ 	<security:form-login login-page="/LoginJoin/Join/NJoin.do"
+ 						 default-target-url="/index.jsp"
+	    				 authentication-failure-url="/PLANA.do"/>
+	    				 
+	<!-- 로그인 -->
+ 	<security:form-login login-page="/LoginJoin/Join/NJoin.do"
+ 						 default-target-url="/index.jsp"
+	    				 authentication-failure-url="/PLANA.do"/>    				 
+	    					 
+	<!-- 로그인/가입 페이지 접근 허용 -->
+	<security:intercept-url pattern="/LoginJoin/**" access="permitAll" />    					 
+	    					 
 	 	<security:logout logout-success-url="/index.jsp" /> 
 		<security:intercept-url pattern="/MyPage/**" access="hasRole('ROLE_USER')" />
 	</security:http>

@@ -86,7 +86,7 @@
 
 							<!-- Tab panes -->
 							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active" id="join">
+								<div role="tabpanel" class="tab-pane" id="join">
 									<form action="" class="row" method="POST" >
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;">
 											<div class="input-field">
@@ -121,7 +121,7 @@
 										</div>
 									</form>
 								</div>
-								<div role="tabpanel" class="tab-pane" id="login">
+								<div role="tabpanel" class="tab-pane active" id="login">
 									<form action="" class="row" method="POST">
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%">
 											<div class="input-field">

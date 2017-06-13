@@ -9,42 +9,11 @@
 	<head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title>Travel &mdash; 100% Free Fully Responsive HTML5 Template by FREEHTML5.co</title>
+	<title>PLAN'B &mdash; JEJU</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 	<meta name="author" content="FREEHTML5.CO" />
-
-  <!-- 
-	//////////////////////////////////////////////////////
-
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-	
-	
-	ì ìì¼ : 2017/06/06
-	ì ìì : ì´ì¤ì±
-	ì ì : ì ë° ì´ë²ìë ëë¤ ì~~~!!!!1
-	//////////////////////////////////////////////////////
-	 -->
-
-
-<!-- ë¤í -->
-  	<!-- Facebook and Twitter integration -->
-	<meta property="og:title" content=""/>
-	<meta property="og:image" content=""/>
-	<meta property="og:url" content=""/>
-	<meta property="og:site_name" content=""/>
-	<meta property="og:description" content=""/>
-	<meta name="twitter:title" content="" />
-	<meta name="twitter:image" content="" />
-	<meta name="twitter:url" content="" />
-	<meta name="twitter:card" content="" />
 
 	<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 	<link rel="shortcut icon" href="favicon.ico">
@@ -85,7 +54,11 @@
 		<!-- START : a href 걸기-->
 	
 		타일 확인 링크
-		<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a><br>
+		<!-- http://192.168.0.163:8090/PLANB_JEJU/LoginJoin/Join/NJoin.do -->
+		<%-- <a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a><br> --%>
+		<a href="http://192.168.0.123:8090/PLANB_JEJU/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a><br>
+		<a href="${pageContext.request.contextPath}/LoginJoin/Login/NLogin.do">일반 로그인</a><br>
+		
  		<security:authorize access="hasRole('ROLE_USER')">
 			<a href="${pageContext.request.contextPath}/PLANA.do">Tmap 도착 마커 하나 길찾기 경로 kml 확인</a><br>
  		</security:authorize>
@@ -97,12 +70,11 @@
 		<!-- END : a href 걸기 -->
 		
 		
-		<header id="fh5co-header-section" class="sticky-banner">
+ 		<header id="fh5co-header-section" class="sticky-banner">
 			<div class="container">
 				<div class="nav-header">
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-					<h1 id="fh5co-logo"><a href="index.html"><i class="icon-airplane"></i>Travel</a></h1>
-					<!-- START #fh5co-menu-wrap -->
+					<h1 id="fh5co-logo"><a href="index.html"><i class="icon-airplane"></i>PLAN'B JEJU</a></h1>
 					<nav id="fh5co-menu-wrap" role="navigation">
 						<ul class="sf-menu" id="fh5co-primary-menu">
 							<li class="active"><a href="index.html">Home</a></li>
@@ -126,9 +98,7 @@
 				</div>
 			</div>
 		</header>
-
 		<!-- end:header-top -->
-	
 		<div class="fh5co-hero">
 			<div class="fh5co-overlay"></div>
 			<div class="fh5co-cover" data-stellar-background-ratio="0.5" style="background-image: url(images/cover_bg_1.jpg);">
