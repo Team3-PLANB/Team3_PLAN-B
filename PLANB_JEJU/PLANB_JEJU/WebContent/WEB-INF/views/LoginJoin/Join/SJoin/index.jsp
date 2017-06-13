@@ -129,7 +129,7 @@
 <link rel="stylesheet" href="<%= request.getContextPath() %>/css/history.css">
 
 
-<div class="page_left" style="padding:0px;">
+<%-- <div class="page_left" style="padding:0px;">
 	<div style="height:650px;width:0px;overflow:scroll;" id="schedulebox" >
 		<div id="accordion">
 			<div class="day_box" data-id="1" > 
@@ -182,10 +182,10 @@
 						</div>
 					</li>
 					
-					<%-- <div class="day_sch_distance" style="padding-left:50px;">
+					<div class="day_sch_distance" style="padding-left:50px;">
 					<img src="<%= request.getContextPath() %>/css/history/down.png" style="height:20px;">
 						<a>&emsp;&emsp;&emsp;&emsp;  11.16km 추천경로</a>
-					</div> --%>
+					</div>
 					<li>
 						<div class="day_sch_box" data-id="1-2" style="width:350px;">
 							<div class="day_sch_num" style="width:40px;height:50px;">
@@ -230,7 +230,7 @@
 			</div>
 		</div>
 	</div>
-</div>
+</div> --%>
 
 
 
@@ -238,13 +238,13 @@
 
 
 
-<div style="height:650px;" ><!-- overflow:scroll; 이거 <스크롤 생기는거 필요시 추가 -->
-	<div style="background-color:#fcde11;width:100px;height:650px;position: absolute;left: 400px;" id="schedulebox2" >
+<div style="height:550px; margin:10px; overflow:scroll; width:100px;" id="schedulebox2"><!-- overflow:scroll; 이거 <--- 스크롤 생기는거 필요시 추가 -->
+	
 	<div id="accordion2">
-		<div class="group">
+		<div class="group" >
 			<h3>DAY 1</h3>
 			<div>
-				<ul class="sortable" >
+				<div class="sortable" >
 				 	<div class="ui-state-default" style="width:300px;">
 						<img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
@@ -254,7 +254,7 @@
 						<div class="spot_content_box" style="width:150px;">
 							<div class="spot_name"
 								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">용담 해안도로</div>
+								style="cursor: pointer;">11111111</div>
 							<div class="spot_info">
 								<div class="tag">유명한거리/지역</div>
 								<div class="sinfo_line"></div>
@@ -278,7 +278,7 @@
 						<div class="spot_content_box" style="width:150px;">
 							<div class="spot_name"
 								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">용담 해안도로</div>
+								style="cursor: pointer;">2222222222</div>
 							<div class="spot_info">
 								<div class="tag">유명한거리/지역</div>
 								<div class="sinfo_line"></div>
@@ -293,11 +293,59 @@
 						</div>
 					<div class="clear"></div>
 				</div>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+					  <div class="ui-state-default" style="width:300px;">
+						<img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
+							alt="" class="spot_img"
+							onerror="this.src='/res/img/common/no_img/sight55.png';"
+							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+							style="cursor: pointer;">
+						<div class="spot_content_box" style="width:150px;">
+							<div class="spot_name"
+								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+								style="cursor: pointer;">3333333</div>
+							<div class="spot_info">
+								<div class="tag">유명한거리/지역</div>
+								<div class="sinfo_line"></div>
+								<div class="sinfo_txt" style="padding:0px">
+								<img src="<%= request.getContextPath() %>/css/history/like.png" style="height : 20px">
+									6 / 10 <span>1개의 평가</span>
+								</div>
+							</div>
+						</div>
+						<div class="spot_btn_box">
+							<img src="<%= request.getContextPath() %>/css/history/map_ico.png" alt="" class="spot_btn map_view" onclick="set_center(33.51010100,126.48125500)">
+						</div>
+					<div class="clear"></div>
+				</div>
+					  <div class="ui-state-default" style="width:300px;">
+						<img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
+							alt="" class="spot_img"
+							onerror="this.src='/res/img/common/no_img/sight55.png';"
+							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+							style="cursor: pointer;">
+						<div class="spot_content_box" style="width:150px;">
+							<div class="spot_name"
+								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+								style="cursor: pointer;">444444444</div>
+							<div class="spot_info">
+								<div class="tag">유명한거리/지역</div>
+								<div class="sinfo_line"></div>
+								<div class="sinfo_txt" style="padding:0px">
+								<img src="<%= request.getContextPath() %>/css/history/like.png" style="height : 20px">
+									6 / 10 <span>1개의 평가</span>
+								</div>
+							</div>
+						</div>
+						<div class="spot_btn_box">
+							<img src="<%= request.getContextPath() %>/css/history/map_ico.png" alt="" class="spot_btn map_view" onclick="set_center(33.51010100,126.48125500)">
+						</div>
+					<div class="clear"></div>
+				</div>
+				
+				<!-- 이새끼 쓰면 아이템쪽에 화살표 생김 <span class="ui-icon ui-icon-arrowthick-2-n-s"></span> -->
+					  <li class="ui-state-default">Item 5</li>
+					  <li class="ui-state-default">Item 6</li>
+					  <li class="ui-state-default">Item 7</li>
 					</ul>
 				</div>
 			</div>
@@ -305,13 +353,13 @@
 				<h3>Section 2</h3>
 				<div>
 					<ul class="sortable" >
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+					  <li class="ui-state-default">Item 1</li>
+					  <li class="ui-state-default">Item 2</li>
+					  <li class="ui-state-default">Item 3</li>
+					  <li class="ui-state-default">Item 4</li>
+					  <li class="ui-state-default">Item 5</li>
+					  <li class="ui-state-default">Item 6</li>
+					  <li class="ui-state-default">Item 7</li>
 					</ul>
 				</div>
 			</div>
@@ -319,13 +367,13 @@
 				<h3>Section 3</h3>
 				<div>
 					<ul class="sortable" >
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+					  <li class="ui-state-default">Item 1</li>
+					  <li class="ui-state-default">Item 2</li>
+					  <li class="ui-state-default">Item 3</li>
+					  <li class="ui-state-default">Item 4</li>
+					  <li class="ui-state-default">Item 5</li>
+					  <li class="ui-state-default">Item 6</li>
+					  <li class="ui-state-default">Item 7</li>
 					</ul>
 				</div>
 			</div>
@@ -333,13 +381,13 @@
 				<h3>Section 4</h3>
 				<div>
 					<ul class="sortable" >
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-					  <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
+					  <li class="ui-state-default">Item 1</li>
+					  <li class="ui-state-default">Item 2</li>
+					  <li class="ui-state-default">Item 3</li>
+					  <li class="ui-state-default">Item 4</li>
+					  <li class="ui-state-default">Item 5</li>
+					  <li class="ui-state-default">Item 6</li>
+					  <li class="ui-state-default">Item 7</li>
 					</ul>
 				</div>
 			</div>
