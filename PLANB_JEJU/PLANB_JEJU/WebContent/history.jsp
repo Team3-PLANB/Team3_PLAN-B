@@ -1,21 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     
-    <link rel="shortcut icon" href="favicon.ico">
+<link rel="shortcut icon" href="favicon.ico">
 
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
+<!-- Icomoon Icon Fonts-->
+<link rel="stylesheet" href="css/icomoon.css">
+<!-- Bootstrap  -->
+<link rel="stylesheet" href="css/bootstrap.css">
+<!-- Superfish -->
+<link rel="stylesheet" href="css/superfish.css">
+<!-- histroy css -->
+<link rel="stylesheet" href="css/history.css">
 
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<!-- Superfish -->
-	<link rel="stylesheet" href="css/superfish.css">
-	<!-- histroy css -->
-	<link rel="stylesheet" href="css/history.css">
-
-	<header id="fh5co-header-section" class="sticky-banner">
+	<!-- <header id="fh5co-header-section" class="sticky-banner">
 		<div class="container">
 			<div class="nav-header">
 			<h1 id="fh5co-logo"><a href="index.html"><i class="icon-airplane"></i>PLAN'B 제주</a></h1>
@@ -31,23 +29,29 @@
 	  	 	</div>
 	  	 	<hr>
 		</div>
-	 </header>
+	 </header> -->
 
 
-<div class="page_left">
-	<div class="day_box" data-id="1">
+<div class="page_left" >
+	<div class="day_box" data-id="1" >
+		 
 		<div class="day_info_box">
 			<div class="day_txt">DAY1</div>
 			<div class="day_info">
 				<div class="day_info_left">
+					<!-- 
 					<div class="date">2017.06.12 (월)</div>
-					<div class="day_title">제주도</div>
+					<div class="day_title">제주도</div> 
+					-->
+					<div class="date"></div>
+					<div class="day_title">2017.06.12 (월)</div>
 				</div>
 				<div class="day_info_right" style="display: none;"></div>
 				<div class="clear"></div>
 			</div>
 			<div class="clear"></div>
-		</div>
+		</div> 
+		<div class="clear"></div>
 		<div class="day_sch_box" data-id="1-1">
 			<div class="day_sch_num">
 				<div class="sch_num">1</div>
@@ -73,11 +77,8 @@
 					</div>
 				</div>
 				<div class="spot_btn_box">
-					<img src="css/history/map_ico.png" alt=""
-						class="spot_btn map_view"
-						onclick="set_center(33.51010100,126.48125500)"><img
-						src="css/history/info_ico.png" alt=""
-						class="spot_btn spot_info_btn"
+					<img src="css/history/map_ico.png" alt="" class="spot_btn map_view" onclick="set_center(33.51010100,126.48125500)">
+					<img src="css/history/info_ico.png" alt=""	class="spot_btn spot_info_btn"
 						onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');">
 					<div class="clear"></div>
 				</div>
@@ -88,8 +89,7 @@
 				<div class="sch_price hide" data-srl="1-1"></div>
 				<div class="sch_memo"
 					data-full="&nbsp;<span class='memo_more' data-op='min'>닫기</span>"
-					data-min="" data-srl="1-1"></div>
-				
+					data-min="" data-srl="1-1"></div>	
 			</div>
 			<div class="clear"></div>
 		</div>
@@ -314,6 +314,7 @@
 			</div>
 			<div class="clear"></div>
 		</div>
+		<div class="clear"></div>
 		<div class="day_sch_box" data-id="2-1">
 			<div class="day_sch_num">
 				<div class="sch_num">1</div>
