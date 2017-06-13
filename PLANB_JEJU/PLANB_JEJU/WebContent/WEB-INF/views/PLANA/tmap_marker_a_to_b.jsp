@@ -13,8 +13,6 @@
 <link rel="stylesheet" href="css/plana_tmap.css">
 
 <script type="text/javascript">
-
-
 $( function() {
 	var lonlat; 
 	var markerLayer;
@@ -37,7 +35,6 @@ $( function() {
             map.setCenter(centerLL,11);/* 센터값, 11 : 지도 표현 범위(10 : 제주도 전체) */
                  
             /*  var lonlat = new Tmap.LonLat(14135893.887852, 4518348.1852606); */
-
             
             map.addControl(new Tmap.Control.MousePosition());/* 마우스 오버에 좌표값 표시 */
             
@@ -160,7 +157,6 @@ $( function() {
             
             
             var routeLayer = new Tmap.Layer.Vector("route", {protocol:prtcl, strategies:[new Tmap.Strategy.Fixed()]});
-
             routeLayer.events.register("featuresadded", routeLayer, onDrawnFeatures);/* 레이어에 줌 이벤트 함수 등록 */
             map.addLayer(routeLayer);
         }
