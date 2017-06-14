@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.planb_jeju.dao.MemberDao">
+
+<!-- 
+	//한 사람과 주고받은 쪽지 수
+	public int getCount(String username);
+	
+	//쪽지 방 개수 (유저당)
+	public int getRoomCount(String username);
+	
+	//메시지 가져오기 (삭제여부)
+	public Message getReadStatus(int message_rownum);
+	
+	//쪽지 추가 (보내기)
+	public int insert(Message message);
+	
+	//쪽지 상세보기 (메시지 형식)
+	public List<Message> getMember(String username);
+		
+	//쪽지 정보 업데이트 (읽음확인/삭제여부)
+	public int update(Message message);
+	
+	//쪽지 삭제
+	public int delete(int message_rownum);
+-->
+
+	<!-- 한 사람과 주고받은 쪽지수 -->
+	<select id="getCount" parameterType="String" resultType="Integer">
+		SELECT COUNT(*)
+		FROM Message
+		WHERE sender = #{username} or receiver = #{username}
+	</select>
+	
+	<!-- 쪽지 방 개수 (유저당) -->
+	<select id="getRoomCount" parameterType="String" resultType="Integer">
+		SELECT COUNT(DISTINCT first_message_rownum)
+		FROM message
+		WHERE sender = #{username}
+	</select>
+	
+	<!-- 메시지 가져오기 -->
+	<select id="getReadStatus" parameterType="Integer" resultType="com.planb_jeju.dto.Message">
+		SELECT *
+		FROM message
+		WHERE username =#{username}
+	</select>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+	 	DELETE member WHERE username=#{username}
+	</delete>
+	
+	<!-- 수정 -->
+	<update id="update" >
+		UPDATE member 
+		SET password=#{password}, 
+		    nickname=#{nickname}
+		WHERE username=#{username}
+	</update>
+	
+	<!-- 입력 -->
+	<insert id="insert">
+		INSERT INTO member(username, password, nickname)
+	    VALUES( #{username}, #{password}, #{nickname})
+	</insert>
+	
+</mapper>
