@@ -1,14 +1,23 @@
 
 package com.planb_jeju.controller;
 
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.planb_jeju.dao.MemberDao;
 
 
 @Controller
 @RequestMapping("/LoginJoin/")
 public class JoinController {
+
+	private static MemberDao memberDao;
+
+	@Autowired
+	private SqlSession sqlsession;
 	//index.htm 요청 View(index.jsp)
 	
 	/* 회원가입 화면 이동 */
@@ -31,12 +40,12 @@ public class JoinController {
 		return "LoginJoin.Login.SLogin.detail_JS";
 	}
 	
-	//회원가입시 아이디 체크 (비동기)
+	/* 회원가입시 아이디 체크 (비동기) */
 	@RequestMapping("Login/duplicationCheck.do")
 	public @ResponseBody String duplicationCheck(String email) throws Exception {
-		return email;
-/*		MemberDAO memberDao = sqlsession.getMapper(MemberDAO.class);
-		return memberservice.duplicationCheck(email);*/
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		return null;
+//		return memberservice.duplicationCheck(email);
 	}
 	
 	/* 페이스북 로그인 중복체크 > 중복-로그인 > 비중복-가입mapper */

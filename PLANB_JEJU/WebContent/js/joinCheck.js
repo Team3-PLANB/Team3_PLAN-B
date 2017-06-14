@@ -17,13 +17,10 @@ $(document).ready(function() {
 });
 
 function passwordCheck() {
-	console.log('js파일 확인');
 	if ($('#password').val() != $('#passwordck').val()) {
-		console.log('pwd 일치 ㄴㄴ');
 		$('.pwdck').css('display', 'block');
 		$('.pwdck').text("비밀번호가 일치하지 않습니다.");
 	} else if ($('#password').val() == $('#passwordck').val()) {
-		console.log('pwd 일치 ㅇㅇ');
 		$('.pwdck').css('display', 'block');
 		$('.pwdck').text("비밀번호가 일치합니다.");
 	}
@@ -70,7 +67,7 @@ function emailCheck() {
 
 function nickCheck() {
 	$.ajax({
-		url : "duplicationCheck.nn",
+		url : "duplicationCheck.do",
 		type : "get",
 		dataType : "json",
 		data : {

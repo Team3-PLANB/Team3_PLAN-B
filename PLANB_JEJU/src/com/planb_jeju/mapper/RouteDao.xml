@@ -12,7 +12,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 멤버 한명 셀렉 -->
-	<select id="getRoute" resultType="com.planb_jeju.dto.Route">
+	<select id="getRoute" resultType="com.planb_jeju.dto.route">
 		SELECT *
 		FROM route
 		WHERE route_code = #{param1}, username =#{param2}
@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 삭제 -->
 	<delete id="delete">
-	 	DELETE from route WHERE route_code = #{param1}, username =#{param2}
+	 	DELETE route WHERE route_code = #{param1}, username =#{param2}
 	</delete>
 	
 	<!-- 수정 -->

@@ -1,5 +1,5 @@
 package com.planb_jeju.dao;
-
+//이거 할것 *****************************************************
 import java.sql.SQLException;
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface RouteDetailDao {
 	public int insert(RouteDetail routedetail) throws ClassNotFoundException, SQLException;
 	
 	//게시물 상세
-	public RouteDetail getRouteDetail(RouteDetail routedetail) throws ClassNotFoundException, SQLException;
+	public RouteDetail getRoute(RouteDetail routedetail) throws ClassNotFoundException, SQLException;
 		
 	//게시물 수정
 	public int update(RouteDetail routedetail) throws ClassNotFoundException, SQLException;
