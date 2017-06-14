@@ -3,7 +3,7 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class route_detail {
+public class RouteHistory {
 	private int route_code;
 	private String username;
 	private int route_order;
@@ -17,9 +17,9 @@ public class route_detail {
 	private Time stime;
 	private Time etime;
 			
-	public route_detail(){}
+	public RouteHistory(){}
 
-	public route_detail(int route_code, String username, int route_order, Date route_date, int update_rownum,
+	public RouteHistory(int route_code, String username, int route_order, Date route_date, int update_rownum,
 			String update_reason, String site, String lon, String lat, String category, Time stime, Time etime) {
 		super();
 		this.route_code = route_code;

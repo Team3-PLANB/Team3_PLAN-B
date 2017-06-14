@@ -1,13 +1,13 @@
 package com.planb_jeju.dto;
 
-public class member {
+public class Member {
 	private String username;
 	private String password;
 	private String nickname;
 	
-	public member(){}
+	public Member(){}
 
-	public member(String username, String password, String nickname) {
+	public Member(String username, String password, String nickname) {
 		super();
 		this.username = username;
 		this.password = password;

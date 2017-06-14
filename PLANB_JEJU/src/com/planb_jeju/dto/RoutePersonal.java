@@ -3,14 +3,14 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class route_personal {
+public class RoutePersonal {
 	private String username;
 	private String personal_code;
 	private int route_code;
 	
-	public route_personal(){}
+	public RoutePersonal(){}
 
-	public route_personal(String username, String personal_code, int route_code) {
+	public RoutePersonal(String username, String personal_code, int route_code) {
 		super();
 		this.username = username;
 		this.personal_code = personal_code;
