@@ -1,13 +1,3 @@
-
-/*
-
-@스크립트 추가
-@Project : signup.jsp
-@Date : 2016. 6. 10.
-@Author : 신동민
-
-*/
-
 function passwordCheck()
 {
 	
