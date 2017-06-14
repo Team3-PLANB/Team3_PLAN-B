@@ -35,6 +35,7 @@
 	<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
 	<!-- CS Select -->
 	<link rel="stylesheet" href="css/cs-select.css">
+	
 	<link rel="stylesheet" href="css/cs-skin-border.css">
 	
 	<link rel="stylesheet" href="css/style.css">
