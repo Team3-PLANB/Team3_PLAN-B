@@ -3,7 +3,7 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class route_postscript {
+public class RoutePostscript {
 	private int route_postscript_rownum;
 	private String route_sumnail;
 	private String comment;
@@ -13,9 +13,9 @@ public class route_postscript {
 	private String username;
 	private int route_code;
 	
-	public route_postscript(){}
+	public RoutePostscript(){}
 
-	public route_postscript(int route_postscript_rownum, String route_sumnail, String comment, Time writetime,
+	public RoutePostscript(int route_postscript_rownum, String route_sumnail, String comment, Time writetime,
 			int hitnum, int likenum, String username, int route_code) {
 		super();
 		this.route_postscript_rownum = route_postscript_rownum;

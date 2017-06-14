@@ -3,7 +3,7 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class site_postscript {
+public class SitePostscript {
 	private int site_postscript_rownum;
 	private String site;
 	private String category;
@@ -17,9 +17,9 @@ public class site_postscript {
 	private String username;
 	private int route_code;
 	
-	public site_postscript(){}
+	public SitePostscript(){}
 
-	public site_postscript(int site_postscript_rownum, String site, String category, String health, String inoutside,
+	public SitePostscript(int site_postscript_rownum, String site, String category, String health, String inoutside,
 			String cost, String comment, Time writetime, int hitnum, int likenum, String username, int route_code) {
 		super();
 		this.site_postscript_rownum = site_postscript_rownum;

@@ -3,13 +3,13 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class partner {
+public class Partner {
 	private String partner_code;
 	private String partner;
 	
-	public partner(){}
+	public Partner(){}
 
-	public partner(String partner_code, String partner) {
+	public Partner(String partner_code, String partner) {
 		super();
 		this.partner_code = partner_code;
 		this.partner = partner;
