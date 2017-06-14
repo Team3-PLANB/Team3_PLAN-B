@@ -17,15 +17,8 @@ function passwordCheck()
 	}
 }
 
-/*
 
-@스크립트 추가
-@Project : signup.jsp
-@Date : 2016. 6. 13.
-@Author : 한수민
-
-*/
-function emailcheck() {
+function emailCheck() {
 	$.ajax({
 		url : "duplicationCheck.nn",
 		type : "get",

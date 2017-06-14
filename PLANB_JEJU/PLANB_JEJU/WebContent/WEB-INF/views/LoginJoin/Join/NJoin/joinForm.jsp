@@ -112,7 +112,7 @@
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;">
 											<div class="input-field">
 												<label for="email">이메일</label> 
-												<input type="text"	class="form-control" id="email" placeholder="이메일을 입력해주세요" onblur="emailcheck()">
+												<input type="text"	class="form-control" id="email" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-left:10%;">
@@ -126,7 +126,7 @@
 											<div class="input-field">
 												<label for="passwordck">비밀번호 확인</label> 
 												<input type="password" class="form-control" id="passwordck"
-													placeholder="비밀번호를 입력해주세요">
+													placeholder="비밀번호를 입력해주세요" onkeyup="passwordCheck()">
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-left:10%;">
