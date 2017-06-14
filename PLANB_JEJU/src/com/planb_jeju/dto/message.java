@@ -9,21 +9,25 @@ public class message {
 	private Time sendtime;
 	private int read_status;
 	private String comment;
-	private String sendperson;
-	private String reiceiveperson;
+	private String sender;
+	private String receiver;
+	private String sender_delete;
+	private String receiver_delete;
 	
 	public message(){}
 
 	public message(int message_rownum, int first_message_rownum, Time sendtime, int read_status, String comment,
-			String sendperson, String reiceiveperson) {
+			String sender, String receiver, String sender_delete, String receiver_delete) {
 		super();
 		this.message_rownum = message_rownum;
 		this.first_message_rownum = first_message_rownum;
 		this.sendtime = sendtime;
 		this.read_status = read_status;
 		this.comment = comment;
-		this.sendperson = sendperson;
-		this.reiceiveperson = reiceiveperson;
+		this.sender = sender;
+		this.receiver = receiver;
+		this.sender_delete = sender_delete;
+		this.receiver_delete = receiver_delete;
 	}
 
 	public int getMessage_rownum() {
@@ -66,27 +70,46 @@ public class message {
 		this.comment = comment;
 	}
 
-	public String getSendperson() {
-		return sendperson;
+	public String getSender() {
+		return sender;
 	}
 
-	public void setSendperson(String sendperson) {
-		this.sendperson = sendperson;
+	public void setSender(String sender) {
+		this.sender = sender;
 	}
 
-	public String getReiceiveperson() {
-		return reiceiveperson;
+	public String getReceiver() {
+		return receiver;
 	}
 
-	public void setReiceiveperson(String reiceiveperson) {
-		this.reiceiveperson = reiceiveperson;
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
+
+	public String getSender_delete() {
+		return sender_delete;
+	}
+
+	public void setSender_delete(String sender_delete) {
+		this.sender_delete = sender_delete;
+	}
+
+	public String getReceiver_delete() {
+		return receiver_delete;
+	}
+
+	public void setReceiver_delete(String receiver_delete) {
+		this.receiver_delete = receiver_delete;
 	}
 
 	@Override
 	public String toString() {
 		return "message [message_rownum=" + message_rownum + ", first_message_rownum=" + first_message_rownum
-				+ ", sendtime=" + sendtime + ", read_status=" + read_status + ", comment=" + comment + ", sendperson="
-				+ sendperson + ", reiceiveperson=" + reiceiveperson + "]";
+				+ ", sendtime=" + sendtime + ", read_status=" + read_status + ", comment=" + comment + ", sender="
+				+ sender + ", receiver=" + receiver + ", sender_delete=" + sender_delete + ", receiver_delete="
+				+ receiver_delete + "]";
 	}
+
 	
+		
 }
