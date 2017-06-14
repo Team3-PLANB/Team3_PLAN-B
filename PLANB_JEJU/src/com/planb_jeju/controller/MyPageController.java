@@ -15,8 +15,8 @@ public class MyPageController {
 	/* 나의 일정 - schedule() */
 	@RequestMapping("MyPage/Schedule/schedule.do")
 	public String schedule(){
-		System.out.println("MyPage/Schedule/WritePostScript/schedule.do 컨트롤러 들어옴");
-		return "MyPage.Schedule.WritePostScript.msgMain";
+		System.out.println("MyPage/Schedule/schedule.do 컨트롤러 들어옴");
+		return "MyPage.Schedule.scheduleMain";
 	}
 
 	/* 히스토리 - history() */
