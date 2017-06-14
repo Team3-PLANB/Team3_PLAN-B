@@ -12,8 +12,9 @@
 <!-- 상세보기 일정 -->
 
 <style>
-	.sortable { font-size:10px; list-style-type: none; margin: 0; padding: 0; width: 60%;  width:200px; }
+	.sortable { font-size:10px; list-style-type: none; margin: 0; padding: 0; width: 60%;  width:200px;  }
 	.sortable li { margin: 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 40px; }
+	
 	.sortable li span { position: absolute; margin-left: -1.3em;}
 	/* .sortable .sort-handle {
 		display: none;
@@ -29,22 +30,26 @@
 		padding:10px;
 		width:30px;
 		height:15px;
+		background: orange;
 	}
 	.group{
 		width:80%;
 		margin:15px;
+		
 	}
   	
 </style>
 
 <script>
 
+	
+
 	$(document).ready(function() {
 		$('#schedulebox').animate({
-	        width: '+=380px'
+			width : '+=380px'
 		});
 		$('#schedulebox2').animate({
-	        width: '+=30%'
+			width : '+=30%'
 		});
 		$('.spinner').spinner({
 			min : 0,
@@ -53,9 +58,9 @@
 			start : 0
 		});
 		$(".sortable").sortable();
-		/* $(".sortable").disableSelection(); */
+		/*  $(".sortable").disableSelection(); */
 		$(".sortable").selectable();
-		
+
 		/* $('.sortable').selectable({
 			cancle: '.sort-handle'
 		}).sortable({
@@ -78,12 +83,10 @@
 			}
 		}); */
 
-		$("#accordion")
-		.accordion({
+		$("#accordion").accordion({
 			collapsible : true,
 			header : ".day_info_box"
-		})
-		.sortable({
+		}).sortable({
 			axis : "y",
 			handle : ".day_info_box",
 			stop : function(event, ui) {
@@ -95,12 +98,10 @@
 				$(this).accordion("refresh");
 			}
 		});
-		$("#accordion2")
-		.accordion({
+		$("#accordion2").accordion({
 			collapsible : true,
 			header : "> div > h3"
-		})
-		.sortable({
+		}).sortable({
 			axis : "y",
 			handle : "h3",
 			stop : function(event, ui) {
@@ -238,14 +239,14 @@
 
 
 
-<div style="height:550px; margin:10px;width:100px;" id="schedulebox2"><!-- overflow:scroll; 이거 <--- 스크롤 생기는거 필요시 추가 -->
-	<div id="accordion2">
-		<div class="group"style="height:450px; overflow:scroll;">
-			<h3>DAY 1</h3>
-			<div>
-				<div class="sortable" >
+<div id="schedulebox2" style="height:550px; margin:5px;width:150px;">
+	<div id="accordion2"> 
+		<div class="group"style="height:450px; width:350px; overflow:scroll;">
+		<h3 id="a" ondrop="drop(event)" ondragover="allowDrop(event)">DAY 1</h3>
 	<div>
-		 <div class="ui-state-default" style="width:300px;">
+			<div class="sortable" > 
+		<div>
+		 <div class="ui-state-default" style="width:300px;"> <!-- 밥먹고 나서 이거 해보자  -->
 		 	<img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 				alt="" class="spot_img"
 				onerror="this.src='/res/img/common/no_img/sight55.png';"
@@ -382,13 +383,13 @@
 	<!-- 5번째 끝 -->
 					  <li class="ui-state-default">Item 6</li>
 					  <li class="ui-state-default">Item 7</li>
-	</div>				
+					
 				</div>
 			</div>
-			<div class="group">
-				<h3>Section 2</h3>
+			
+				<h3 id="b" ondrop="drop(event)" ondragover="allowDrop(event)">DAY 2</h3>
 				<div>
-					<ul class="sortable" >
+					<div class="sortable" >
 					  <li class="ui-state-default">Item 1</li>
 					  <li class="ui-state-default">Item 2</li>
 					  <li class="ui-state-default">Item 3</li>
@@ -396,13 +397,12 @@
 					  <li class="ui-state-default">Item 5</li>
 					  <li class="ui-state-default">Item 6</li>
 					  <li class="ui-state-default">Item 7</li>
-					</ul>
+					</div>
 				</div>
-			</div>
-			<div class="group">
-				<h3>Section 3</h3>
+			
+				<h3>DAY 3</h3>
 				<div>
-					<ul class="sortable" >
+					<div class="sortable" >
 					  <li class="ui-state-default">Item 1</li>
 					  <li class="ui-state-default">Item 2</li>
 					  <li class="ui-state-default">Item 3</li>
@@ -410,13 +410,12 @@
 					  <li class="ui-state-default">Item 5</li>
 					  <li class="ui-state-default">Item 6</li>
 					  <li class="ui-state-default">Item 7</li>
-					</ul>
+					</div>
 				</div>
-			</div>
-			<div class="group">
-				<h3>Section 4</h3>
+		
+			<h3>DAY 4</h3>
 				<div>
-					<ul class="sortable" >
+					<div class="sortable" >
 					  <li class="ui-state-default">Item 1</li>
 					  <li class="ui-state-default">Item 2</li>
 					  <li class="ui-state-default">Item 3</li>
@@ -424,12 +423,14 @@
 					  <li class="ui-state-default">Item 5</li>
 					  <li class="ui-state-default">Item 6</li>
 					  <li class="ui-state-default">Item 7</li>
-					</ul>
+					</div>
 				</div>
 			</div>
+		  </div>
 		</div>
+			
+			
+		
 		
 		<!-- <input class="spinner" name="during" value="0">분 -->
-	</div>
-	
-</div>
+
