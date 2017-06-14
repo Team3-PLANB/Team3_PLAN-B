@@ -6,8 +6,28 @@
 <%@ page import="java.math.BigInteger" %>
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+
 <link rel="shortcut icon" href="favicon.ico">
+
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+
+<!-- Animate.css -->
+<link rel="stylesheet" href="css/animate.css">
+<!-- Icomoon Icon Fonts-->
+<link rel="stylesheet" href="css/icomoon.css">
+<!-- Bootstrap  -->
+<link rel="stylesheet" href="css/bootstrap.css">
+<!-- Superfish -->
+<link rel="stylesheet" href="css/superfish.css">
+<!-- Magnific Popup -->
+<link rel="stylesheet" href="css/magnific-popup.css">
+<!-- Date Picker -->
+<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
+<!-- CS Select -->
+<link rel="stylesheet" href="css/cs-select.css">
+<link rel="stylesheet" href="css/cs-skin-border.css">
+
+<link rel="stylesheet" href="WEB-INF/views/LoginJoin/style.css">
 
 <style type="text/css">
 	input[type="password"] {
@@ -35,6 +55,7 @@
 	}
 </style>
 
+
 <script type="text/javascript">
 	$(document).ready(function(){
 		$('#social_login').hide();
@@ -49,40 +70,19 @@
 	});
 </script>
 
-<title>PLAN'B JEJU 함께하기</title>
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
-	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
-	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<!-- Superfish -->
-	<link rel="stylesheet" href="css/superfish.css">
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
-	<!-- Date Picker -->
-	<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-	<!-- CS Select -->
-	<link rel="stylesheet" href="css/cs-select.css">
-	<link rel="stylesheet" href="css/cs-skin-border.css">	
-	<link rel="stylesheet" href="css/style.css">
-
-
-	<script src="${pageContext.request.contextPath}/js/joinCheck.js"></script>
-	<script src="${pageContext.request.contextPath}/js/facebook.js" ></script>
-	<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
-
  <%
     String clientId = "q6YKhoTAKENem9wjtax9";//애플리케이션 클라이언트 아이디값";
     String redirectURI = URLEncoder.encode("http://127.0.0.1:8090/PLANB_JEJU/callback.jsp", "UTF-8");
     SecureRandom random = new SecureRandom();
     String state = new BigInteger(130, random).toString();
-
+    
+    	
     String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
     apiURL += "&client_id=" + clientId;
     apiURL += "&redirect_uri=" + redirectURI;
     apiURL += "&state=" + state;
     session.setAttribute("state", state);
+    
  %>
 
 <div class="fh5co-hero">
@@ -94,8 +94,7 @@
 				<div class="row">
 					<div class="col-sm-5 col-md-5">
 						<div class="tabulation animate-box fadeInUp animated">
-						
-							<!-- 네비게이션 Tab : join/login -->
+							<!-- Nav tabs -->
 							<ul class="nav nav-tabs" role="tablist">
 								<li role="presentation" class="active" id="join_tab">
 									<a href="#join" aria-controls="join" role="tab" data-toggle="tab">JOIN</a>
@@ -105,14 +104,14 @@
 								</li>
 							</ul>
 
-							<!-- Tab JOIN -->
+							<!-- Tab panes -->
 							<div class="tab-content">
 								<div role="tabpanel" class="tab-pane active" id="join">
 									<form action="" class="row" method="POST" >
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;">
 											<div class="input-field">
 												<label for="email">이메일</label> 
-												<input type="text"	class="form-control" id="email" placeholder="이메일을 입력해주세요" onblur="emailcheck()">
+												<input type="text"	class="form-control" id="email" placeholder="이메일을 입력해주세요">
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-left:10%;">
@@ -142,7 +141,6 @@
 										</div>
 									</form>
 								</div>
-								<!-- Tab LOGIN -->
 								<div role="tabpanel" class="tab-pane" id="login">
 									<form action="" class="row" method="POST">
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%">
@@ -168,7 +166,7 @@
 						</div>
 					</div>
 					
-					<!-- 이메일 인증 -->
+					
 					<div class="col-sm-5 col-md-5"  style="margin-left:180px;" id="social_join" >
 						<div class="tabulation animate-box fadeInUp animated" >
 							<div class="tab-content" >
@@ -178,13 +176,14 @@
 											<div class="input-field" > 
 												<input type="text"	class="form-control" id="email"
 													placeholder="이메일 인증 번호를 입력해주세요" style="margin-left:30%;">
-												<button class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;">이메일 인증하기</button>
-												</div>
+												<button class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;">이메일 인증번호 받기</button>
+											</div>
 										</div>
+										
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
 											<div class="input-field" >
 												<label for="password">소셜 계정으로 회원가입</label> 
-												<a onclick="login()">
+												<a href="">
 													<img src="<%=request.getContextPath() %>/images/logo/001-facebook-2.png">
 												</a>
 												<a href="">
@@ -210,7 +209,7 @@
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
 											<div class="input-field" >
 												<label for="password">소셜 계정으로 로그인</label> 
-												<a onclick="login()">
+												<a href="">
 													<img src="<%=request.getContextPath() %>/images/logo/001-facebook-2.png">
 												</a>
 												<a href="">

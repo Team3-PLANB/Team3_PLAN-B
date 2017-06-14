@@ -30,6 +30,6 @@ public class IndexController {
 		System.out.println("LoginJoin/Login/NJoin.do 컨트롤러 들어옴");
 		//Tiles 이전
 		//return "index.jsp";
-		return "LoginJoin.Join.NJoin.joinForm";		
+		return "LoginJoin.Login.NLogin.loginForm";	
 	}
 }
