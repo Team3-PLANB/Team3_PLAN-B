@@ -6,32 +6,36 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 <!-- 
 	//한 사람과 주고받은 쪽지 수
-	public int getCount(String username);
+	public int getCount(int first_message_rownum);
 	
 	//쪽지 방 개수 (유저당)
 	public int getRoomCount(String username);
 	
-	//메시지 가져오기 (삭제여부)
-	public Message getReadStatus(int message_rownum);
+	//쪽지 정보 가져오기 (삭제여부)
+	public Message getMessage(int message_rownum);
 	
 	//쪽지 추가 (보내기)
 	public int insert(Message message);
 	
-	//쪽지 상세보기 (메시지 형식)
-	public List<Message> getMember(String username);
+	//쪽지 방 상세보기 (메시지 형식)
+	public List<Message> getMessageList(Map<String, Object> messageMap);
+	Map <= first_message_rownum, username
 		
-	//쪽지 정보 업데이트 (읽음확인/삭제여부)
-	public int update(Message message);
+	//쪽지 정보 업데이트 (읽음확인)
+	public int updateReadStatus(Message message);
+	
+	//쪽지 정보 업데이트 (삭제여부)
+	public int updateDeleteOrNot(Message message);
 	
 	//쪽지 삭제
 	public int delete(int message_rownum);
 -->
 
 	<!-- 한 사람과 주고받은 쪽지수 -->
-	<select id="getCount" parameterType="String" resultType="Integer">
+	<select id="getCount" parameterType="Integer" resultType="Integer">
 		SELECT COUNT(*)
-		FROM Message
-		WHERE sender = #{username} or receiver = #{username}
+		FROM message
+		WHERE first_message_rownum = #{first_message_rownum}
 	</select>
 	
 	<!-- 쪽지 방 개수 (유저당) -->
@@ -42,29 +46,55 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 메시지 가져오기 -->
-	<select id="getReadStatus" parameterType="Integer" resultType="com.planb_jeju.dto.Message">
+	<select id="getMessage" parameterType="Integer" resultType="com.planb_jeju.dto.Message">
 		SELECT *
 		FROM message
-		WHERE username =#{username}
+		WHERE message_rownum = #{message_rownum}
 	</select>
 	
-	<!-- 삭제 -->
-	<delete id="delete">
-	 	DELETE member WHERE username=#{username}
-	</delete>
+	<!-- 쪽지 방 상세보기 -->
+	<select id="getMessageList" parameterType="Map" resultType="List">
+		SELECT * 
+		FROM (SELECT * 
+			  FROM message 
+			  WHERE first_message_rownum = #{first_message_rownum})
+		WHEREE state = 'ACTIVE'
+		<choose>
+			<when test="sender = #{username}">
+				AND sender_delete = 1
+				AND receiver_delete = 0
+			</when>
+			<when test="receiver = #{username}">
+				AND sender_delete = 0
+			</when>
+		</choose>
+	</select>
 	
-	<!-- 수정 -->
-	<update id="update" >
-		UPDATE member 
-		SET password=#{password}, 
-		    nickname=#{nickname}
-		WHERE username=#{username}
+	<!-- 쪽지 추가 (보내기) -->
+	<insert id="insert" parameterType="com.planb_jeju.dto.Message">
+		INSERT INTO message (message_rownum, first_message_rownum, sendtime, read_status, comment, sender, receiver, sender_delete, receiver_delete)
+	    VALUES(null, #{first_message_rownum}, SYSDATE, 0, #{comment}, #{sender}, #{receiver}, 0, 0)
+	</insert>	
+	
+	<!-- 쪽지 정보 업데이트 (읽음확인) -->
+	<update id="updateReadStatus" parameterType="com.planb_jeju.dto.Message">
+		UPDATE message
+		SET read_status = #{read_status}
+		WHERE first_message_rownum = #{first_message_rownum} and receiver = #{receiver}
 	</update>
 	
-	<!-- 입력 -->
-	<insert id="insert">
-		INSERT INTO member(username, password, nickname)
-	    VALUES( #{username}, #{password}, #{nickname})
-	</insert>
+	<!-- 쪽지 정보 업데이트 (삭제여부) -->
+	<update id="updateDeleteOrNot" parameterType="com.planb_jeju.dto.Message">
+		UPDATE message
+		SET sender_delete = #{sender_delete} and receive_delete = #{receive_delete}
+		WHERE message_rownum = #{message_rownum}
+	</update>
+	
+	<!-- 쪽지 삭제 -->
+	<delete id="delete" parameterType="Integer">
+	 	DELETE from message
+	 	WHERE message_rownum = #{message_rownum}
+	</delete>
+	
 	
 </mapper>
