@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 삭제 -->
 	<delete id="delete">
-	 	DELETE route WHERE route_code = #{param1}, username =#{param2}
+	 	DELETE from route WHERE route_code = #{param1}, username =#{param2}
 	</delete>
 	
 	<!-- 수정 -->

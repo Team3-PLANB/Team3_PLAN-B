@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 삭제 -->
 	<delete id="delete">
-	 	DELETE member WHERE username=#{username}
+	 	DELETE from member WHERE username=#{username}
 	</delete>
 	
 	<!-- 수정 -->
