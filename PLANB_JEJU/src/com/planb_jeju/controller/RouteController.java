@@ -28,7 +28,7 @@ import com.planb_jeju.dto.Member;
 ///customer/notice.htm => notice.htm (함수 mapping)
 ///customer/noticeDetail.html  =>noticeDetail.html
 @Controller
-public class MemberController {
+public class RouteController {
 
 	
 	private static MemberDao memberDao;

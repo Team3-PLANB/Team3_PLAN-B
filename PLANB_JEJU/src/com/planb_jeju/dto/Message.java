@@ -3,7 +3,7 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class message {
+public class Message {
 	private int message_rownum;
 	private int first_message_rownum;
 	private Time sendtime;
@@ -14,9 +14,9 @@ public class message {
 	private String sender_delete;
 	private String receiver_delete;
 	
-	public message(){}
+	public Message(){}
 
-	public message(int message_rownum, int first_message_rownum, Time sendtime, int read_status, String comment,
+	public Message(int message_rownum, int first_message_rownum, Time sendtime, int read_status, String comment,
 			String sender, String receiver, String sender_delete, String receiver_delete) {
 		super();
 		this.message_rownum = message_rownum;

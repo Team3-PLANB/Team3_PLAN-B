@@ -3,14 +3,14 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class site_postscript_tag {
+public class SitePostscriptTag {
 	private int site_postscript_tag_rownum;
 	private int site_postscript_rownum;
 	private String tag;
 	
-	public site_postscript_tag(){}
+	public SitePostscriptTag(){}
 
-	public site_postscript_tag(int site_postscript_tag_rownum, int site_postscript_rownum, String tag) {
+	public SitePostscriptTag(int site_postscript_tag_rownum, int site_postscript_rownum, String tag) {
 		super();
 		this.site_postscript_tag_rownum = site_postscript_tag_rownum;
 		this.site_postscript_rownum = site_postscript_rownum;
