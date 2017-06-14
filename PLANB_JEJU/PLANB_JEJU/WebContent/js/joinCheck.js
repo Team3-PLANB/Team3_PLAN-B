@@ -1,41 +1,28 @@
-
 /*
+ * passwordCheck() : pwd 유효성
+ * emailCheck() : email 유효성 / 중복검사
+ * nickCheck() : nick 중복검사
+ */
 
-@스크립트 추가
-@Project : signup.jsp
-@Date : 2016. 6. 10.
-@Author : 신동민
-
-*/
-
-function passwordCheck()
-{
+function passwordCheck() {
 	
-	if($('#password').val() != $('#password-confirm').val()){
+	if($('#password').val() != $('#passwordck').val()){
 		$('.pwd_ok').css('display','block');
 		$('.pwd_ok').text("비밀번호가 일치하지 않습니다.");
 	}
-	else if($('#password').val() == $('#password-confirm').val()){
+	else if($('#password').val() == $('#passwordck').val()){
 		$('.pwd_ok').css('display','block');
 		$('.pwd_ok').text("비밀번호가 일치합니다.");
 	}
-	if($('#password-confirm').val() == null){
+	if($('#passwordck').val() == null){
 		$('.pwd_ok').css('display','none');
 	}
-	else if($('#password-confirm').val() == ""){
+	else if($('#passwordck').val() == ""){
 		$('.pwd_ok').css('display','none');
 	}
 }
 
-/*
-
-@스크립트 추가
-@Project : signup.jsp
-@Date : 2016. 6. 13.
-@Author : 한수민
-
-*/
-function emailcheck() {
+function emailCheck() {
 	$.ajax({
 		url : "duplicationCheck.nn",
 		type : "get",
@@ -58,6 +45,28 @@ function emailcheck() {
 				}else{ 
 					$(".email-msg").text("사용가능한 이메일입니다");
 				}
+			}
+		},
+		error : function(xhr) {
+			alert(xhr.status);
+		}
+	});
+	return false;
+};
+
+function nickCheck() {
+	$.ajax({
+		url : "duplicationCheck.nn",
+		type : "get",
+		dataType:"json",
+		data : { nickname :$("#nickname").val()},
+		success : function(result) {
+			if(result == false){
+				$(".nick-msg").text("이미 존재하는 닉네임입니다");
+				$("#nickname").val("");
+				$("#nickname").focus();
+			} else{ 
+				$(".nick-msg").text("사용가능한 이메일입니다");
 			}
 		},
 		error : function(xhr) {
