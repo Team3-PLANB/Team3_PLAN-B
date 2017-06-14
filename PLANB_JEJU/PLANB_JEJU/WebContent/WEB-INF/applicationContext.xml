@@ -15,7 +15,11 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 		<property name="url"
+<<<<<<< HEAD
 			value="jdbc:mysql://192.168.0.182:3306/planb?charcterEncoding=UTF-8"></property><!-- db 서버 연결 확인  -->
+=======
+			value="jdbc:mysql://192.168.0.123:3306/planb?charcterEncoding=UTF-8"></property>
+>>>>>>> parent of 7a28c6c... member 맵퍼 완성
 		<property name="username" value="kosta"></property>
 		<property name="password" value="1004"></property>
 	</bean>
