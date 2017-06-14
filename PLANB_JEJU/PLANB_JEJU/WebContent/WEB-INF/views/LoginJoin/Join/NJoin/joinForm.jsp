@@ -8,7 +8,6 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link rel="shortcut icon" href="favicon.ico">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-
 <style type="text/css">
 	input[type="password"] {
 		background: rgba(0, 0, 0, 0.05);
@@ -66,6 +65,7 @@
 	<link rel="stylesheet" href="css/cs-select.css">
 	<link rel="stylesheet" href="css/cs-skin-border.css">	
 	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="css/join.css">
 
 
 	<script src="${pageContext.request.contextPath}/js/joinCheck.js"></script>
@@ -112,13 +112,14 @@
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;">
 											<div class="input-field">
 												<label for="email">이메일</label> 
-												<input type="text"	class="form-control" id="email" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
+												<input type="text"	class="form-control" name = "email" id="email" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
+												<div class = "email-msg" id="email-msg"></div>
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-left:10%;">
 											<div class="input-field">
 												<label for="password">비밀번호</label> 
-												<input type="password" class="form-control" id="password"
+												<input type="password" class="form-control" name = "password" id="password"
 													placeholder="비밀번호를 입력해주세요">
 											</div>
 										</div>
@@ -127,13 +128,15 @@
 												<label for="passwordck">비밀번호 확인</label> 
 												<input type="password" class="form-control" id="passwordck"
 													placeholder="비밀번호를 입력해주세요" onkeyup="passwordCheck()">
+												<div class = "pwdck" id="pwdck"></div>
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-left:10%;">
 											<div class="input-field">
 												<label for="nickname">닉네임</label> 
-												<input type="text"class="form-control" id="nickname"
-													placeholder="닉네임을 입력해주세요">
+												<input type="text"class="form-control" name = "nickname" id="nickname"
+													placeholder="닉네임을 입력해주세요" onblur="nickCheck()">
+												<div class = "nick-msg" id="nick-msg"></div>
 											</div>
 										</div>
 										<div class="col-xs-12">
