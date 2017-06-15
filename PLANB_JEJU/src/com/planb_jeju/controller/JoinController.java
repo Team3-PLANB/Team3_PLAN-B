@@ -25,8 +25,7 @@ public class JoinController {
 	private SqlSession sqlsession;
 	//index.htm 요청 View(index.jsp)
 	
-	@Autowired
-	MemberService memberService;
+	
 	
 	/* 회원가입 화면 이동 */
 	@RequestMapping("Join/NJoin.do")
@@ -72,20 +71,5 @@ public class JoinController {
 	}
 	
 	/* 회원가입 시 메일 인증 */
-	@RequestMapping("emailAuth.do")
-	public String emailAuth(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
-		System.out.println(">>>>>>>Email_controller<<<<<<<");
-		
-		String email = request.getParameter("email");
-		String authNum = "";
-		
-		authNum = memberService.RandomNum();
-		
-		memberService.sendEmail(email.toString(), authNum);
-		
-		model.addAttribute("email", email);
-		model.addAttribute("authNum", authNum);
-		
-		return "LoginJoin.Join.emailAuth";
-	}
+	
 }
