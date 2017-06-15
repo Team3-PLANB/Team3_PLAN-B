@@ -106,12 +106,12 @@
 
 							<!-- Tab JOIN -->
 							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active" id="join">
+								<div role="tabpanel" class="tab-pane active" id="joinform">
 									<form action="" class="row" id = "frm" method="POST" >
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;">
 											<div class="input-field">
 												<label for="email">이메일</label> 
-												<input type="text"	class="form-control" name = "email" id="email" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
+												<input type="text"	class="form-control" name = "username" id="username" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
 												<div class = "email-msg" id="email-msg"></div>
 											</div>
 										</div>
@@ -142,12 +142,12 @@
 									</form>
 								</div>
 								<!-- Tab LOGIN -->
-								<div role="tabpanel" class="tab-pane" id="login">
+								<div role="tabpanel" class="tab-pane" id="loginform">
 									<form action="" class="row" method="POST">
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%">
 											<div class="input-field">
 												<label for="email">이메일</label> 
-												<input type="text" class="form-control" id="email"
+												<input type="text" class="form-control" id="username" name = "username"
 													placeholder="이메일을 입력해주세요">
 											</div>
 										</div>
