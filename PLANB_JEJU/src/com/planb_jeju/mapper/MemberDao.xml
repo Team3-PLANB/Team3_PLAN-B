@@ -13,7 +13,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 멤버 한명 셀렉 -->
-	<select id="getMember" resultType="com.planb_jeju.dto.member">
+	<select id="getMember" resultType="com.planb_jeju.dto.Member">
 		SELECT *
 		FROM member
 		WHERE username =#{username}
@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 삭제 -->
 	<delete id="delete">
-	 	DELETE member WHERE username=#{username}
+	 	DELETE from member WHERE username=#{username}
 	</delete>
 	
 	<!-- 수정 -->
