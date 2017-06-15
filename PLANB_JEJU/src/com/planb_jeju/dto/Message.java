@@ -3,10 +3,10 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class message {
+public class Message {
 	private int message_rownum;
 	private int first_message_rownum;
-	private Time sendtime;
+	private Date sendtime;
 	private int read_status;
 	private String comment;
 	private String sender;
@@ -14,9 +14,9 @@ public class message {
 	private String sender_delete;
 	private String receiver_delete;
 	
-	public message(){}
+	public Message(){}
 
-	public message(int message_rownum, int first_message_rownum, Time sendtime, int read_status, String comment,
+	public Message(int message_rownum, int first_message_rownum, Date sendtime, int read_status, String comment,
 			String sender, String receiver, String sender_delete, String receiver_delete) {
 		super();
 		this.message_rownum = message_rownum;
@@ -29,6 +29,7 @@ public class message {
 		this.sender_delete = sender_delete;
 		this.receiver_delete = receiver_delete;
 	}
+
 
 	public int getMessage_rownum() {
 		return message_rownum;
@@ -46,11 +47,12 @@ public class message {
 		this.first_message_rownum = first_message_rownum;
 	}
 
-	public Time getSendtime() {
+
+	public Date getSendtime() {
 		return sendtime;
 	}
 
-	public void setSendtime(Time sendtime) {
+	public void setSendtime(Date sendtime) {
 		this.sendtime = sendtime;
 	}
 

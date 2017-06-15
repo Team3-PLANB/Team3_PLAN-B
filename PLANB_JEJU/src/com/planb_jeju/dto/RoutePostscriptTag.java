@@ -3,14 +3,14 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class route_postscript_tag {
+public class RoutePostscriptTag {
 	private int route_postscript_tag_rownum;
 	private int route_postscript_rownum;
 	private String tag;
 	
-	public route_postscript_tag(){}
+	public RoutePostscriptTag(){}
 
-	public route_postscript_tag(int route_postscript_tag_rownum, int route_postscript_rownum, String tag) {
+	public RoutePostscriptTag(int route_postscript_tag_rownum, int route_postscript_rownum, String tag) {
 		super();
 		this.route_postscript_tag_rownum = route_postscript_tag_rownum;
 		this.route_postscript_rownum = route_postscript_rownum;

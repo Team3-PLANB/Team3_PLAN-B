@@ -3,14 +3,14 @@ package com.planb_jeju.dto;
 import java.sql.Time;
 import java.util.Date;
 
-public class route_postscript_like {
+public class RoutePostscriptLike {
 	private int route_postscript_like_rownum;
 	private int route_postscript_rownum;
 	private String username;
 	
-	public route_postscript_like(){}
+	public RoutePostscriptLike(){}
 
-	public route_postscript_like(int route_postscript_like_rownum, int route_postscript_rownum, String username) {
+	public RoutePostscriptLike(int route_postscript_like_rownum, int route_postscript_rownum, String username) {
 		super();
 		this.route_postscript_like_rownum = route_postscript_like_rownum;
 		this.route_postscript_rownum = route_postscript_rownum;

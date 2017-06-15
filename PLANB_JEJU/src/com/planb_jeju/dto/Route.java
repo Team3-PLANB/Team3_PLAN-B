@@ -1,16 +1,16 @@
 package com.planb_jeju.dto;
 
-public class route {
+public class Route {
 	private int route_code;
 	private String username;
 	private String routename;
 	private String partner_code;
 	
 	
-	public route(){}
+	public Route(){}
 
 
-	public route(int route_code, String username, String routename, String partner_code) {
+	public Route(int route_code, String username, String routename, String partner_code) {
 		super();
 		this.route_code = route_code;
 		this.username = username;
