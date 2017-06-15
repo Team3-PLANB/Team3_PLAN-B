@@ -16,6 +16,15 @@ $(document).ready(function() {
 	});
 });
 
+function frm_submit() {
+	if($('e_cknum').val() == null) {
+		alert('이메일 인증이 필요합니다.');
+	} else if($('e_cknum').val() == "") {
+		alert('이메일 인증이 필요합니다.');
+	}
+	$("form").submit();
+}
+
 function passwordCheck() {
 	if ($('#password').val() != $('#passwordck').val()) {
 		$('.pwdck').css('display', 'block');
