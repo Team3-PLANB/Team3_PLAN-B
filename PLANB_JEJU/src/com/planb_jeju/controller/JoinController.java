@@ -24,7 +24,6 @@ public class JoinController {
 	@Autowired
 	private SqlSession sqlsession;
 
-	@Autowired
 	private MemberService memberservice;
 	//index.htm 요청 View(index.jsp)
 
@@ -68,5 +67,21 @@ public class JoinController {
 	}	
 
 	/* 회원가입 시 메일 인증 */
+	@RequestMapping("Join/emailAuth.do")
+	public Model emailAuth(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+	System.out.println(">>>>>>>Email_controller<<<<<<<");
+		
+		String email = request.getParameter("email");
+		String authNum = "";
+		
+		authNum = memberservice.RandomNum();
+		
+		memberservice.sendEmail(email.toString(), authNum);
+		
+		model.addAttribute("email", email);
+		model.addAttribute("authNum", authNum);
+		
+		return model;
+	}
 	
 }

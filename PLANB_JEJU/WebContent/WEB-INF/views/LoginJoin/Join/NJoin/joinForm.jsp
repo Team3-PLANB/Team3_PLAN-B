@@ -48,6 +48,26 @@
 	});
 </script>
  -->
+ 
+ <script>
+	function check(){
+		var form = document.authenform;
+		var authNum = ${authNum};
+		
+		if(!form.authnum.value){
+			alert("인증번호를 입력하세요");
+			return false;
+		}else if(form.authnum.value != authNum){
+			alert("인증번호가 맞지 않습니다. 확인해주세요.");
+			form.authnum.value="";
+			return false;
+		}else if(form.authnum.value==authNum){
+			alert("인증완료");
+			self.close();
+		}
+	}
+</script>
+ 
 <title>PLAN'B JEJU 함께하기</title>
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
@@ -111,7 +131,10 @@
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;">
 											<div class="input-field">
 												<label for="email">이메일</label> 
-												<input type="text"	class="form-control" name = "username" id="username" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
+												
+													<input type="text"	class="form-control" style="float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
+													<input type="button" class="btn btn-primary btn-block" style="width:70px;height:30px;float:left;font-size:10px;padding:3px;" value="인증번호받기">
+												
 												<div class = "email-msg" id="email-msg"></div>
 											</div>
 										</div>
