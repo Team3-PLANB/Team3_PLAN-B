@@ -412,29 +412,7 @@
 
 
 
-						<br>
-						<!-- 태그  -->
-
-						<div class="col-md-4 animate-box" align="center">
-							<a href="#" class="flight-book"> </a>
-						</div>
-						<div class="col-md-4 animate-box" align="center">
-							<a href="#" class="flight-book">
-								<div class="plane-name">
-									<span class="p-flight">태그</span>
-								</div>
-								<div class="desc">
-									<div class="left">
-										<span class="price"> <!-- <i class="icon-arrow-down22"></i> -->
-											#활동적#드라이브#자연#맑음#행복#또가자#제주감귤
-										</span>
-									</div>
-								</div>
-							</a>
-						</div>
-						<div class="col-md-4 animate-box" align="center">
-							<a href="#" class="flight-book"></a>
-						</div>
+						
 
 
 
@@ -444,14 +422,7 @@
 						<div class="row">
 							<br>
 							<div class="col-md-4">
-								<div class="box-testimony animate-box">
-									<blockquote></blockquote>
-									<p class="author">
-										<a href="http://freehtml5.co/" target="_blank"></a> <span
-											class="subtext"></span>
-									</p>
-								</div>
-							</div>
+															</div>
 							<div class="col-md-4">
 								<br>
 								<div class="box-testimony animate-box">
@@ -464,13 +435,7 @@
 								</div>
 							</div>
 							<div class="col-md-4">
-								<div class="box-testimony animate-box">
-									<blockquote></blockquote>
-									<p class="author">
-										<a href="http://freehtml5.co/" target="_blank"></a> <span
-											class="subtext"></span>
-									</p>
-								</div>
+								
 							</div>
 						</div>
 
@@ -495,8 +460,7 @@
 											class="icon-bubble2"></i></a></span>
 								</div>
 							</div>
-							<br> <input type="submit" value="히스토리"
-								class="btn btn-primary">
+							
 						</div>
 
 					</div>
