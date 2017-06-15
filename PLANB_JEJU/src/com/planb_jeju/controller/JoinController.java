@@ -23,9 +23,8 @@ public class JoinController {
 
 	@Autowired
 	private SqlSession sqlsession;
-
-	private MemberService memberservice;
-	//index.htm 요청 View(index.jsp)
+	
+	private MemberService memberservice = new MemberService();
 
 	/* 회원가입 화면 이동 */
 	@RequestMapping("Join/NJoin.do")
@@ -72,10 +71,11 @@ public class JoinController {
 	System.out.println(">>>>>>>Email_controller<<<<<<<");
 		
 		String username = request.getParameter("username");
+		System.out.println("username : " + username);
 		String authNum = "";
-		
+		System.out.println("랜덤 시작");
 		authNum = memberservice.RandomNum();
-		
+		System.out.println("랜덤 끝");
 		memberservice.sendEmail(username.toString(), authNum);
 		
 		model.addAttribute("username", username);

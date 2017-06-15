@@ -4,6 +4,7 @@
  * nickCheck() : nick 중복검사
  */
 
+
 $(document).ready(function() {
 	$('#social_login').hide();
 	$('.nav').find('#login_tab').click(function() {
@@ -42,7 +43,25 @@ function passwordCheck() {
 	}
 }
 
-function emailCheck() {
+function authCheck(){
+	var username = $('#username').val();
+		console.log("username : " + username);
+			$.ajax({
+				type : "get",
+			url : 'emailAuth.do',
+			data : {"username" : username},
+			dataType : "json",
+			success : function(result) {
+				if (!result) { 
+					console.log("잘못된 값");
+				}else {
+					console.log(result);
+				}
+			}
+		});	
+	}
+
+/*function emailCheck() {
 	$.ajax({
 				url : "Join/duplicationCheck.do",
 				type : "get",
@@ -74,9 +93,9 @@ function emailCheck() {
 				}
 			});
 	return false;
-};
+};*/
 
-function nickCheck() {
+/*function nickCheck() {
 	$.ajax({
 		url : "duplicationCheck.do",
 		type : "get",
@@ -98,4 +117,4 @@ function nickCheck() {
 		}
 	});
 	return false;
-};
+};*/

@@ -1,6 +1,5 @@
 package com.planb_jeju.service;
 
-import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Random;
 
@@ -15,18 +14,21 @@ import javax.mail.internet.MimeUtility;
 import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.planb_jeju.dao.MemberDao;
 
+@Service
 public class MemberService {
 	@Autowired
 	private SqlSession sqlsession;
 	
 	// 7자리 영문+숫자 랜덤코드 만들기
 	public String RandomNum(){
+		System.out.println("랜덤 만들기1");
 		Random rnd = new Random();
 		StringBuffer buf = new StringBuffer();
-
+		System.out.println("랜덤 만들기2");
 		for (int i = 0; i < 7; i++) {
 			if (rnd.nextBoolean()) {
 				buf.append((char) ((int) (rnd.nextInt(26)) + 97));
@@ -34,6 +36,7 @@ public class MemberService {
 				buf.append((rnd.nextInt(10)));
 			}
 		}
+		System.out.println("랜덤 만들기:"+buf.toString());
 		return buf.toString();
 	}
 	
