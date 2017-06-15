@@ -14,6 +14,10 @@ public interface MemberDao {
 	//회원가입
 	public int insert(Member member) throws ClassNotFoundException, SQLException;
 	
+	//회원가입 시 이메일 중복확인
+/*	public int checkEmail(String username) {
+		
+	}*/
 	//회원 정보
 	public Member getMember(String username) throws ClassNotFoundException, SQLException;
 		
@@ -22,6 +26,5 @@ public interface MemberDao {
 	
 	//회원 삭제
 	public int delete(String username) throws ClassNotFoundException, SQLException;
-	
 	
 }	

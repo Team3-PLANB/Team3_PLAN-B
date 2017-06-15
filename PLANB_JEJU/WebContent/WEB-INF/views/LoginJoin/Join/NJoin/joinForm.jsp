@@ -68,6 +68,7 @@
 	<link rel="stylesheet" href="../../css/join.css">
 
 	<script src="../../js/joinCheck.js"></script>
+	<script src="../../js/email.js"></script>
 	<script src="../../js/facebook.js" ></script>
 	<script src="../../js/sweetalert.min.js" ></script>
 
@@ -106,7 +107,7 @@
 							<!-- Tab JOIN -->
 							<div class="tab-content">
 								<div role="tabpanel" class="tab-pane active" id="join">
-									<form action="" class="row" method="POST" >
+									<form action="" class="row" id = "frm" method="POST" >
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;">
 											<div class="input-field">
 												<label for="email">이메일</label> 
@@ -137,10 +138,7 @@
 												<div class = "nick-msg" id="nick-msg"></div>
 											</div>
 										</div>
-										<div class="col-xs-12">
-											<input type="submit" class="btn btn-primary btn-block"
-												value="Join">
-										</div>
+
 									</form>
 								</div>
 								<!-- Tab LOGIN -->
@@ -177,10 +175,10 @@
 									<div class="row" >
 										<div class="col-xxs-12 col-xs-6 mt" >
 											<div class="input-field" > 
-												<input type="text"	class="form-control" id="email"
+												<input type="text"	class="form-control" id="e_cknum"
 													placeholder="이메일 인증 번호를 입력해주세요" style="margin-left:30%;">
-												<button class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;">이메일 인증하기</button>
-												</div>
+												<button class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "signupBtn">이메일 인증하기</button>
+											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
 											<div class="input-field" >
@@ -195,6 +193,9 @@
 													<img src="<%=request.getContextPath() %>/images/logo/naver.png">
 												</a>
 											</div>
+										</div>
+										<div class="col-xs-12">
+											<input type="button" class="btn btn-primary btn-block" value="Join" onclick="frm_submit()">
 										</div>
 									</div>
 								</div>
