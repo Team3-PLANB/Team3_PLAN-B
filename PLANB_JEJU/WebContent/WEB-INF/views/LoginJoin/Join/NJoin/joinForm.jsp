@@ -68,6 +68,7 @@
 	<link rel="stylesheet" href="../../css/join.css">
 
 	<script src="../../js/joinCheck.js"></script>
+	<script src="../../js/email.js"></script>
 	<script src="../../js/facebook.js" ></script>
 	<script src="../../js/sweetalert.min.js" ></script>
 
@@ -105,12 +106,12 @@
 
 							<!-- Tab JOIN -->
 							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active" id="join">
-									<form action="" class="row" method="POST" >
+								<div role="tabpanel" class="tab-pane active" id="joinform">
+									<form action="" class="row" id = "frm" method="POST" >
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;">
 											<div class="input-field">
 												<label for="email">이메일</label> 
-												<input type="text"	class="form-control" name = "email" id="email" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
+												<input type="text"	class="form-control" name = "username" id="username" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
 												<div class = "email-msg" id="email-msg"></div>
 											</div>
 										</div>
@@ -137,19 +138,16 @@
 												<div class = "nick-msg" id="nick-msg"></div>
 											</div>
 										</div>
-										<div class="col-xs-12">
-											<input type="submit" class="btn btn-primary btn-block"
-												value="Join">
-										</div>
+
 									</form>
 								</div>
 								<!-- Tab LOGIN -->
-								<div role="tabpanel" class="tab-pane" id="login">
+								<div role="tabpanel" class="tab-pane" id="loginform">
 									<form action="" class="row" method="POST">
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%">
 											<div class="input-field">
 												<label for="email">이메일</label> 
-												<input type="text" class="form-control" id="email"
+												<input type="text" class="form-control" id="username" name = "username"
 													placeholder="이메일을 입력해주세요">
 											</div>
 										</div>
@@ -177,10 +175,10 @@
 									<div class="row" >
 										<div class="col-xxs-12 col-xs-6 mt" >
 											<div class="input-field" > 
-												<input type="text"	class="form-control" id="email"
+												<input type="text"	class="form-control" id="e_cknum"
 													placeholder="이메일 인증 번호를 입력해주세요" style="margin-left:30%;">
-												<button class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;">이메일 인증하기</button>
-												</div>
+												<button class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "signupBtn">이메일 인증하기</button>
+											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
 											<div class="input-field" >
@@ -196,12 +194,16 @@
 												</a>
 											</div>
 										</div>
+										<div class="col-xs-12">
+											<input type="button" class="btn btn-primary btn-block" value="Join" onclick="frm_submit()">
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 					
+					<!-- 소셜계정 로그인 -->
 					<div class="col-sm-5 col-md-5"  style="margin-left:180px;" id="social_login" >
 						<div class="tabulation animate-box fadeInUp animated" >
 							<div class="tab-content" >
@@ -211,7 +213,7 @@
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
 											<div class="input-field" >
 												<label for="password">소셜 계정으로 로그인</label> 
-												<a onclick="login()">
+												<a class = "btn btn-facebook" onclick="login()">
 													<img src="<%=request.getContextPath() %>/images/logo/001-facebook-2.png">
 												</a>
 												<a href="">

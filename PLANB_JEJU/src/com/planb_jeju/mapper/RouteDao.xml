@@ -11,6 +11,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM route
 	</select>
 	
+	<!-- 현재 경로 번호 -->
+	<select id="getRouteCode" resultType="Integer">
+		
+		SELECT MAX(route_code)
+		FROM route
+		WHERE username = #{username}
+		group by username
+	</select>
+	
 	<!-- 멤버 한명 셀렉 -->
 	<select id="getRoute" resultType="com.planb_jeju.dto.Route">
 		SELECT *
@@ -27,14 +36,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update" >
 		UPDATE route 
 		SET routename=#{routename}, 
-		    partner_code=#{partner_code}
+		    partner_code=#{partner_code},
+		    sday=#{sday},
+		    eday=#{eday}
 		WHERE route_code = #{route_code}, username =#{username}
 	</update>
 	
 	<!-- 입력 -->
 	<insert id="insert">
-		INSERT INTO route(route_code, username, routename, partner_code)
-	    VALUES( NULL, #{username}, #{routename}, #{partner_code})
+	
+		<selectKey order="BEFORE" keyProperty="route_code" resultType="Int">
+			Select MAX(route_code)+1 from route where username='a@naver.com' group by username
+		</selectKey>
+		
+		INSERT INTO route(route_code, username, routename, partner_code, sday, eday)
+	    VALUES( #{route_code}, #{username}, #{routename}, #{partner_code}, #{sday}, #{eday})
 	</insert>
 	
 </mapper>

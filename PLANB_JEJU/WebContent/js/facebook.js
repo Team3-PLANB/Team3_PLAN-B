@@ -64,101 +64,72 @@ function statusChangeCallback(response) {
 
 function login() {
 
-	var fb_email; // 이메일 저장할 변수
-	// var accessToken = response.authResponse.accessToken; //액세스 토큰 받아온다
-	// 정상적으로 인증 받았을때 저장
-	FB
-			.login(
-					function(response) { // response 객체를 처리
-
-						console.log(response.status);
-						console.log(response.authResponse.accessToken);
-						if (response.status === 'connected') {
-							// 페이스북과 앱에 같이 로그인되어 있다.
-							FB
-									.api(
-											'/me',
-											'GET',
-											{
-												fields : 'email'
-											},
-											function(member) {
-												fb_email = member.email;
-
-												$
-														.ajax({
-															type : "get",
-															url : "duplicationCheck.nn",
-															data : {
-																"email" : fb_email
-															},
-															dataType : "json",
-															success : function(
-																	result) {
-																if (result == false) { // 중복된
-																						// 값을
-																						// 타면
-																						// 로그인이
-																	// 된다.
-
-																	$
-																			.ajax({
-																				type : "post",
-																				url : "fblogin.nn",
-																				data : {
-																					"email" : fb_email
-																				},
-																				success : function(
-																						result) {// 로그인성공
-
-																					document
-																							.getElementById('username').value = fb_email;
-																					document
-																							.getElementById('password').value = result;
-																					document
-																							.getElementById(
-																									'loginform')
-																							.submit();
-
-																				},
-																				error : function(
-																						error) {// 로그인실패
-																					alert(error.statusText);
-																				}
-																			});
-																} else { // 회원가입
-																			// 한다.
-																	console
-																			.log(response.authResponse.accessToken);
-																	$
-																			.ajax({
-																				type : "get",
-																				url : "Login/fbsignup.do",
-																				data : {
-																					"email" : fb_email,
-																					"fbaccesstoken" : response.authResponse.accessToken
-																				},
-																				success : function() {
-																					alert('회원가입 완료! 로그인해주세요.');
-																					location.href = "index.jsp";
-																				},
-																				error : function(
-																						error) {
-																					alert('error!');
-																					alert(error.statusText);
-																				}
-																			});
-
+	var username; // 이메일 저장할 변수
+	var nickname; // 이름 저장할 변수
+	FB.login(
+		function(response) { // response 객체를 처리
+			console.log(response.status);
+			console.log(response.authResponse.accessToken);
+			if (response.status === 'connected') {
+			// 페이스북과 앱에 같이 로그인되어 있다.
+							FB.api(
+								'/me',
+								'GET',
+								{fields : 'username'},
+								function(member) {
+									username = member.username;
+									$.ajax({
+										type : "get",
+										url : "duplicationCheck.do",
+										data : {"userid" : username},
+												dataType : "json",
+												success : function(result) {
+													if (result == false) { // 중복된 값을 타면 로그인이 된다.
+															$.ajax({
+																type : "post",
+																url : "fblogin.nn",
+																data : {"userid" : username},
+																success : function(result) {// 로그인성공
+																	document.getElementById('username').value = username;
+																	document.getElementById('password').value = result;
+																	document.getElementById('nickname').value = nickname;
+																	document.getElementById('joinform').submit();
+																},
+																error : function(error) {// 로그인실패
+																	alert(error.statusText);
 																}
-															},
-															error : function(
-																	error) {
-																alert(error.statusText);
-															}
+															});
+													} else { // 회원가입 한다.
+														console.log(response.authResponse.accessToken);
+														$.ajax({
+																type : "get",
+																url  : "Login/fbsignup.do",
+																data : {
+																		"userid" : username,
+																		"fbaccesstoken" : response.authResponse.accessToken,
+																		"username" : nickname
+																		// userid가 email, username이 사용자 이름으로 넘어와서
+																		// userid를 username에 넣어주고, username을 nickname에 넣어줌
+																		// 페이스북 가입회원은 이름 default값이 nickname.
+																},
+																success : function() {
+																		alert('회원가입 완료! 로그인해주세요.');
+																		location.href = "index.jsp";
+																},
+																error : function(error) {
+																		alert('error!');
+																		lert(error.statusText);
+																}
 														});
 
+													}
+												},
+												error : function(error) {
+													alert(error.statusText);
+												}
 											});
 
+									});
 						} else if (response.status === 'not_authorized') {
 							// ('not authorized. 권한 받으면 connect로 간다. ');
 							// 페이스북에는 로그인 되어있으나, 앱에는 로그인 되어있지 않다. 권한을 가져온다.
@@ -166,9 +137,7 @@ function login() {
 							console.log('else part');
 							// 페이스북에 로그인이 되어있지 않아서, 앱에 로그인 되어있는지 불명확하다.
 						}
-					}, {
-						scope : 'email'
-					}); // email 에 대한 권한을 요청한다.
+					}, {scope : 'username'}); // email 에 대한 권한을 요청한다.
 }
 /*
  * // 페이스북 로그아웃 function logout(){ FB.logout(function(response) {// 사용자 로그 아웃 이후
