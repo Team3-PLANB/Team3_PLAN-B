@@ -16,6 +16,17 @@ $(document).ready(function() {
 	});
 });
 
+function frm_submit() {
+	if($('e_cknum').val() == null) {
+		alert('이메일 인증이 필요합니다.');
+	} else if($('e_cknum').val() == "") {
+		alert('이메일 인증이 필요합니다.');
+		$('e_cknum').focus();
+	}else {
+		$("form").submit();
+	}
+}
+
 function passwordCheck() {
 	if ($('#password').val() != $('#passwordck').val()) {
 		$('.pwdck').css('display', 'block');
@@ -33,26 +44,26 @@ function passwordCheck() {
 
 function emailCheck() {
 	$.ajax({
-				url : "duplicationCheck.nn",
+				url : "Join/duplicationCheck.do",
 				type : "get",
 				dataType : "json",
 				data : {
-					email : $("#email").val()
+					email : $("#username").val()
 				},
 				success : function(result) {
 
 					if (result == false) {
 						$(".email-msg").text("이미 가입되어 있는 이메일입니다");
-						$("#email").val("");
-						$("#email").focus();
+						$("#username").val("");
+						$("#username").focus();
 
 					} else {
 						var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 
-						if (!regExp.test($("#email").val())) {
+						if (!regExp.test($("#username").val())) {
 							$(".email-msg").text("잘못된 이메일 형식입니다.");
-							$("#email").val("");
-							$("#email").focus();
+							$("#username").val("");
+							$("#username").focus();
 						} else {
 							$(".email-msg").text("사용가능한 이메일입니다");
 						}

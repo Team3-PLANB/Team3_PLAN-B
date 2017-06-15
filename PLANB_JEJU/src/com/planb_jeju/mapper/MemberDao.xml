@@ -12,11 +12,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM member
 	</select>
 	
+	<!-- 페이스북 회원가입 -->
+	<insert id = "fbjoin" parameterType = "String" >
+		INSERT into member
+		VALUES (#{param1}, #{param2}, #{param3})			
+	</insert>
+	
+	<!-- 이메일 중복확인 -->
+	<select id="checkEmail" resultType="Integer" parameterType = "String" >
+		SELECT count(username)
+		FROM member
+		WHERE username = #{username}
+	</select>
+	
+
+	
+	
+	
 	<!-- 멤버 한명 셀렉 -->
 	<select id="getMember" resultType="com.planb_jeju.dto.Member">
 		SELECT *
 		FROM member
-		WHERE username =#{username}
+		WHERE username = #{username}
 	</select>
 	
 	<!-- 삭제 -->
