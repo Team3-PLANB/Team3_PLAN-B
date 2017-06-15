@@ -17,11 +17,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
+import com.planb_jeju.service.MemberService;
 
 
 //폴더 경로가 긴 경우
@@ -30,9 +32,9 @@ import com.planb_jeju.dto.Member;
 @Controller
 public class MemberController {
 
-	
 	private static MemberDao memberDao;
-
+	private MemberService memberservice;
+	
 	@Autowired
 	private SqlSession sqlsession;
 	
@@ -52,16 +54,12 @@ public class MemberController {
 
 		// Mybatis 적용
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		
-	
+
 		Member member = memberDao.getMember("a@naver.com");
 		System.out.println("확인 : "+member.toString());
-		
-		/*int i = memberDao.getCount();
-		System.out.println("확인용"+i);*/
-
 	}
 
+	
 	/*
 	 * //글삭제하기
 	 * 

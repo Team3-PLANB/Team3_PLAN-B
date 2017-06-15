@@ -57,7 +57,7 @@
 		<!-- http://192.168.0.163:8090/PLANB_JEJU/LoginJoin/Join/NJoin.do -->
 		<%-- <a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a><br> --%>
 		<a href="http://192.168.0.123:8090/PLANB_JEJU/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a><br>
-		<a href="${pageContext.request.contextPath}/LoginJoin/Login/NLogin.do">일반 로그인</a><br>
+		<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">회원가입&로그인</a><br>
 		
  		<security:authorize access="hasRole('ROLE_USER')">
 			<a href="${pageContext.request.contextPath}/PLANA.do">Tmap 도착 마커 하나 길찾기 경로 kml 확인</a><br>

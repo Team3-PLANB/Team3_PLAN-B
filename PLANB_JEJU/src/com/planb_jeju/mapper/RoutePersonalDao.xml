@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.planb_jeju.dao.RoutePersonalDao">
+
+<!-- <insert id="insert" parametertype="java.util.Map">
+        insert into user(username, age)
+        values
+        <foreach collection="list" item="item" separator=" , ">
+            (#{item.username}, #{item.age})
+        </foreach>
+ </insert> -->
+
+	<!-- 입력 -->
+	<insert id="insert" parameterType="java.util.Map">
+			
+		INSERT INTO route_personal(personal_code, username, route_code)
+	    VALUES
+	    <foreach collection="list" item="item" separator=",">
+	    	( #{item.personal_code}, #{item.username}, #{item.route_code})
+	    </foreach>
+	    
+	</insert>
+	
+</mapper>

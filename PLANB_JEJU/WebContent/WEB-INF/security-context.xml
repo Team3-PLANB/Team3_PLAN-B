@@ -32,11 +32,11 @@
 <security:authentication-manager>
 	<security:authentication-provider>
 		<security:jdbc-user-service data-source-ref="driverManagerDataSource"
-										users-by-username-query="select userid, pwd as password, 1 enabled from member where userid = ?"
-										authorities-by-username-query="select m.userid, r.ROLE_NAME
-																	   from member m join roll r
-																	   on m.userid = r.userid
-																	   where m.userid = ?" />
+										users-by-username-query="select username as userid, password, 1 enabled from member where username = ?"
+										authorities-by-username-query="select m.username, r.ROLE_CODE
+																	   from member m join member_role r
+																	   on m.username = r.username
+																	   where m.username = ?" />
 		<!-- <security:password-encoder ref="bCryptPasswordEncoder" /> -->
 	</security:authentication-provider>
 </security:authentication-manager>
