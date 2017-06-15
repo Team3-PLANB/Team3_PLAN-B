@@ -51,10 +51,41 @@
 <!--[if lt IE 9]>
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
+	
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#stepOneNextBtn').click(function(){
+			 $('#step1Nav').removeClass('active');
+			 $('#step1').removeClass('active');
+			 $('#step2Nav').addClass('active');
+			 $('#step2').addClass('active');
+		});
+		$('#stepTwoPrevBtn').click(function(){
+			 $('#step2Nav').removeClass('active');
+			 $('#step2').removeClass('active');
+			 $('#step1Nav').addClass('active');
+			 $('#step1').addClass('active');
+		});
+		$('#stepTwoNextBtn').click(function(){
+			 $('#step2Nav').removeClass('active');
+			 $('#step2').removeClass('active');
+			 $('#step3Nav').addClass('active');
+			 $('#step3').addClass('active');
+		});
+		$('#stepThreePrevBtn').click(function(){
+			 $('#step3Nav').removeClass('active');
+			 $('#step3').removeClass('active');
+			 $('#step2Nav').addClass('active');
+			 $('#step2').addClass('active');
+		});
+	});
+
+</script>
 
 
 
 </head>
+
 <body>
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
@@ -76,15 +107,15 @@
 
 									<!-- Nav tabs -->
 									<ul class="nav nav-tabs" role="tablist">
-										<li role="presentation" class="active"><a href="#step1"
-											aria-controls="flights" role="tab" data-toggle="tab">STEP
-												1 - 여행 일정</a></li>
-										<li role="presentation"><a href="#step2"
-											aria-controls="hotels" role="tab" data-toggle="tab">STEP
-												2 - 여행 파트너</a></li>
-										<li role="presentation"><a href="#step3"
-											aria-controls="packages" role="tab" data-toggle="tab">STEP
-												3 - 여행 취향</a></li>
+										<li role="presentation" class="active" id="step1Nav">
+											<a href="#step1" aria-controls="flights" role="tab" data-toggle="tab">STEP1 - 여행 일정</a>
+										</li>
+										<li role="presentation" id="step2Nav">
+											<a href="#step2" aria-controls="hotels" role="tab" data-toggle="tab">STEP2 - 여행 파트너</a>
+										</li>
+										<li role="presentation" id="step3Nav">
+											<a href="#step3" aria-controls="packages" role="tab" data-toggle="tab">STEP3 - 여행 취향</a>
+										</li>
 									</ul>
 
 									<!-- Tab panes -->
@@ -116,8 +147,7 @@
 													value="next" onclick="href = '#step2' "> -->
 													
 												<div  class="col-xs-12 btn btn-primary">
-												<a href="#step2"
-											aria-controls="hotels" role="tab" data-toggle="tab" style="color:white;">NEXT</a>
+												<a href="#step2" id="stepOneNextBtn" aria-controls="hotels" role="tab" data-toggle="tab" style="color:white;">NEXT</a>
 												</div>
 												
 												<!-- </div> -->
@@ -166,12 +196,12 @@
 												</div>
 												
 												<div class="col-xxs-12 col-xs-6 btn btn-primary">
-													<a href="#step1"
+													<a href="#step1" id="stepTwoPrevBtn"
 											aria-controls="flights" role="tab" data-toggle="tab" style="color:white;">PREV</a>
 												</div>
 												
 												<div class="col-xxs-12 col-xs-6  btn btn-primary">
-													<a href="#step3"
+													<a href="#step3" id="stepTwoNextBtn"
 											aria-controls="flights" role="tab" data-toggle="tab" style="color:white;">NEXT</a>
 												</div> 
 												<!-- <div class="col-xxs-12 col-xs-6 mt">
@@ -217,14 +247,13 @@
 															name="checkbox-6" id="checkbox-6">
 													</div>
 												</div>
-												<div class="col-xxs-12 col-xs-6 mt">
-													<input type="submit" class="btn btn-primary btn-block"
-														value="prev">
+												<div class="col-xxs-12 col-xs-6 btn btn-primary">
+													<a href="#step2" id="stepThreePrevBtn"
+													   aria-controls="flights" role="tab" data-toggle="tab" style="color:white;">PREV</a>
 												</div>
 												<div class="col-xxs-12 col-xs-6 mt">
-													<input type="submit" class="btn btn-primary btn-block"
-														value="경로 추천 받기"> <input type="submit"
-														class="btn btn-primary btn-block" value="내 경로 만들기">
+													<input type="submit" class="btn btn-primary btn-block" value="경로 추천 받기"> 
+													<input type="submit" class="btn btn-primary btn-block" value="내 경로 만들기">
 												</div>
 											</div>
 										</div>
