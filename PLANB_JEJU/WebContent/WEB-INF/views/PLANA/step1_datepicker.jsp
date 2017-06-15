@@ -52,6 +52,8 @@
 	<script src="js/respond.min.js"></script>
 	<![endif]-->
 
+
+
 </head>
 <body>
 	<div id="fh5co-wrapper">
@@ -107,11 +109,17 @@
 													</div>
 												</div>
 												<div class="col-xxs-12 col-xs-12 mt">
-													<h3 align="center" color="orange">총 7일</h3>
+													<h3 align="center" style="color:#807f7d;" >총 7일</h3>
 												</div>
 												<!-- <div class="col-xs-12"> -->
-												<input type="submit" class="btn btn-primary btn-block"
-													value="next">
+												<!-- <input type="button" class="btn btn-primary btn-block"
+													value="next" onclick="href = '#step2' "> -->
+													
+												<div  class="col-xs-12 btn btn-primary">
+												<a href="#step2"
+											aria-controls="flights" role="tab" data-toggle="tab" style="color:white;">NEXT</a>
+												</div>
+												
 												<!-- </div> -->
 											</div>
 										</div>
@@ -135,25 +143,25 @@
 												<div class="col-xxs-12 col-xs-6 mt">
 													<div class="input-field" align="center">
 														<img alt="" src="images/alone.png" width="100"> <br>
-														<p color="black">혼자
+														<p style="color:#807f7d;">혼자
 													</div>
 												</div>
 												<div class="col-xxs-12 col-xs-6 mt">
 													<div class="input-field" align="center">
 														<img alt="" src="images/friend.png" width="100"> <br>
-														<p>친구와
+														<p style="color:#807f7d;">친구와
 													</div>
 												</div>
 												<div class="col-xxs-12 col-xs-6 mt">
 													<div class="input-field" align="center">
 														<img alt="" src="images/couple.png" width="100"> <br>
-														<p>연인과
+														<p style="color:#807f7d;">연인과
 													</div>
 												</div>
 												<div class="col-xxs-12 col-xs-6 mt">
 													<div class="input-field" align="center">
 														<img alt="" src="images/family.png" width="100"> <br>
-														<p>가족과
+														<p style="color:#807f7d;">가족과
 													</div>
 												</div>
 												<div class="col-xxs-12 col-xs-6 mt">
