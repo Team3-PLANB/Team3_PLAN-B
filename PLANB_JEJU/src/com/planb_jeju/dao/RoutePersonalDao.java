@@ -1,5 +1,5 @@
 package com.planb_jeju.dao;
-//이거 할것 *****************************************************
+
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;

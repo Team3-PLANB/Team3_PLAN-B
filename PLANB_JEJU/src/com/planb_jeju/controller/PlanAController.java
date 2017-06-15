@@ -35,10 +35,9 @@ public class PlanAController {
 
 	}
 
-	@RequestMapping("PLANA.Marker2.do")
+	@RequestMapping("PLANA.make.tmap.do")
 	public String markerAtoB() {
-		return "PLANA.tmap_marker_a_to_b";
-
+		return "PLANA.tmap_make_route";
 	}
 	
 	
@@ -51,12 +50,12 @@ public class PlanAController {
 	}
 		
 	@RequestMapping(value="PLANA.make.do",  method=RequestMethod.POST)
-	public String routeInsertDB(Route route, String personal) throws ClassNotFoundException, SQLException {
+	public String makeSelfRoute(Route route, String personal) throws ClassNotFoundException, SQLException {
 		
 		//값이 없을 경우 처리 필요
 		//@RequestParam(value="p", defaultValue="1") int pageNumber
 		//Date date = new Date();
-		
+		System.out.println("직접 루트!!!!!!!!!!!!");
 		System.out.println("sdate: "+ route.getSday());
 		System.out.println("eday);"+ route.getEday());
 		System.out.println("파트너:"+ route.getPartner_code());
@@ -93,7 +92,56 @@ public class PlanAController {
 		RoutePersonalDao routepersonalDao = sqlsession.getMapper(RoutePersonalDao.class);
 		routepersonalDao.insert(map);
 		
-		return "PLANA.step";
-
+		//여행지 뽑아서 보낼 것
+		return "PLANA.tmap_make_route";
+	
+	}
+	
+	@RequestMapping(value="PLANA.recommend.do",  method=RequestMethod.POST)
+	public String makeRecommendRoute(Route route, String personal) throws ClassNotFoundException, SQLException {
+		
+		//값이 없을 경우 처리 필요
+		//@RequestParam(value="p", defaultValue="1") int pageNumber
+		//Date date = new Date();
+		System.out.println("추천경로!!!!!!!!!!!!!!!!!!!!!!!");
+		System.out.println("sdate: "+ route.getSday());
+		System.out.println("eday);"+ route.getEday());
+		System.out.println("파트너:"+ route.getPartner_code());
+		System.out.println("루트 이름 : "+route.getRoutename());
+		route.setUsername("a@naver.com");
+		
+		// Mybatis 적용
+		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+		routeDao.insert(route);
+		
+		//현재 루트 코드 가져오기
+		int routecode = routeDao.getRouteCode("a@naver.com");
+		
+		System.out.println("취향 체크박스 :"+personal);
+		java.util.List<RoutePersonal> routepersonal = new ArrayList();
+		
+		String[] personalList = personal.split(",");
+		
+		for (String personalcode : personalList) {
+			System.out.println(">"+personalcode+"<");
+			
+			
+			RoutePersonal rp = new RoutePersonal();
+			rp.setUsername("a@naver.com");
+			rp.setRoute_code(routecode);
+			rp.setPersonal_code(personalcode);
+			
+			routepersonal.add(rp);
+		}		
+		
+		Map<String, Object> map = new HashMap();
+		map.put("list", routepersonal);
+		
+		RoutePersonalDao routepersonalDao = sqlsession.getMapper(RoutePersonalDao.class);
+		routepersonalDao.insert(map);
+		
+		//여행루트 추천 뽑아서 보낼 것
+		return "PLANA.tmap_make_route";
+	
 	}
 }
