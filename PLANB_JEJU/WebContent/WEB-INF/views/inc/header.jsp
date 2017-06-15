@@ -23,7 +23,7 @@
 								<li><a href="${pageContext.request.contextPath}/PLANA.do">일정만들기</a></li>
 							</security:authorize> --%>
 							
-							<li><a href="${pageContext.request.contextPath}/PLANA.datepick.do">일정만들기</a></li>
+							<li><a href="${pageContext.request.contextPath}/PLANA.make.do">일정만들기</a></li>
 							
 							<li><a href="${pageContext.request.contextPath}/PostScript/index.jsp">후기게시판</a></li>
 							<!-- ROLE_USER만 : 로그인 시 보이는 탭-->

@@ -12,8 +12,11 @@ public interface RouteDao {
 	//전체 수
 	public int getCount() throws ClassNotFoundException, SQLException;
 	
+	//회원 현재 경로 번호 가져오기
+	public int getRouteCode(String username) throws ClassNotFoundException, SQLException;
+	
 	//게시물 입력
-	public int insert(Member member) throws ClassNotFoundException, SQLException;
+	public int insert(Route route) throws ClassNotFoundException, SQLException;
 	
 	//게시물 상세
 	public Member getRoute(int route_code, String username) throws ClassNotFoundException, SQLException;

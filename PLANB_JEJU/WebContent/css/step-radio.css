@@ -1,0 +1,9 @@
+@CHARSET "UTF-8";
+
+.partner-radio .selected{
+    border-color: blue;
+}
+.selected{
+	border: 2px solid lightblue;
+   
+}
