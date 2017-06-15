@@ -163,6 +163,12 @@
 			<version>2.4</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/com.sun.mail/smtp -->
+		<dependency>
+		    <groupId>com.sun.mail</groupId>
+		    <artifactId>smtp</artifactId>
+		    <version>1.5.4</version>
+		</dependency>
 		
 	</dependencies>
 	<build>
