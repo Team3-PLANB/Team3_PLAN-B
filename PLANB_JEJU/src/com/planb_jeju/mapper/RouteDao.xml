@@ -27,14 +27,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update" >
 		UPDATE route 
 		SET routename=#{routename}, 
-		    partner_code=#{partner_code}
+		    partner_code=#{partner_code},
+		    sday=#{sday},
+		    eday=#{eday}
 		WHERE route_code = #{route_code}, username =#{username}
 	</update>
 	
 	<!-- 입력 -->
 	<insert id="insert">
-		INSERT INTO route(route_code, username, routename, partner_code)
-	    VALUES( NULL, #{username}, #{routename}, #{partner_code})
+		INSERT INTO route(route_code, username, routename, partner_code, sday, eday)
+	    VALUES( NULL, #{username}, #{routename}, #{partner_code}, #{sday}, #{eday})
 	</insert>
 	
 </mapper>
