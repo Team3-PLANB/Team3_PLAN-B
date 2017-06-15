@@ -117,7 +117,7 @@
 													
 												<div  class="col-xs-12 btn btn-primary">
 												<a href="#step2"
-											aria-controls="flights" role="tab" data-toggle="tab" style="color:white;">NEXT</a>
+											aria-controls="hotels" role="tab" data-toggle="tab" style="color:white;">NEXT</a>
 												</div>
 												
 												<!-- </div> -->
@@ -164,20 +164,27 @@
 														<p style="color:#807f7d;">가족과
 													</div>
 												</div>
-												<div class="col-xxs-12 col-xs-6 mt">
-													<input type="submit" class="btn btn-primary btn-block"
-														value="prev">
+												
+												<div class="col-xxs-12 col-xs-6 btn btn-primary">
+													<a href="#step1"
+											aria-controls="flights" role="tab" data-toggle="tab" style="color:white;">PREV</a>
 												</div>
-												<div class="col-xxs-12 col-xs-6 mt">
+												
+												<div class="col-xxs-12 col-xs-6  btn btn-primary">
+													<a href="#step3"
+											aria-controls="flights" role="tab" data-toggle="tab" style="color:white;">NEXT</a>
+												</div> 
+												<!-- <div class="col-xxs-12 col-xs-6 mt">
 													<input type="submit" class="btn btn-primary btn-block"
 														value="next">
-												</div>
+												</div>  -->
 											</div>
 										</div>
 
 
 
-
+											
+												
 
 
 
