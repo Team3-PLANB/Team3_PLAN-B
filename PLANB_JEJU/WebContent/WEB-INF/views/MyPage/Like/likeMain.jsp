@@ -3,69 +3,65 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="../myPageMain.jsp"></jsp:include>
 
-    <link rel="shortcut icon" href="favicon.ico">
+<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+	<link rel="shortcut icon" href="favicon.ico">
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
 	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="../../css/animate.css">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="../../css/icomoon.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="../../css/bootstrap.css">
 	<!-- Superfish -->
-	<link rel="stylesheet" href="css/superfish.css">
+	<link rel="stylesheet" href="../../css/superfish.css">
 	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="../../css/magnific-popup.css">
 	<!-- Date Picker -->
-	<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" href="../../css/bootstrap-datepicker.min.css">
 	<!-- CS Select -->
-	<link rel="stylesheet" href="css/cs-select.css">
-	<link rel="stylesheet" href="css/cs-skin-border.css">
+	<link rel="stylesheet" href="../../css/cs-select.css">
+	<link rel="stylesheet" href="../../css/cs-skin-border.css">
 	
-	<link rel="stylesheet" href="css/style.css">
+	<link rel="stylesheet" href="../../css/style.css">
 
 
+	<!-- Modernizr JS -->
+	<script src="js/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+	<script src="js/respond.min.js"></script>
+	<![endif]-->
 
-<div id="fh5co-tours" class="fh5co-section-gray">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="#"><img src="${pageContext.request.contextPath}/images/place-1.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-							<div class="desc">
-								<span></span>
-								<h3>New York</h3>
-								<span>3 nights + Flight 5*Hotel</span>
-								<span class="price">$1,000</span>
-								<a class="btn btn-primary btn-outline" href="#">Book Now <i class="icon-arrow-right22"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="#"><img src="${pageContext.request.contextPath}/images/place-2.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-							<div class="desc">
-								<span></span>
-								<h3>Philippines</h3>
-								<span>4 nights + Flight 5*Hotel</span>
-								<span class="price">$1,000</span>
-								<a class="btn btn-primary btn-outline" href="#">Book Now <i class="icon-arrow-right22"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="#"><img src="${pageContext.request.contextPath}/images/place-3.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-							<div class="desc">
-								<span></span>
-								<h3>Hongkong</h3>
-								<span>2 nights + Flight 4*Hotel</span>
-								<span class="price">$1,000</span>
-								<a class="btn btn-primary btn-outline" href="#">Book Now <i class="icon-arrow-right22"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-12 text-center animate-box fadeInUp animated">
-						<p><a class="btn btn-primary btn-outline btn-lg" href="#">See All Offers <i class="icon-arrow-right22"></i></a></p>
-					</div>
+<div class="container">
+
+	<div class="row row-bottom-padded-md">
+		<div class="col-md-6 animate-box">
+			<div class="car">
+				<div class="one-4">
+					<h3>Economy</h3>
+					<span class="price">$100<small> / day</small></span> <span
+						class="price">$200<small> / week</small></span> <span
+						class="price">$250<small> / mos.</small></span> <span
+						class="price">$350<small> Total (Tax incl.)</small></span>
+				</div>
+				<div class="one-1" style="background-image: url(images/car-1.jpg);">
 				</div>
 			</div>
 		</div>
+		<div class="col-md-6 animate-box">
+			<div class="car">
+				<div class="one-4">
+					<h3>Economy</h3>
+					<span class="price">$100<small> / day</small></span> <span
+						class="price">$200<small> / week</small></span> <span
+						class="price">$250<small> / mos.</small></span> <span
+						class="price">$350<small> Total (Tax incl.)</small></span>
+				</div>
+				<div class="one-1" style="background-image: url(images/car-2.jpg);">
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
