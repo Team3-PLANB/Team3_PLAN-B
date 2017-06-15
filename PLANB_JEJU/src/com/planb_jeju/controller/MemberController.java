@@ -59,12 +59,6 @@ public class MemberController {
 		System.out.println("확인 : "+member.toString());
 	}
 
-	//회원가입시 아이디 체크 (비동기)
-	@RequestMapping("/duplicationCheck.nn")
-	public @ResponseBody String duplicationCheck(String email) throws Exception {
-		memberDao = sqlsession.getMapper(MemberDao.class);
-		return memberservice.duplicationCheck(email);
-	}
 	
 	/*
 	 * //글삭제하기

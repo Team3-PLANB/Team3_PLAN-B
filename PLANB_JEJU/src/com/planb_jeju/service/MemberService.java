@@ -28,18 +28,20 @@ public class MemberService {
 	}
 	
 	// 메일 보내기
-	public void sendEmail(String email, String authNum){
+	public void sendEmail(String username, String authNum){
 		
 	}
 	
 	// 회원가입 시 아이디체크
-	public String duplicationCheck(String email) throws Exception {
+	public String duplicationCheck(String username) throws Exception {
 		String result;
 		MemberDao memberdao = sqlsession.getMapper(MemberDao.class);
-		if(memberdao.checkEmail(email) > 0) {
+		if(memberdao.checkEmail(username) > 0) {
 			result = "false";
+			// 아이디 중복 O
 		} else {
 			result = "true";
+			// 아이디 중복 X
 		}
 		return result;
 	}
