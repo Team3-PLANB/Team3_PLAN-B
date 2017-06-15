@@ -202,6 +202,7 @@
 						</div>
 					</div>
 					
+					<!-- 소셜계정 로그인 -->
 					<div class="col-sm-5 col-md-5"  style="margin-left:180px;" id="social_login" >
 						<div class="tabulation animate-box fadeInUp animated" >
 							<div class="tab-content" >
@@ -211,7 +212,7 @@
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
 											<div class="input-field" >
 												<label for="password">소셜 계정으로 로그인</label> 
-												<a onclick="login()">
+												<a class = "btn btn-facebook" onclick="login()">
 													<img src="<%=request.getContextPath() %>/images/logo/001-facebook-2.png">
 												</a>
 												<a href="">
