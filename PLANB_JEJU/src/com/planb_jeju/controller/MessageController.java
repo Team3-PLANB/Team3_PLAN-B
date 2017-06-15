@@ -43,8 +43,8 @@ public class MessageController {
 		}
 	}*/
 
-	//글 상세 보기
-	@RequestMapping("Member/insert.do")
+	/*//글 상세 보기
+	@RequestMapping("Member/insert.do")*/
 	public void memberDetail() throws ClassNotFoundException, SQLException {
 
 		//Notice notice = noticeDao.getNotice(seq);
