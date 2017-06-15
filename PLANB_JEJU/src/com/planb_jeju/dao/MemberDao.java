@@ -8,19 +8,19 @@ import com.planb_jeju.dto.Member;
 //CRUD
 public interface MemberDao {
 	
-	//전체 수
+	//회원 전체 수
 	public int getCount() throws ClassNotFoundException, SQLException;
 	
-	//게시물 입력
+	//회원가입
 	public int insert(Member member) throws ClassNotFoundException, SQLException;
 	
-	//게시물 상세
+	//회원 정보
 	public Member getMember(String username) throws ClassNotFoundException, SQLException;
 		
-	//게시물 수정
+	//회원정보 수정
 	public int update(Member member) throws ClassNotFoundException, SQLException;
 	
-	//게시물 삭제
+	//회원 삭제
 	public int delete(String username) throws ClassNotFoundException, SQLException;
 	
 	
