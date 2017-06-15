@@ -86,7 +86,19 @@
 		    
 		    $('#partner_code').val($(this).attr('data-value'));
 		});
+		
+		
 	});
+	
+	function Submit(index) {
+	    if (index == 1) {
+		    /*   document.myForm.action="${pageContext.request.contextPath}/PLANA.recommend.do"; //실패한 방법*/
+		    //$('#[아이디]').attr("action","[경로]");
+	    	$("#form").attr("action", "${pageContext.request.contextPath}/PLANA.recommend.do");
+	    }
+	    /* document.myForm.submit(); //실패한 방법 */
+	    $('#form').submit();
+	  }
 </script>
 
 
@@ -95,7 +107,7 @@
 
 <body>
 
-	<form action="" method="post">
+	<form action="" method="post" id="form">
 
 		<div id="fh5co-wrapper">
 			<div id="fh5co-page">
@@ -393,9 +405,12 @@
 													
 													
 													<div class="col-xxs-12 col-xs-6 mt">
-														<input type="submit" class="btn btn-primary btn-block"
-															value="경로 추천 받기"> <input type="submit"
-															class="btn btn-primary btn-block" value="내 경로 만들기">
+														<input type="submit" 
+															class="btn btn-primary btn-block"
+															value="내 경로 만들기" onclick='Submit()'> 
+														<input type="submit"
+															class="btn btn-primary btn-block" 
+															value="경로 추천 받기" onclick='Submit(1)'>
 													</div>
 
 													<!-- </div> -->
@@ -411,6 +426,8 @@
 				</div>
 			</div>
 			<!-- END fh5co-page -->
+
+			
 
 		</div>
 

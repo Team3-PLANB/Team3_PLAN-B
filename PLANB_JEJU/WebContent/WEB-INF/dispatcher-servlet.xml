@@ -12,6 +12,13 @@
 <context:component-scan base-package="com.planb_jeju.controller" />
 
 
+<!-- 빈네임 뷰 리졸버 설정 -->
+<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
+	<property name="order" value="0"/>
+</bean>
+
+<!--  -->
+
 <!--  Tiles 설정하기 -->
 <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
  <property name="definitions">
