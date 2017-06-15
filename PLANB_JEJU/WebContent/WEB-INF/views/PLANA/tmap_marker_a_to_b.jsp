@@ -271,7 +271,7 @@ $( function() {
         </script>
 </head>
 
-<a href="${pageContext.request.contextPath}/PLANA.datepick.do">일정 만들기 step1</a><br>
+
 
 <div id= "body_map">
 	<div id="map_div" style="float : left; position : absolute "></div>

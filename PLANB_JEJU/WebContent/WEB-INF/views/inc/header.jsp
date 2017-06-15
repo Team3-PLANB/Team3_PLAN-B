@@ -13,16 +13,17 @@
 						<ul class="sf-menu sf-js-enabled sf-arrows" id="fh5co-primary-menu" style="touch-action: pan-y;">
 							<li class="active"><a href="${pageContext.request.contextPath}/index.jsp">HOME</a></li>
 							<!-- ROLE_USER만 : 클릭 시 로그인 페이지로 이동 > 수정할거야 -->
-							<security:authorize access ="isAnonymous()">							
+							<%-- <security:authorize access ="isAnonymous()">							
 								<li>
 									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">일정만들기</a>
 								</li>
-							</security:authorize>
-							<security:authorize access="isAuthenticated()">
+							</security:authorize> --%>
+							<%-- <security:authorize access="isAuthenticated()">
 								<li><a href="${pageContext.request.contextPath}/PLANA.do">일정만들기</a></li>
-							</security:authorize>
-<%-- 							<li><a href="${pageContext.request.contextPath}/PLANA.do">일정만들기</a></li> --%>
-
+							</security:authorize> --%>
+							
+							<li><a href="${pageContext.request.contextPath}/PLANA.datepick.do">일정만들기</a></li>
+							
 							<li><a href="${pageContext.request.contextPath}/PostScript/index.jsp">후기게시판</a></li>
 							<!-- ROLE_USER만 : 로그인 시 보이는 탭-->
 						 	<security:authorize access="hasRole('ROLE_USER')">	
