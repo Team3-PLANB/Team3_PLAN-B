@@ -38,12 +38,12 @@ public class MemberService {
 	}
 	
 	// 메일 보내기
-	public void sendEmail(String email, String authNum){
+	public void sendEmail(String username, String authNum){
 		String host = "smtp.gmail.com"; // smtp 서버
 		String subject = "PLAN'B JEJU 이메일 인증 서비스";
 		String fromName = "플랜비 제주 관리자";
 		String from = "dahye9666@gmail.com"; // 보내는 메일
-		String to1 = email;
+		String to1 = username;
 		
 		String content = "인증번호[" + authNum + "]";
 		
@@ -74,7 +74,7 @@ public class MemberService {
 			
 			msg.setFrom(new InternetAddress(from, MimeUtility.encodeText(fromName,"UTF-8","B"))); //보내는 사람 설정
 
-			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(email)); // 받는 사람 설정
+			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(username)); // 받는 사람 설정
 			msg.setSubject(subject); // 제목 설정
 			msg.setSentDate(new java.util.Date()); // 보내는 날짜 설정
 			msg.setContent(content, "text/html;charset=utf-8"); // 내용 설정(HTML 형식)

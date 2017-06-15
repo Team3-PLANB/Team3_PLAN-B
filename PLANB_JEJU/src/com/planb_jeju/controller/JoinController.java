@@ -71,14 +71,14 @@ public class JoinController {
 	public Model emailAuth(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 	System.out.println(">>>>>>>Email_controller<<<<<<<");
 		
-		String email = request.getParameter("email");
+		String username = request.getParameter("username");
 		String authNum = "";
 		
 		authNum = memberservice.RandomNum();
 		
-		memberservice.sendEmail(email.toString(), authNum);
+		memberservice.sendEmail(username.toString(), authNum);
 		
-		model.addAttribute("email", email);
+		model.addAttribute("username", username);
 		model.addAttribute("authNum", authNum);
 		
 		return model;
