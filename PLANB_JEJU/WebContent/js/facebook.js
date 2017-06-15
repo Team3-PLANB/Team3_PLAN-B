@@ -87,7 +87,7 @@ function login() {
 													if (result == false) { // 중복된 값을 타면 로그인이 된다.
 															$.ajax({
 																type : "post",
-																url : "fblogin.nn",
+																url : "fblogin.do",
 																data : {"userid" : username},
 																success : function(result) {// 로그인성공
 																	document.getElementById('username').value = username;
@@ -114,7 +114,7 @@ function login() {
 																},
 																success : function() {
 																		alert('회원가입 완료! 로그인해주세요.');
-																		location.href = "index.jsp";
+																		location.href = "LoginJoin/Login/NLogin/loginForm.jsp";
 																},
 																error : function(error) {
 																		alert('error!');

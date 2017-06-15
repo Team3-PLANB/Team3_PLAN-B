@@ -48,6 +48,44 @@
 	});
 </script>
  -->
+ 
+ <script>
+ 	var username = $('#username').value;
+ 	$(document).ready(function(){
+ 		$('#authNumSend').click(function(){
+ 			$.ajax({
+ 				type : "get",
+				url : '<%= request.getContentLength() %>/LoginJoin/Join/emailAuth.do',
+				data : {"username" : username},
+				dataType : "json",
+				success : function(result) {
+					if (!result) { 
+						console.log("잘못된 값");
+					}else {
+						console.log(result);
+					}
+				}
+ 			});
+ 		});
+ 	});
+	function check(){
+		var form = document.authenform;
+		var authNum = ${authNum};
+		
+		if(!form.authnum.value){
+			alert("인증번호를 입력하세요");
+			return false;
+		}else if(form.authnum.value != authNum){
+			alert("인증번호가 맞지 않습니다. 확인해주세요.");
+			form.authnum.value="";
+			return false;
+		}else if(form.authnum.value==authNum){
+			alert("인증완료");
+			self.close();
+		}
+	}
+</script>
+ 
 <title>PLAN'B JEJU 함께하기</title>
 	<!-- Animate.css -->
 	<link rel="stylesheet" href="css/animate.css">
@@ -108,10 +146,13 @@
 							<div class="tab-content">
 								<div role="tabpanel" class="tab-pane active" id="joinform">
 									<form action="" class="row" id = "frm" method="POST" >
-										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;">
-											<div class="input-field">
+										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;width:100%;">
+											<div class="input-field" >
 												<label for="email">이메일</label> 
-												<input type="text"	class="form-control" name = "username" id="username" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
+													<div>
+														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
+														<input type="button" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
+													</div>
 												<div class = "email-msg" id="email-msg"></div>
 											</div>
 										</div>
@@ -174,10 +215,12 @@
 								<div role="tabpanel" class="tab-pane active" id="social_jo">
 									<div class="row" >
 										<div class="col-xxs-12 col-xs-6 mt" >
-											<div class="input-field" > 
-												<input type="text"	class="form-control" id="e_cknum"
-													placeholder="이메일 인증 번호를 입력해주세요" style="margin-left:30%;">
-												<button class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "signupBtn">이메일 인증하기</button>
+											<div class="input-field" >
+												<form method="post" name="authenform" onSubmit="return check();">
+													<input type="text"	class="form-control" id="e_cknum" name="authnum"
+														placeholder="인증 번호 7자리를 입력해주세요" style="margin-left:30%;">
+													<input type="submit" class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "authNumCheck" value="이메일 인증하기">
+												</form>
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
