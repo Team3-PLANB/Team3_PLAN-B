@@ -15,9 +15,8 @@ public interface MemberDao {
 	public int insert(Member member) throws ClassNotFoundException, SQLException;
 	
 	//회원가입 시 이메일 중복확인
-/*	public int checkEmail(String username) {
-		
-	}*/
+	public int checkEmail(String username) throws ClassNotFoundException, SQLException;
+	
 	//회원 정보
 	public Member getMember(String username) throws ClassNotFoundException, SQLException;
 		

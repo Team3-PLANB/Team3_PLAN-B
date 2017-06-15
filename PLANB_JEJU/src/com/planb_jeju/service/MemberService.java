@@ -1,9 +1,12 @@
 package com.planb_jeju.service;
 
+import java.sql.SQLException;
 import java.util.Random;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import com.planb_jeju.dao.MemberDao;
 
 public class MemberService {
 	@Autowired
@@ -27,5 +30,17 @@ public class MemberService {
 	// 메일 보내기
 	public void sendEmail(String email, String authNum){
 		
+	}
+	
+	// 회원가입 시 아이디체크
+	public String duplicationCheck(String email) throws Exception {
+		String result;
+		MemberDao memberdao = sqlsession.getMapper(MemberDao.class);
+		if(memberdao.checkEmail(email) > 0) {
+			result = "false";
+		} else {
+			result = "true";
+		}
+		return result;
 	}
 }
