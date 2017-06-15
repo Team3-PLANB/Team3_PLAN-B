@@ -23,7 +23,7 @@ public class MyPageController {
 	@RequestMapping("MyPage/History/history.do")
 	public String history(){
 		System.out.println("MyPage/History/history.do 컨트롤러 들어옴");
-		return "MyPage.History.historyMain.do";
+		return "MyPage.History.historyMain";
 	}
 	
 	/* 나의 후기 메인 - postMain() */
