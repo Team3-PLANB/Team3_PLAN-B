@@ -113,11 +113,26 @@ public class MemberService {
 		System.out.println(memberDao);
 		if(memberDao.checkEmail(username) > 0) {
 			result = "false"; // 아이디 중복 O
+		} else {
+			result = "true"; // 아이디 중복 X
+		}
+		return result;
+	}
+	
+/*	public static String duplicationCheck(String username, SqlSession sqlsession) throws Exception {
+		String result;
+		System.out.println("service<<<<<<<<<<");
+		System.out.println("값 확인"+sqlsession);
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		
+		System.out.println(memberDao);
+		if(memberDao.checkEmail(username) > 0) {
+			result = "false"; // 아이디 중복 O
 			System.out.println(">>>>>>>false<<<<<<");
 		} else {
 			result = "true"; // 아이디 중복 X
 			System.out.println(">>>>>>>true<<<<<<");
 		}
 		return result;
-	}
+	}*/
 }

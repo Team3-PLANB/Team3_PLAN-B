@@ -92,7 +92,7 @@ function emailCheck() {
 					}
 				},
 				error : function(xhr) {
-					console.log('이상이상');
+					console.log('해당 페이지에 문제가 발생하였습니다.');
 				}
 			});
 	return false;

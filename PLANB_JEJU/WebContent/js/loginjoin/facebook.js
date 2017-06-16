@@ -1,5 +1,3 @@
-//기본세팅 start
-
 // 자바스크립트 SDK를 초기화 후  FB.getLoginStatus()를 호출
 //웹페이지를 로드할때 로그인 상태인지 체크해준다.
 window.fbAsyncInit = function() {
@@ -14,7 +12,6 @@ window.fbAsyncInit = function() {
 	FB.getLoginStatus(function(response) {
 		statusChangeCallback(response);
 	});
-
 };
 
 // 기본적으로 페이스북과 연동하는 세팅
