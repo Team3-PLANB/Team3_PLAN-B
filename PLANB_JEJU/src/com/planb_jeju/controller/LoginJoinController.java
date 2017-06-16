@@ -63,9 +63,10 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Join/duplicationCheck.do")
 	public @ResponseBody String duplicationCheck(String username) throws Exception {
+		System.out.println("duplicationCKcontroller");
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		System.out.println(memberservice.duplicationCheck(username));
-		return memberservice.duplicationCheck(username);
+		String result = memberservice.duplicationCheck(username, sqlsession);
+		return result;
 	}
 	
 	/*

@@ -30,10 +30,13 @@ import com.planb_jeju.dao.MemberDao;
 
 @Service
 public class MemberService {
-	@Autowired
-	private SqlSession sqlsession;
 	
-	MemberService memberservice;
+	private static MemberDao memberDao;
+	
+	@Autowired
+	private static SqlSession sqlsession;
+	
+	/*MemberService memberservice;*/
 	
 	/*// 7자리 영문+숫자 랜덤코드 만들기
 	public String RandomNum(){
@@ -101,11 +104,29 @@ public class MemberService {
 	}*/
 	
 	// 회원가입 시 아이디체크
-	public String duplicationCheck(String username) throws Exception {
+	public static String duplicationCheck(String username, SqlSession sqlsession) throws Exception {
 		String result;
-		MemberDao memberdao = sqlsession.getMapper(MemberDao.class);
-		System.out.println(memberdao);
-		if(memberdao.checkEmail(username) > 0) {
+		System.out.println("service<<<<<<<<<<");
+		System.out.println("값 확인"+sqlsession);
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		
+		System.out.println(memberDao);
+		if(memberDao.checkEmail(username) > 0) {
+			result = "false"; // 아이디 중복 O
+		} else {
+			result = "true"; // 아이디 중복 X
+		}
+		return result;
+	}
+	
+/*	public static String duplicationCheck(String username, SqlSession sqlsession) throws Exception {
+		String result;
+		System.out.println("service<<<<<<<<<<");
+		System.out.println("값 확인"+sqlsession);
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		
+		System.out.println(memberDao);
+		if(memberDao.checkEmail(username) > 0) {
 			result = "false"; // 아이디 중복 O
 			System.out.println(">>>>>>>false<<<<<<");
 		} else {
@@ -113,5 +134,5 @@ public class MemberService {
 			System.out.println(">>>>>>>true<<<<<<");
 		}
 		return result;
-	}
+	}*/
 }
