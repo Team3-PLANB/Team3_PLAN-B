@@ -97,10 +97,10 @@ public class LoginJoinController {
 	* @date : 2017. 6. 16
 	* @description : 회원가입 시 메일 인증
 	* @return : Model(Ajax 처리)
-	* @param spec : HttpServletRequest request, HttpServletResponse response, Model model
+	* @param spec : HttpServletRequest request
 	*/
 	@RequestMapping("Join/emailAuth.do")
-	public @ResponseBody String emailAuth(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public @ResponseBody String emailAuth(HttpServletRequest request) throws Exception{
 	System.out.println(">>>>>>>Email_controller<<<<<<<");
 		
 		String username = request.getParameter("username");
@@ -108,7 +108,7 @@ public class LoginJoinController {
 		String authNum = "";
 		System.out.println("랜덤 시작");
 		authNum = memberservice.RandomNum();
-		System.out.println("랜덤 끝");
+		System.out.println("랜덤 끝 / authNum : " + authNum);
 		System.out.println("메일 보내기 시작");
 		memberservice.sendEmail(username.toString(), authNum);
 		System.out.println("메일 보내기 끝");

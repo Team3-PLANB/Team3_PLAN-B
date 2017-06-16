@@ -6,25 +6,7 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link rel="shortcut icon" href="favicon.ico">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
- <script>
-	
-	function check(){
-		var form = document.authenform;
-		var authNum = ${authNum};
-		
-		if(!form.authnum.value){
-			alert("인증번호를 입력하세요");
-			return false;
-		}else if(form.authnum.value != authNum){
-			alert("인증번호가 맞지 않습니다. 확인해주세요.");
-			form.authnum.value="";
-			return false;
-		}else if(form.authnum.value==authNum){
-			alert("인증완료");
-			self.close();
-		}
-	}
-</script>
+
  
 <title>PLAN'B JEJU 함께하기</title>
 	<!-- Animate.css -->
@@ -157,11 +139,10 @@
 									<div class="row" >
 										<div class="col-xxs-12 col-xs-6 mt" >
 											<div class="input-field" >
-												<form method="post" name="authenform" onSubmit="return check();">
-													<input type="text"	class="form-control" id="e_cknum" name="authnum"
+												<input type="text"	class="form-control" id="authnum" name="authnum"
 														placeholder="인증 번호 7자리를 입력해주세요" style="margin-left:30%;">
-													<input type="submit" class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "authNumCheck" value="이메일 인증하기">
-												</form>
+												<input type="submit" onclick="authNumCheck()" class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "authNumCheck" value="이메일 인증하기">
+												
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
