@@ -6,50 +6,8 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link rel="shortcut icon" href="favicon.ico">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-<!-- <style type="text/css">
-	input[type="password"] {
-		background: rgba(0, 0, 0, 0.05);
-		border: none;
-		box-shadow: none;
-		font-weight: bold;
-		font-size: 14px;
-		padding: 5px 10px !important;
-		-webkit-border-radius: 0;
-		-moz-border-radius: 0;
-		-ms-border-radius: 0;
-		border-radius: 0;
-		width: 150%;
-		color: #F78536 !important;
-	}
-	input[type="text"]{
-		width: 150%;
-	}
-	img{
-		width: 45px;
-		height: 45px;
-		border-radius: 8px;
-		margin:3px;
-	}
-</style>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-		$('#social_login').hide();
-		$('.nav').find('#login_tab').click(function(){
-			$('#social_join').hide();
-			$('#social_login').show();
-		});
-		$('.nav').find('#join_tab').click(function(){
-			$('#social_login').hide();
-			$('#social_join').show();
-		});
-	});
-</script>
- -->
- 
  <script>
- 	
- 	
+	
 	function check(){
 		var form = document.authenform;
 		var authNum = ${authNum};
@@ -87,10 +45,9 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="../../css/join.css">
 
-	<script src="${pageContext.request.contextPath}/js/joinCheck.js"></script>
+	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
 	<script src="${pageContext.request.contextPath}/js/email.js"></script>
-	<script src="${pageContext.request.contextPath}/js/facebook.js" ></script>
-	<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
+	<script src="${pageContext.request.contextPath}/js/loginjoin/facebook.js" ></script>
 
  <%
     String clientId = "q6YKhoTAKENem9wjtax9";//애플리케이션 클라이언트 아이디값";

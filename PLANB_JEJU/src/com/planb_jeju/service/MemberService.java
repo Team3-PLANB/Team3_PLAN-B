@@ -13,6 +13,7 @@ package com.planb_jeju.service;
 import java.util.Properties;
 import java.util.Random;
 
+import javax.mail.Authenticator;
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
@@ -30,13 +31,14 @@ import com.planb_jeju.dao.MemberDao;
 
 @Service
 public class MemberService {
+	
+	private static MemberDao memberDao;
+	
 	@Autowired
-	private SqlSession sqlsession;
+	private static SqlSession sqlsession;
 	
-	MemberService memberservice;
-	
-	/*// 7자리 영문+숫자 랜덤코드 만들기
-	public String RandomNum(){
+	// 7자리 영문+숫자 랜덤코드 만들기
+	public String RandomNum() {
 		System.out.println("랜덤 만들기1");
 		Random rnd = new Random();
 		StringBuffer buf = new StringBuffer();
@@ -48,64 +50,83 @@ public class MemberService {
 				buf.append((rnd.nextInt(10)));
 			}
 		}
-		System.out.println("랜덤 만들기:"+buf.toString());
+		System.out.println("랜덤 만들기:" + buf.toString());
 		return buf.toString();
 	}
-	
+
 	// 메일 보내기
-	public void sendEmail(String username, String authNum){
+	public void sendEmail(String username, String authNum) {
 		String host = "smtp.gmail.com"; // smtp 서버
-		String subject = "PLAN'B JEJU 이메일 인증 서비스";
+		String title = "PLAN'B JEJU 이메일 인증 서비스";
 		String fromName = "플랜비 제주 관리자";
 		String from = "dahye9666@gmail.com"; // 보내는 메일
-		String to1 = username;
-		
+		String to = username;
+
 		String content = "인증번호[" + authNum + "]";
-		
-		try{
+
+		try {
+			System.out.println("sendEmail() 들어옴 : " + to);
 			Properties props = new Properties();
 			// gmail SMTP 사용 시
-			props.put("mail.smtp.user", "dahye9666@gmail.com"); //구글 계정
+			props.put("mail.smtp.user", from); // 구글 계정
 			props.put("mail.smtp.starttls.enable", "true");
 			props.put("mail.transport.protoclol", "smtp");
 			props.put("mail.smtp.host", host);
-			props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			props.put("mail.smtp.port", "465");
-			props.put("mail.smtp.user", from);
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.debug", "true");
 			props.put("mail.smtp.socketFactory.port", "465");
+			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			props.put("mail.smtp.socketFactory.fallback", "false");
 
-			
-			Session mailSession = Session.getInstance(props, new javax.mail.Authenticator(){
-				protected PasswordAuthentication getPasswordAuthentication(){
-					return new PasswordAuthentication("dahye9666","coolcoolzz96");
+			System.out.println("프로퍼티 설정됨");
+
+			Session mailSession = Session.getInstance(props, new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication("dahye9666", "mphntnmsefesoafw");
 				}
 			});
+
+			System.out.println("[ 상세상황 출력 ]");
 			mailSession.setDebug(true); // 메일을 전송할 때 상세한 상황을 콘솔에 출력한다.
 			Message msg = new MimeMessage(mailSession);
-			msg.setSubject(subject);
-			
-			msg.setFrom(new InternetAddress(from, MimeUtility.encodeText(fromName,"UTF-8","B"))); //보내는 사람 설정
-
-			msg.setRecipient(Message.RecipientType.TO, new InternetAddress(username)); // 받는 사람 설정
-			msg.setSubject(subject); // 제목 설정
+			msg.setSubject(title); // 제목 설정
+			msg.setFrom(new InternetAddress(from,fromName)); // 보내는 사람 메일 주소
+			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); // 받는 사람 설정
 			msg.setSentDate(new java.util.Date()); // 보내는 날짜 설정
 			msg.setContent(content, "text/html;charset=utf-8"); // 내용 설정(HTML 형식)
-			Transport.send(msg); //메일 보내기
-			
-		}catch(Exception e){
+			Transport.send(msg); // 메일 보내기
+
+		} catch (Exception e) {
+			System.out.println("exception 발생");
 			e.printStackTrace();
 		}
-	}*/
+	}
 	
 	// 회원가입 시 아이디체크
-	public String duplicationCheck(String username) throws Exception {
+	public static String duplicationCheck(String username, SqlSession sqlsession) throws Exception {
 		String result;
-		MemberDao memberdao = sqlsession.getMapper(MemberDao.class);
-		System.out.println(memberdao);
-		if(memberdao.checkEmail(username) > 0) {
+		System.out.println("service<<<<<<<<<<");
+		System.out.println("값 확인"+sqlsession);
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		
+		System.out.println(memberDao);
+		if(memberDao.checkEmail(username) > 0) {
+			result = "false"; // 아이디 중복 O
+		} else {
+			result = "true"; // 아이디 중복 X
+		}
+		return result;
+	}
+	
+/*	public static String duplicationCheck(String username, SqlSession sqlsession) throws Exception {
+		String result;
+		System.out.println("service<<<<<<<<<<");
+		System.out.println("값 확인"+sqlsession);
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		
+		System.out.println(memberDao);
+		if(memberDao.checkEmail(username) > 0) {
 			result = "false"; // 아이디 중복 O
 			System.out.println(">>>>>>>false<<<<<<");
 		} else {
@@ -113,5 +134,5 @@ public class MemberService {
 			System.out.println(">>>>>>>true<<<<<<");
 		}
 		return result;
-	}
+	}*/
 }
