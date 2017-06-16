@@ -1,5 +1,15 @@
 package com.planb_jeju.controller;
 
+/*
+* @FileName : PostScriptController.java
+* @Class : PostScriptController
+* @Project : PLANB_JEJU
+* @Date : 2017.06.16
+* @LastEditDate : 2017.06.16
+* @Author : 강나영
+* @Desc : 후기 게시판 ui연결 /
+*/
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -24,53 +34,24 @@ import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
 
 
-//폴더 경로가 긴 경우
-///customer/notice.htm => notice.htm (함수 mapping)
-///customer/noticeDetail.html  =>noticeDetail.html
 @Controller
+@RequestMapping("PostScript/Root")
 public class PostScriptController {
 
-	
+/*	
 	private static MemberDao memberDao;
 
 	@Autowired
-	private SqlSession sqlsession;
+	private SqlSession sqlsession;*/
 	
-	/*public MemberController(){
-		if(memberDao == null){
-			// Mybatis 적용
-			memberDao = sqlsession.getMapper(MemberDao.class);
-		}
-	}*/
 
-	/*//글 상세 보기
-	@RequestMapping("Member/insert.do")*/
-	public void memberDetail() throws ClassNotFoundException, SQLException {
-
-		//Notice notice = noticeDao.getNotice(seq);
-		//model.addAttribute("notice",notice );
-
-		// Mybatis 적용
-		memberDao = sqlsession.getMapper(MemberDao.class);
+	@RequestMapping("/List.do")
+	public String memberDetail() throws ClassNotFoundException, SQLException {
 		
-	
-		Member member = memberDao.getMember("a@naver.com");
-		System.out.println("확인 : "+member.toString());
-		
-		/*int i = memberDao.getCount();
-		System.out.println("확인용"+i);*/
+		return "PostScript.Root.listBoard";	
 
 	}
 
-	/*
-	 * //글삭제하기
-	 * 
-	 * @RequestMapping("noticeDel.htm") public String noticeDel(String seq)
-	 * throws ClassNotFoundException, SQLException{
-	 * 
-	 * //noticeDao.delete(seq); //Mybatis 적용 NoticeDao noticeDao =
-	 * sqlsession.getMapper(NoticeDao.class); noticeDao.delete(seq); return
-	 * "redirect:notice.htm"; //location.href 동일 }
-	 */
+
 
 }

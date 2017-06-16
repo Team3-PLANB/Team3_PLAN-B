@@ -9,7 +9,11 @@ import com.planb_jeju.dto.Route;
 //CRUD
 public interface RouteDao {
 	
-	//전체 수
+	/*	
+	 * @description : 전체 수
+	 * @return : int
+	 * @param spec : x
+	 */
 	public int getCount() throws ClassNotFoundException, SQLException;
 	
 	//회원 현재 경로 번호 가져오기

@@ -6,7 +6,12 @@ import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.SitePostscript;
 
 public interface SitePostScriptDao {
-	//전체 수
+	
+	/*	
+	 * @description : 전체 수
+	 * @return : int
+	 * @param spec : x
+	 */
 	public int getCount() throws ClassNotFoundException, SQLException;
 	
 	//게시물 입력

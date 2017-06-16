@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
@@ -89,10 +87,10 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="../../css/join.css">
 
-	<script src="../../js/joinCheck.js"></script>
-	<script src="../../js/email.js"></script>
-	<script src="../../js/facebook.js" ></script>
-	<script src="../../js/sweetalert.min.js" ></script>
+	<script src="${pageContext.request.contextPath}/js/joinCheck.js"></script>
+	<script src="${pageContext.request.contextPath}/js/email.js"></script>
+	<script src="${pageContext.request.contextPath}/js/facebook.js" ></script>
+	<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
 
  <%
     String clientId = "q6YKhoTAKENem9wjtax9";//애플리케이션 클라이언트 아이디값";

@@ -1,5 +1,15 @@
 package com.planb_jeju.controller;
 
+/*
+* @FileName : 수정 필
+* @Class : LoginJoinController
+* @Project : PLANB_JEJU
+* @Date : 2017.06.07
+* @LastEditDate : 2017.06.16
+* @Author : 정다혜, 홍단비 
+* @Desc : 회원가입  / 로그인   컨트롤러
+*/
+
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
