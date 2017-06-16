@@ -91,7 +91,7 @@ public class MemberService {
 			mailSession.setDebug(true); // 메일을 전송할 때 상세한 상황을 콘솔에 출력한다.
 			Message msg = new MimeMessage(mailSession);
 			msg.setSubject(title); // 제목 설정
-			msg.setFrom(new InternetAddress(from)); // 보내는 사람 메일 주소
+			msg.setFrom(new InternetAddress(from,fromName)); // 보내는 사람 메일 주소
 			msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); // 받는 사람 설정
 			msg.setSentDate(new java.util.Date()); // 보내는 날짜 설정
 			msg.setContent(content, "text/html;charset=utf-8"); // 내용 설정(HTML 형식)

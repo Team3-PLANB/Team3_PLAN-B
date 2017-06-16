@@ -48,13 +48,13 @@ function passwordCheck() {
 
 function authCheck(){
 	var username = $('#username').val();
-		console.log("username : " + username);
-		$.ajax({
-			type : "get",
-			url : 'emailAuth.do',
-			data : {"username" : username},
-			dataType : "json",
-			success : function(result) {
+	console.log("username : " + username);
+	$.ajax({
+		type : "get",
+		url : 'emailAuth.do',
+		data : {"username" : username},
+		dataType : "json",
+		success : function(result) {
 				if (!result) { 
 					console.log("잘못된 값");
 				}else {
@@ -62,10 +62,23 @@ function authCheck(){
 				}
 			},
 			error : function(xhr) {
-				console.log(xhr);
+				console.log("에러남 : " + xhr);
 			}
 		});	
 	}
+
+function ahthNumCheck(){
+	var authnum = $('#authnum').val();
+	
+	if(!authnum){
+		alert("인증번호를 입력하세요");
+	}else if(authnum != result){
+		alert("인증번호가 맞지 않습니다. 확인해주세요.");
+		authnum = "";
+	}else if(authnum == result){
+		alert("인증완료");
+	}
+}
 
 function emailCheck() {
 	var username = $('#username').val();

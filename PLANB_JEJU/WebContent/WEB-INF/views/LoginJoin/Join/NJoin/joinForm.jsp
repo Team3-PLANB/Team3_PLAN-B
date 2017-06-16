@@ -6,24 +6,7 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link rel="shortcut icon" href="favicon.ico">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
- <script>
-	$('#authNumCheck').click(function(){
-		var authnum = $('#authnum').val();
-		var authNum = ${authNum};
-		
-		if(!authnum){
-			alert("인증번호를 입력하세요");
-			return false;
-		}else if(authnum != authNum){
-			alert("인증번호가 맞지 않습니다. 확인해주세요.");
-			form.authnum.value="";
-			return false;
-		}else if(authnum == authNum){
-			alert("인증완료");
-			self.close();
-		}
-	});
-</script>
+
  
 <title>PLAN'B JEJU 함께하기</title>
 	<!-- Animate.css -->
@@ -89,7 +72,7 @@
 												<label for="email">이메일</label> 
 													<div>
 														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" > <!-- onblur="emailCheck()" -->
-														<input type="button" onblur="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
+														<input type="button" onclick="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
 													</div>
 													
@@ -156,10 +139,9 @@
 									<div class="row" >
 										<div class="col-xxs-12 col-xs-6 mt" >
 											<div class="input-field" >
-												
-													<input type="text"	class="form-control" id="authnum" name="authnum"
+												<input type="text"	class="form-control" id="authnum" name="authnum"
 														placeholder="인증 번호 7자리를 입력해주세요" style="margin-left:30%;">
-													<input type="submit" class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "authNumCheck" value="이메일 인증하기">
+												<input type="submit" onclick="authNumCheck()" class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "authNumCheck" value="이메일 인증하기">
 												
 											</div>
 										</div>
