@@ -42,7 +42,7 @@ public class LoginJoinController2 {
 	* @param spec : HttpServletRequest request, HttpServletResponse response, Model model
 	*/
 	@RequestMapping("Join/emailAuth.do")
-	public @ResponseBody Model emailAuth(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+	public @ResponseBody String emailAuth(HttpServletRequest request, HttpServletResponse response) throws Exception{
 	System.out.println(">>>>>>>Email_controller<<<<<<<");
 		
 		String username = request.getParameter("username");
@@ -55,10 +55,7 @@ public class LoginJoinController2 {
 		memberservice.sendEmail(username.toString(), authNum);
 		System.out.println("메일 보내기 끝");
 		
-		model.addAttribute("username", username);
-		model.addAttribute("authNum", authNum);
-		
-		return model;
+		return authNum;
 		
 	}
 	
