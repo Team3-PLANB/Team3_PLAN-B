@@ -16,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -100,8 +99,8 @@ public class LoginJoinController {
 	* @return : Model(Ajax 처리)
 	* @param spec : HttpServletRequest request, HttpServletResponse response, Model model
 	*/
-	/*@RequestMapping("Join/emailAuth.do")
-	public Model emailAuth(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+	@RequestMapping("Join/emailAuth.do")
+	public @ResponseBody String emailAuth(HttpServletRequest request, HttpServletResponse response) throws Exception{
 	System.out.println(">>>>>>>Email_controller<<<<<<<");
 		
 		String username = request.getParameter("username");
@@ -110,12 +109,12 @@ public class LoginJoinController {
 		System.out.println("랜덤 시작");
 		authNum = memberservice.RandomNum();
 		System.out.println("랜덤 끝");
+		System.out.println("메일 보내기 시작");
 		memberservice.sendEmail(username.toString(), authNum);
+		System.out.println("메일 보내기 끝");
 		
-		model.addAttribute("username", username);
-		model.addAttribute("authNum", authNum);
+		return authNum;
 		
-		return model;
-	}*/
+	}
 	
 }

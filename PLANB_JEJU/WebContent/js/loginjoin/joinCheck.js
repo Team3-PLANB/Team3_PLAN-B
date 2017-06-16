@@ -18,7 +18,6 @@ $(document).ready(function() {
 		$('#social_join').show();
 	});
 	$('#authNumSend').hide();
-	$('')
 });
 
 function frm_submit() {
@@ -54,13 +53,16 @@ function authCheck(){
 			type : "get",
 			url : 'emailAuth.do',
 			data : {"username" : username},
-			dataType : "json",
+			dataType : "text",
 			success : function(result) {
 				if (!result) { 
 					console.log("잘못된 값");
 				}else {
 					console.log(result);
 				}
+			},
+			error : function(xhr){
+				console.log(xhr);
 			}
 		});	
 	}

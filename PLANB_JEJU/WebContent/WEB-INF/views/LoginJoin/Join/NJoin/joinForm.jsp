@@ -43,7 +43,7 @@
 	<link rel="stylesheet" href="css/cs-select.css">
 	<link rel="stylesheet" href="css/cs-skin-border.css">	
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="../../css/join.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/LoginJoin/join.css">
 
 	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
 	<script src="${pageContext.request.contextPath}/js/email.js"></script>
@@ -74,10 +74,10 @@
 							<!-- 네비게이션 Tab : join/login -->
 							<ul class="nav nav-tabs" role="tablist">
 								<li role="presentation" class="active" id="join_tab">
-									<a href="#join" aria-controls="join" role="tab" data-toggle="tab">JOIN</a>
+									<a href="#joinform" aria-controls="join" role="tab" data-toggle="tab">JOIN</a>
 								</li>
 								<li role="presentation" id="login_tab">
-									<a href="#login" aria-controls="login" role="tab" data-toggle="tab">LOGIN</a>
+									<a href="#loginform" aria-controls="login" role="tab" data-toggle="tab">LOGIN</a>
 								</li>
 							</ul>
 
@@ -93,7 +93,8 @@
 														<input type="button" onblur="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
 													</div>
-												<div class = "email-msg" id="email-msg"></div>
+													
+												<div class = "email-msg" id="email-msg" style="clear:both;"></div>
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-left:10%;">
@@ -196,7 +197,7 @@
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
 											<div class="input-field" >
 												<label for="password">소셜 계정으로 로그인</label> 
-												<a class = "btn btn-facebook" onclick="login()">
+												<a onclick="login()">
 													<img src="<%=request.getContextPath() %>/images/logo/001-facebook-2.png">
 												</a>
 												<a href="">
