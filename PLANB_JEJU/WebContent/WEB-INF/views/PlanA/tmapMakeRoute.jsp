@@ -55,7 +55,7 @@ $( function() {
             console.log('2'); */
             /* console.log(lonlat); */
             /* var lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY)); */
-            lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,(evt.clientY-100)));/* header 높이 만큼 처리 */
+            lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,(evt.clientY-80)));/* header 높이 만큼 처리 */
             
              
             console.log(lonlat);
