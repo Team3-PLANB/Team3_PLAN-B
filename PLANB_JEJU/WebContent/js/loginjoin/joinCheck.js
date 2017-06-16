@@ -53,7 +53,7 @@ function authCheck(){
 			type : "get",
 			url : 'emailAuth.do',
 			data : {"username" : username},
-			dataType : "text",
+			dataType : "json",
 			success : function(result) {
 				if (!result) { 
 					console.log("잘못된 값");
@@ -61,7 +61,7 @@ function authCheck(){
 					console.log(result);
 				}
 			},
-			error : function(xhr){
+			error : function(xhr) {
 				console.log(xhr);
 			}
 		});	
