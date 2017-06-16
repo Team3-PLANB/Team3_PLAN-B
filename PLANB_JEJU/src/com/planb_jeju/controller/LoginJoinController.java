@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.service.MemberService;
 
-
-
 @Controller
 @RequestMapping("/LoginJoin/")
 public class LoginJoinController {
@@ -66,6 +64,7 @@ public class LoginJoinController {
 	@RequestMapping("Join/duplicationCheck.do")
 	public @ResponseBody String duplicationCheck(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
+		System.out.println(memberservice.duplicationCheck(username));
 		return memberservice.duplicationCheck(username);
 	}
 	

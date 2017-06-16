@@ -1,9 +1,11 @@
 /*
+ * frm_submit() : 이메일인증 후 submit
  * passwordCheck() : pwd 유효성
+ * authCheck() : email 인증
  * emailCheck() : email 유효성 / 중복검사
  * nickCheck() : nick 중복검사
+ * 
  */
-
 
 $(document).ready(function() {
 	$('#social_login').hide();
@@ -15,6 +17,8 @@ $(document).ready(function() {
 		$('#social_login').hide();
 		$('#social_join').show();
 	});
+	$('#authNumSend').hide();
+	$('')
 });
 
 function frm_submit() {
@@ -46,8 +50,8 @@ function passwordCheck() {
 function authCheck(){
 	var username = $('#username').val();
 		console.log("username : " + username);
-			$.ajax({
-				type : "get",
+		$.ajax({
+			type : "get",
 			url : 'emailAuth.do',
 			data : {"username" : username},
 			dataType : "json",
@@ -61,39 +65,38 @@ function authCheck(){
 		});	
 	}
 
-/*function emailCheck() {
+function emailCheck() {
+	var username = $('#username').val();
+	console.log(username);
 	$.ajax({
-				url : "Join/duplicationCheck.do",
+				url : 'duplicationCheck.do',
 				type : "get",
 				dataType : "json",
-				data : {
-					email : $("#username").val()
-				},
+				data : {"username" : username},
 				success : function(result) {
-
 					if (result == false) {
 						$(".email-msg").text("이미 가입되어 있는 이메일입니다");
 						$("#username").val("");
 						$("#username").focus();
-
 					} else {
 						var regExp = /([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
-
 						if (!regExp.test($("#username").val())) {
 							$(".email-msg").text("잘못된 이메일 형식입니다.");
 							$("#username").val("");
 							$("#username").focus();
 						} else {
 							$(".email-msg").text("사용가능한 이메일입니다");
+							$("#overlabCheck").hide();
+							$("#authNumSend").show();
 						}
 					}
 				},
 				error : function(xhr) {
-					alert(xhr.status);
+					console.log('이상이상');
 				}
 			});
 	return false;
-};*/
+};
 
 /*function nickCheck() {
 	$.ajax({

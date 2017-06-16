@@ -2,12 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -17,37 +12,6 @@
 <meta name="keywords"
 	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" />
-
-<!-- 
-	//////////////////////////////////////////////////////
-
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-	
-	
-	ì ìì¼ : 2017/06/06
-	ì ìì : ì´ì¤ì±
-	ì ì : ì ë° ì´ë²ìë ëë¤ ì~~~!!!!1
-	//////////////////////////////////////////////////////
-	 -->
-
-
-<!-- ë¤í -->
-<!-- Facebook and Twitter integration -->
-<meta property="og:title" content="" />
-<meta property="og:image" content="" />
-<meta property="og:url" content="" />
-<meta property="og:site_name" content="" />
-<meta property="og:description" content="" />
-<meta name="twitter:title" content="" />
-<meta name="twitter:image" content="" />
-<meta name="twitter:url" content="" />
-<meta name="twitter:card" content="" />
 
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="shortcut icon" href="favicon.ico">
@@ -75,21 +39,9 @@
 <link rel="stylesheet" href="css/style.css">
 
 
-<!-- Modernizr JS -->
 <script src="js/modernizr-2.6.2.min.js"></script>
-<!-- FOR IE9 below -->
-<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
 
-
-
-
-
-
-
-<!-- #region Jssor Slider Begin -->
-<script src="js/jssor.slider-24.1.5.min.js" type="text/javascript"></script>
+<script src="../../js/postscript/jssor.slider-24.1.5.min.js" type="text/javascript"></script>
 <script type="text/javascript">
 	jssor_1_slider_init = function() {
 
@@ -281,55 +233,7 @@
 <body>
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
-
-			<!-- START : a href 걸기-->
-
-			타일 확인 링크 <a
-				href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LoginJoin/Join/NJoin.do</a>
-
-			<!-- END : a href 걸기 -->
-
-
-			<header id="fh5co-header-section" class="sticky-banner">
-				<div class="container">
-					<div class="nav-header">
-						<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-						<h1 id="fh5co-logo">
-							<a href="index.html"><i class="icon-airplane"></i>Travel</a>
-						</h1>
-						<!-- START #fh5co-menu-wrap -->
-						<nav id="fh5co-menu-wrap" role="navigation">
-							<ul class="sf-menu" id="fh5co-primary-menu">
-								<li class="active"><a href="index.html">Home</a></li>
-								<li><a href="vacation.html" class="fh5co-sub-ddown">Vacations</a>
-									<ul class="fh5co-sub-menu">
-										<li><a href="#">Family</a></li>
-										<li><a href="#">CSS3 &amp; HTML5</a></li>
-										<li><a href="#">Angular JS</a></li>
-										<li><a href="#">Node JS</a></li>
-										<li><a href="#">Django &amp; Python</a></li>
-									</ul></li>
-								<li><a href="flight.html">Flights</a></li>
-								<li><a href="hotel.html">Hotel</a></li>
-								<li><a href="car.html">Car</a></li>
-								<li><a href="blog.html">Blog</a></li>
-								<li><a href="contact.html">Contact</a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</header>
-
-			<!-- end:header-top -->
-
-
-
-
-
-
-
-
-			<div id="fh5co-tours" class="fh5co-section-gray" background="white">
+			<div id="fh5co-tours" class="fh5co-section-gray">
 				<div class="container">
 					<div class="row">
 						<div
@@ -356,23 +260,19 @@
 								style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
 
 								<div>
-									<img data-u="image" src="images/MAIN.jpg" />
+									<img data-u="image" src="../../images/PostScript/slider_1.jpg" />
 									<div data-u="thumb">#활동적#드라이브#자연#맑음#행복#또가자#제주감귤</div>
 								</div>
 								<div>
-									<img data-u="image" src="images/03.jpg" />
+									<img data-u="image" src="../../images/PostScript/slider_2.jpg" />
 									<div data-u="thumb">#활동적#드라이브#자연#맑음#행복#또가자#제주감귤</div>
 								</div>
 								<div>
-									<img data-u="image" src="images/04.jpg" />
+									<img data-u="image" src="../../images/PostScript/slider_3.jpg" />
 									<div data-u="thumb">#활동적#드라이브#자연#맑음#행복#또가자#제주감귤</div>
 								</div>
 								<div>
-									<img data-u="image" src="images/MAIN.jpg" />
-									<div data-u="thumb">#활동적#드라이브#자연#맑음#행복#또가자#제주감귤</div>
-								</div>
-								<div>
-									<img data-u="image" src="images/MAIN.jpg" />
+									<img data-u="image" src="../../images/PostScript/slider_4.png" />
 									<div data-u="thumb">#활동적#드라이브#자연#맑음#행복#또가자#제주감귤</div>
 								</div>
 								<a data-u="any" href="https://www.jssor.com/wordpress.html"

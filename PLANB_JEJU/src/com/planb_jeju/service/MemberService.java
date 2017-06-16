@@ -1,13 +1,13 @@
 package com.planb_jeju.service;
 
 /*
-* @FileName : LoginJoinController.java
-* @Class : LoginJoinController
+* @FileName : MemberService.java
+* @Class : MemberService
 * @Project : PLANB_JEJU
 * @Date : 2017.06.07
 * @LastEditDate : 2017.06.16
 * @Author : 정다혜, 홍단비 
-* @Desc : 회원가입  / 로그인   컨트롤러
+* @Desc : 회원가입  / 로그인 Service
 */
 
 import java.util.Properties;
@@ -32,6 +32,8 @@ import com.planb_jeju.dao.MemberDao;
 public class MemberService {
 	@Autowired
 	private SqlSession sqlsession;
+	
+	MemberService memberservice;
 	
 	/*// 7자리 영문+숫자 랜덤코드 만들기
 	public String RandomNum(){
@@ -102,12 +104,13 @@ public class MemberService {
 	public String duplicationCheck(String username) throws Exception {
 		String result;
 		MemberDao memberdao = sqlsession.getMapper(MemberDao.class);
+		System.out.println(memberdao);
 		if(memberdao.checkEmail(username) > 0) {
-			result = "false";
-			// 아이디 중복 O
+			result = "false"; // 아이디 중복 O
+			System.out.println(">>>>>>>false<<<<<<");
 		} else {
-			result = "true";
-			// 아이디 중복 X
+			result = "true"; // 아이디 중복 X
+			System.out.println(">>>>>>>true<<<<<<");
 		}
 		return result;
 	}

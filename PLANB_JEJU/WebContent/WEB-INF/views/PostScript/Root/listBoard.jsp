@@ -17,37 +17,6 @@
 	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" />
 
-<!-- 
-	//////////////////////////////////////////////////////
-
-	FREE HTML5 TEMPLATE 
-	DESIGNED & DEVELOPED by FREEHTML5.CO
-		
-	Website: 		http://freehtml5.co/
-	Email: 			info@freehtml5.co
-	Twitter: 		http://twitter.com/fh5co
-	Facebook: 		https://www.facebook.com/fh5co
-	
-	
-	ì ìì¼ : 2017/06/06
-	ì ìì : ì´ì¤ì±
-	ì ì : ì ë° ì´ë²ìë ëë¤ ì~~~!!!!1
-	//////////////////////////////////////////////////////
-	 -->
-
-
-<!-- ë¤í -->
-<!-- Facebook and Twitter integration -->
-<meta property="og:title" content="" />
-<meta property="og:image" content="" />
-<meta property="og:url" content="" />
-<meta property="og:site_name" content="" />
-<meta property="og:description" content="" />
-<meta name="twitter:title" content="" />
-<meta name="twitter:image" content="" />
-<meta name="twitter:url" content="" />
-<meta name="twitter:card" content="" />
-
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="shortcut icon" href="favicon.ico">
 
@@ -72,18 +41,13 @@
 <link rel="stylesheet" href="css/cs-skin-border.css">
 
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/postscript.css">
+<link rel="stylesheet" href="../../css/PostScript/postscript.css">
 
-
-<!-- Modernizr JS -->
 <script src="js/modernizr-2.6.2.min.js"></script>
-<!-- FOR IE9 below -->
-<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
+
 <script>
-	$(function(){
-		$('#like').click(function(){
+	$(function() {
+		$('#like').click(function() {
 			alert("마이페이지에 담겼습니다.");
 		});
 	});
@@ -93,9 +57,6 @@
 <body>
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
-
-	
-
 			<div id="fh5co-tours" class="fh5co-section-gray">
 				<div class="container">
 					<div class="row">
@@ -105,9 +66,11 @@
 							<p>루트 후기 게시판입니다.</p>
 							<ul class="portfolio-filter" align="center">
 								<li><a class="btn btn-default default"
-									href="PostScript_Board_Root.jsp" data-filter=".a">루트 후기</a></li>
+									href="${pageContext.request.contextPath}/PostScript/Root/List.do"
+									data-filter=".a">루트 후기</a></li>
 								<li><a class="btn btn-default"
-									href="PostScript_Board_Site.jsp" data-filter=".b">여행지 후기</a></li>
+									href="${pageContext.request.contextPath}/PostScript/Site/List.do"
+									data-filter=".b">여행지 후기</a></li>
 							</ul>
 						</div>
 					</div>
@@ -138,15 +101,15 @@
 						<div class="row row-bottom-padded-md">
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="PostScript_Detail_Root.jsp"><img class="img-responsive"
-										src="images/place-1.jpg" alt=""></a>
+									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
+										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="PostScript_Detail_Root.jsp">낮코밤코의 첫 제주도</a>
+												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment" id="like"><a href="" >찜콩<i
+												class="comment" id="like"><a href="">찜콩<i
 													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
@@ -158,16 +121,16 @@
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="#"><img class="img-responsive"
-										src="images/place-1.jpg" alt=""></a>
+									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
+										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="#">낮코밤코의 첫 제주도</a>
+												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment"><a href="">찜콩<i
-													class="icon-bubble2"></i></a></span>
+												class="comment" id="like"><a href="">찜콩<i
+													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
 												<a href="#">쪽지 쓰기</a>
@@ -178,16 +141,16 @@
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="#"><img class="img-responsive"
-										src="images/place-1.jpg" alt=""></a>
+									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
+										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="#">낮코밤코의 첫 제주도</a>
+												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment"><a href="">찜콩<i
-													class="icon-bubble2"></i></a></span>
+												class="comment" id="like"><a href="">찜콩<i
+													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
 												<a href="#">쪽지 쓰기</a>
@@ -198,16 +161,16 @@
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="#"><img class="img-responsive"
-										src="images/place-1.jpg" alt=""></a>
+									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
+										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="#">낮코밤코의 첫 제주도</a>
+												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment"><a href="">찜콩<i
-													class="icon-bubble2"></i></a></span>
+												class="comment" id="like"><a href="">찜콩<i
+													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
 												<a href="#">쪽지 쓰기</a>
@@ -218,16 +181,16 @@
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="#"><img class="img-responsive"
-										src="images/place-1.jpg" alt=""></a>
+									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
+										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="#">낮코밤코의 첫 제주도</a>
+												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment"><a href="">찜콩<i
-													class="icon-bubble2"></i></a></span>
+												class="comment" id="like"><a href="">찜콩<i
+													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
 												<a href="#">쪽지 쓰기</a>
@@ -238,16 +201,16 @@
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="#"><img class="img-responsive"
-										src="images/place-1.jpg" alt=""></a>
+									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
+										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="#">낮코밤코의 첫 제주도</a>
+												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment"><a href="">찜콩<i
-													class="icon-bubble2"></i></a></span>
+												class="comment" id="like"><a href="">찜콩<i
+													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
 												<a href="#">쪽지 쓰기</a>
@@ -258,16 +221,16 @@
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="#"><img class="img-responsive"
-										src="images/place-1.jpg" alt=""></a>
+									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
+										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="#">낮코밤코의 첫 제주도</a>
+												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment"><a href="">찜콩<i
-													class="icon-bubble2"></i></a></span>
+												class="comment" id="like"><a href="">찜콩<i
+													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
 												<a href="#">쪽지 쓰기</a>
@@ -278,16 +241,16 @@
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="#"><img class="img-responsive"
-										src="images/place-1.jpg" alt=""></a>
+									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
+										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="#">낮코밤코의 첫 제주도</a>
+												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment"><a href="">찜콩<i
-													class="icon-bubble2"></i></a></span>
+												class="comment" id="like"><a href="">찜콩<i
+													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
 												<a href="#">쪽지 쓰기</a>
@@ -298,16 +261,16 @@
 							</div>
 							<div class="col-lg-4 col-md-4 col-sm-6">
 								<div class="fh5co-blog animate-box">
-									<a href="#"><img class="img-responsive"
-										src="images/place-1.jpg" alt=""></a>
+									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
+										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
 									<div class="blog-text">
 										<div class="prod-title">
 											<h3>
-												<a href="#">낮코밤코의 첫 제주도</a>
+												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
 											</h3>
 											<span class="posted_by">2017.06.09</span> <span
-												class="comment"><a href="">찜콩<i
-													class="icon-bubble2"></i></a></span>
+												class="comment" id="like"><a href="">찜콩<i
+													class="icon-bubble2" id="like2"></i></a></span>
 											<p>#힐링#자연#건강#웃음</p>
 											<p>
 												<a href="#">쪽지 쓰기</a>
