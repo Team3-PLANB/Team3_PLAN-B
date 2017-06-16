@@ -100,7 +100,7 @@ public class LoginJoinController {
 	* @return : Model(Ajax 처리)
 	* @param spec : HttpServletRequest request, HttpServletResponse response, Model model
 	*/
-	@RequestMapping("Join/emailAuth.do")
+	/*@RequestMapping("Join/emailAuth.do")
 	public Model emailAuth(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 	System.out.println(">>>>>>>Email_controller<<<<<<<");
 		
@@ -116,6 +116,6 @@ public class LoginJoinController {
 		model.addAttribute("authNum", authNum);
 		
 		return model;
-	}
+	}*/
 	
 }
