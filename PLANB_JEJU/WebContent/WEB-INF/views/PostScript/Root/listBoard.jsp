@@ -1,12 +1,18 @@
+<%--
+@Project : PLANB_JEJU
+@File name :listBoard.jsp 
+@Author : 임정연
+ @Data : 2017.06.16
+@Desc : 루트 후기 게시판의 리스트
+--%>
+
+
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,27 +22,17 @@
 <meta name="keywords"
 	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" />
-
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="shortcut icon" href="favicon.ico">
 
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
 	rel='stylesheet' type='text/css'>
-
-<!-- Animate.css -->
 <link rel="stylesheet" href="css/animate.css">
-<!-- Icomoon Icon Fonts-->
 <link rel="stylesheet" href="css/icomoon.css">
-<!-- Bootstrap  -->
 <link rel="stylesheet" href="css/bootstrap.css">
-<!-- Superfish -->
 <link rel="stylesheet" href="css/superfish.css">
-<!-- Magnific Popup -->
 <link rel="stylesheet" href="css/magnific-popup.css">
-<!-- Date Picker -->
 <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-<!-- CS Select -->
 <link rel="stylesheet" href="css/cs-select.css">
 <link rel="stylesheet" href="css/cs-skin-border.css">
 
@@ -59,6 +55,7 @@
 		<div id="fh5co-page">
 			<div id="fh5co-tours" class="fh5co-section-gray">
 				<div class="container">
+				<%------------------------------후기 게시판의 header ----------------------------------------%>
 					<div class="row">
 						<div
 							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
@@ -74,7 +71,10 @@
 							</ul>
 						</div>
 					</div>
-
+					
+					
+					
+					<%-----------------------------검색 부분 ----------------------------------------%>
 					<form action="">
 						<div class="row animate-box" align="left">
 							<div class="col-md-4"></div>
@@ -92,11 +92,7 @@
 
 
 
-
-
-
-
-
+					<%------------------------------리스트 부분 ----------------------------------------%>
 					<div class="container">
 						<div class="row row-bottom-padded-md">
 							<div class="col-lg-4 col-md-4 col-sm-6">
@@ -286,30 +282,6 @@
 					</div>
 				</div>
 			</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 		</div>
 		<!-- END fh5co-page -->

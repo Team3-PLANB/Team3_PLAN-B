@@ -1,3 +1,12 @@
+<%--
+@Project : PLANB_JEJU
+@File name : detail.jsp 
+@Author : 임정연
+ @Data : 2017.06.16
+@Desc : 여행지 후기 게시판의 상세보기
+--%>
+
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -243,14 +252,14 @@
 						</div>
 					</div>
 					<div class="row row-bottom-padded-md">
-						<!-- 제목 -->
+						<%------------------------------제목 부분 ----------------------------------------%>
 						<div class="col-md-12 animate-box" align="center">
 							<h2 class="heading-title">드라이브를 맘껏 즐길 수 있었던 일주일~</h2>
 						</div>
 
 
 
-						<!-- 갤러리  -->
+						<%------------------------------이미지 슬라이더(갤러리) 부분----------------------------------------%>
 						<div id="jssor_1"
 							style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden; visibility: hidden;">
 							<!-- Loading Screen -->
@@ -318,7 +327,7 @@
 
 
 
-
+						<%------------------------------후기글 부분 ----------------------------------------%>
 						<div class="row">
 							<br>
 							<div class="col-md-4">
@@ -350,7 +359,7 @@
 
 
 
-						<!-- 내용  -->
+						<%------------------------------찜콩과 목록으로 버튼 ----------------------------------------%>
 						<br> <br> <br> <br>
 						<div class="col-md-12 animate-box" align="center">
 
@@ -381,7 +390,7 @@
 
 
 
-
+			<%------------------------------이미지 슬라이더 상세 설정----------------------------------------%>
 			<div id="jssor_1"
 				style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden; visibility: hidden;">
 				<!-- Loading Screen -->

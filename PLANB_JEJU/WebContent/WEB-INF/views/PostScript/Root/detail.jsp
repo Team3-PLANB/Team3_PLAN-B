@@ -1,13 +1,19 @@
+<%--
+@Project : PLANB_JEJU
+@File name : detail.jsp 
+@Author : 임정연
+ @Data : 2017.06.16
+@Desc : 루트 후기 게시판의 상세보기
+--%>
+
+
+
+
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
 <html class="no-js">
-<!--<![endif]-->
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,20 +29,12 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
 	rel='stylesheet' type='text/css'>
-
-<!-- Animate.css -->
 <link rel="stylesheet" href="css/animate.css">
-<!-- Icomoon Icon Fonts-->
 <link rel="stylesheet" href="css/icomoon.css">
-<!-- Bootstrap  -->
 <link rel="stylesheet" href="css/bootstrap.css">
-<!-- Superfish -->
 <link rel="stylesheet" href="css/superfish.css">
-<!-- Magnific Popup -->
 <link rel="stylesheet" href="css/magnific-popup.css">
-<!-- Date Picker -->
 <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-<!-- CS Select -->
 <link rel="stylesheet" href="css/cs-select.css">
 <link rel="stylesheet" href="css/cs-skin-border.css">
 
@@ -47,7 +45,6 @@
 <body>
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
-
 			<div id="fh5co-tours" class="fh5co-section-gray">
 				<div class="container">
 					<div class="row">
@@ -58,12 +55,15 @@
 						</div>
 					</div>
 					<div class="row row-bottom-padded-md">
+						<%------------------------------제목 부분 ----------------------------------------%>
 						<div class="col-md-12 animate-box">
 							<h2 class="heading-title">애월해안도로 드라이브~</h2>
 						</div>
 
+						<%------------------------------이미지와 태그 부분 ----------------------------------------%>
 						<div class="col-md-6 animate-box" align="center">
-							<img class="img-responsive" src="../../images/PostScript/detail_Root.jpg" alt="travel">
+							<img class="img-responsive"
+								src="../../images/PostScript/detail_Root.jpg" alt="travel">
 							<a href="#" class="flight-book">
 								<div class="plane-name">
 									<span class="p-flight">태그</span>
@@ -79,6 +79,8 @@
 								</div>
 							</a>
 						</div>
+
+						<%------------------------------후기글 부분 ----------------------------------------%>
 						<div class="col-md-6 animate-box">
 							<br>
 							<div class="box-testimony animate-box">
@@ -90,14 +92,7 @@
 								</blockquote>
 							</div>
 
-
-
-
-
-
-
-
-
+							<%------------------------------찜콩, 히스토리, 목록으로 버튼 ----------------------------------------%>
 							<br> <br> <br> <br>
 							<div class="col-md-12 animate-box" align="center">
 
@@ -126,30 +121,10 @@
 		</div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	</div>
-	<!-- END fh5co-page -->
 
-	</div>
-	<!-- END fh5co-wrapper -->
+
+
 
 	<!-- jQuery -->
 
