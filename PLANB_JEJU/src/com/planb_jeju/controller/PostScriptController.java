@@ -35,7 +35,7 @@ import com.planb_jeju.dto.Member;
 
 
 @Controller
-@RequestMapping("PostScript/Root")
+@RequestMapping("PostScript")
 public class PostScriptController {
 
 /*	
@@ -45,10 +45,31 @@ public class PostScriptController {
 	private SqlSession sqlsession;*/
 	
 
-	@RequestMapping("/List.do")
-	public String memberDetail() throws ClassNotFoundException, SQLException {
+	@RequestMapping("/Root/List.do")
+	public String postscriptRoot_list() throws ClassNotFoundException, SQLException {
 		
 		return "PostScript.Root.listBoard";	
+
+	}
+	
+	@RequestMapping("/Site/List.do")
+	public String postscriptSite_list() throws ClassNotFoundException, SQLException {
+		
+		return "PostScript.Site.listBoard";	
+
+	}
+	
+	@RequestMapping("/Root/Detail.do")
+	public String postscriptRoot_detail() throws ClassNotFoundException, SQLException {
+		
+		return "PostScript.Root.detail";	
+
+	}
+	
+	@RequestMapping("/Site/Detail.do")
+	public String postscriptSite_detail() throws ClassNotFoundException, SQLException {
+		
+		return "PostScript.Site.detail";	
 
 	}
 

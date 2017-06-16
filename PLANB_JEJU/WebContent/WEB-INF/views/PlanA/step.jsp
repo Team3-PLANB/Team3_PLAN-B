@@ -2,22 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="security"
 	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>PLAN'B &mdash; JEJU</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-<meta name="keywords"
-	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-<meta name="author" content="FREEHTML5.CO" />
+
+<%--
+@Project : PLANB_JEJU
+@File name : step.jsp 
+@Author : 강나영
+@Data : 2017.06.16. 
+@Desc : 여행 일정, 파트너, 취향 선택 페이지
+--%>
+
 
 <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 <link rel="shortcut icon" href="favicon.ico">
@@ -47,19 +40,39 @@
 
 <!-- Modernizr JS -->
 <script src="js/modernizr-2.6.2.min.js"></script>
-<!-- FOR IE9 below -->
-<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
+
 
 <script type="text/javascript">
 	$(document).ready(function() {
+		/* 
+		$('#routeDaysCount').text('총 10일');	 */
+	
+		<%----------------------------------Tab 간의 PREV, NEXT 버튼 클릭시 탭 디자인 표현 클래스 적용 / NULL값 validation ----------------------------------------%>
+
 		$('#stepOneNextBtn').click(function() {
+			
+			/* Tab 디자인 클래스 적용 */
 			$('#step1Nav').removeClass('active');
 			$('#step1').removeClass('active');
 			$('#step2Nav').addClass('active');
 			$('#step2').addClass('active');
+			
+			
+			/* 여행 시작일 NULL값 처리(현재 시간으로 값 넣어두기)  */
+			if($('#date-start').val() == ''){
+			
+				var fullDate = new Date();
+				$('#date-start').val(fullDate);
+			}
+			
+			/* 여행 마침일 NULL값 처리(현재 시간으로 값 넣어두기)  */
+			if($('#date-end').val() == ''){
+				
+				//Thu May 19 2011 17:25:38 GMT+1000 {}
+				$('#date-end').val(fullDate);
+			}
 		});
+		
 		$('#stepTwoPrevBtn').click(function() {
 			$('#step2Nav').removeClass('active');
 			$('#step2').removeClass('active');
@@ -71,6 +84,11 @@
 			$('#step2').removeClass('active');
 			$('#step3Nav').addClass('active');
 			$('#step3').addClass('active');
+			
+			/* 파트너 선택 안했을 시 자동으로 파트너 친구로 지정 */
+			if($('#partner_code').val()==''){
+				$('#partner_code').val('P02');
+			}
 		});
 		$('#stepThreePrevBtn').click(function() {
 			$('#step3Nav').removeClass('active');
@@ -80,7 +98,8 @@
 		});
 		
 		
-		$('.partner-radio').click(function(){//파트너 div 선택 값 가져오기
+		<%----------------------------------파트너 div 선택 시 -> 파트너  값 가져오기 ----------------------------------------%>
+		$('.partner-radio').click(function(){ 
 		    $(this).parent().find('.partner-radio').removeClass('selected');
 		    $(this).addClass('selected');
 		    
@@ -90,22 +109,29 @@
 		
 	});
 	
+	<%----------------------------------submit 버튼 클릭시 action 경로 처리 ----------------------------------------%>
 	function Submit(index) {
 	    if (index == 1) {
 		    /*   document.myForm.action="${pageContext.request.contextPath}/PLANA.recommend.do"; //실패한 방법*/
 		    //$('#[아이디]').attr("action","[경로]");
 	    	$("#form").attr("action", "${pageContext.request.contextPath}/PLANA.recommend.do");
 	    }
+	    
+	    /* 여행 이름 없을 경우 자동 생성 */
+	    if($('#routename').val()==''){
+	    	$('#routename').val('제주도 여행 실화냐');
+	    }
 	    /* document.myForm.submit(); //실패한 방법 */
+	    /* alert($('#date-start').val());
+	    alert($('#date-end').val());
+	    alert($('#partner_code').val());
+	    alert($('#routename').val()); //값 확인 용 alert창*/
+	    
 	    $('#form').submit();
 	  }
 </script>
 
 
-
-</head>
-
-<body>
 
 	<form action="" method="post" id="form">
 
@@ -117,11 +143,7 @@
 					<div class="fh5co-cover" data-stellar-background-ratio="0.5"
 						style="background-image: url(&quot;images/cover_bg_1.jpg&quot;); background-position: 0px -47.7px;">
 						<div class="desc">
-							<!-- <div
-							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-							<h3>일정 만들기</h3>
-							<br> <br> <br>
-						</div> -->
+							
 							<div class="container">
 								<div class="row">
 									<!-- <div class="col-sm-5 col-md-5"> -->
@@ -139,8 +161,7 @@
 												aria-controls="packages" role="tab" data-toggle="tab">STEP3
 													- 여행 취향</a></li>
 													
-											<li role="presentation" id="step4Nav"><!-- <a href="#step4"
-												aria-controls="packages" role="tab" data-toggle="tab"></a> --></li>
+											<li role="presentation" id="step4Nav">
 										</ul>
 
 										<!-- Tab panes -->
@@ -169,11 +190,8 @@
 														</div>
 													</div>
 													<div class="col-xxs-12 col-xs-12 mt">
-														<h3 align="center" style="color: #807f7d;">총 7일</h3>
+														<h3 align="center" id="routeDaysCount" style="color: #807f7d;"></h3>
 													</div>
-													<!-- <div class="col-xs-12"> -->
-													<!-- <input type="button" class="btn btn-primary btn-block"
-													value="next" onclick="href = '#step2' "> -->
 
 													<div class="col-xs-12 btn btn-primary">
 														<a href="#step2" id="stepOneNextBtn"
@@ -271,33 +289,11 @@
 												<div class="row">
 													<div class="col-xxs-12 col-xs-12 mt">
 														<div class="input-field" align="center">
-															<!-- <label for="checkbox-1">쇼핑</label> 
-															<input type="checkbox"
-																name="checkbox-1" id="checkbox-1"> 
-															<label
-																for="checkbox-2">행사/공연/축제</label> 
-															<input type="checkbox"
-																name="checkbox-2" id="checkbox-2"> <br> 
-															<label
-																for="checkbox-3">관광지</label> 
-															<input type="checkbox"
-																name="checkbox-3" id="checkbox-3"> 
-															<label
-																for="checkbox-4">레포츠</label> 
-															<input type="checkbox"
-																name="checkbox-4" id="checkbox-4"> <br> 
-															<label
-																for="checkbox-5">문화시설</label> 
-															<input type="checkbox"
-																name="checkbox-5" id="checkbox-5"> 
-															<label
-																for="checkbox-6">맛집</label> 
-															<input type="checkbox"
-																name="checkbox-6" id="checkbox-6"> -->
+															
 																
 															<label for="checkbox-1">쇼핑</label> 
 															<input type="checkbox"
-																name="personal" id="checkbox-1" value="A0401"> 
+																name="personal" id="checkbox-1" value="A0401" checked="true"> 
 															
 															<label
 																for="checkbox-2">맛집</label> 
@@ -390,19 +386,18 @@
 											</div>
 											
 											
+											
+											<!-- 여행 이름 설정 Tab -->
 											<div role="tabpanel" class="tab-pane" id="step4">
 												<div class="row">
-													
 													<div class="col-xxs-12 col-xs-6 mt alternate">
 														<div class="input-field">
-
-															
+														
 															<input type="text" class="form-control" id="routename"
 															name="routename"
 																placeholder="여행 이름을 정해주세요">
 														</div>
 													</div>
-													
 													
 													<div class="col-xxs-12 col-xs-6 mt">
 														<input type="submit" 
@@ -463,5 +458,3 @@
 	<!-- Main JS -->
 	<script src="js/main.js"></script>
 
-</body>
-</html>

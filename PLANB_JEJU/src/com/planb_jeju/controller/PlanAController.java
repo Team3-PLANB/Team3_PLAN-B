@@ -1,13 +1,13 @@
 package com.planb_jeju.controller;
 
 /*
-* @FileName : 수정 필
-* @Class : LoginJoinController
+* @FileName : PlanAController.java
+* @Class : PlanAController
 * @Project : PLANB_JEJU
-* @Date : 2017.06.07
+* @Date : 2017.06.12
 * @LastEditDate : 2017.06.16
-* @Author : 정다혜, 홍단비 
-* @Desc : 회원가입  / 로그인   컨트롤러
+* @Author : 강나영 
+* @Desc : 일정 만들기 / 제주도 API 정보   컨트롤러
 */
 
 import java.awt.List;
@@ -31,32 +31,29 @@ import com.planb_jeju.dto.RoutePersonal;
 
 @Controller
 public class PlanAController {
-	// index.htm 요청 View(index.jsp)
 	
 	@Autowired
 	private SqlSession sqlsession;
 
+	/*
+	* @date : 2017. 6. 16
+	* @description : 회원가입 화면 이동 
+	* @return : String(View 페이지) 
+	*/
 	@RequestMapping("PLANA.do")
-	public String index() {
-		System.out.println("PLANA 컨트롤러 들어옴");
-		// Tiles 이전
-		// return "index.jsp";
+	public String index() {		
 		return "PLANA.tmap";
-
 	}
 
 	@RequestMapping("PLANA.make.tmap.do")
 	public String markerAtoB() {
-		return "PLANA.tmap_make_route";
+		return "PlanA.tmap_make_route";
 	}
 	
 	
 	@RequestMapping("PLANA.make.do")
 	public String routeInsert() {
-		
-		
-		return "PLANA.step";
-
+		return "PlanA.step";
 	}
 		
 	@RequestMapping(value="PLANA.make.do",  method=RequestMethod.POST)
@@ -103,7 +100,7 @@ public class PlanAController {
 		routepersonalDao.insert(map);
 		
 		//여행지 뽑아서 보낼 것
-		return "PLANA.tmap_make_route";
+		return "PlanA.tmapMakeRoute";
 	
 	}
 	
@@ -151,7 +148,7 @@ public class PlanAController {
 		routepersonalDao.insert(map);
 		
 		//여행루트 추천 뽑아서 보낼 것
-		return "PLANA.tmap_make_route";
+		return "PlanA.tmapMakeRoute";
 	
 	}
 }
