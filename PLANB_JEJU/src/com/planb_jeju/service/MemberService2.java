@@ -29,11 +29,11 @@ import org.springframework.stereotype.Service;
 import com.planb_jeju.dao.MemberDao;
 
 @Service
-public class MemberService {
+public class MemberService2 {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	/*// 7자리 영문+숫자 랜덤코드 만들기
+	// 7자리 영문+숫자 랜덤코드 만들기
 	public String RandomNum(){
 		System.out.println("랜덤 만들기1");
 		Random rnd = new Random();
@@ -96,19 +96,5 @@ public class MemberService {
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-	}*/
-	
-	// 회원가입 시 아이디체크
-	public String duplicationCheck(String username) throws Exception {
-		String result;
-		MemberDao memberdao = sqlsession.getMapper(MemberDao.class);
-		if(memberdao.checkEmail(username) > 0) {
-			result = "false";
-			// 아이디 중복 O
-		} else {
-			result = "true";
-			// 아이디 중복 X
-		}
-		return result;
 	}
 }
