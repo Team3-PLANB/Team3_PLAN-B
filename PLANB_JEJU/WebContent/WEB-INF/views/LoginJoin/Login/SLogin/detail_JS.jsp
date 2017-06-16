@@ -318,7 +318,8 @@ div.selected {
         	<img src="<%= request.getContextPath() %>/css/history/map_ico.png" alt="" class="spot_btn map_view" onclick="set_center(33.51010100,126.48125500)">
         </div>
      <div class="clear"></div>
-        </div>    <div class="sch_content" style="width:280px;">
+      </div>
+    <div class="sch_content" style="width:280px;">
         <img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
          alt="" class="spot_img"
          onerror="this.src='/res/img/common/no_img/sight55.png';"
@@ -347,7 +348,7 @@ div.selected {
         </div>
          <div class="group">
             <h3>DAY 2</h3>
-            <div style="display:block;">
+            <div >
                <div class="sortable">
                    <div class="sch_content" style="width:280px;">
                         <img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
