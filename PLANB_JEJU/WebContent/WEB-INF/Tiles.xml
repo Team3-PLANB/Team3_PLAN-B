@@ -5,21 +5,21 @@
 <tiles-definitions>
    
     <definition name="*.*.*.*" template="/WEB-INF/views/layout.jsp"> 
-         	<put-attribute name="title"   value="kosta notice list" />
+         	<put-attribute name="title"   value="PLAN'B JEJU" />
             <put-attribute name="css"     value="css/{1}/*.css"/>
             <put-attribute name="header"  value="/WEB-INF/views/header.jsp" />
     		<put-attribute name="footer"  value="/WEB-INF/views/footer.jsp" />
          	<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}/{4}.jsp" /> 
     </definition>
     <definition name="*.*.*" template="/WEB-INF/views/layout.jsp"> 
-         	<put-attribute name="title"   value="kosta notice list" />
+         	<put-attribute name="title"   value="PLAN'B JEJU" />
             <put-attribute name="css"     value="css/{1}/*.css"/>
             <put-attribute name="header"  value="/WEB-INF/views/header.jsp" />
     		<put-attribute name="footer"  value="/WEB-INF/views/footer.jsp" />
          	<put-attribute name="content" value="/WEB-INF/views/{1}/{2}/{3}.jsp" /> 
     </definition>
     <definition name="*.*" template="/WEB-INF/views/layout.jsp"> 
-         	<put-attribute name="title"   value="kosta notice list" />
+         	<put-attribute name="title"   value="PLAN'B JEJU" />
             <put-attribute name="css"     value="css/{1}/*.css"/>
             <!-- <put-attribute name="header"  value="/WEB-INF/views/inc/header.jsp" /> 
          	<put-attribute name="footer"  value="/WEB-INF/views/inc/footer.jsp" /> 
