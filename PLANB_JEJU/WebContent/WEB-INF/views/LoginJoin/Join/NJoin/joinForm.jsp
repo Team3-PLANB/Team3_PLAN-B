@@ -43,7 +43,7 @@
 	<link rel="stylesheet" href="css/cs-select.css">
 	<link rel="stylesheet" href="css/cs-skin-border.css">	
 	<link rel="stylesheet" href="css/style.css">
-	<link rel="stylesheet" href="../../css/join.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/LoginJoin/join.css">
 
 	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
 	<script src="${pageContext.request.contextPath}/js/email.js"></script>
@@ -93,8 +93,8 @@
 														<input type="button" onblur="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
 													</div>
-												<div class = "email-msg" id="email-msg"></div>
 											</div>
+												<div class = "email-msg" id="email-msg"></div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-left:10%;">
 											<div class="input-field">
