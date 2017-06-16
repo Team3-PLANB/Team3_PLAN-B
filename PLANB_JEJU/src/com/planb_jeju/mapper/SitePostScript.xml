@@ -37,3 +37,4 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO route(route_code, username, routename, partner_code, sday, eday)
 	    VALUES( NULL, #{username}, #{routename}, #{partner_code}, #{sday}, #{eday})
 	</insert> -->
+</mapper>
