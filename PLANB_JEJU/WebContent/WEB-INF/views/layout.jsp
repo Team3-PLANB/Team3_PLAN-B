@@ -61,9 +61,9 @@
 
 <head>
 
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title>Index</title>
-	<link href="index.css" type="text/css" rel="stylesheet">
+	<link href="index.css" type="text/css" rel="stylesheet"> -->
 	
 </head>
 <body>

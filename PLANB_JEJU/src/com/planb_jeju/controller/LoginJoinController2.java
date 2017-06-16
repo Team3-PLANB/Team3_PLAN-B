@@ -13,14 +13,11 @@ package com.planb_jeju.controller;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.ibatis.session.SqlSession;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.service.MemberService2;
 
 
@@ -45,7 +42,7 @@ public class LoginJoinController2 {
 	* @param spec : HttpServletRequest request, HttpServletResponse response, Model model
 	*/
 	@RequestMapping("Join/emailAuth.do")
-	public Model emailAuth(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+	public @ResponseBody Model emailAuth(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
 	System.out.println(">>>>>>>Email_controller<<<<<<<");
 		
 		String username = request.getParameter("username");
@@ -54,12 +51,15 @@ public class LoginJoinController2 {
 		System.out.println("랜덤 시작");
 		authNum = memberservice.RandomNum();
 		System.out.println("랜덤 끝");
+		System.out.println("메일 보내기 시작");
 		memberservice.sendEmail(username.toString(), authNum);
+		System.out.println("메일 보내기 끝");
 		
 		model.addAttribute("username", username);
 		model.addAttribute("authNum", authNum);
 		
 		return model;
+		
 	}
 	
 }
