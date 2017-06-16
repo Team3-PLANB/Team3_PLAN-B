@@ -74,7 +74,7 @@ function emailCheck() {
 				dataType : "json",
 				data : {"username" : username},
 				success : function(result) {
-					if (result == false) {
+					if (!result) {
 						$(".email-msg").text("이미 가입되어 있는 이메일입니다");
 						$("#username").val("");
 						$("#username").focus();
