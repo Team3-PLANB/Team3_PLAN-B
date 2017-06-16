@@ -22,9 +22,22 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.planb_jeju.dao.ExDao;
 
 
-//폴더 경로가 긴 경우
-///customer/notice.htm => notice.htm (함수 mapping)
-///customer/noticeDetail.html  =>noticeDetail.html
+/*
+* @FileName : KakaoParsing.java
+* @Project : PLANB_JEJU
+* @Date : 2017.04.21
+* @LastEditDate : 2017.06.16
+* @Author : 강나영 
+*/
+
+/*
+ * @Class : MyPageController
+ * @Date : 2017.04.21
+ * @Author : 강나영
+ * @Board : 2017. 04. 21.
+ * @Desc : 마이페이지 컨트롤러
+*/
+
 @Controller
 public class DBExController {
 
@@ -34,7 +47,14 @@ public class DBExController {
 	@Autowired
 	private SqlSession sqlsession;
 
-	// 글 상세 보기
+	/*
+	* @method Name : editBoard
+	* @date : 2017. 4. 21
+	* @author. : 강나영
+	* @description : 게시판을 고치기 위해 DB와 연 결하여 해결한다. 
+	* @param spec : HttpServletRequest boardata 
+	* @return : int 
+	*/
 	@RequestMapping("DBEx.do")
 	public void noticeDetail() throws ClassNotFoundException, SQLException {
 

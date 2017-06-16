@@ -1,6 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
@@ -50,24 +48,8 @@
  -->
  
  <script>
- 	var username = $('#username').value;
- 	$(document).ready(function(){
- 		$('#authNumSend').click(function(){
- 			$.ajax({
- 				type : "get",
-				url : '<%= request.getContentLength() %>/LoginJoin/Join/emailAuth.do',
-				data : {"username" : username},
-				dataType : "json",
-				success : function(result) {
-					if (!result) { 
-						console.log("잘못된 값");
-					}else {
-						console.log(result);
-					}
-				}
- 			});
- 		});
- 	});
+ 	
+ 	
 	function check(){
 		var form = document.authenform;
 		var authNum = ${authNum};
@@ -105,10 +87,10 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="../../css/join.css">
 
-	<script src="../../js/joinCheck.js"></script>
-	<script src="../../js/email.js"></script>
-	<script src="../../js/facebook.js" ></script>
-	<script src="../../js/sweetalert.min.js" ></script>
+	<script src="${pageContext.request.contextPath}/js/joinCheck.js"></script>
+	<script src="${pageContext.request.contextPath}/js/email.js"></script>
+	<script src="${pageContext.request.contextPath}/js/facebook.js" ></script>
+	<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
 
  <%
     String clientId = "q6YKhoTAKENem9wjtax9";//애플리케이션 클라이언트 아이디값";
@@ -150,8 +132,8 @@
 											<div class="input-field" >
 												<label for="email">이메일</label> 
 													<div>
-														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" onblur="emailCheck()">
-														<input type="button" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
+														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" > <!-- onblur="emailCheck()" -->
+														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
 													</div>
 												<div class = "email-msg" id="email-msg"></div>
 											</div>
@@ -175,7 +157,7 @@
 											<div class="input-field">
 												<label for="nickname">닉네임</label> 
 												<input type="text"class="form-control" name = "nickname" id="nickname"
-													placeholder="닉네임을 입력해주세요" onblur="nickCheck()">
+													placeholder="닉네임을 입력해주세요" > <!-- onblur="nickCheck()" -->
 												<div class = "nick-msg" id="nick-msg"></div>
 											</div>
 										</div>

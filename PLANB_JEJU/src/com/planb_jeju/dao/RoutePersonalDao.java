@@ -12,7 +12,11 @@ import com.planb_jeju.dto.RoutePersonal;
 public interface RoutePersonalDao {
 	
 	
-	//취향 입력
+	/*	
+	 * @description : 취향 입력
+	 * @return : int
+	 * @param spec : x
+	 */
 	public int insert(Map<String, Object> map) throws ClassNotFoundException, SQLException;
 	
 	

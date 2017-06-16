@@ -8,7 +8,11 @@ import com.planb_jeju.dto.Message;
 //CRUD
 public interface MessageDao {
 	
-	//한 사람과 주고받은 쪽지 수
+	/*	
+	 * @description : 한사람과 받은 쪽지 수
+	 * @return : int
+	 * @param spec : x
+	 */
 	public int getCount(String username) throws ClassNotFoundException, SQLException;
 	
 	//쪽지 방 개수 (유저당)
