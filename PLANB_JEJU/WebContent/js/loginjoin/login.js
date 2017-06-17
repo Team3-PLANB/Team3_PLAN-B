@@ -3,8 +3,8 @@ function loginCheck() {
 		url : "loginCheck.do",
 		type : "get",
 		data : {
-			username : $('#username').val(),
-			password : $('#password').val()
+			"username" : $('#username').val(),
+			"password" : $('#password').val()
 		},
 		success : function(data) {
 			data = JSON.parse(data);

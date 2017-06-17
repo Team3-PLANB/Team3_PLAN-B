@@ -30,7 +30,8 @@
 	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
 	<script src="${pageContext.request.contextPath}/js/email.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/facebook.js" ></script>
-
+	<script src="${pageContext.request.contextPath}/js/loginjoin/login.js" ></script>
+	
  <%
     String clientId = "q6YKhoTAKENem9wjtax9";//애플리케이션 클라이언트 아이디값";
     String redirectURI = URLEncoder.encode("http://127.0.0.1:8090/PLANB_JEJU/callback.jsp", "UTF-8");
@@ -71,8 +72,8 @@
 											<div class="input-field" >
 												<label for="email">이메일</label> 
 													<div>
-														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" > <!-- onblur="emailCheck()" -->
-														<input type="button" onclick="emailCheck()" onkeypress="revText()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
+														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" keypress="revText()"> <!-- onblur="emailCheck()" -->
+														<input type="button" onclick="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
 														<input type="hidden" id="saveAuthNum" >
 													</div>
@@ -99,11 +100,10 @@
 											<div class="input-field">
 												<label for="nickname">닉네임</label> 
 												<input type="text"class="form-control" name = "nickname" id="nickname"
-													placeholder="닉네임을 입력해주세요" > <!-- onblur="nickCheck()" -->
+													placeholder="닉네임을 입력해주세요" onclick = "nickCheck()">
 												<div class = "nick-msg" id="nick-msg"></div>
 											</div>
 										</div>
-
 									</form>
 								</div>
 								<!-- Tab LOGIN -->
@@ -126,7 +126,7 @@
 											</div>
 										</div>
 										<div class="col-xs-12">
-											<input type="submit" class="btn btn-primary btn-block" value="Login">
+											<input type="submit" class="btn btn-primary btn-block" value="Login" onclick="loginCheck()">
 										</div>
 									</form>
 								</div>

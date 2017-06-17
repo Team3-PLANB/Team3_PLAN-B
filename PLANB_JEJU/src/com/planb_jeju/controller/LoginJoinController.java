@@ -12,15 +12,19 @@ package com.planb_jeju.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.View;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.planb_jeju.dao.MemberDao;
+import com.planb_jeju.dto.Member;
 import com.planb_jeju.service.MemberService;
 
 @Controller
@@ -79,19 +83,12 @@ public class LoginJoinController {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		memberDao.fbjoin(username,fbaccesstoken.substring(0, 10), userid);
 	}
-	
-	/* 로그인 >> 이메일, 비밀번호 체크 */
 
 	/*
 	* @date : 2017. 6. 17
 	* @description : 로그인 시 이메일, 비밀번호 체크
 	* @return : String(ResponseBody) 
 	*/
-	@RequestMapping("Join/loginCheck.do")
-	public @ResponseBody void loginCheck(String username, String password) throws Exception {
-		memberDao = sqlsession.getMapper(MemberDao.class);
-		memberDao.loginCheck(username, password);
-	}
 	
 	/*
 	* @date : 2017. 6. 16

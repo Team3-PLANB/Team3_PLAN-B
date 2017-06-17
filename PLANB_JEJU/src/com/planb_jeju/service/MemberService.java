@@ -1,5 +1,8 @@
 package com.planb_jeju.service;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /*
 * @FileName : MemberService.java
 * @Class : MemberService
@@ -26,8 +29,11 @@ import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.planb_jeju.dao.MemberDao;
+import com.planb_jeju.dto.Member;
 
 @Service
 public class MemberService {
@@ -104,13 +110,9 @@ public class MemberService {
 	}
 	
 	// 회원가입 시 아이디체크
-	public static String duplicationCheck(String username, SqlSession sqlsession) throws Exception {
+	public String duplicationCheck(String username, SqlSession sqlsession) throws Exception {
 		String result;
-		System.out.println("service<<<<<<<<<<");
-		System.out.println("값 확인"+sqlsession);
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		
-		System.out.println(memberDao);
 		if(memberDao.checkEmail(username) > 0) {
 			result = "false"; // 아이디 중복 O
 		} else {
@@ -119,20 +121,4 @@ public class MemberService {
 		return result;
 	}
 	
-/*	public static String duplicationCheck(String username, SqlSession sqlsession) throws Exception {
-		String result;
-		System.out.println("service<<<<<<<<<<");
-		System.out.println("값 확인"+sqlsession);
-		memberDao = sqlsession.getMapper(MemberDao.class);
-		
-		System.out.println(memberDao);
-		if(memberDao.checkEmail(username) > 0) {
-			result = "false"; // 아이디 중복 O
-			System.out.println(">>>>>>>false<<<<<<");
-		} else {
-			result = "true"; // 아이디 중복 X
-			System.out.println(">>>>>>>true<<<<<<");
-		}
-		return result;
-	}*/
 }
