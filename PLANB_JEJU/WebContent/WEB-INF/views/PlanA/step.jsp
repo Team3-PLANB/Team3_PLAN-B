@@ -27,7 +27,7 @@
 
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/PlanA/step-radio.css">
-
+<!-- 체크박스를 위한 css  -->
 <link rel="stylesheet" href="css/PlanA/checkbox-bootstrap.css">
 
 
