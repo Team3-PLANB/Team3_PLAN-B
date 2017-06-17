@@ -139,10 +139,9 @@
 
 						<div class="container">
 							<div class="row">
-								<!-- <div class="col-sm-5 col-md-5"> -->
 								<div class="tabulation animate-box fadeInUp animated">
 
-									<!-- Nav tabs -->
+									<%----------------------------------tab 나누기 ----------------------------------------%>
 									<ul class="nav nav-tabs" role="tablist">
 										<li role="presentation" class="active" id="step1Nav"><a
 											href="#step1" aria-controls="flights" role="tab"
@@ -157,7 +156,7 @@
 										<li role="presentation" id="step4Nav">
 									</ul>
 
-									<!-- Tab panes -->
+									<%----------------------------------STEP1 - 여행 일정 ----------------------------------------%>
 									<div class="tab-content">
 										<div role="tabpanel" class="tab-pane active" id="step1">
 											<div class="row">
@@ -201,7 +200,7 @@
 
 
 
-										<!-- 파트너 -->
+										<%----------------------------------STEP2 - 여행 파트너 ----------------------------------------%>
 										<div role="tabpanel" class="tab-pane" id="step2">
 											<div class="row">
 												<div class="partner-radio-group">
@@ -287,7 +286,7 @@
 
 
 
-										<!-- 취미 -->
+										<%----------------------------------STEP3 - 여행 취향 ----------------------------------------%>
 										<div role="tabpanel" class="tab-pane" id="step3">
 											<div class="row">
 												<div class="col-xxs-12 col-xs-12 mt alternate">
@@ -398,7 +397,7 @@
 
 
 
-										<!-- 여행 이름 설정 Tab -->
+										<%----------------------------------STEP4 - 여행 이름 설정 ----------------------------------------%>
 										<div role="tabpanel" class="tab-pane" id="step4">
 											<div class="row">
 												<div class="col-xxs-12 col-xs-6 mt alternate">
@@ -416,7 +415,6 @@
 														value="경로 추천 받기" onclick='Submit(1)'>
 												</div>
 
-												<!-- </div> -->
 											</div>
 										</div>
 									</div>
@@ -427,17 +425,12 @@
 				</div>
 
 			</div>
-		</div>
-		<!-- END fh5co-page -->
-
-
-
-	</div>
+		</div>	</div>
 
 </form>
-<!-- END fh5co-wrapper -->
 
-<!-- jQuery -->
+
+
 
 
 <script src="js/jquery.min.js"></script>
