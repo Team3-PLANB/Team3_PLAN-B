@@ -24,10 +24,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM member
 		WHERE username = #{username}
 	</select>
-	
 
-	
-	
+	<!-- 로그인 확인 -->
+	<select id = "loginCheck" resultType="com.planb_jeju.dto.Member">
+		SELECT username, password
+		FROM member
+		WHERE username = #{username}
+	</select>
 	
 	<!-- 멤버 한명 셀렉 -->
 	<select id="getMember" resultType="com.planb_jeju.dto.Member">
@@ -51,7 +54,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 입력 -->
 	<insert id="insert">
-		INSERT INTO member(username, password, nickname)
+		INSERT INTO member
 	    VALUES( #{username}, #{password}, #{nickname})
 	</insert>
 	

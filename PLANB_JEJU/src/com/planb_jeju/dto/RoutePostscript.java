@@ -13,10 +13,21 @@ public class RoutePostscript {
 	private String username;
 	private int route_code;
 	
+	// 태그
+	private int route_postscript_tag_rownum;
+//	private int route_postscript_rownum;
+	private String tag;
+	
+	// 찜콩
+	private int route_postscript_like_rownum;
+//	private int route_postscript_rownum;
+//	private String username;
+	
 	public RoutePostscript(){}
 
 	public RoutePostscript(int route_postscript_rownum, String route_sumnail, String comment, Time writetime,
-			int hitnum, int likenum, String username, int route_code) {
+			int hitnum, int likenum, String username, int route_code, int route_postscript_tag_rownum,
+			int route_postscript_like_rownum) {
 		super();
 		this.route_postscript_rownum = route_postscript_rownum;
 		this.route_sumnail = route_sumnail;
@@ -26,6 +37,8 @@ public class RoutePostscript {
 		this.likenum = likenum;
 		this.username = username;
 		this.route_code = route_code;
+		this.route_postscript_tag_rownum = route_postscript_tag_rownum;
+		this.route_postscript_like_rownum = route_postscript_like_rownum;
 	}
 
 	public int getRoute_postscript_rownum() {
@@ -92,13 +105,29 @@ public class RoutePostscript {
 		this.route_code = route_code;
 	}
 
-	@Override
-	public String toString() {
-		return "route_postscript [route_postscript_rownum=" + route_postscript_rownum + ", route_sumnail="
-				+ route_sumnail + ", comment=" + comment + ", writetime=" + writetime + ", hitnum=" + hitnum
-				+ ", likenum=" + likenum + ", username=" + username + ", route_code=" + route_code + "]";
+	public int getRoute_postscript_tag_rownum() {
+		return route_postscript_tag_rownum;
 	}
 
-	
+	public void setRoute_postscript_tag_rownum(int route_postscript_tag_rownum) {
+		this.route_postscript_tag_rownum = route_postscript_tag_rownum;
+	}
+
+	public int getRoute_postscript_like_rownum() {
+		return route_postscript_like_rownum;
+	}
+
+	public void setRoute_postscript_like_rownum(int route_postscript_like_rownum) {
+		this.route_postscript_like_rownum = route_postscript_like_rownum;
+	}
+
+	@Override
+	public String toString() {
+		return "RoutePostscript [route_postscript_rownum=" + route_postscript_rownum + ", route_sumnail="
+				+ route_sumnail + ", comment=" + comment + ", writetime=" + writetime + ", hitnum=" + hitnum
+				+ ", likenum=" + likenum + ", username=" + username + ", route_code=" + route_code
+				+ ", route_postscript_tag_rownum=" + route_postscript_tag_rownum + ", route_postscript_like_rownum="
+				+ route_postscript_like_rownum + "]";
+	}
 	
 }
