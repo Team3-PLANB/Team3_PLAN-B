@@ -119,7 +119,8 @@ function revText() {
 	$("#authNumSend").hide();
 	$("#overlabCheck").show();
 }
-/*function nickCheck() {
+
+function nickCheck() {
 	$.ajax({
 		url : "duplicationCheck.do",
 		type : "get",
@@ -133,7 +134,7 @@ function revText() {
 				$("#nickname").val("");
 				$("#nickname").focus();
 			} else {
-				$(".nick-msg").text("사용가능한 이메일입니다");
+				$(".nick-msg").text("사용가능한 닉네임입니다");
 			}
 		},
 		error : function(xhr) {
@@ -141,4 +142,4 @@ function revText() {
 		}
 	});
 	return false;
-};*/
+};
