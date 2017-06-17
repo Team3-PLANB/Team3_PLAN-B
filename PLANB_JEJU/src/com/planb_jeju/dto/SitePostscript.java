@@ -17,10 +17,22 @@ public class SitePostscript {
 	private String username;
 	private int route_code;
 	
-	public SitePostscript(){}
+	// 태그
+	private int site_postscript_tag_rownum;
+//	private int site_postscript_rownum;
+	private String tag;
+	
+	// 찜콩
+	private int site_postscript_like_rownum;
+//	private int site_postscript_rownum;
+//	private String username;
+	
+	
+	public SitePostscript(){}	
 
 	public SitePostscript(int site_postscript_rownum, String site, String category, String health, String inoutside,
-			String cost, String comment, Time writetime, int hitnum, int likenum, String username, int route_code) {
+			String cost, String comment, Time writetime, int hitnum, int likenum, String username, int route_code,
+			int site_postscript_tag_rownum, String tag, int site_postscript_like_rownum) {
 		super();
 		this.site_postscript_rownum = site_postscript_rownum;
 		this.site = site;
@@ -34,6 +46,9 @@ public class SitePostscript {
 		this.likenum = likenum;
 		this.username = username;
 		this.route_code = route_code;
+		this.site_postscript_tag_rownum = site_postscript_tag_rownum;
+		this.tag = tag;
+		this.site_postscript_like_rownum = site_postscript_like_rownum;
 	}
 
 	public int getSite_postscript_rownum() {
@@ -132,13 +147,37 @@ public class SitePostscript {
 		this.route_code = route_code;
 	}
 
+	public int getSite_postscript_tag_rownum() {
+		return site_postscript_tag_rownum;
+	}
+
+	public void setSite_postscript_tag_rownum(int site_postscript_tag_rownum) {
+		this.site_postscript_tag_rownum = site_postscript_tag_rownum;
+	}
+
+	public String getTag() {
+		return tag;
+	}
+
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public int getSite_postscript_like_rownum() {
+		return site_postscript_like_rownum;
+	}
+
+	public void setSite_postscript_like_rownum(int site_postscript_like_rownum) {
+		this.site_postscript_like_rownum = site_postscript_like_rownum;
+	}
+
 	@Override
 	public String toString() {
-		return "site_postscript [site_postscript_rownum=" + site_postscript_rownum + ", site=" + site + ", category="
+		return "SitePostscript [site_postscript_rownum=" + site_postscript_rownum + ", site=" + site + ", category="
 				+ category + ", health=" + health + ", inoutside=" + inoutside + ", cost=" + cost + ", comment="
 				+ comment + ", writetime=" + writetime + ", hitnum=" + hitnum + ", likenum=" + likenum + ", username="
-				+ username + ", route_code=" + route_code + "]";
-	}
-	
+				+ username + ", route_code=" + route_code + ", site_postscript_tag_rownum=" + site_postscript_tag_rownum
+				+ ", tag=" + tag + ", site_postscript_like_rownum=" + site_postscript_like_rownum + "]";
+	}	
 	
 }
