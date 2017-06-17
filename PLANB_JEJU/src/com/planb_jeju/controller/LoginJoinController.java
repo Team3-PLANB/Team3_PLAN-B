@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -81,6 +82,17 @@ public class LoginJoinController {
 	
 	/* 로그인 >> 이메일, 비밀번호 체크 */
 
+	/*
+	* @date : 2017. 6. 17
+	* @description : 로그인 시 이메일, 비밀번호 체크
+	* @return : String(ResponseBody) 
+	*/
+	@RequestMapping("Join/loginCheck.do")
+	public @ResponseBody void loginCheck(String username, String password) throws Exception {
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		memberDao.loginCheck(username, password);
+	}
+	
 	/*
 	* @date : 2017. 6. 16
 	* @description : 페이스북 로그인 중복체크 > 중복-로그인 > 비중복-가입mapper
