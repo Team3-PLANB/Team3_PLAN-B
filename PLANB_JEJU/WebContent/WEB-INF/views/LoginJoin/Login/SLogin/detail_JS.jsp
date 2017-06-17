@@ -187,8 +187,10 @@ style="display: block; height: 458px;" */
     	<div class="group">
            <h3>DAY 1</h3> <!--min-height   -->
 			<div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"
-			id="ui-id-2"aria-labelledby="ui-id-1"role="tabpanel"aria-hidden="false"style="display: block; height:auto;">
-			<!-- 위 디브에 높이 오토 줘보자 이거 되면 담은이 짱짱걸 -->
+			id="ui-id-2"aria-labelledby="ui-id-1"role="tabpanel"aria-hidden="false"style="display: block; height:100%;">
+			<!-- 위 디브에 높이 오토 줘보자 이거 되면 담은이 짱짱걸
+			위 태그 전부다 오토 , 민 하이트  100% 줘보기
+			 -->
 			
 			
 		<div class="sortable">
