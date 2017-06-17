@@ -74,6 +74,7 @@
 														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" > <!-- onblur="emailCheck()" -->
 														<input type="button" onclick="emailCheck()" onkeypress="revText()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
+														<input type="hidden" id="saveAuthNum" >
 													</div>
 													
 												<div class = "email-msg" id="email-msg" style="clear:both;"></div>
