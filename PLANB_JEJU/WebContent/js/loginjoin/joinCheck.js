@@ -53,12 +53,13 @@ function authCheck(){
 		type : "get",
 		url : 'emailAuth.do',
 		data : {"username" : username},
-		dataType : "json",
+		dataType : "text",
 		success : function(result) {
 				if (!result) { 
 					console.log("잘못된 값");
 				}else {
 					console.log(result);
+					$('#saveAuthNum').val(result);
 				}
 			},
 			error : function(xhr) {
@@ -67,15 +68,16 @@ function authCheck(){
 		});	
 	}
 
-function ahthNumCheck(){
+function authNumCheck(){
 	var authnum = $('#authnum').val();
+	var check = $('#saveAuthNum').val();
 	
 	if(!authnum){
 		alert("인증번호를 입력하세요");
-	}else if(authnum != result){
+	}else if(authnum != check){
 		alert("인증번호가 맞지 않습니다. 확인해주세요.");
 		authnum = "";
-	}else if(authnum == result){
+	}else if(authnum == check){
 		alert("인증완료");
 	}
 }
@@ -117,7 +119,8 @@ function revText() {
 	$("#authNumSend").hide();
 	$("#overlabCheck").show();
 }
-/*function nickCheck() {
+
+function nickCheck() {
 	$.ajax({
 		url : "duplicationCheck.do",
 		type : "get",
@@ -131,7 +134,7 @@ function revText() {
 				$("#nickname").val("");
 				$("#nickname").focus();
 			} else {
-				$(".nick-msg").text("사용가능한 이메일입니다");
+				$(".nick-msg").text("사용가능한 닉네임입니다");
 			}
 		},
 		error : function(xhr) {
@@ -139,4 +142,4 @@ function revText() {
 		}
 	});
 	return false;
-};*/
+};
