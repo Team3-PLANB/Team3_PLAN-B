@@ -64,11 +64,11 @@ public class MemberService {
 	public void sendEmail(String username, String authNum) {
 		String host = "smtp.gmail.com"; // smtp 서버
 		String title = "PLAN'B JEJU 이메일 인증 서비스";
-		String fromName = "플랜비 제주 관리자";
+		String fromName = "플랜비 제주";
 		String from = "dahye9666@gmail.com"; // 보내는 메일
 		String to = username;
 
-		String content = "인증번호[" + authNum + "]";
+		String content = "인증번호 [ " + authNum + " ] 를 정확하게 입력해주세요.";
 
 		try {
 			System.out.println("sendEmail() 들어옴 : " + to);
