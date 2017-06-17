@@ -128,7 +128,6 @@
 			<version>1.1.1</version>
 		</dependency>
 
-
 		<!-- Mybatis 설정하기 -->
 		<dependency>
 			<groupId>org.mybatis</groupId>
@@ -139,8 +138,7 @@
 			<groupId>org.mybatis</groupId>
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.2</version>
-		</dependency>  
-		
+		</dependency>  		
 		
 		<!-- mysql -->
 		<dependency>
@@ -156,7 +154,6 @@
 			<artifactId>commons-collections</artifactId>
 			<version>3.2.1</version>
 		</dependency>
-
 		<dependency>
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
@@ -169,7 +166,6 @@
 		    <artifactId>smtp</artifactId>
 		    <version>1.5.4</version>
 		</dependency>
-
 		<dependency>
         <groupId>javax.mail</groupId>
            <artifactId>mail</artifactId>
@@ -193,6 +189,13 @@
 			<version>2.7.3</version>
 		</dependency>
 		
+		<!-- https://mvnrepository.com/artifact/org.springframework.social/spring-social-facebook -->
+		<dependency>
+		    <groupId>org.springframework.social</groupId>
+		    <artifactId>spring-social-facebook</artifactId>
+		    <version>1.1.1.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<sourceDirectory>src</sourceDirectory>

@@ -113,6 +113,10 @@ function emailCheck() {
 	return false;
 };
 
+function revText() {
+	$("#authNumSend").hide();
+	$("#overlabCheck").show();
+}
 /*function nickCheck() {
 	$.ajax({
 		url : "duplicationCheck.do",

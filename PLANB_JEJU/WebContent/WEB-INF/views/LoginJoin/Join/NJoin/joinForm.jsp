@@ -72,7 +72,7 @@
 												<label for="email">이메일</label> 
 													<div>
 														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" > <!-- onblur="emailCheck()" -->
-														<input type="button" onclick="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
+														<input type="button" onclick="emailCheck()" onkeypress="revText()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
 													</div>
 													
@@ -113,6 +113,7 @@
 												<label for="email">이메일</label> 
 												<input type="text" class="form-control" id="username" name = "username"
 													placeholder="이메일을 입력해주세요">
+												<div class="emailCheck"></div>
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear:both;margin-left:10%">
@@ -120,6 +121,7 @@
 												<label for="password">비밀번호</label> 
 												<input type="password" class="form-control" id="password"
 													placeholder="비밀번호를 입력해주세요">
+												<div class="pwdCheck"></div>
 											</div>
 										</div>
 										<div class="col-xs-12">
