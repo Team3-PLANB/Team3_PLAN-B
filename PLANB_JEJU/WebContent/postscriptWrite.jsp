@@ -37,6 +37,8 @@
 <link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="css/cs-select.css">
 <link rel="stylesheet" href="css/cs-skin-border.css">
+<link rel="stylesheet" href="css/style.css">
+
 <!-- 갤러리 등록을 위한 css  -->
 <link rel="stylesheet"
 	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -46,75 +48,35 @@
 <script src="js/modernizr-2.6.2.min.js"></script>
 <link rel="stylesheet" href="css/PostScript/checkbox-bootstrap.css">
 
-<style>
-.nav-tabs {
-	border-bottom: 2px solid #DDD;
-}
-
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover
-	{
-	border-width: 0;
-}
-
-.nav-tabs>li>a {
-	border: none;
-	color: #666;
-}
-
-.nav-tabs>li.active>a, .nav-tabs>li>a:hover {
-	border: none;
-	color: #F78536 !important;
-	background: transparent;
-}
-
-.nav-tabs>li>a::after {
-	content: "";
-	background: #F78536;
-	height: 2px;
-	position: absolute;
-	width: 100%;
-	left: 0px;
-	bottom: -1px;
-	transition: all 250ms ease 0s;
-	transform: scale(0);
-}
-
-.nav-tabs>li.active>a::after, .nav-tabs>li:hover>a::after {
-	transform: scale(1);
-}
-
-.tab-nav>li>a::after {
-	background: #21527d none repeat scroll 0% 0%;
-	color: #fff;
-}
-
-.tab-pane {
-	padding: 15px 0;
-}
-
-.tab-content {
-	padding: 20px
-}
-
-.card {
-	background: #FFF none repeat scroll 0% 0%;
-	box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.3);
-	margin-bottom: 30px;
-}
-
-body {
-	background: #EDECEC;
-	padding: 50px
-}
-
-.complete {
-	background: #F78536;
-	color: #fff !important;
-	border: none !important;
-	border: 2px solid transparent !important;
-	box-shadow: none;
-}
-</style>
+<script type="text/javascript">
+	/* 첫번째 체크박스 중복체크 X  */
+	function doOpenCheck(chk) {
+		var obj = document.getElementsByName("aaa");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+	/* 두번째 체크박스 중복체크 X  */
+	function doOpenCheck2(chk) {
+		var obj = document.getElementsByName("bbb");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+	/* 세번째 체크박스 중복체크 X  */
+	function doOpenCheck3(chk) {
+		var obj = document.getElementsByName("ccc");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+</script>
 </head>
 
 <body>
@@ -139,7 +101,8 @@ body {
 							<br> <input type="text" class="form-control"
 								placeholder="태그"><br>
 							<div align="center">
-								<input type="submit" value="작성 완료" class="complete">
+								<input type="submit" value="작성 완료"
+									class="btn btn-primary btn-block">
 							</div>
 						</div>
 						<%------------------------------여행지 후기 작성----------------------------------------%>
@@ -162,16 +125,7 @@ body {
 								<div class="modal-dialog">
 									<div class="modal-content clearfix">
 										<div class="modal-body login-box clearfix">
-											<!--user post text -wrap-->
-											<div class="user-post-text-wrap">
-												<div class="user-pic-post">
-													<img src="https://unsplash.it/176/176/?random">
-												</div>
-												<div class="user-txt-post">
-													<textarea class="form-control upostTextarea"
-														placeholder="What's on your mind"></textarea>
-												</div>
-											</div>
+
 											<!--user post text -wrap end-->
 											<ul id="media-list" class="clearfix">
 												<li class="myupload"><span><i class="fa fa-plus"
@@ -182,7 +136,7 @@ body {
 
 											<!--post btn wrap-->
 											<div class="user-post-btn-wrap clearfix">
-												<input type="submit" class="btn" value="post">
+												<input type="submit" class="btn" value="사진 등록">
 											</div>
 											<!--post btn wrap end-->
 										</div>
@@ -198,46 +152,59 @@ body {
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<img alt="" src="images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<label class="checkbox-bootstrap checkbox-lg"> <input
-									type="checkbox"> <span class="checkbox-placeholder"></span>
-									맑음
+									name="aaa" type="checkbox" value="1"
+									onclick="doOpenCheck(this);"> <span
+									class="checkbox-placeholder"></span> 맑음
 								</label>&nbsp;&nbsp;&nbsp; <label class="checkbox-bootstrap checkbox-lg">
-									<input type="checkbox"> <span
+									<input name="aaa" type="checkbox" value="2"
+									onclick="doOpenCheck(this);"> <span
 									class="checkbox-placeholder"></span> 흐림
 								</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
-									<input type="checkbox"> <span
+									<input name="aaa" type="checkbox" value="3"
+									onclick="doOpenCheck(this);"> <span
 									class="checkbox-placeholder"></span> 우중충
 								</label>
-							</div><br>
+							</div>
+							<br>
 							<div class="checkbox">
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<img alt="" src="images/PostScript/002-money.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<label class="checkbox-bootstrap checkbox-lg"> <input
-									type="checkbox"> <span class="checkbox-placeholder"></span>
-									부족
+									name="bbb" type="checkbox" value="1"
+									onclick="doOpenCheck2(this);"> <span
+									class="checkbox-placeholder"></span> 부족
 								</label>&nbsp;&nbsp;&nbsp; <label class="checkbox-bootstrap checkbox-lg">
-									<input type="checkbox"> <span
+									<input name="bbb" type="checkbox" value="2"
+									onclick="doOpenCheck2(this);"> <span
 									class="checkbox-placeholder"></span> 적당
 								</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
-									<input type="checkbox"> <span
+									<input name="bbb" type="checkbox" value="3"
+									onclick="doOpenCheck2(this);"> <span
 									class="checkbox-placeholder"></span> 풍족
 								</label>
-							</div><br>
+							</div>
+							<br>
 							<div class="checkbox">
 								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<img alt="" src="images/PostScript/001-hospital.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<label class="checkbox-bootstrap checkbox-lg"> <input
-									type="checkbox"> <span class="checkbox-placeholder"></span>
-									양호
+									name="ccc" type="checkbox" value="1"
+									onclick="doOpenCheck3(this);"> <span
+									class="checkbox-placeholder"></span> 양호
 								</label>&nbsp;&nbsp;&nbsp; <label class="checkbox-bootstrap checkbox-lg">
-									<input type="checkbox"> <span
+									<input name="ccc" type="checkbox" value="2"
+									onclick="doOpenCheck3(this);"> <span
 									class="checkbox-placeholder"></span> 쏘쏘
 								</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
-									<input type="checkbox"> <span
+									<input name="ccc" type="checkbox" value="3"
+									onclick="doOpenCheck3(this);"> <span
 									class="checkbox-placeholder"></span> 악화
 								</label>
-							</div><br>
+							</div>
+							<br>
 							<div align="center">
-								<input type="submit" value="작성 완료" class="complete">
+								<input type="submit" value="작성 완료"
+									class="btn btn-primary btn-block">
 							</div>
 						</div>
 
@@ -249,29 +216,18 @@ body {
 
 
 	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
 	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
 	<script src="js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
 	<script src="js/jquery.waypoints.min.js"></script>
 	<script src="js/sticky.js"></script>
-
-	<!-- Stellar -->
 	<script src="js/jquery.stellar.min.js"></script>
-	<!-- Superfish -->
 	<script src="js/hoverIntent.js"></script>
 	<script src="js/superfish.js"></script>
-	<!-- Magnific Popup -->
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/magnific-popup-options.js"></script>
-	<!-- Date Picker -->
 	<script src="js/bootstrap-datepicker.min.js"></script>
-	<!-- CS Select -->
 	<script src="js/classie.js"></script>
 	<script src="js/selectFx.js"></script>
-
-	<!-- Main JS -->
 	<script src="js/main.js"></script>
 
 </body>

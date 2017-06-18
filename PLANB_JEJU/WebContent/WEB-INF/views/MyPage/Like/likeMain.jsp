@@ -36,7 +36,7 @@
 				class="col-md-6 col-sm-6 fh5co-tours animate-box fadeInUp animated"
 				data-animate-effect="fadeIn">
 				<div href="#">
-					<img src="${pageContext.request.contextPath}/images/san160302.JPG"
+					<img src="${pageContext.request.contextPath}/images/MyPage/mypostscript1.jpg"
 						alt="Free HTML5 Website Template by FreeHTML5.co"
 						class="img-responsive">
 					<div class="desc">
@@ -50,7 +50,7 @@
 				class="col-md-6 col-sm-6 fh5co-tours animate-box fadeInUp animated"
 				data-animate-effect="fadeIn">
 				<div href="#">
-					<img src="${pageContext.request.contextPath}/images/f58de24211ad77ecd7b92fb3e9394d93.jpg"
+					<img src="${pageContext.request.contextPath}/images/MyPage/mypostscript2.jpg"
 						alt="Free HTML5 Website Template by FreeHTML5.co"
 						class="img-responsive">
 					<div class="desc">
