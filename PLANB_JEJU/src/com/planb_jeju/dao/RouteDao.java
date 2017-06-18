@@ -16,6 +16,11 @@ public interface RouteDao {
 	 */
 	public int getCount() throws ClassNotFoundException, SQLException;
 	
+	/*	
+	 * @description : 전체 수
+	 * @return : int
+	 * @param spec : x
+	 */
 	//회원 현재 경로 번호 가져오기
 	public int getRouteCode(String username) throws ClassNotFoundException, SQLException;
 	
@@ -30,6 +35,7 @@ public interface RouteDao {
 	
 	//게시물 삭제
 	public int delete(int route_code, String username) throws ClassNotFoundException, SQLException;
+	
 	
 	
 }	
