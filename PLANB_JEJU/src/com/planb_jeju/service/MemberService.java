@@ -111,7 +111,7 @@ public class MemberService {
 	}
 	
 	// 회원가입 시 아이디체크
-	public String duplicationCheck(String username, SqlSession sqlsession) throws Exception {
+	public String duplicationEmailCheck(String username, SqlSession sqlsession) throws Exception {
 		String result;
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		if(memberDao.checkEmail(username) > 0) {
@@ -122,15 +122,27 @@ public class MemberService {
 		return result;
 	}
 	
+	// 회원가입 시 닉네임체크
+	public String duplicationNickCheck(String nickname, SqlSession sqlsession) throws Exception {
+		String result;
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		if(memberDao.checkNickname(nickname) > 0) {
+			result = "false"; // 닉네임 중복 O
+		} else {
+			result = "true"; // 닉네임 중복 X
+		}
+		return result;
+	}
+	
 	// 로그인 시 
-	public String loginCheck(String username, String password) throws Exception {
+	public String loginCheck(String username, String password, SqlSession sqlsession) throws Exception {
 		String result = "";
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		System.out.println("login service");
+		System.out.println("login service : " + password);
 		if(memberDao.checkEmail(username) < 1) {
 			result = "efalse";	// 해당 email 존재 x
 		} else {
-			if(password != member.getPassword()) {
+			if(password != memberDao.loginCheck(password)) {
 				result = "false";	// email 존재 + pwd 틀림
 			} else {
 				result = "true";
