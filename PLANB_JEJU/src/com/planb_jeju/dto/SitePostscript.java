@@ -22,17 +22,12 @@ public class SitePostscript {
 //	private int site_postscript_rownum;
 	private String tag;
 	
-	// 찜콩
-	private int site_postscript_like_rownum;
-//	private int site_postscript_rownum;
-//	private String username;
-	
 	
 	public SitePostscript(){}	
 
 	public SitePostscript(int site_postscript_rownum, String site, String category, String health, String inoutside,
 			String cost, String comment, Time writetime, int hitnum, int likenum, String username, int route_code,
-			int site_postscript_tag_rownum, String tag, int site_postscript_like_rownum) {
+			int site_postscript_tag_rownum, String tag) {
 		super();
 		this.site_postscript_rownum = site_postscript_rownum;
 		this.site = site;
@@ -48,7 +43,6 @@ public class SitePostscript {
 		this.route_code = route_code;
 		this.site_postscript_tag_rownum = site_postscript_tag_rownum;
 		this.tag = tag;
-		this.site_postscript_like_rownum = site_postscript_like_rownum;
 	}
 
 	public int getSite_postscript_rownum() {
@@ -163,21 +157,13 @@ public class SitePostscript {
 		this.tag = tag;
 	}
 
-	public int getSite_postscript_like_rownum() {
-		return site_postscript_like_rownum;
-	}
-
-	public void setSite_postscript_like_rownum(int site_postscript_like_rownum) {
-		this.site_postscript_like_rownum = site_postscript_like_rownum;
-	}
-
 	@Override
 	public String toString() {
 		return "SitePostscript [site_postscript_rownum=" + site_postscript_rownum + ", site=" + site + ", category="
 				+ category + ", health=" + health + ", inoutside=" + inoutside + ", cost=" + cost + ", comment="
 				+ comment + ", writetime=" + writetime + ", hitnum=" + hitnum + ", likenum=" + likenum + ", username="
 				+ username + ", route_code=" + route_code + ", site_postscript_tag_rownum=" + site_postscript_tag_rownum
-				+ ", tag=" + tag + ", site_postscript_like_rownum=" + site_postscript_like_rownum + "]";
+				+ ", tag=" + tag + "]";
 	}	
 	
 }

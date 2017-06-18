@@ -17,16 +17,13 @@ public class RoutePostscript {
 //	private int route_postscript_rownum;
 	private String tag;
 	
-	// 찜콩
-	private int route_postscript_like_rownum;
-//	private int route_postscript_rownum;
-//	private String username;
+	// 로그인한 사용자의 찜콩 여부
+	private String route_like;
 	
 	public RoutePostscript(){}
 
-	public RoutePostscript(int route_postscript_rownum, String comment, Time writetime,
-			int hitnum, int likenum, String username, int route_code, int route_postscript_tag_rownum,
-			int route_postscript_like_rownum) {
+	public RoutePostscript(int route_postscript_rownum, String comment, Time writetime, int hitnum, int likenum,
+			String username, int route_code, int route_postscript_tag_rownum, String tag, String route_like) {
 		super();
 		this.route_postscript_rownum = route_postscript_rownum;
 		this.comment = comment;
@@ -36,7 +33,8 @@ public class RoutePostscript {
 		this.username = username;
 		this.route_code = route_code;
 		this.route_postscript_tag_rownum = route_postscript_tag_rownum;
-		this.route_postscript_like_rownum = route_postscript_like_rownum;
+		this.tag = tag;
+		this.route_like = route_like;
 	}
 
 	public int getRoute_postscript_rownum() {
@@ -103,20 +101,27 @@ public class RoutePostscript {
 		this.route_postscript_tag_rownum = route_postscript_tag_rownum;
 	}
 
-	public int getRoute_postscript_like_rownum() {
-		return route_postscript_like_rownum;
+	public String getTag() {
+		return tag;
 	}
 
-	public void setRoute_postscript_like_rownum(int route_postscript_like_rownum) {
-		this.route_postscript_like_rownum = route_postscript_like_rownum;
+	public void setTag(String tag) {
+		this.tag = tag;
+	}
+
+	public String getRoute_like() {
+		return route_like;
+	}
+
+	public void setRoute_like(String route_like) {
+		this.route_like = route_like;
 	}
 
 	@Override
 	public String toString() {
-		return "RoutePostscript [route_postscript_rownum=" + route_postscript_rownum + ", comment=" + comment + ", writetime=" + writetime + ", hitnum=" + hitnum
-				+ ", likenum=" + likenum + ", username=" + username + ", route_code=" + route_code
-				+ ", route_postscript_tag_rownum=" + route_postscript_tag_rownum + ", route_postscript_like_rownum="
-				+ route_postscript_like_rownum + "]";
-	}
-	
+		return "RoutePostscript [route_postscript_rownum=" + route_postscript_rownum + ", comment=" + comment
+				+ ", writetime=" + writetime + ", hitnum=" + hitnum + ", likenum=" + likenum + ", username=" + username
+				+ ", route_code=" + route_code + ", route_postscript_tag_rownum=" + route_postscript_tag_rownum
+				+ ", tag=" + tag + ", route_like=" + route_like + "]";
+	}	
 }
