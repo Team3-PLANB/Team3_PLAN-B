@@ -5,7 +5,6 @@ import java.util.Date;
 
 public class RoutePostscript {
 	private int route_postscript_rownum;
-	private String route_sumnail;
 	private String comment;
 	private Time writetime;
 	private int hitnum;
@@ -25,12 +24,11 @@ public class RoutePostscript {
 	
 	public RoutePostscript(){}
 
-	public RoutePostscript(int route_postscript_rownum, String route_sumnail, String comment, Time writetime,
+	public RoutePostscript(int route_postscript_rownum, String comment, Time writetime,
 			int hitnum, int likenum, String username, int route_code, int route_postscript_tag_rownum,
 			int route_postscript_like_rownum) {
 		super();
 		this.route_postscript_rownum = route_postscript_rownum;
-		this.route_sumnail = route_sumnail;
 		this.comment = comment;
 		this.writetime = writetime;
 		this.hitnum = hitnum;
@@ -47,14 +45,6 @@ public class RoutePostscript {
 
 	public void setRoute_postscript_rownum(int route_postscript_rownum) {
 		this.route_postscript_rownum = route_postscript_rownum;
-	}
-
-	public String getRoute_sumnail() {
-		return route_sumnail;
-	}
-
-	public void setRoute_sumnail(String route_sumnail) {
-		this.route_sumnail = route_sumnail;
 	}
 
 	public String getComment() {
@@ -123,8 +113,7 @@ public class RoutePostscript {
 
 	@Override
 	public String toString() {
-		return "RoutePostscript [route_postscript_rownum=" + route_postscript_rownum + ", route_sumnail="
-				+ route_sumnail + ", comment=" + comment + ", writetime=" + writetime + ", hitnum=" + hitnum
+		return "RoutePostscript [route_postscript_rownum=" + route_postscript_rownum + ", comment=" + comment + ", writetime=" + writetime + ", hitnum=" + hitnum
 				+ ", likenum=" + likenum + ", username=" + username + ", route_code=" + route_code
 				+ ", route_postscript_tag_rownum=" + route_postscript_tag_rownum + ", route_postscript_like_rownum="
 				+ route_postscript_like_rownum + "]";
