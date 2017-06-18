@@ -39,9 +39,7 @@ import org.xml.sax.SAXException;
 
 import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.RouteDao;
-import com.planb_jeju.dao.RoutePersonalDao;
 import com.planb_jeju.dto.Route;
-import com.planb_jeju.dto.RoutePersonal;
 
 @Controller
 public class PlanAController {
@@ -88,7 +86,7 @@ public class PlanAController {
 		int routecode = routeDao.getRouteCode("a@naver.com");
 		
 		System.out.println("취향 체크박스 :"+personal);
-		java.util.List<RoutePersonal> routepersonal = new ArrayList();
+		java.util.List<Route> routepersonal = new ArrayList();
 		
 		String[] personalList = personal.split(",");
 		
@@ -96,7 +94,7 @@ public class PlanAController {
 			System.out.println(">"+personalcode+"<");
 			
 			
-			RoutePersonal rp = new RoutePersonal();
+			Route rp = new Route();
 			rp.setUsername("a@naver.com");
 			rp.setRoute_code(routecode);
 			rp.setPersonal_code(personalcode);
@@ -107,8 +105,8 @@ public class PlanAController {
 		Map<String, Object> map = new HashMap();
 		map.put("list", routepersonal);
 		
-		RoutePersonalDao routepersonalDao = sqlsession.getMapper(RoutePersonalDao.class);
-		routepersonalDao.insert(map);
+		RouteDao routepersonalDao = sqlsession.getMapper(RouteDao.class);
+		routeDao.insert(map);
 		
 		//여행지 뽑아서 보낼 것
 		
@@ -182,7 +180,7 @@ public class PlanAController {
 		int routecode = routeDao.getRouteCode("a@naver.com");
 		
 		System.out.println("취향 체크박스 :"+personal);
-		java.util.List<RoutePersonal> routepersonal = new ArrayList();
+		java.util.List<Route> routepersonal = new ArrayList();
 		
 		String[] personalList = personal.split(",");
 		
@@ -190,7 +188,7 @@ public class PlanAController {
 			System.out.println(">"+personalcode+"<");
 			
 			
-			RoutePersonal rp = new RoutePersonal();
+			Route rp = new Route();
 			rp.setUsername("a@naver.com");
 			rp.setRoute_code(routecode);
 			rp.setPersonal_code(personalcode);
@@ -201,8 +199,8 @@ public class PlanAController {
 		Map<String, Object> map = new HashMap();
 		map.put("list", routepersonal);
 		
-		RoutePersonalDao routepersonalDao = sqlsession.getMapper(RoutePersonalDao.class);
-		routepersonalDao.insert(map);
+		RouteDao routepersonalDao = sqlsession.getMapper(RouteDao.class);
+		routeDao.insert(map);
 		
 		//여행루트 추천 뽑아서 보낼 것
 		return "PlanA.tmapMakeRoute";
