@@ -11,17 +11,31 @@ package com.planb_jeju.controller;
 */
 
 import java.awt.List;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringReader;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.apache.ibatis.session.SqlSession;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.RouteDao;
@@ -56,17 +70,14 @@ public class PlanAController {
 		return "PlanA.step";
 	}
 		
+	/*
+	* @date : 2017. 6. 16
+	* @description : 루트 만들기 요청 -> 여행지 추천 정보 리턴 
+	* @return : String(View 페이지) 
+	*/
 	@RequestMapping(value="PLANA.make.do",  method=RequestMethod.POST)
-	public String makeSelfRoute(Route route, String personal) throws ClassNotFoundException, SQLException {
+	public String makeSelfRoute(Route route, String personal) throws ClassNotFoundException, SQLException, SAXException, IOException, ParserConfigurationException {
 		
-		//값이 없을 경우 처리 필요
-		//@RequestParam(value="p", defaultValue="1") int pageNumber
-		//Date date = new Date();
-		System.out.println("직접 루트!!!!!!!!!!!!");
-		System.out.println("sdate: "+ route.getSday());
-		System.out.println("eday);"+ route.getEday());
-		System.out.println("파트너:"+ route.getPartner_code());
-		System.out.println("루트 이름 : "+route.getRoutename());
 		route.setUsername("a@naver.com");
 		
 		// Mybatis 적용
@@ -100,22 +111,68 @@ public class PlanAController {
 		routepersonalDao.insert(map);
 		
 		//여행지 뽑아서 보낼 것
+		
+		String searchurl = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=sINbtYMpCw1C2%2BFZOiN%2FbJjqUn42vfFvg0%2BkN1NbFHjDt3JfU4U7gLkSOf16L07YIBDBLElP%2FLCJYIiqNBH5dQ%3D%3D&contentTypeid=12&areaCode=39&cat2=A0101&MobileOS=ETC&MobileApp=AppTesting";
+		
+		
+		InputStreamReader isr;
+		try {
+			URL url = new URL(searchurl); 
+			    
+			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+		          String line;
+		          while ((line = in.readLine()) != null) {
+		        	  System.out.println("????????");
+		                System.out.println(line);
+		          }
+		          
+		          InputSource   is = new InputSource(new StringReader(line)); 
+
+		          Document document = (Document) DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
+		          
+		          System.out.println("안돼");
+		          System.out.println(document);
+		          
+		          in.close(); 			
+			
+			isr = new InputStreamReader(url.openConnection().getInputStream(), "UTF-8");
+			// JSON을 Parsing 한다. 문법오류가 날 경우 Exception 발생, without Exception -> parse 메소드
+			JSONObject object = (JSONObject)JSONValue.parseWithException(isr);
+			//System.out.println(object);
+			// 객체
+			JSONObject channel = (JSONObject)(object.get("item"));
+			JSONArray items = (JSONArray)channel.get("content");
+			//System.out.println(items);
+			// item 배열
+			//JSONArray items = (JSONArray)channel.get("item");
+			
+			for(int i = 0 ; i < items.size(); i++) {
+				JSONObject obj1 = (JSONObject)items.get(i);			
+				//System.out.println(obj1.get("STN_NM").toString()+"//"+obj1.get("SAWS_TA_AVG").toString());
+								
+			}
+			
+			
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+		
+			/*System.out.println(items.toString());*/
+		
+		
+		
 		return "PlanA.tmapMakeRoute";
 	
 	}
 	
+	
+	/*
+	* @date : 2017. 6. 16
+	* @description : 루트 추천 받기 요청 -> 여행경로 추천 정보 리턴 
+	* @return : String(View 페이지) 
+	*/
 	@RequestMapping(value="PLANA.recommend.do",  method=RequestMethod.POST)
 	public String makeRecommendRoute(Route route, String personal) throws ClassNotFoundException, SQLException {
-		
-		//값이 없을 경우 처리 필요
-		//@RequestParam(value="p", defaultValue="1") int pageNumber
-		//Date date = new Date();
-		System.out.println("추천경로!!!!!!!!!!!!!!!!!!!!!!!");
-		System.out.println("sdate: "+ route.getSday());
-		System.out.println("eday);"+ route.getEday());
-		System.out.println("파트너:"+ route.getPartner_code());
-		System.out.println("루트 이름 : "+route.getRoutename());
-		route.setUsername("a@naver.com");
 		
 		// Mybatis 적용
 		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
