@@ -9,6 +9,8 @@ public class Route {
 	private String partner_code;
 	private Date sday;
 	private Date eday;
+
+	private String route_thumbnail;
 	
 	// 취향
 //	private String username;
@@ -18,7 +20,7 @@ public class Route {
 	public Route(){}
 
 	public Route(int route_code, String username, String routename, String partner_code, Date sday, Date eday,
-			String personal_code) {
+			String route_thumbnail, String personal_code) {
 		super();
 		this.route_code = route_code;
 		this.username = username;
@@ -26,6 +28,7 @@ public class Route {
 		this.partner_code = partner_code;
 		this.sday = sday;
 		this.eday = eday;
+		this.route_thumbnail = route_thumbnail;
 		this.personal_code = personal_code;
 	}
 
@@ -85,10 +88,18 @@ public class Route {
 		this.personal_code = personal_code;
 	}
 
+	public String getRoute_thumbnail() {
+		return route_thumbnail;
+	}
+
+	public void setRoute_thumbnail(String route_thumbnail) {
+		this.route_thumbnail = route_thumbnail;
+	}
+
 	@Override
 	public String toString() {
 		return "Route [route_code=" + route_code + ", username=" + username + ", routename=" + routename
-				+ ", partner_code=" + partner_code + ", sday=" + sday + ", eday=" + eday + ", personal_code="
-				+ personal_code + "]";
+				+ ", partner_code=" + partner_code + ", sday=" + sday + ", eday=" + eday + ", route_thumbnail="
+				+ route_thumbnail + ", personal_code=" + personal_code + "]";
 	}
 }
