@@ -1,22 +1,26 @@
 function loginCheck() {
+	console.log("loginCheck.do 타려구");
+	var username = $('#loginform').find('#username').val();
+	var password = $('#loginform').find('#password').val();
+	console.log(username);
 	$.ajax({
 		url : "loginCheck.do",
 		type : "get",
 		data : {
-			"username" : $('#username').val(),
-			"password" : $('#password').val()
+			"username" : username,
+			"password" : password
 		},
-		success : function(data) {
-			data = JSON.parse(data);
-			if (data.username == null && data.password == null){
+		success : function(result) {
+			if(result == "efalse") {
+				console.log(result);
 				$('.emailCheck').css('display', 'block');
-				$('.emailCheck').text("이메일이 없습니다. 다시 확인해주세요.")
-			}
-			else{
-				if (data.password != $('#password').val()){
+				$('.emailCheck').text("존재하지 않는 이메일 입니다.");
+			} else { // email은 true
+				if(result == "false") {
 					$('.pwdCheck').css('display', 'block');
-					$('.pwdCheck').text("비밀번호가 일치하지 않습니다.")
-				} else {
+					$('.pwdCheck').text("비밀번호가 일치하지 않습니다.");
+					$('#loginform').find('#password').focus();
+				} else if (result == "true"){
 					$('#loginform').submit();
 				}
 			}
@@ -24,5 +28,6 @@ function loginCheck() {
 		error : function(xhr) {
 			alert(xhr.status);
 		}
-	})
+	});
+	return false;
 }

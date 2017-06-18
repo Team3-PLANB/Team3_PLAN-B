@@ -1,5 +1,7 @@
 package com.planb_jeju.controller;
 
+import java.sql.SQLException;
+
 /*
 * @FileName : LoginJoinController.java
 * @Class : LoginJoinController
@@ -50,6 +52,16 @@ public class LoginJoinController {
 	}
 	
 	/*
+	* @date : 2017. 6. 18
+	* @description : 로그인 ok > 화면 이동 
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping("Login/loginok.do")
+	public String nLoginOK(){
+		return "LoginJoin.Login.SLogin.detail_JS";
+	}
+	
+	/*
 	* @date : 2017. 6. 16
 	* @description : 준성오빠 일정만들기 UI 작업 중 > 나중에 경로 옮겨야 함
 	* @return : String(View 페이지) 
@@ -66,10 +78,21 @@ public class LoginJoinController {
 	* @return : String(ResponseBody) 
 	*/
 	@RequestMapping("Join/duplicationCheck.do")
-	public @ResponseBody String duplicationCheck(String username) throws Exception {
-		System.out.println("duplicationCKcontroller");
+	public @ResponseBody String duplicationEmailCheck(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		String result = memberservice.duplicationCheck(username, sqlsession);
+		String result = memberservice.duplicationEmailCheck(username, sqlsession);
+		return result;
+	}
+	
+	/*
+	* @date : 2017. 6. 16
+	* @description : 회원가입시 닉네임 체크 (비동기)
+	* @return : String(ResponseBody) 
+	*/
+	@RequestMapping("Join/duplicationNCheck.do")
+	public @ResponseBody String duplicationNickCheck(String nickname) throws Exception {
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		String result = memberservice.duplicationNickCheck(nickname, sqlsession);
 		return result;
 	}
 	
@@ -89,6 +112,14 @@ public class LoginJoinController {
 	* @description : 로그인 시 이메일, 비밀번호 체크
 	* @return : String(ResponseBody) 
 	*/
+	@RequestMapping("Join/loginCheck.do")
+	public @ResponseBody String loginCheck(String username, String password) throws Exception {
+		System.out.println(username + "/" + password);
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		String result = memberservice.loginCheck(username, password, sqlsession);
+		System.out.println("logincontroller : " + result);
+		return result;
+	}
 	
 	/*
 	* @date : 2017. 6. 16
@@ -126,4 +157,16 @@ public class LoginJoinController {
 		
 	}
 	
+	/*
+	* @date : 2017. 6. 17
+	* @description : 회원가입 완료
+	* @return : Model(Ajax 처리)
+	* @param spec : String
+	*/
+	@RequestMapping("Join/joinok.do")
+	public String insert(String username, String password, String nickname) throws ClassNotFoundException, SQLException{
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		memberDao.insert(username, password, nickname);
+		return "LoginJoin.Login.NLogin.loginForm";
+	}	
 }

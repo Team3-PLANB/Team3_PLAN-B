@@ -66,13 +66,13 @@
 
 							<!-- Tab JOIN -->
 							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active" id="joinform">
-									<form action="" class="row" id = "frm" method="POST" >
+								<div role="tabpanel" class="tab-pane active" id = "joinform">
+									<form action="joinok.do" class="row" id = "joinfrm" method="POST" >
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;width:100%;">
 											<div class="input-field" >
 												<label for="email">이메일</label> 
 													<div>
-														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" keypress="revText()"> <!-- onblur="emailCheck()" -->
+														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" onkeyup="revText()"> <!-- onblur="emailCheck()" -->
 														<input type="button" onclick="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
 														<input type="hidden" id="saveAuthNum" >
@@ -100,7 +100,7 @@
 											<div class="input-field">
 												<label for="nickname">닉네임</label> 
 												<input type="text"class="form-control" name = "nickname" id="nickname"
-													placeholder="닉네임을 입력해주세요" onclick = "nickCheck()">
+													placeholder="닉네임을 입력해주세요" onkeyup = "nickCheck()">
 												<div class = "nick-msg" id="nick-msg"></div>
 											</div>
 										</div>
@@ -108,7 +108,7 @@
 								</div>
 								<!-- Tab LOGIN -->
 								<div role="tabpanel" class="tab-pane" id="loginform">
-									<form action="" class="row" method="POST">
+									<form action="<%=request.getContextPath() %>/LoginJoin/Login/loginok.do" class="row" id="loginfrm" method="POST">
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%">
 											<div class="input-field">
 												<label for="email">이메일</label> 
@@ -120,13 +120,13 @@
 										<div class="col-xxs-12 col-xs-6 mt" style="clear:both;margin-left:10%">
 											<div class="input-field">
 												<label for="password">비밀번호</label> 
-												<input type="password" class="form-control" id="password"
+												<input type="password" class="form-control" id="password" name = "password"
 													placeholder="비밀번호를 입력해주세요">
-												<div class="pwdCheck"></div>
+												<div class="pwdCheck" id = "pwdCheck"></div>
 											</div>
 										</div>
 										<div class="col-xs-12">
-											<input type="submit" class="btn btn-primary btn-block" value="Login" onclick="loginCheck()">
+											<input type="button" class="btn btn-primary btn-block" value="Login" onclick="loginCheck()">
 										</div>
 									</form>
 								</div>
@@ -144,7 +144,7 @@
 											<div class="input-field" >
 												<input type="text"	class="form-control" id="authnum" name="authnum"
 														placeholder="인증 번호 7자리를 입력해주세요" style="margin-left:30%;">
-												<input type="submit" onclick="authNumCheck()" class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "authNumCheck" value="이메일 인증하기">
+												<input type="button" onclick="authNumCheck()" class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "authNumCheck" value="이메일 인증하기">
 												
 											</div>
 										</div>
@@ -163,6 +163,8 @@
 											</div>
 										</div>
 										<div class="col-xs-12">
+											<input type="hidden" id="overOk">
+											<input type="hidden" id="authOk">
 											<input type="button" class="btn btn-primary btn-block" value="Join" onclick="frm_submit()">
 										</div>
 									</div>

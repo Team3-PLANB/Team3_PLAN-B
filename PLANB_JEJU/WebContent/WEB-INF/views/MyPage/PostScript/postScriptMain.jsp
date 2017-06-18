@@ -36,12 +36,12 @@
 				class="col-md-6 col-sm-6 fh5co-tours animate-box fadeInUp animated"
 				data-animate-effect="fadeIn">
 				<div href="#">
-					<img src="${pageContext.request.contextPath}/images/san160302.JPG"
+					<img src="${pageContext.request.contextPath}/images/MyPage/mypostscript1.jpg"
 						alt="Free HTML5 Website Template by FreeHTML5.co"
 						class="img-responsive">
 					<div class="desc">
-						<span class="price">나의루트 후기</span> <a
-							class="btn btn-primary btn-outline" href="#">나의 루트 후기 보기<i
+						<span class="price">나의 루트 후기</span> <a
+							class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/PostScript/Root/root.do">나의 루트 후기 보기<i
 							class="icon-arrow-right22"></i></a>
 					</div>
 				</div>
@@ -50,12 +50,12 @@
 				class="col-md-6 col-sm-6 fh5co-tours animate-box fadeInUp animated"
 				data-animate-effect="fadeIn">
 				<div href="#">
-					<img src="${pageContext.request.contextPath}/images/f58de24211ad77ecd7b92fb3e9394d93.jpg"
+					<img src="${pageContext.request.contextPath}/images/MyPage/mypostscript2.jpg"
 						alt="Free HTML5 Website Template by FreeHTML5.co"
 						class="img-responsive">
 					<div class="desc">
 						<span class="price">나의 여행지 후기</span> <a
-							class="btn btn-primary btn-outline" href="#">나의 여행지 후기 보기<i
+							class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/PostScript/Site/site.do">나의 여행지 후기 보기<i
 							class="icon-arrow-right22"></i></a>
 					</div>
 				</div>

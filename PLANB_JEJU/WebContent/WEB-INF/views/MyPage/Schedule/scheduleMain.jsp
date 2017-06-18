@@ -31,7 +31,7 @@
 			<div class="container">
 				<div class="row">
 					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="#"><img src="${pageContext.request.contextPath}/images/panorama.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+						<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
 							<div class="desc">
 								<span></span>
 								<h3>6월의 제주도</h3>
@@ -43,7 +43,7 @@
 						</div>
 					</div>
 					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="#"><img src="${pageContext.request.contextPath}/images/rDSC_6926.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+						<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
 							<div class="desc">
 								<span></span>
 								<h3>7월의 제주도</h3>
@@ -55,7 +55,7 @@
 						</div>
 					</div>
 					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="#"><img src="${pageContext.request.contextPath}/images/jeju-island-1193280_960_720.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+						<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
 							<div class="desc">
 								<span></span>
 								<h3>8월의 제주도</h3>

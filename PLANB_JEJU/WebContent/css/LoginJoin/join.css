@@ -31,4 +31,4 @@ img {
 /*==================================================================================================*/
 
 /*=============================유효성============================*/
-.pwdck, .email-msg, .emailCheck, .passwordCheck{color:red; font-size:13px;}
+.pwdck, .email-msg, .emailCheck, .passwordCheck, .nick-msg, .pwdCheck{color:red; font-size:13px;}
