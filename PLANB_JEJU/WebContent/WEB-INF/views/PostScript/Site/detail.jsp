@@ -254,7 +254,7 @@
 					<div class="row row-bottom-padded-md">
 						<%------------------------------제목 부분 ----------------------------------------%>
 						<div class="col-md-12 animate-box" align="center">
-							<h2 class="heading-title">드라이브를 맘껏 즐길 수 있었던 일주일~</h2>
+							<h2 class="heading-title">애월해안도로 드라이브~</h2>
 						</div>
 
 
@@ -270,19 +270,19 @@
 
 								<div>
 									<img data-u="image" src="../../images/PostScript/slider_1.jpg" />
-									<div data-u="thumb">#활동적#드라이브#자연#맑음#행복#또가자#제주감귤</div>
+									<div data-u="thumb">#날씨맑은 #예산적당 #건강양호</div>
 								</div>
 								<div>
 									<img data-u="image" src="../../images/PostScript/slider_2.jpg" />
-									<div data-u="thumb">#활동적#드라이브#자연#맑음#행복#또가자#제주감귤</div>
+									<div data-u="thumb">#날씨맑은 #예산적당 #건강양호</div>
 								</div>
 								<div>
 									<img data-u="image" src="../../images/PostScript/slider_3.jpg" />
-									<div data-u="thumb">#활동적#드라이브#자연#맑음#행복#또가자#제주감귤</div>
+									<div data-u="thumb">#날씨맑은 #예산적당 #건강양호</div>
 								</div>
 								<div>
 									<img data-u="image" src="../../images/PostScript/slider_4.png" />
-									<div data-u="thumb">#활동적#드라이브#자연#맑음#행복#또가자#제주감귤</div>
+									<div data-u="thumb">#날씨맑은 #예산적당 #건강양호</div>
 								</div>
 								<a data-u="any" href="https://www.jssor.com/wordpress.html"
 									style="display: none">wordpress slider</a>

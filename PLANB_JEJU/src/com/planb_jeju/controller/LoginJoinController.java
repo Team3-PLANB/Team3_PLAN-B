@@ -12,15 +12,19 @@ package com.planb_jeju.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.View;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.annotation.JsonView;
 import com.planb_jeju.dao.MemberDao;
+import com.planb_jeju.dto.Member;
 import com.planb_jeju.service.MemberService;
 
 @Controller
@@ -79,9 +83,13 @@ public class LoginJoinController {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		memberDao.fbjoin(username,fbaccesstoken.substring(0, 10), userid);
 	}
-	
-	/* 로그인 >> 이메일, 비밀번호 체크 */
 
+	/*
+	* @date : 2017. 6. 17
+	* @description : 로그인 시 이메일, 비밀번호 체크
+	* @return : String(ResponseBody) 
+	*/
+	
 	/*
 	* @date : 2017. 6. 16
 	* @description : 페이스북 로그인 중복체크 > 중복-로그인 > 비중복-가입mapper
@@ -98,10 +106,10 @@ public class LoginJoinController {
 	* @date : 2017. 6. 16
 	* @description : 회원가입 시 메일 인증
 	* @return : Model(Ajax 처리)
-	* @param spec : HttpServletRequest request, HttpServletResponse response, Model model
+	* @param spec : HttpServletRequest request
 	*/
-	/*@RequestMapping("Join/emailAuth.do")
-	public Model emailAuth(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception{
+	@RequestMapping("Join/emailAuth.do")
+	public @ResponseBody String emailAuth(HttpServletRequest request) throws Exception{
 	System.out.println(">>>>>>>Email_controller<<<<<<<");
 		
 		String username = request.getParameter("username");
@@ -109,13 +117,13 @@ public class LoginJoinController {
 		String authNum = "";
 		System.out.println("랜덤 시작");
 		authNum = memberservice.RandomNum();
-		System.out.println("랜덤 끝");
+		System.out.println("랜덤 끝 / authNum : " + authNum);
+		System.out.println("메일 보내기 시작");
 		memberservice.sendEmail(username.toString(), authNum);
+		System.out.println("메일 보내기 끝");
 		
-		model.addAttribute("username", username);
-		model.addAttribute("authNum", authNum);
+		return authNum;
 		
-		return model;
-	}*/
+	}
 	
 }

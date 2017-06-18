@@ -18,7 +18,6 @@ $(document).ready(function() {
 		$('#social_join').show();
 	});
 	$('#authNumSend').hide();
-	$('')
 });
 
 function frm_submit() {
@@ -49,21 +48,39 @@ function passwordCheck() {
 
 function authCheck(){
 	var username = $('#username').val();
-		console.log("username : " + username);
-		$.ajax({
-			type : "get",
-			url : 'emailAuth.do',
-			data : {"username" : username},
-			dataType : "json",
-			success : function(result) {
+	console.log("username : " + username);
+	$.ajax({
+		type : "get",
+		url : 'emailAuth.do',
+		data : {"username" : username},
+		dataType : "text",
+		success : function(result) {
 				if (!result) { 
 					console.log("잘못된 값");
 				}else {
 					console.log(result);
+					$('#saveAuthNum').val(result);
 				}
+			},
+			error : function(xhr) {
+				console.log("에러남 : " + xhr);
 			}
 		});	
 	}
+
+function authNumCheck(){
+	var authnum = $('#authnum').val();
+	var check = $('#saveAuthNum').val();
+	
+	if(!authnum){
+		alert("인증번호를 입력하세요");
+	}else if(authnum != check){
+		alert("인증번호가 맞지 않습니다. 확인해주세요.");
+		authnum = "";
+	}else if(authnum == check){
+		alert("인증완료");
+	}
+}
 
 function emailCheck() {
 	var username = $('#username').val();
@@ -92,13 +109,18 @@ function emailCheck() {
 					}
 				},
 				error : function(xhr) {
-					console.log('이상이상');
+					console.log('해당 페이지에 문제가 발생하였습니다.');
 				}
 			});
 	return false;
 };
 
-/*function nickCheck() {
+function revText() {
+	$("#authNumSend").hide();
+	$("#overlabCheck").show();
+}
+
+function nickCheck() {
 	$.ajax({
 		url : "duplicationCheck.do",
 		type : "get",
@@ -112,7 +134,7 @@ function emailCheck() {
 				$("#nickname").val("");
 				$("#nickname").focus();
 			} else {
-				$(".nick-msg").text("사용가능한 이메일입니다");
+				$(".nick-msg").text("사용가능한 닉네임입니다");
 			}
 		},
 		error : function(xhr) {
@@ -120,4 +142,4 @@ function emailCheck() {
 		}
 	});
 	return false;
-};*/
+};

@@ -7,8 +7,14 @@
 <nav class="navbar navbar-default" style="margin:0px;">
 	<div class="container">
     	<div class="nav-header">
-					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"><i></i></a>
-					<h1 id="fh5co-logo"><a href="index.jsp"><i class="icon-airplane"></i>PLAN'B JEJU</a></h1>
+					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark">
+						<i></i>
+					</a>
+					<h1 id="fh5co-logo">
+						<a href="${pageContext.request.contextPath}/beforeIndex.jsp">
+							<i class="icon-airplane"></i>PLAN'B JEJU
+						</a>
+					</h1>
 					<!-- START #fh5co-menu-wrap -->
 					<nav id="fh5co-menu-wrap" role="navigation">
 						<ul class="sf-menu sf-js-enabled sf-arrows" id="fh5co-primary-menu" style="touch-action: pan-y;">
