@@ -23,49 +23,42 @@
 <jsp:include page="../myPageMain.jsp"></jsp:include>
 
 <div class="box-testimony animate-box">
-	<div class="container">
+	<div class="container" style="margin-left:37%">
 		<div class="row">
-			<div class="col-md-4"></div>
-			<div class="col-md-4">
-
-				<div class="input-field">
-					<label for="email">이메일</label> <input type="text"
-						class="form-control" id="email" placeholder="wjddus5336@naver.com">
-				</div><br>
-
-
-				<div class="input-field">
-					<label for="password">비밀번호</label> <input type="password"
-						class="form-control" id="password" placeholder="변경할 비밀번호를 입력해주세요">
-				</div><br>
-
-
-				<div class="input-field">
-					<label for="passwordck">비밀번호 확인</label> <input type="password"
-						class="form-control" id="passwordck" placeholder="비밀번호를 다시 입력해주세요">
-				</div><br>
-
-
-				<div class="input-field">
-					<label for="nickname">닉네임</label> <input type="text"
-						class="form-control" id="nickname" placeholder="변경할 닉네임을 입력해주세요">
+			<form id="editMemForm" method="post">
+				<div class="col-xxs-12 col-xs-4 mt" style="clear: both">
+					<div class="input-field">
+						<label for="email">이메일</label> 
+						<input type="text" class="form-control" id="email" value="${username}" readonly>
+					</div>
 				</div>
-
-				<br>
-				
-				<input type="submit" class="btn btn-primary btn-block"
-					style="width: 150px; margin: auto" value="수정">
-			</div>
-
+				<div class="col-xxs-12 col-xs-4 mt" style="clear: both">
+					<div class="input-field">
+						<label for="password">비밀번호</label> 
+						<input type="password"	class="form-control" id="password" placeholder="변경할 비밀번호를 입력해주세요">
+					</div>
+				</div>
+				<div class="col-xxs-12 col-xs-4 mt" style="clear: both">
+					<div class="input-field">
+						<label for="passwordck">비밀번호 확인</label> 
+						<input type="password"	class="form-control" id="passwordck" placeholder="비밀번호를 다시 입력해주세요">
+					</div>
+				</div>
+				<div class="col-xxs-12 col-xs-4 mt" style="clear: both">
+					<div class="input-field">
+						<label for="nickname">닉네임</label> 
+						<input type="text" class="form-control" id="nickname" placeholder="변경할 닉네임을 입력해주세요" value="${nickname}">
+					</div>
+				</div>
+				<div class="col-xxs-12 col-xs-4 mt" style="clear: both">
+					<div class="input-field">
+						<input type="submit" class="btn btn-primary btn-block" style="width: 150px; margin: auto" value="수정">
+					</div>
+				</div>
+			</form>
 		</div>
-		<div class="col-md-4"></div>
-
 	</div>
-</div>
-</div>
-<br>
-<br>
-<br>
+</div><br><br><br>
 
 
 

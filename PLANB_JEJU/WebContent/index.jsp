@@ -6,47 +6,40 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>PLANB_JEJU</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-<meta name="keywords"
-	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-<meta name="author" content="FREEHTML5.CO" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
+	<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+	<meta name="author" content="FREEHTML5.CO" />
 
-<link
-	href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700'
-	rel='stylesheet' type='text/css'>
-<link href="https://fonts.googleapis.com/css?family=Sacramento"
-	rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
+	<link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
 
-<!-- Animate.css -->
-<link rel="stylesheet" href="css/mainpage/animate.css">
-<!-- Icomoon Icon Fonts-->
-<link rel="stylesheet" href="css/mainpage/icomoon.css">
-<!-- Bootstrap  -->
-<link rel="stylesheet" href="css/mainpage/bootstrap.css">
-
-<!-- Magnific Popup -->
-<link rel="stylesheet" href="css/mainpage/magnific-popup.css">
-
-<!-- Owl Carousel  -->
-<link rel="stylesheet" href="css/mainpage/owl.carousel.min.css">
-<link rel="stylesheet" href="css/mainpage/owl.theme.default.min.css">
-
-<!-- Theme style  -->
-<link rel="stylesheet" href="css/mainpage/style.css">
-
-<!-- Modernizr JS -->
-<script src="js//mainpage/modernizr-2.6.2.min.js"></script>
-<!-- FOR IE9 below -->
-<!--[if lt IE 9]>
-	<script src="js/respond.min.js"></script>
-	<![endif]-->
-
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="css/mainpage/animate.css">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="css/mainpage/icomoon.css">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="css/mainpage/bootstrap.css">
+	
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="css/mainpage/magnific-popup.css">
+	
+	<!-- Owl Carousel  -->
+	<link rel="stylesheet" href="css/mainpage/owl.carousel.min.css">
+	<link rel="stylesheet" href="css/mainpage/owl.theme.default.min.css">
+	
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="css/mainpage/style.css">
+	
+	<!-- Modernizr JS -->
+	<script src="js//mainpage/modernizr-2.6.2.min.js"></script>
+	<!-- FOR IE9 below -->
+	<!--[if lt IE 9]>
+		<script src="js/respond.min.js"></script>
+		<![endif]-->
 </head>
 <body>
-
 	<div class="fh5co-loader"></div>
-
 	<div id="page">
 		<nav class="fh5co-nav" role="navigation">
 			<div class="container">
@@ -58,7 +51,6 @@
 					</div>
 					<div class="col-xs-10 text-right menu-1"></div>
 				</div>
-
 			</div>
 		</nav>
 

@@ -1,4 +1,5 @@
 function loginCheck() {
+	console.log("loginCheck.do 타려구")
 	$.ajax({
 		url : "loginCheck.do",
 		type : "get",
@@ -6,18 +7,16 @@ function loginCheck() {
 			"username" : $('#username').val(),
 			"password" : $('#password').val()
 		},
-		success : function(data) {
-			data = JSON.parse(data);
-			if (data.username == null && data.password == null){
+		success : function(result) {
+			if(result == "efalse") {
 				$('.emailCheck').css('display', 'block');
-				$('.emailCheck').text("이메일이 없습니다. 다시 확인해주세요.")
-			}
-			else{
-				if (data.password != $('#password').val()){
+				$('.emailCheck').text("존재하지 않는 이메일 입니다.")				
+			} else {
+				if(result == "false") {
 					$('.pwdCheck').css('display', 'block');
-					$('.pwdCheck').text("비밀번호가 일치하지 않습니다.")
+					$('.pwdCheck').text("비밀번호가 일치하지 않습니다.")					
 				} else {
-					$('#loginform').submit();
+					$('#loginfrm').submit();
 				}
 			}
 		},

@@ -20,7 +20,7 @@ public interface MemberDao {
 	 * @return : int
 	 * @param spec : x
 	 */
-	public int insert(Member member) throws ClassNotFoundException, SQLException;
+	public int insert(String username, String password, String nickname) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 페이스북 회원가입

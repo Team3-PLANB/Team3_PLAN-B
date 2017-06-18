@@ -11,7 +11,7 @@
 						<i></i>
 					</a>
 					<h1 id="fh5co-logo">
-						<a href="${pageContext.request.contextPath}/beforeIndex.jsp">
+						<a href="${pageContext.request.contextPath}/index.jsp">
 							<i class="icon-airplane"></i>PLAN'B JEJU
 						</a>
 					</h1>
@@ -48,7 +48,7 @@
 							</security:authorize>
 							<security:authorize access ="isAnonymous()">							
 								<li>
-									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
+									<a href="${pageContext.request.contextPath}/LoginJoin/Login/NLogin.do">LOGIN</a>
 								</li>
 							</security:authorize>
 							<!-- 로그아웃 -->
