@@ -39,6 +39,7 @@ import com.planb_jeju.dto.Member;
 public class MemberService {
 	
 	private static MemberDao memberDao;
+	private static Member member;
 	
 	@Autowired
 	private static SqlSession sqlsession;
@@ -121,4 +122,20 @@ public class MemberService {
 		return result;
 	}
 	
+	// 로그인 시 
+	public String loginCheck(String username, String password) throws Exception {
+		String result = "";
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		System.out.println("login service");
+		if(memberDao.checkEmail(username) < 1) {
+			result = "efalse";	// 해당 email 존재 x
+		} else {
+			if(password != member.getPassword()) {
+				result = "false";	// email 존재 + pwd 틀림
+			} else {
+				result = "true";
+			}
+		}
+		return result;
+	}
 }

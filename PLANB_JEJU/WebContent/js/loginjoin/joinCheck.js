@@ -21,13 +21,13 @@ $(document).ready(function() {
 });
 
 function frm_submit() {
-	if($('e_cknum').val() == null) {
+	if($('#authnum').val() == null) {
 		alert('이메일 인증이 필요합니다.');
-	} else if($('e_cknum').val() == "") {
+	} else if($('#authnum').val() == "") {
 		alert('이메일 인증이 필요합니다.');
-		$('e_cknum').focus();
+		$('#authnum').focus();
 	}else {
-		$("form").submit();
+		$('#joinfrm').submit();
 	}
 }
 

@@ -66,8 +66,8 @@
 
 							<!-- Tab JOIN -->
 							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active" id="joinform">
-									<form action="" class="row" id = "frm" method="POST" >
+								<div role="tabpanel" class="tab-pane active" id = "joinform">
+									<form action="joinok.do" class="row" id = "joinfrm" method="POST" >
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%;width:100%;">
 											<div class="input-field" >
 												<label for="email">이메일</label> 
@@ -108,7 +108,7 @@
 								</div>
 								<!-- Tab LOGIN -->
 								<div role="tabpanel" class="tab-pane" id="loginform">
-									<form action="" class="row" method="POST">
+									<form action="loginok.do" class="row" id="loginfrm" method="POST">
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%">
 											<div class="input-field">
 												<label for="email">이메일</label> 

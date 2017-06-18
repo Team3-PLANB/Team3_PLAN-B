@@ -52,10 +52,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE username=#{username}
 	</update>
 	
-	<!-- 입력 -->
+	<!-- 일반 회원가입 -->
 	<insert id="insert">
 		INSERT INTO member
-	    VALUES( #{username}, #{password}, #{nickname})
+	    VALUES( #{param1}, #{param2}, #{param3})
 	</insert>
 	
 </mapper>
