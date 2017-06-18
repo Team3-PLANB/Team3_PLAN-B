@@ -80,140 +80,160 @@
 </head>
 
 <body>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-6">
-				<div class="card">
+			<div class="col-md-12">
+				<div class="tabulation animate-box fadeInUp animated">
+
+					<!-- Nav tabs -->
 					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#root"
-							aria-controls="root" role="tab" data-toggle="tab">루트 후기 작성</a></li>
-						<li role="presentation"><a href="#site" aria-controls="site"
-							role="tab" data-toggle="tab">여행지 후기 작성</a></li>
+						<li role="presentation" class="active"><a href="#step1"
+							aria-controls="flights" role="tab" data-toggle="tab">루트 후기 작성</a></li>
+						<li role="presentation"><a href="#step2"
+							aria-controls="hotels" role="tab" data-toggle="tab">여행지 후기 작성</a></li>
 					</ul>
 
 					<!-- Tab panes -->
 					<div class="tab-content">
-						<%------------------------------루트 후기 작성 ----------------------------------------%>
-						<div role="tabpanel" class="tab-pane active" id="root">
-							<input type="text" class="form-control" placeholder="제목"><br>
-							<textarea name="" class="form-control" id="" cols="30" rows="7"
-								placeholder="후기"></textarea>
-							<br> <input type="text" class="form-control"
-								placeholder="태그"><br>
-							<div align="center">
-								<input type="submit" value="작성 완료"
-									class="btn btn-primary btn-block">
-							</div>
-						</div>
-						<%------------------------------여행지 후기 작성----------------------------------------%>
-						<div role="tabpanel" class="tab-pane" id="site">
-							<div class="wrap-upload-buttons">
-								<div class="container" align="center">
-									<ul class="btn-nav">
-										<li><span><img
-												src="images/PostScript/landscape.png" /><input type="file"
-												name="" click-type="type1" class="picupload" multiple
-												accept="image/*" /></span></li>
-									</ul>
-								</div>
-							</div>
+						<div role="tabpanel" class="tab-pane active" id="step1">
+							<div class="table-responsive">
 
-
-							<!--boostatrp modal-->
-							<div class="modal fade popups" id="hint_brand" role="dialog"
-								aria-labelledby="myModalLabel" aria-hidden="true">
-								<div class="modal-dialog">
-									<div class="modal-content clearfix">
-										<div class="modal-body login-box clearfix">
-
-											<!--user post text -wrap end-->
-											<ul id="media-list" class="clearfix">
-												<li class="myupload"><span><i class="fa fa-plus"
-														aria-hidden="true"></i><input type="file"
-														click-type="type2" id="picupload" class="picupload"
-														multiple></span></li>
-											</ul>
-
-											<!--post btn wrap-->
-											<div class="user-post-btn-wrap clearfix">
-												<input type="submit" class="btn" value="사진 등록">
-											</div>
-											<!--post btn wrap end-->
-										</div>
+								<div role="tabpanel" class="tab-pane active" id="root">
+									<input type="text" class="form-control" placeholder="제목"><br>
+									<textarea name="" class="form-control" id="" cols="30" rows="7"
+										placeholder="후기"></textarea>
+									<br> <input type="text" class="form-control"
+										placeholder="태그"><br>
+									<div align="center">
+										<input type="submit" value="작성 완료"
+											class="btn btn-primary btn-block">
 									</div>
 								</div>
 							</div>
-							<br> <input type="text" class="form-control"
-								placeholder="제목"><br>
-							<textarea name="" class="form-control" id="" cols="30" rows="7"
-								placeholder="후기"></textarea>
-							<br>
-							<div class="checkbox">
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<img alt="" src="images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<label class="checkbox-bootstrap checkbox-lg"> <input
-									name="aaa" type="checkbox" value="1"
-									onclick="doOpenCheck(this);"> <span
-									class="checkbox-placeholder"></span> 맑음
-								</label>&nbsp;&nbsp;&nbsp; <label class="checkbox-bootstrap checkbox-lg">
-									<input name="aaa" type="checkbox" value="2"
-									onclick="doOpenCheck(this);"> <span
-									class="checkbox-placeholder"></span> 흐림
-								</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
-									<input name="aaa" type="checkbox" value="3"
-									onclick="doOpenCheck(this);"> <span
-									class="checkbox-placeholder"></span> 우중충
-								</label>
-							</div>
-							<br>
-							<div class="checkbox">
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<img alt="" src="images/PostScript/002-money.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<label class="checkbox-bootstrap checkbox-lg"> <input
-									name="bbb" type="checkbox" value="1"
-									onclick="doOpenCheck2(this);"> <span
-									class="checkbox-placeholder"></span> 부족
-								</label>&nbsp;&nbsp;&nbsp; <label class="checkbox-bootstrap checkbox-lg">
-									<input name="bbb" type="checkbox" value="2"
-									onclick="doOpenCheck2(this);"> <span
-									class="checkbox-placeholder"></span> 적당
-								</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
-									<input name="bbb" type="checkbox" value="3"
-									onclick="doOpenCheck2(this);"> <span
-									class="checkbox-placeholder"></span> 풍족
-								</label>
-							</div>
-							<br>
-							<div class="checkbox">
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<img alt="" src="images/PostScript/001-hospital.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-								<label class="checkbox-bootstrap checkbox-lg"> <input
-									name="ccc" type="checkbox" value="1"
-									onclick="doOpenCheck3(this);"> <span
-									class="checkbox-placeholder"></span> 양호
-								</label>&nbsp;&nbsp;&nbsp; <label class="checkbox-bootstrap checkbox-lg">
-									<input name="ccc" type="checkbox" value="2"
-									onclick="doOpenCheck3(this);"> <span
-									class="checkbox-placeholder"></span> 쏘쏘
-								</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
-									<input name="ccc" type="checkbox" value="3"
-									onclick="doOpenCheck3(this);"> <span
-									class="checkbox-placeholder"></span> 악화
-								</label>
-							</div>
-							<br>
-							<div align="center">
-								<input type="submit" value="작성 완료"
-									class="btn btn-primary btn-block">
-							</div>
 						</div>
 
+
+						<div role="tabpanel" class="tab-pane" id="step2">
+							<div class="table-responsive">
+								<div class="wrap-upload-buttons">
+									<div class="container">
+										<ul class="btn-nav">
+											<li><span><img
+													src="images/PostScript/landscape.png" /><input type="file"
+													name="" click-type="type1" class="picupload" multiple
+													accept="image/*" /></span></li>
+										</ul>
+									</div>
+								</div>
+
+
+								<!--boostatrp modal-->
+								<div class="modal fade popups" id="hint_brand" role="dialog"
+									aria-labelledby="myModalLabel" aria-hidden="true">
+									<div class="modal-dialog">
+										<div class="modal-content clearfix">
+											<div class="modal-body login-box clearfix">
+
+												<!--user post text -wrap end-->
+												<ul id="media-list" class="clearfix">
+													<li class="myupload"><span><i
+															class="fa fa-plus" aria-hidden="true"></i><input
+															type="file" click-type="type2" id="picupload"
+															class="picupload" multiple></span></li>
+												</ul>
+
+												<!--post btn wrap-->
+												<div class="user-post-btn-wrap clearfix">
+													<input type="submit" class="btn" value="사진 등록">
+												</div>
+												<!--post btn wrap end-->
+											</div>
+										</div>
+									</div>
+								</div>
+								<br> <input type="text" class="form-control"
+									placeholder="제목"><br>
+								<textarea name="" class="form-control" id="" cols="30" rows="7"
+									placeholder="후기"></textarea>
+								<br>
+								<div align="center">
+									<div class="checkbox">
+										<img alt="" src="images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<label class="checkbox-bootstrap checkbox-lg"> <input
+											name="aaa" type="checkbox" value="1"
+											onclick="doOpenCheck(this);"> <span
+											class="checkbox-placeholder"></span> 맑음
+										</label>&nbsp;&nbsp;&nbsp; <label
+											class="checkbox-bootstrap checkbox-lg"> <input
+											name="aaa" type="checkbox" value="2"
+											onclick="doOpenCheck(this);"> <span
+											class="checkbox-placeholder"></span> 흐림
+										</label>&nbsp;&nbsp;&nbsp;<label
+											class="checkbox-bootstrap checkbox-lg"> <input
+											name="aaa" type="checkbox" value="3"
+											onclick="doOpenCheck(this);"> <span
+											class="checkbox-placeholder"></span> 우중충
+										</label>
+									</div>
+									<br>
+									<div class="checkbox">
+										<img alt="" src="images/PostScript/002-money.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<label class="checkbox-bootstrap checkbox-lg"> <input
+											name="bbb" type="checkbox" value="1"
+											onclick="doOpenCheck2(this);"> <span
+											class="checkbox-placeholder"></span> 부족
+										</label>&nbsp;&nbsp;&nbsp; <label
+											class="checkbox-bootstrap checkbox-lg"> <input
+											name="bbb" type="checkbox" value="2"
+											onclick="doOpenCheck2(this);"> <span
+											class="checkbox-placeholder"></span> 적당
+										</label>&nbsp;&nbsp;&nbsp;<label
+											class="checkbox-bootstrap checkbox-lg"> <input
+											name="bbb" type="checkbox" value="3"
+											onclick="doOpenCheck2(this);"> <span
+											class="checkbox-placeholder"></span> 풍족
+										</label>
+									</div>
+									<br>
+									<div class="checkbox">
+										<img alt="" src="images/PostScript/001-hospital.png"
+											width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<label class="checkbox-bootstrap checkbox-lg"> <input
+											name="ccc" type="checkbox" value="1"
+											onclick="doOpenCheck3(this);"> <span
+											class="checkbox-placeholder"></span> 양호
+										</label>&nbsp;&nbsp;&nbsp; <label
+											class="checkbox-bootstrap checkbox-lg"> <input
+											name="ccc" type="checkbox" value="2"
+											onclick="doOpenCheck3(this);"> <span
+											class="checkbox-placeholder"></span> 쏘쏘
+										</label>&nbsp;&nbsp;&nbsp;<label
+											class="checkbox-bootstrap checkbox-lg"> <input
+											name="ccc" type="checkbox" value="3"
+											onclick="doOpenCheck3(this);"> <span
+											class="checkbox-placeholder"></span> 악화
+										</label>
+									</div>
+								</div>
+								<br>
+								<div align="center">
+									<input type="submit" value="작성 완료"
+										class="btn btn-primary btn-block">
+								</div>
+
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 
 	<script src="js/jquery.min.js"></script>
 	<script src="js/jquery.easing.1.3.js"></script>
