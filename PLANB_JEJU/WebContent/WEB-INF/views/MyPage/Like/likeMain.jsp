@@ -41,7 +41,7 @@
 						class="img-responsive">
 					<div class="desc">
 						<span class="price">찜한루트 후기</span> <a
-							class="btn btn-primary btn-outline" href="#">찜한 루트 후기 보기<i
+							class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/Like/Root/root.do">찜한 루트 후기 보기<i
 							class="icon-arrow-right22"></i></a>
 					</div>
 				</div>
@@ -55,7 +55,7 @@
 						class="img-responsive">
 					<div class="desc">
 						<span class="price">찜한 여행지 후기</span> <a
-							class="btn btn-primary btn-outline" href="#">찜한 여행지 후기 보기<i
+							class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/Like/Site/site.do">찜한 여행지 후기 보기<i
 							class="icon-arrow-right22"></i></a>
 					</div>
 				</div>

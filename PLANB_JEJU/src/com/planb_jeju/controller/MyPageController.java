@@ -52,12 +52,24 @@ public class MyPageController {
 		return "MyPage.PostScript.Site.siteMain";
 	}	
 
-	/* 찜한 후기 - like() */
+	/* 찜한 후기 메인 - likeMain() */
 	@RequestMapping("MyPage/Like/likeMain.do")
 	public String like(){
 		System.out.println("MyPage/Like/likeMain.do 컨트롤러 들어옴");
 		return "MyPage.Like.likeMain";
-	}	
+	}
+	/* 찜한 후기 - likeRoot() */
+	@RequestMapping("MyPage/Like/Root/root.do")
+	public String likeRoot(){
+		System.out.println("MyPage/Like/Root/root.do 컨트롤러 들어옴");
+		return "MyPage.Like.Root.rootMain";
+	}
+	/* 찜한 후기 - likeSite() */
+	@RequestMapping("MyPage/Like/Site/site.do")
+	public String likeSite(){
+		System.out.println("MyPage/Like/Site/site.do 컨트롤러 들어옴");
+		return "MyPage.Like.Site.siteMain";
+	}
 	
 	/* 쪽지함 - msg() */
 	@RequestMapping("MyPage/Message/msgMain.do")
