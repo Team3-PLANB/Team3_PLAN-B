@@ -4,6 +4,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.planb_jeju.dao.SitePostScriptDao">
 
+	<!-- 
+		// 루트 후기 리스트
+		public List<RoutePostscript> getList();
+		
+		// 루트 후기 상세보기
+		public RoutePostscript getRoutePost(int route_postscript_rownum);
+		
+		// 찜콩하기
+		public int insertLike(RoutePostscriptLike);
+	
+		// 찜콩 해제
+		public int deleteLike(RoutePostscriptLike);
+		
+		
+	-->
+
 	<!-- 전체 수 -->
 	<select id="getCount" resultType="Integer">
 		SELECT COUNT(*)
@@ -37,5 +53,35 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT INTO route(route_code, username, routename, partner_code, sday, eday)
 	    VALUES( NULL, #{username}, #{routename}, #{partner_code}, #{sday}, #{eday})
 	</insert> -->
-
+	
+	
+	<!-- 루트 후기 리스트 -->
+	<select id="getList" parameterType="String" resultType="List">
+		SELECT *, IF((route_postcript_rownum in (SELECT route_postscript_rownum 
+												 FROM route_postscript_like
+												 WHERE username = #{username})
+					 ),'true','false') as 'route_like'
+		FROM rout_postscript
+	</select>
+	
+	<select id="getRoutePost" parameterType="Integer" resultType="RoutePostscript">
+		SELECT *, IF((route_postcript_rownum in (SELECT route_postscript_rownum 
+												 FROM route_postscript_like
+												 WHERE username = #{username})
+					 ),'true','false') as 'route_like'
+		FROM rout_postscript
+		WHERE route_postcript_rownum = #{route_postcript_rownum}
+	</select>
+	
+	<!-- 찜콩하기 -->
+	<insert id="insertLike" parameterType="RoutePostscriptLike">
+		INSERT INTO route_postscript_like (route_postscript_like_rownum, username, route_postscript_rownum)
+		VALUES (null, #{username}, #{route_postscript_rownum})
+	</insert> 
+	
+	<!-- 찜콩 해제 -->
+	<delete id="deleteLike" parameterType="RoutePostscriptLike">
+		DELETE route_postscript_like
+		WHERE username = #{username} AND route_postscript_rownum = #{route_postscript_rownum}
+	</delete>
 </mapper>
