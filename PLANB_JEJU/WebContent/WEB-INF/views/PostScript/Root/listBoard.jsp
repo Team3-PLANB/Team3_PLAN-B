@@ -306,7 +306,7 @@
 	
 	
 	<button id="moveTopBtn">
-		<img src="${pageContext.request.contextPath}/images/MyPage/btn_backtotop.png" style="width:80px;height:80px;" title="위로 가기">
+		<img src="${pageContext.request.contextPath}/images/PostScript/btn_backtotop.png" style="width:80px;height:80px;" title="위로 가기">
 	</button>
 	<!-- END fh5co-wrapper -->
 

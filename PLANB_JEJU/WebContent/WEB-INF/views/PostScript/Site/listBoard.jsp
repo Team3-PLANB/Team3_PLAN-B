@@ -56,30 +56,26 @@
 							<h3>후기 게시판</h3>
 							<p>여행지 후기 게시판입니다.</p>
 							<ul class="portfolio-filter" align="center">
-								<li><a class="btn btn-default default"
-									href="${pageContext.request.contextPath}/PostScript/Root/List.do"
-									data-filter=".a">루트 후기</a></li>
-								<li><a class="btn btn-default"
-									href="${pageContext.request.contextPath}/PostScript/Site/List.do"
-									data-filter=".b">여행지 후기</a></li>
+								<li>
+									<a class="btn btn-default default" href="${pageContext.request.contextPath}/PostScript/Root/List.do"
+										data-filter=".a">루트 후기</a>
+								</li>
+								<li>
+									<a class="btn btn-default active" href="${pageContext.request.contextPath}/PostScript/Site/List.do"
+										data-filter=".b">여행지 후기</a>
+								</li>
 							</ul>
 						</div>
 					</div>
 
 					<%-----------------------------검색 부분 ----------------------------------------%>
 					<form action="">
-						<div class="row animate-box" align="left">
-							<div class="col-md-4"></div>
-							<div class="col-md-4" align="right">
-								<input type="submit" value="검색하기" class="btn btn-primary">
-							</div>
-							<div class="col-md-4">
-								<input type="text" class="form-control"
-									placeholder="검색어를 입력해주세요.">
-							</div>
+						<div class="row animate-box" align="right">
+							<input type="submit" style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary">
+							<input type="text" style="width:300px;float:right;" class="form-control" placeholder="검색어를 입력해주세요.">
 						</div>
 					</form>
-					<br> <br>
+					<br>
 
 					<%------------------------------리스트 부분 ----------------------------------------%>
 					<div class="container">
