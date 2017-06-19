@@ -38,7 +38,8 @@ public class LoginJoinController {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	private MemberService memberservice = new MemberService();
+	@Autowired
+	private MemberService memberservice;
 
 	/*
 	* @date : 2017. 6. 16
@@ -58,7 +59,8 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Login/loginok.do")
 	public String nLoginOK(){
-		return "LoginJoin.Login.SLogin.detail_JS";
+		System.out.println("loginok");
+		return "MyPage.Info.infoMain";
 	}
 	
 	/*
@@ -128,9 +130,9 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Login/fblogin")
 	public @ResponseBody String fblogin(String username) throws Exception {
-/*		sqlsession.getMapper(MemberDAO.class).fblogin(email);
-		return sqlsession.getMapper(MemberDAO.class).getfbpassword(email);*/
-		return null;
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		String result = memberDao.getFBpassword(username);
+		return result;
 	}	
 
 	/*
