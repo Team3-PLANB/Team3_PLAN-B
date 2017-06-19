@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM rout_postscript
 	</select>
 	
-	<select id="getRoutePost" parameterType="Integer" resultType="RoutePostscript">
+	<select id="getRoutePost" parameterType="Integer">
 		SELECT *, IF((route_postcript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
 												 WHERE username = #{username})
@@ -74,13 +74,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 찜콩하기 -->
-	<insert id="insertLike" parameterType="RoutePostscriptLike">
+	<insert id="insertLike" >
 		INSERT INTO route_postscript_like (route_postscript_like_rownum, username, route_postscript_rownum)
 		VALUES (null, #{username}, #{route_postscript_rownum})
 	</insert> 
 	
 	<!-- 찜콩 해제 -->
-	<delete id="deleteLike" parameterType="RoutePostscriptLike">
+	<delete id="deleteLike" >
 		DELETE route_postscript_like
 		WHERE username = #{username} AND route_postscript_rownum = #{route_postscript_rownum}
 	</delete>
