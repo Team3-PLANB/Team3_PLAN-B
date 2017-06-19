@@ -7,7 +7,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.text.Document;
 import javax.xml.parsers.DocumentBuilder;
@@ -19,11 +21,13 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
+import com.planb_jeju.dto.RouteDetail;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 
 public class TourApiService {
-    public static List<String> getListOfSite(StringBuilder baseUrl, StringBuilder urlParam) throws IOException, SAXException, ParserConfigurationException {
+    public static List<RouteDetail> getListOfSite(StringBuilder baseUrl, StringBuilder urlParam) throws IOException, SAXException, ParserConfigurationException {
         StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList"); /*URL*/ 
         //http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList : 지역 기반 관광지 목록 조회 url
         
@@ -58,8 +62,6 @@ public class TourApiService {
         StringBuilder sb = new StringBuilder();
         String line;
         while ((line = rd.readLine()) != null) {
-  
-        	System.out.println("line값은??"+line);
             sb.append(line);
         }
         rd.close();
@@ -82,26 +84,42 @@ public class TourApiService {
         
         System.out.println(itemlist.getLength());
         
-        List<String> siteList = new ArrayList<String>();
+        List<RouteDetail> siteList = new ArrayList<RouteDetail>();//관광지리스트
         
         
         for (int i = 0; i < itemlist.getLength(); i++) {//태그가 item인 노드들의 리스트 길이만큼
         	//String nodeName = node.getNodeName();
         	NodeList chideofitem = itemlist.item(i).getChildNodes();//item 리스트의 아이템을 순서대로 읽어와서 그 각각의 자식 노드 읽어오기
+        	RouteDetail routedetail = new RouteDetail();
         	for(int j =0; j<chideofitem.getLength(); j++){
         		//System.out.println(chideofitem.item(j).getNodeName());
         		Node childNode = chideofitem.item(j); //노드 리스트 안의 각 노드 읽어오기
+        		
         		if(childNode.getNodeName().equals("title")){
+        			routedetail.setSite(childNode.getTextContent());
         			
-        			//System.out.println(childNode.getTextContent());
-        			siteList.add(childNode.getTextContent());
+        			//siteList.add(childNode.getTextContent());
         		}
+        		if(childNode.getNodeName().equals("mapy")){
+        			routedetail.setLat(childNode.getTextContent());
+        			
+        			//latList.add(childNode.getTextContent());
+        		}
+        		if(childNode.getNodeName().equals("mapx")){
+        			routedetail.setLon(childNode.getTextContent());
+        			
+        			//lonList.add(childNode.getTextContent());
+        		}
+        		
+        		
         	}
+        	siteList.add(routedetail);
 		}
               
        /* for (String string : siteList) {
 			System.out.println(string);//장소 이름 값 담긴 List 출력
 		}*/
+        
         
         return siteList;
         

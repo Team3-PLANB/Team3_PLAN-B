@@ -53,4 +53,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    VALUES( #{route_code}, #{username}, #{routename}, #{partner_code}, #{sday}, #{eday})
 	</insert>
 	
+	<!-- 취향 입력 -->
+	<!-- route_personal 입력
+	public int insertPersonal(Map<String, Object> map) throws ClassNotFoundException, SQLException;
+	 -->
+	 <insert id="insertPersonal" parameterType="java.util.Map">
+			
+		INSERT INTO route_personal(personal_code, username, route_code)
+	    VALUES
+	    <foreach collection="list" item="item" separator=",">
+	    	( #{item.personal_code}, #{item.username}, #{item.route_code})
+	    </foreach>
+	    
+	</insert>
+	
 </mapper>

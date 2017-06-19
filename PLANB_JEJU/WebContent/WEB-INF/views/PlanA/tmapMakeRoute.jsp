@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
@@ -11,6 +12,20 @@
 	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d"></script>
 
 <link rel="stylesheet" href="css/plana_tmap.css">
+
+<!-- 페이지 유형 파악 -->
+
+
+<%-- <c:if test="${requestScope.pageCase=='routeRecommendPage'}">
+            	<c:forEach var="item" items="${requestScope.siteList}" >
+				     장소 : ${item.site}
+				     위도 : ${item.lat}
+				     경도 : ${item.lon}
+				  var marker = new Tmap.Marker(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon);
+			      markerLayer.addMarker(marker);
+				</c:forEach>
+            	
+</c:if> --%>
 
 <script type="text/javascript">
 $( function() {
@@ -43,8 +58,67 @@ $( function() {
             markerLayer = new Tmap.Layer.Markers();
             map.addLayer(markerLayer);
             /* searchRoute(); */
+            
+            /* 만약  페이지 유형이 추천 여행지 출력이라면*/
+            <c:if test="${requestScope.pageCase=='routeRecommendPage'}">
+	            <c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> 
+	        	
+	            	addSiteMarkers(${item.lon}, ${item.lat}, '${item.site}');
+		      	
+				</c:forEach>
+            	
+            </c:if>
+        	
         };
         
+      //추천 여행지 마커 추가하기 
+        function addSiteMarkers(lon, lat, site){
+    	  
+     		
+        	//pr_3857 인스탄스 생성. (Google Mercator)
+			var pr_3857 = new Tmap.Projection("EPSG:3857");
+			 
+			//pr_4326 인스탄스 생성. (WGS84 GEO)
+			var pr_4326 = new Tmap.Projection("EPSG:4326");
+			
+			var size = new Tmap.Size(24,38);
+	        var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2)); 
+	  
+	       	var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); /* 마커 아이콘 */
+	     
+	       /* 	<c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> */
+	        	
+			  	/* var marker = new Tmap.Markers(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon, new Tmap.Label('${item.site}'));
+		      	markerLayer.addMarker(marker);  */
+		      	/* if(${num.index}=='1'){
+		      		var marker1 = new Tmap.Markers(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon, new Tmap.Label('${item.site}'));
+			      	markerLayer.addMarker(marker1);
+		      	}  */
+		      	
+		        /* var num${num.index} = new Tmap.Markers(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon, new Tmap.Label('${item.site}'));
+		      	markerLayer.addMarker(num${num.index});  */
+		      	
+			/* </c:forEach> */
+		      	
+		     var marker = new Tmap.Markers(new Tmap.LonLat(lon, lat).transform(pr_4326, pr_3857), icon, new Tmap.Label(site));
+		     markerLayer.addMarker(marker); 	
+		     marker.events.register("mouseover", marker, onOverMouse);
+		     marker.events.register("mouseout", marker, onOutMouse);
+		     marker.events.register("click", map, onClickMarker)
+		     
+		     
+		     
+        }
+        function onOverMouse(e){
+            this.popup.show();
+        }
+        function onOutMouse(e){
+            this.popup.hide();
+        }
+        
+        function onClickMarker(evt){
+	         console.log(evt);
+	     }
         //맵 클릭시 이벤트 함수 -> 마커 출력
         function onClickMap(evt){
             /* console.log(evt.clientX);
@@ -166,6 +240,9 @@ $( function() {
         }
         
         
+        
+        
+        
         /* Start : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
         Tmap.Format.KML.prototype.parseData = function(data, options) {
 	        if(typeof data == "string") {
@@ -268,11 +345,15 @@ $( function() {
         
         /* End : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
      
-        </script>
+</script>
+
+
+        
+        
 </head>
 
 
-
+<div id="tocheck"></div>
 <div id= "body_map">
 	<div id="map_div" style="float : left; position : absolute "></div>
 	<div id="route_float">
