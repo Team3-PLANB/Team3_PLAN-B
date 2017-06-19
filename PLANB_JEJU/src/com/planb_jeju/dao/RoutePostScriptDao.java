@@ -61,10 +61,32 @@ public interface RoutePostScriptDao {
 	public int insertLike(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
 	
 	/*	
-	 * @description : 찜콩 해제
+	 * @description : 태그 등록
 	 * @return : int 업데이트된 라인 수
 	 * @param spec : RoutePostscriptLike 삭제할 루트 찜콩
 	 */
-	public int deleteLike(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	public int insertTag(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 태그 삭제
+	 * @return : int 업데이트된 라인 수
+	 * @param spec : RoutePostscriptLike 삭제할 루트 찜콩
+	 */
+	public int deleteTag(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 조회수 증가
+	 * @return : int 업데이트된 라인 수
+	 * @param spec : RoutePostscriptLike 삭제할 루트 찜콩
+	 */
+	public int updateHitNum(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 좋아요(찜콩수) 증가
+	 * @return : int 업데이트된 라인 수
+	 * @param spec : RoutePostscriptLike 삭제할 루트 찜콩
+	 */
+	public int updateLikeNum(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	// dmmdkkkr
 	
 }

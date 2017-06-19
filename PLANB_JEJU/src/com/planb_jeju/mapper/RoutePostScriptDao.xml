@@ -35,7 +35,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 루트 후기 전체 수 -->
 	<select id="getCount" resultType="Integer">
 		SELECT COUNT(*)
-		FROM route_postscript<!-- 주석 추가 -->
+		FROM route_postscript
 	</select>
 	
 	<!-- 루트 후기 등록 -->
@@ -48,7 +48,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update" >
 		UPDATE rout_postscript 
 		SET comment = #{comment}
-		WHERE route_postscript_rownum = #{route_postscript_rownum} AND username =#{username}
+		WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</update>
 	
 	<!-- 루트 후기 삭제 -->
@@ -84,14 +84,26 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<delete id="deleteLike" >
 		DELETE route_postscript_like
 		WHERE username = #{username} AND route_postscript_rownum = #{route_postscript_rownum}
-	</delete>
+	</delete><!-- 어ㅏㄴ -->
 	
 	<!-- 태그 등록 -->
+	<insert id="">
+	
+	</insert>
 	
 	<!-- 태그 삭제 -->
+	<delete id="">
+	
+	</delete>
 	
 	<!-- 조회수 증가 -->
+	<update id="">
+	
+	</update>
 	
 	<!-- 좋아요(찜콩수) 증가 -->
+	<update id="">
+	
+	</update>
 	
 </mapper>
