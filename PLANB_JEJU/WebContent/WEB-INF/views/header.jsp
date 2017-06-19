@@ -11,7 +11,7 @@
 						<i></i>
 					</a>
 					<h1 id="fh5co-logo">
-						<a href="${pageContext.request.contextPath}/index.jsp">
+						<a href="${pageContext.request.contextPath}/Index/main.do">
 							<i class="icon-airplane"></i>PLAN'B JEJU
 						</a>
 					</h1>
