@@ -3,11 +3,11 @@
 //load the SDK asynchronously
 window.fbAsyncInit = function() {
 	FB.init({
-		appId : '1411879235558357',
-		cookie : true,
-		xfbml : true,
-		version : 'v2.5'
-	});
+	      appId      : '444078732638300',
+	      cookie     : true,
+	      xfbml      : true,
+	      version    : 'v2.8'
+	    });
 
 	// 로그인 상태 호출하는 함수
 	FB.getLoginStatus(function(response) {
@@ -16,16 +16,13 @@ window.fbAsyncInit = function() {
 
 };
 
-   (function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id))
-         return;
-      js = d.createElement(s);
-      js.id = id;
-      js.src = "//connect.facebook.net/ko_KR/sdk.js";
-      fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-// --기본세팅 END --
+(function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
 
 /*
  * 페이스북 로그인 상태를 알려주는 함수
@@ -48,7 +45,7 @@ function statusChangeCallback(response) {
 		console.log('login ok');
 	} else if (response.status === 'not_authorized') {
 		// 페이스북에는 로그인 했으나, 앱에는 로그인이 되어있지 않다.
-		alert('로그인 후 이용해 주세요.');
+		console.log('로그인 후 이용해 주세요.');
 	} else {
 		// 페이스북에 로그인이 되어있지 않다. 따라서, 앱에 로그인이 되어있는지 여부가 불확실하다.
 		console.log('Please log into Facebook.');
@@ -66,8 +63,8 @@ function login() {
 	var nickname; // 이름 저장할 변수
 	console.log("FB LOGIN START");
 	FB.login(function(response) { // response 객체를 처리
-		console.log(response.status);
-		console.log(response.authResponse.accessToken);
+		console.log("response STATUS : " + response.status);
+		console.log("accessToken" + response.authResponse.accessToken);
 		if (response.status === 'connected') {
 		// 페이스북과 앱에 같이 로그인되어 있다.
 				FB.api(
@@ -82,15 +79,17 @@ function login() {
 						data : {"userid" : username},
 						dataType : "json",
 						success : function(result) {
-							if (result == false) { // 중복된 값을 타면 로그인이 된다.
+							console.log("로그인시도");
+							if (result == false) { // 아이디 중복 > 로그인(fblogin.do)
 								$.ajax({
 									type : "post",
 									url : "fblogin.do",
 									data : {"userid" : username},
 									success : function(result) {// 로그인성공
-									document.getElementById('username').value = username;
-									document.getElementById('password').value = result;
-									document.getElementById('joinform').submit();
+										console.log("로그인 성공");
+										document.getElementById('username').value = username;
+										document.getElementById('password').value = result;
+										document.getElementById('joinform').submit();
 									},
 									error : function(error) {// 로그인실패
 										alert(error.statusText);
@@ -132,7 +131,7 @@ function login() {
 				console.log('else part');
 				// 페이스북에 로그인이 되어있지 않아서, 앱에 로그인 되어있는지 불명확하다.
 			}
-		}, {scope : 'username'}); // email 에 대한 권한을 요청한다.
+		}, {scope : 'email'}); // email 에 대한 권한을 요청한다.
 }
 /*
  * // 페이스북 로그아웃 function logout(){ FB.logout(function(response) {// 사용자 로그 아웃 이후
