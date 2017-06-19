@@ -27,9 +27,9 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/LoginJoin/join.css">
 
+	<script src="${pageContext.request.contextPath}/js/loginjoin/facebook.js" ></script>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
 	<script src="${pageContext.request.contextPath}/js/email.js"></script>
-	<script src="${pageContext.request.contextPath}/js/loginjoin/facebook.js" ></script>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/login.js" ></script>
 	
  <%
