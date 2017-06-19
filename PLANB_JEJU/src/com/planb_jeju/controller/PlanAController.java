@@ -44,21 +44,28 @@ import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.RouteDao;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RouteDetail;
+import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.TourApiService;
+import com.planb_jeju.utils.CheckBoxParse;
 
 @Controller
 public class PlanAController {
-	
+
 	@Autowired
 	private SqlSession sqlsession;
 
+	@Autowired
+	private RouteService routeService;
+
 	/*
-	* @date : 2017. 6. 16
-	* @description : 회원가입 화면 이동 
-	* @return : String(View 페이지) 
-	*/
+	 * @date : 2017. 6. 16
+	 * 
+	 * @description : 회원가입 화면 이동
+	 * 
+	 * @return : String(View 페이지)
+	 */
 	@RequestMapping("PLANA.do")
-	public String index() {		
+	public String index() {
 		return "PLANA.tmap";
 	}
 
@@ -66,113 +73,103 @@ public class PlanAController {
 	public String markerAtoB() {
 		return "PlanA.tmap_make_route";
 	}
-	
-	
+
 	@RequestMapping("PLANA.make.do")
 	public String routeInsert() {
 		return "PlanA.step";
 	}
-		
+
 	/*
-	* @date : 2017. 6. 16
-	* @description : 루트 만들기 요청 -> 여행지 추천 정보 리턴 
-	* @return : String(View 페이지) 
-	*/
-	@RequestMapping(value="PLANA.make.do",  method=RequestMethod.POST)
-	public String makeSelfRoute(HttpServletRequest request, Route route, String personal) throws ClassNotFoundException, SQLException, SAXException, IOException, ParserConfigurationException {
+	 * @date : 2017. 6. 16
+	 * 
+	 * @description : 루트 만들기 요청 -> 여행지 추천 정보 리턴
+	 * 
+	 * @return : String(View 페이지)
+	 */
+	@RequestMapping(value = "PLANA.make.do", method = RequestMethod.POST)
+	public String makeSelfRoute(HttpServletRequest request, Route route, String personal)
+			throws ClassNotFoundException, SQLException, SAXException, IOException, ParserConfigurationException {
+
+		// Route, Personal DB insert 함수 호출
+		insertRouteAndPersonal(route, personal);
 		
-		route.setUsername("a@naver.com");
-		
-		// Mybatis 적용
-		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
-		routeDao.insert(route);
-		
-		//현재 루트 코드 가져오기
-		int routecode = routeDao.getRouteCode("a@naver.com");
-		
-		System.out.println("취향 체크박스 :"+personal);
-		java.util.List<Route> routepersonal = new ArrayList();
-		
-		String[] personalList = personal.split(",");
-		
-		for (String personalcode : personalList) {
-			System.out.println(">"+personalcode+"<");
-			
-			
-			Route rp = new Route();
-			rp.setUsername("a@naver.com");
-			rp.setRoute_code(routecode);
-			rp.setPersonal_code(personalcode);
-			
-			routepersonal.add(rp);
-		}		
-		
-		Map<String, Object> map = new HashMap();
-		map.put("list", routepersonal);
-		
-		routeDao.insertPersonal(map);//취향 입력
-		
-		//여행지 뽑아서 보낼 것
-		
+		// Tmap API 에 취향에 맞는 여행지 데이터 요청
 		StringBuilder baseUrl = new StringBuilder("");
-		StringBuilder urlParam = new StringBuilder("");
-				
+
+		// 받은 데이터 저장할 ArrayList
 		java.util.List<RouteDetail> siteLists = new ArrayList<RouteDetail>();
-		
+
+		String[] personalList = CheckBoxParse.parseString(personal);
+		// 취향 마다 요청 따로 보내야 함 -> 취향 하나에 요청 한번, 각 요청에 응답 데이터 저장
 		for (String personalcode : personalList) {
-			java.util.List<RouteDetail> siteList = TourApiService.getListOfSite(baseUrl, new StringBuilder(personalcode));
-			//siteLists.//리스트.add list 필요
+			java.util.List<RouteDetail> siteList = TourApiService.getListOfSite(baseUrl,
+					new StringBuilder(personalcode));
+
+			siteLists.addAll(siteList);
 		}
 		request.setAttribute("pageCase", "routeRecommendPage");
-		//request.setAttribute("siteList", siteList);
-		
-		
+		request.setAttribute("siteList", siteLists);
+
 		return "PlanA.tmapMakeRoute";
-	
+
 	}
-	
-	
+
 	/*
-	* @date : 2017. 6. 16
-	* @description : 루트 추천 받기 요청 -> 여행경로 추천 정보 리턴 
-	* @return : String(View 페이지) 
-	*/
-	@RequestMapping(value="PLANA.recommend.do",  method=RequestMethod.POST)
-	public String makeRecommendRoute(Route route, String personal) throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
-		
-		// Mybatis 적용
-		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
-		routeDao.insert(route);
-		
-		//현재 루트 코드 가져오기
-		int routecode = routeDao.getRouteCode("a@naver.com");
-		
-		System.out.println("취향 체크박스 :"+personal);
-		java.util.List<Route> routepersonal = new ArrayList();
-		
-		String[] personalList = personal.split(",");
-		
+	 * @date : 2017. 6. 16
+	 * 
+	 * @description : 루트 추천 받기 요청 -> 여행경로 추천 정보 리턴
+	 * 
+	 * @return : String(View 페이지)
+	 */
+	@RequestMapping(value = "PLANA.recommend.do", method = RequestMethod.POST)
+	public String makeRecommendRoute(Route route, String personal)
+			throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
+
+		// Route, Personal DB insert 함수 호출
+		insertRouteAndPersonal(route, personal);
+
+		// 여행루트 추천 뽑아서 보낼 것
+
+		return "PlanA.tmapMakeRoute";
+
+	}
+
+	/*
+	 * @date : 2017. 6. 19
+	 * 
+	 * @description : makeSelfRoute함수와, makeRecommendRoute함수에서 반복되는 작업 함수로 정리
+	 * 
+	 */
+	public void insertRouteAndPersonal(Route route, String personal) throws ClassNotFoundException, SQLException {
+		// principal 가져오기
+		route.setUsername("a@naver.com");
+
+		// route DB insert
+		routeService.insertRoute(route);
+
+		// 현재 루트 코드 가져오기
+		int routecode = routeService.getRoutecode("a@naver.com");
+
+		// CheckBox 값 배열로 정리
+		String[] personalList = CheckBoxParse.parseString(personal);
+
+		// 취향 체크 박스 선택 된 만큼 취향 테이블에 insert할 수 있게 ArrayList로 만듬
+		java.util.List<Route> arrayList = new ArrayList();
+
 		for (String personalcode : personalList) {
-			System.out.println(">"+personalcode+"<");
-			
-			
 			Route rp = new Route();
 			rp.setUsername("a@naver.com");
 			rp.setRoute_code(routecode);
 			rp.setPersonal_code(personalcode);
-			
-			routepersonal.add(rp);
-		}		
-		
+
+			arrayList.add(rp);
+		}
+
 		Map<String, Object> map = new HashMap();
-		map.put("list", routepersonal);
-		
-		routeDao.insertPersonal(map);
-		
-		//여행루트 추천 뽑아서 보낼 것
-		
-		
-		return "PlanA.tmapMakeRoute";
-	
+		map.put("list", arrayList);
+
+		// route-personal DB insert
+		routeService.insertPersonal(map);
+
 	}
 }
