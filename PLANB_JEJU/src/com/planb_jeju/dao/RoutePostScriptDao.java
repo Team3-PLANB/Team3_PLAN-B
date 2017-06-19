@@ -77,9 +77,9 @@ public interface RoutePostScriptDao {
 	/*	
 	 * @description : 태그 삭제
 	 * @return : int 업데이트된 라인 수
-	 * @param spec : int route_postscript_tag_rownum 루트 후기 고유 번호
+	 * @param spec : int route_postscript_rownum 루트 후기 고유 번호
 	 */
-	public int deleteTag(int route_postscript_tag_rownum) throws ClassNotFoundException, SQLException;
+	public int deleteTag(int route_postscript_rownum) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 조회수 증가
