@@ -5,6 +5,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 <mapper namespace="com.planb_jeju.dao.SitePostScriptDao">
 
 	<!-- 
+	
+		// 루트 후기 전체 수
+		public int getCount();
+		
+		// 루트 후기 등록
+		public int insert(RoutePostscript routePostscript);
+			
+		// 루트 후기 수정
+		public int update(RoutePostscript routePostscript);
+			
+		// 루트 후기 삭제
+		public int delete(int route_postscript_rownum, String username);
+		
 		// 루트 후기 리스트
 		public List<RoutePostscript> getList();
 		
@@ -17,43 +30,31 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		// 찜콩 해제
 		public int deleteLike(RoutePostscriptLike);
 		
-		
 	-->
 
-	<!-- 전체 수 -->
+	<!-- 루트 후기 전체 수 -->
 	<select id="getCount" resultType="Integer">
 		SELECT COUNT(*)
-		FROM route_postscript
+		FROM route_postscript<!-- 주석 추가 -->
 	</select>
 	
-	<!-- 멤버 한명 셀렉 -->
-	<select id="getSitePost" resultType="com.planb_jeju.dto.SitePostscript">
-		SELECT *
-		FROM route_postscript
-		WHERE route_code = #{param1}, username =#{param2}
-	</select>
+	<!-- 루트 후기 등록 -->
+	<insert id="insert">
+		INSERT INTO rout_postscript (route_postscript_rownum, comment, writetime, hitnum, likenum, username, route_code)
+	    VALUES (NULL, #{comment}, #{writetime}, 0 ,0 , #{username}, #{route_code})
+	</insert>
 	
-	<!-- 삭제 -->
-	<delete id="delete">
-	 	DELETE route WHERE route_code = #{param1}, username =#{param2}
-	</delete>
-	
-	<!-- 수정 -->
+	<!-- 루트 후기 수정 -->
 	<update id="update" >
-		UPDATE route 
-		SET routename=#{routename}, 
-		    partner_code=#{partner_code},
-		    sday=#{sday},
-		    eday=#{eday}
-		WHERE route_code = #{route_code}, username =#{username}
+		UPDATE rout_postscript 
+		SET comment = #{comment}
+		WHERE route_postscript_rownum = #{route_postscript_rownum} AND username =#{username}
 	</update>
 	
-	<!-- 입력 -->
-<!-- 	<insert id="insert">
-		INSERT INTO route(route_code, username, routename, partner_code, sday, eday)
-	    VALUES( NULL, #{username}, #{routename}, #{partner_code}, #{sday}, #{eday})
-	</insert> -->
-	
+	<!-- 루트 후기 삭제 -->
+	<delete id="delete">
+	 	DELETE rout_postscript WHERE rout_postscript_rownum = #{param1} AND username =#{param2}
+	</delete>
 	
 	<!-- 루트 후기 리스트 -->
 	<select id="getList" parameterType="String" resultType="List">
@@ -76,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 찜콩하기 -->
 	<insert id="insertLike" parameterType="RoutePostscriptLike">
 		INSERT INTO route_postscript_like (route_postscript_like_rownum, username, route_postscript_rownum)
-		VALUES (null, #{username}, #{route_postscript_rownum})
+		VALUES (NULL, #{username}, #{route_postscript_rownum})
 	</insert> 
 	
 	<!-- 찜콩 해제 -->
@@ -84,4 +85,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		DELETE route_postscript_like
 		WHERE username = #{username} AND route_postscript_rownum = #{route_postscript_rownum}
 	</delete>
+	
+	<!-- 태그 등록 -->
+	
+	<!-- 태그 삭제 -->
+	
+	<!-- 조회수 증가 -->
+	
+	<!-- 좋아요(찜콩수) 증가 -->
+	
 </mapper>
