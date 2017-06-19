@@ -42,9 +42,9 @@ public interface RoutePostScriptDao {
 	/*	
 	 * @description : 루트 후기 리스트
 	 * @return : List<RoutePostscript> 루트 후기 리스트
-	 * @param spec : x
+	 * @param spec : String username
 	 */
-	public List<RoutePostscript> getList() throws ClassNotFoundException, SQLException;
+	public List<RoutePostscript> getList(String username) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 루트 후기 상세보기
@@ -56,37 +56,43 @@ public interface RoutePostScriptDao {
 	/*	
 	 * @description : 찜콩하기
 	 * @return : int 성공 여부 ( > 0 : 성공)
-	 * @param spec : RoutePostscriptLike 추가할 루트 찜콩
+	 * @param spec : RoutePostscriptLike 찜콩할 후기
 	 */
 	public int insertLike(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
 	
 	/*	
+	 * @description : 찜콩 해제
+	 * @return : int 성공 여부 ( > 0 : 성공)
+	 * @param spec : RoutePostscriptLike 해제할 찜콩 후기
+	 */
+	public int deleteLike(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	
+	/*	
 	 * @description : 태그 등록
 	 * @return : int 업데이트된 라인 수
-	 * @param spec : RoutePostscriptLike 삭제할 루트 찜콩
+	 * @param spec : RoutePostscript 루트 후기 정보 중 태그 정보
 	 */
-	public int insertTag(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	public int insertTag(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 태그 삭제
 	 * @return : int 업데이트된 라인 수
-	 * @param spec : RoutePostscriptLike 삭제할 루트 찜콩
+	 * @param spec : int route_postscript_tag_rownum 루트 후기 고유 번호
 	 */
-	public int deleteTag(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	public int deleteTag(int route_postscript_tag_rownum) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 조회수 증가
 	 * @return : int 업데이트된 라인 수
-	 * @param spec : RoutePostscriptLike 삭제할 루트 찜콩
+	 * @param spec : int route_postscript_rownum 루트 후기 고유 번호
 	 */
-	public int updateHitNum(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	public int updateHitNum(int route_postscript_rownum) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 좋아요(찜콩수) 증가
 	 * @return : int 업데이트된 라인 수
-	 * @param spec : RoutePostscriptLike 삭제할 루트 찜콩
+	 * @param spec : int route_postscript_rownum 루트 후기 고유 번호
 	 */
-	public int updateLikeNum(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
-	// dmmdkkkr
+	public int updateLikeNum(int route_postscript_rownum) throws ClassNotFoundException, SQLException;
 	
 }
