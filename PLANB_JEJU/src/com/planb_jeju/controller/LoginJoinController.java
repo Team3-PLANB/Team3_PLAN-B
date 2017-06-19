@@ -58,8 +58,7 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Login/loginok.do")
 	public String nLoginOK(){
-		System.out.println(">>>>>>>nLoginOK_controller<<<<<<<");
-		return "MyPage.Schedule.scheduleMain";
+		return "LoginJoin.Login.SLogin.detail_JS";
 	}
 	
 	/*
@@ -79,10 +78,21 @@ public class LoginJoinController {
 	* @return : String(ResponseBody) 
 	*/
 	@RequestMapping("Join/duplicationCheck.do")
-	public @ResponseBody String duplicationCheck(String username) throws Exception {
-		System.out.println("duplicationCKcontroller");
+	public @ResponseBody String duplicationEmailCheck(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		String result = memberservice.duplicationCheck(username, sqlsession);
+		String result = memberservice.duplicationEmailCheck(username, sqlsession);
+		return result;
+	}
+	
+	/*
+	* @date : 2017. 6. 16
+	* @description : 회원가입시 닉네임 체크 (비동기)
+	* @return : String(ResponseBody) 
+	*/
+	@RequestMapping("Join/duplicationNCheck.do")
+	public @ResponseBody String duplicationNickCheck(String nickname) throws Exception {
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		String result = memberservice.duplicationNickCheck(nickname, sqlsession);
 		return result;
 	}
 	
@@ -102,12 +112,12 @@ public class LoginJoinController {
 	* @description : 로그인 시 이메일, 비밀번호 체크
 	* @return : String(ResponseBody) 
 	*/
-	@RequestMapping("Login/loginCheck.do")
-	public String loginCheck(String username, String password) throws Exception {
-		System.out.println(username + password);
+	@RequestMapping("Join/loginCheck.do")
+	public @ResponseBody String loginCheck(String username, String password) throws Exception {
+		System.out.println(username + "/" + password);
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		String result = memberservice.loginCheck(username, password);
-		System.out.println("logincontroller" + result);
+		String result = memberservice.loginCheck(username, password, sqlsession);
+		System.out.println("logincontroller : " + result);
 		return result;
 	}
 	

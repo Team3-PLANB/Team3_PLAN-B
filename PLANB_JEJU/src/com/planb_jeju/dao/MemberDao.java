@@ -37,11 +37,18 @@ public interface MemberDao {
 	public int checkEmail(String username) throws ClassNotFoundException, SQLException;
 	
 	/*	
+	 * @description : 회원가입 시 닉네임 중복확인
+	 * @return : int
+	 * @param spec : x
+	 */
+	public int checkNickname(String nickname) throws ClassNotFoundException, SQLException;
+	
+	/*	
 	 * @description : 일반 로그인
 	 * @return : int
 	 * @param spec : x
 	 */
-	public Member loginCheck(String username, String password) throws ClassNotFoundException, SQLException;
+	public String loginCheck(String password) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 페이스북 로그인

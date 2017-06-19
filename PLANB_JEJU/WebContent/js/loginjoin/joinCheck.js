@@ -21,12 +21,18 @@ $(document).ready(function() {
 });
 
 function frm_submit() {
-	if($('#authnum').val() == null) {
+	var authnum = $('#authnum').val();
+	var check = $('#saveAuthNum').val();
+
+	if($('#overOk').val() == 'false' || $('#overOk').val() == ''){
+		alert("이메일 중복 확인을 해주세요.");
+		$('#username').focus();
+	}else if($('#authOk').val() == 'false' || $('#authOk').val() == ''){
 		alert('이메일 인증이 필요합니다.');
-	} else if($('#authnum').val() == "") {
-		alert('이메일 인증이 필요합니다.');
-		$('#authnum').focus();
-	}else {
+		$('#username').focus();
+	}else if(authnum != check){
+		alert('인증번호를 확인해주세요.');
+	} else {
 		$('#joinfrm').submit();
 	}
 }
@@ -58,12 +64,14 @@ function authCheck(){
 				if (!result) { 
 					console.log("잘못된 값");
 				}else {
+					alert('인증번호가 발송되었습니다.');
 					console.log(result);
+					$('#authnum').focus();
 					$('#saveAuthNum').val(result);
 				}
 			},
 			error : function(xhr) {
-				console.log("에러남 : " + xhr);
+				console.log(xhr);
 			}
 		});	
 	}
@@ -74,11 +82,14 @@ function authNumCheck(){
 	
 	if(!authnum){
 		alert("인증번호를 입력하세요");
+		$('#authnum').focus();
 	}else if(authnum != check){
 		alert("인증번호가 맞지 않습니다. 확인해주세요.");
+		$('#authnum').focus();
 		authnum = "";
 	}else if(authnum == check){
 		alert("인증완료");
+		$('#authOk').val('true');
 	}
 }
 
@@ -105,6 +116,7 @@ function emailCheck() {
 							$(".email-msg").text("사용가능한 이메일입니다");
 							$("#overlabCheck").hide();
 							$("#authNumSend").show();
+							$("#overOk").val("true");
 						}
 					}
 				},
@@ -118,20 +130,23 @@ function emailCheck() {
 function revText() {
 	$("#authNumSend").hide();
 	$("#overlabCheck").show();
+	$(".email-msg").text("");
+	$("#authOk").val("false");
+	$("#overOk").val("false");
+	return false;
 }
 
 function nickCheck() {
 	$.ajax({
-		url : "duplicationCheck.do",
+		url : "duplicationNCheck.do",
 		type : "get",
 		dataType : "json",
 		data : {
 			nickname : $("#nickname").val()
 		},
 		success : function(result) {
-			if (result == false) {
+			if (!result) {
 				$(".nick-msg").text("이미 존재하는 닉네임입니다");
-				$("#nickname").val("");
 				$("#nickname").focus();
 			} else {
 				$(".nick-msg").text("사용가능한 닉네임입니다");

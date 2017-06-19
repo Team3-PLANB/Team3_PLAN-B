@@ -145,7 +145,10 @@ style="display: block; height: 458px;" */
       $("#accordion2")
       .accordion({
          collapsible : true,
-         header : "> div > h3"
+         header : "> div > h3",
+         autoHeight: false,
+         navigation: true,
+         heightStyle: "content" /* 이걸 추가하기 위해 염병을 했다 */
       })
       .sortable({
          axis : "y",
@@ -161,6 +164,9 @@ style="display: block; height: 458px;" */
     
     });
 
+  
+  
+  
 </script>
  
 
@@ -183,14 +189,10 @@ style="display: block; height: 458px;" */
 
 
 <div style="background-color:white; width:450px;" id="schedulebox2" ><!-- 이놈은 아님 -->
-	<div id="accordion2" style ="overflow:auto; width:450px; height:550px;">
+	<div id="accordion2" style ="overflow:auto; width:450px; height:650px;">
     	<div class="group">
            <h3>DAY 1</h3> <!--min-height   -->
-			<div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"
-			id="ui-id-2"aria-labelledby="ui-id-1"role="tabpanel"aria-hidden="false"style="display: block; height:100%;">
-			<!-- 위 디브에 높이 오토 줘보자 이거 되면 담은이 짱짱걸
-			위 태그 전부다 오토 , 민 하이트  100% 줘보기
-			 -->
+			<div>
 			
 			
 		<div class="sortable">
@@ -246,7 +248,7 @@ style="display: block; height: 458px;" */
     
         </div>
         
- 	<div class="sch_content" style="width:280px;">
+ 	<%-- <div class="sch_content" style="width:280px;">
         <img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
          alt="" class="spot_img"
          onerror="this.src='/res/img/common/no_img/sight55.png';"
@@ -268,7 +270,7 @@ style="display: block; height: 458px;" */
      		<div class="spot_btn_box">
         		<img src="<%= request.getContextPath() %>/css/history/map_ico.png" alt="" class="spot_btn map_view" onclick="set_center(33.51010100,126.48125500)">
         	</div>
-     	 </div>
+     	 </div> --%>
      
     	</div>
 	</div>

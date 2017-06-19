@@ -25,9 +25,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE username = #{username}
 	</select>
 
+	<!-- 닉네임 중복확인 -->
+	<select id="checkNickname" resultType="Integer" parameterType = "String" >
+		SELECT count(nickname)
+		FROM member
+		WHERE nickname = #{nickname}
+	</select>
+
 	<!-- 로그인 확인 -->
-	<select id = "loginCheck" resultType="com.planb_jeju.dto.Member">
-		SELECT username, password
+	<select id = "loginCheck" resultType="String">
+		SELECT password
 		FROM member
 		WHERE username = #{username}
 	</select>

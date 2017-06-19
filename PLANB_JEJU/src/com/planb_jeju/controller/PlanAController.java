@@ -22,16 +22,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.swing.text.Document;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.apache.catalina.connector.Request;
 import org.apache.ibatis.session.SqlSession;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.xml.sax.InputSource;
@@ -40,6 +43,8 @@ import org.xml.sax.SAXException;
 import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.RouteDao;
 import com.planb_jeju.dto.Route;
+import com.planb_jeju.dto.RouteDetail;
+import com.planb_jeju.service.TourApiService;
 
 @Controller
 public class PlanAController {
@@ -74,7 +79,7 @@ public class PlanAController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="PLANA.make.do",  method=RequestMethod.POST)
-	public String makeSelfRoute(Route route, String personal) throws ClassNotFoundException, SQLException, SAXException, IOException, ParserConfigurationException {
+	public String makeSelfRoute(HttpServletRequest request, Route route, String personal) throws ClassNotFoundException, SQLException, SAXException, IOException, ParserConfigurationException {
 		
 		route.setUsername("a@naver.com");
 		
@@ -105,58 +110,21 @@ public class PlanAController {
 		Map<String, Object> map = new HashMap();
 		map.put("list", routepersonal);
 		
-		RouteDao routepersonalDao = sqlsession.getMapper(RouteDao.class);
-		routeDao.insert(map);
+		routeDao.insertPersonal(map);//취향 입력
 		
 		//여행지 뽑아서 보낼 것
 		
-		String searchurl = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?ServiceKey=sINbtYMpCw1C2%2BFZOiN%2FbJjqUn42vfFvg0%2BkN1NbFHjDt3JfU4U7gLkSOf16L07YIBDBLElP%2FLCJYIiqNBH5dQ%3D%3D&contentTypeid=12&areaCode=39&cat2=A0101&MobileOS=ETC&MobileApp=AppTesting";
+		StringBuilder baseUrl = new StringBuilder("");
+		StringBuilder urlParam = new StringBuilder("");
+				
+		java.util.List<RouteDetail> siteLists = new ArrayList<RouteDetail>();
 		
-		
-		InputStreamReader isr;
-		try {
-			URL url = new URL(searchurl); 
-			    
-			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-		          String line;
-		          while ((line = in.readLine()) != null) {
-		        	  System.out.println("????????");
-		                System.out.println(line);
-		          }
-		          
-		          InputSource   is = new InputSource(new StringReader(line)); 
-
-		          Document document = (Document) DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(is);
-		          
-		          System.out.println("안돼");
-		          System.out.println(document);
-		          
-		          in.close(); 			
-			
-			isr = new InputStreamReader(url.openConnection().getInputStream(), "UTF-8");
-			// JSON을 Parsing 한다. 문법오류가 날 경우 Exception 발생, without Exception -> parse 메소드
-			JSONObject object = (JSONObject)JSONValue.parseWithException(isr);
-			//System.out.println(object);
-			// 객체
-			JSONObject channel = (JSONObject)(object.get("item"));
-			JSONArray items = (JSONArray)channel.get("content");
-			//System.out.println(items);
-			// item 배열
-			//JSONArray items = (JSONArray)channel.get("item");
-			
-			for(int i = 0 ; i < items.size(); i++) {
-				JSONObject obj1 = (JSONObject)items.get(i);			
-				//System.out.println(obj1.get("STN_NM").toString()+"//"+obj1.get("SAWS_TA_AVG").toString());
-								
-			}
-			
-			
-		}catch(Exception e){
-			System.out.println(e.getMessage());
+		for (String personalcode : personalList) {
+			java.util.List<RouteDetail> siteList = TourApiService.getListOfSite(baseUrl, new StringBuilder(personalcode));
+			//siteLists.//리스트.add list 필요
 		}
-		
-			/*System.out.println(items.toString());*/
-		
+		request.setAttribute("pageCase", "routeRecommendPage");
+		//request.setAttribute("siteList", siteList);
 		
 		
 		return "PlanA.tmapMakeRoute";
@@ -170,7 +138,7 @@ public class PlanAController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="PLANA.recommend.do",  method=RequestMethod.POST)
-	public String makeRecommendRoute(Route route, String personal) throws ClassNotFoundException, SQLException {
+	public String makeRecommendRoute(Route route, String personal) throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
 		
 		// Mybatis 적용
 		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
@@ -199,10 +167,11 @@ public class PlanAController {
 		Map<String, Object> map = new HashMap();
 		map.put("list", routepersonal);
 		
-		RouteDao routepersonalDao = sqlsession.getMapper(RouteDao.class);
-		routeDao.insert(map);
+		routeDao.insertPersonal(map);
 		
 		//여행루트 추천 뽑아서 보낼 것
+		
+		
 		return "PlanA.tmapMakeRoute";
 	
 	}
