@@ -140,6 +140,8 @@ public class PlanAController {
 		// Route, Personal DB insert 함수 호출
 		insertRouteAndPersonal(route, personal);
 
+		// RouteDao mapper 사용해서 루트 코드리스트 가져온 다음 코드 리스트에 부합하는 routeDetail list 또 가져오기  -> mapper 2개
+		
 		// 여행루트 추천 뽑아서 보낼 것
 
 		return "PlanA.tmapMakeRoute";

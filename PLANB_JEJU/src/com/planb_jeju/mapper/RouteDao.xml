@@ -20,7 +20,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		group by username
 	</select>
 	
-	<!-- 멤버 한명 셀렉 -->
+	<!-- 루트한개 가져오기 -->
 	<select id="getRoute" resultType="com.planb_jeju.dto.Route">
 		SELECT *
 		FROM route
