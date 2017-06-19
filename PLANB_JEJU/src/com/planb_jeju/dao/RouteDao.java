@@ -31,9 +31,13 @@ public interface RouteDao {
 	//route_personal 입력
 	public int insertPersonal(Map<String, Object> map) throws ClassNotFoundException, SQLException;
 	
-	//게시물 상세
-	public Member getRoute(int route_code, String username) throws ClassNotFoundException, SQLException;
+	// 루트한개 가져오기
+	public Route getRoute(int route_code, String username) throws ClassNotFoundException, SQLException;
 		
+	// 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함
+	public List<Route> getRouteList(/*int route_code, String username*/) throws ClassNotFoundException, SQLException;
+	
+	
 	//게시물 수정
 	public int update(Route route) throws ClassNotFoundException, SQLException;
 	

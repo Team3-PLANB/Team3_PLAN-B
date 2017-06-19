@@ -18,10 +18,10 @@ public interface RouteDetailDao {
 	 */
 	public int getCount() throws ClassNotFoundException, SQLException;
 	
-	//게시물 입력
+	// 루트 디테일 입력
 	public int insert(Map<String, Object> map) throws ClassNotFoundException, SQLException;
 	
-	//게시물 상세
+	// 루트 가져오기
 	public RouteDetail getRoute(RouteDetail routedetail) throws ClassNotFoundException, SQLException;
 		
 	//게시물 수정
