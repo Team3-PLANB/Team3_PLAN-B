@@ -121,10 +121,10 @@ public class PlanAController {
 		
 		for (String personalcode : personalList) {
 			java.util.List<RouteDetail> siteList = TourApiService.getListOfSite(baseUrl, new StringBuilder(personalcode));
-			siteLists.//리스트.add list 필요
+			//siteLists.//리스트.add list 필요
 		}
 		request.setAttribute("pageCase", "routeRecommendPage");
-		request.setAttribute("siteList", siteList);
+		//request.setAttribute("siteList", siteList);
 		
 		
 		return "PlanA.tmapMakeRoute";
