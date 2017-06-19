@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.planb_jeju.dao.SitePostScriptDao">
+<mapper namespace="com.planb_jeju.dao.RoutePostScriptDao">
 
 	<!-- 
 	
@@ -25,10 +25,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		public RoutePostscript getRoutePost(int route_postscript_rownum);
 		
 		// 찜콩하기
-		public int insertLike(RoutePostscriptLike);
+		public int insertLike(RoutePostscriptLike routePostscriptLike);
 	
 		// 찜콩 해제
-		public int deleteLike(RoutePostscriptLike);
+		public int deleteLike(RoutePostscriptLike routePostscriptLike);
+		
+		// 태그 등록
+		public int insertTag(RoutePostscriptLike routePostscriptLike);
+		
+		// 태그 삭제
+		public int deleteTag(int route_postscript_rownum);
+		
+		// 조회수 증가
+		public int updateHitNum(int route_postscript_rownum);
+		
+		// 좋아요(찜콩수) 증가
+		public int updateLikeNum(int route_postscript_rownum);
 		
 	-->
 
@@ -39,13 +51,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 루트 후기 등록 -->
-	<insert id="insert">
+	<insert id="insert" parameterType="com.planb_jeju.dto.RoutePostscript">
 		INSERT INTO rout_postscript (route_postscript_rownum, comment, writetime, hitnum, likenum, username, route_code)
 	    VALUES (NULL, #{comment}, #{writetime}, 0 ,0 , #{username}, #{route_code})
 	</insert>
 	
 	<!-- 루트 후기 수정 -->
-	<update id="update" >
+	<update id="update" parameterType="com.planb_jeju.dto.RoutePostscript">
 		UPDATE rout_postscript 
 		SET comment = #{comment}
 		WHERE route_postscript_rownum = #{route_postscript_rownum}
@@ -65,7 +77,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM rout_postscript
 	</select>
 	
-	<select id="getRoutePost" parameterType="Integer">
+	<select id="getRoutePost" parameterType="Integer" resultType="com.planb_jeju.dto.RoutePostscript">
 		SELECT *, IF((route_postcript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
 												 WHERE username = #{username})
@@ -75,34 +87,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 찜콩하기 -->
-	<insert id="insertLike" >
+	<insert id="insertLike" parameterType="com.planb_jeju.dto.RoutePostscriptLike">
 		INSERT INTO route_postscript_like (route_postscript_like_rownum, username, route_postscript_rownum)
 		VALUES (NULL, #{username}, #{route_postscript_rownum})
 	</insert> 
 	
 	<!-- 찜콩 해제 -->
-	<delete id="deleteLike" >
+	<delete id="deleteLike" parameterType="com.planb_jeju.dto.RoutePostscriptLike">
 		DELETE route_postscript_like
 		WHERE username = #{username} AND route_postscript_rownum = #{route_postscript_rownum}
-	</delete><!-- 어ㅏㄴ -->
+	</delete>
 	
 	<!-- 태그 등록 -->
-	<insert id="">
-	
+	<insert id="insertTag" parameterType="com.planb_jeju.dto.RoutePostscript">
+		
 	</insert>
 	
 	<!-- 태그 삭제 -->
-	<delete id="">
+	<delete id="deleteTag" parameterType="Integer">
 	
 	</delete>
 	
 	<!-- 조회수 증가 -->
-	<update id="">
+	<update id="updateHitNum" parameterType="Integer">
 	
 	</update>
 	
 	<!-- 좋아요(찜콩수) 증가 -->
-	<update id="">
+	<update id="updateLikeNum" parameterType="Integer">
 	
 	</update>
 	

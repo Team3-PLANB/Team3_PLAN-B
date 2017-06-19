@@ -13,8 +13,10 @@
 <!-- 객체의 생성과 조립(injection) -->
 <context:annotation-config />
 <mvc:annotation-driven />
-<context:component-scan base-package="com.planb_jeju.controller" />
+
 <context:component-scan base-package="com.planb_jeju.service" />
+<context:component-scan base-package="com.planb_jeju.controller" />
+
 
 <!-- 빈네임 뷰 리졸버 설정 -->
 <bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
