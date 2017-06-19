@@ -9,6 +9,7 @@
 
 
 <!-- 시큐리티 적용X -->
+<security:http pattern="/websockethandler/**" security="none" /> <!-- 알림관련 핸들러 -->
 <security:http pattern="/css/**" security="none" />
 <security:http pattern="/js/**" security="none" /><!-- 
 <security:http pattern="/LoginJoin/**" security="none" /> -->
