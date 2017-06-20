@@ -36,9 +36,14 @@
 <link rel="stylesheet" href="css/cs-select.css">
 <link rel="stylesheet" href="css/cs-skin-border.css">
 <link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/LoginJoin/join.css">
 
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/main/mainCss.css">
+<script src="js/modernizr-2.6.2.min.js"></script>
+
+
+
+<%-- <!-- 로그인 스크립터  -->
 <script
 	src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
 <script src="${pageContext.request.contextPath}/js/email.js"></script>
@@ -46,72 +51,37 @@
 	src="${pageContext.request.contextPath}/js/loginjoin/facebook.js"></script>
 <script src="${pageContext.request.contextPath}/js/loginjoin/login.js"></script>
 
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/LoginJoin/join.css"> --%>
 
-<script src="js/modernizr-2.6.2.min.js"></script>
+
 
 <!-- slider를 위한 css  -->
-	
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/main/mainMain.css">
+
 </head>
 <body>
+
+
+
+<header class="cont-slider">
+    <section class="slider">
+      <article class="slide one"><span>One <h3 style="color:white">&nbsp; : 깨끗하고 푸르른 바다</h3></span></article><!--
+      --><article class="slide two"><span> Two <h3 style="color:white">&nbsp;: 청량한 유채꽃이 가득한 광경</h3></span></article><!--
+      --><article class="slide three"><span> Three <h3 style="color:white">&nbsp;: 편히 쉴 수 있는 숙박</h3></span></article><!--
+      --><article class="slide four"><span>Four <h3 style="color:white">&nbsp;: 볼 것 많은 관광지</h3></span></article><!--
+      --><article class="slide five"><span>Five <h3 style="color:white">&nbsp;: 함께 하는 사람들과 즐거운 산책로</h3></span></article>
+    </section>
+</header>
+
+
+
+
+
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
-		
-		
-		
-		
-		
-		
-		<aside id="fh5co-hero" class="js-fullheight">
-			<div class="flexslider js-fullheight">
-				<ul class="slides">
-			   	<li style="background-image: url(images/slide_1.jpg);">
-			   		<div class="overlay-gradient"></div>
-			   		<div class="container">
-			   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
-			   				<div class="slider-text-inner">
-			   					<h2>Create A Motivational Template</h2>
-			   					<p><a href="#" class="btn btn-primary btn-lg">Get started</a></p>
-			   				</div>
-			   			</div>
-			   		</div>
-			   	</li>
-			   	<li style="background-image: url(images/slide_2.jpg);">
-			   		<div class="overlay-gradient"></div>
-			   		<div class="container">
-			   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
-			   				<div class="slider-text-inner">
-			   					<h2>Start Practicing Your Course</h2>
-			   					<p><a href="#" class="btn btn-primary btn-lg">Get started</a></p>
-			   				</div>
-			   			</div>
-			   		</div>
-			   	</li>
-			   	<li style="background-image: url(images/slide_3.jpg);">
-			   		<div class="overlay-gradient"></div>
-			   		<div class="container">
-			   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
-			   				<div class="slider-text-inner">
-			   					<h2>Start Your Startup With This Template</h2>
-			   					<p><a href="#" class="btn btn-primary btn-lg">Get started</a></p>
-			   				</div>
-			   			</div>
-			   		</div>
-			   	</li>
-			   	<li style="background-image: url(images/slide_4.jpg);">
-			   		<div class="overlay-gradient"></div>
-			   		<div class="container">
-			   			<div class="col-md-10 col-md-offset-1 text-center js-fullheight slider-text">
-			   				<div class="slider-text-inner">
-			   					<h2>Surf With Free &amp; Unlimited Template</h2>
-			   					<p><a href="#" class="btn btn-primary btn-lg">Get started</a></p>
-			   				</div>
-			   			</div>
-			   		</div>
-			   	</li>
-			  	</ul>
-		  	</div>
-		</aside>
-			<div class="fh5co-hero">
+			<%-- <div class="fh5co-hero">
 				<div class="fh5co-overlay"></div>
 				<div class="fh5co-cover" data-stellar-background-ratio="0.5"
 					style="background-image: url(images/cover_bg_1.jpg);">
@@ -294,7 +264,7 @@
 					</div>
 				</div>
 
-			</div>
+			</div> --%>
 
 
 			<div id="fh5co-features">
@@ -411,9 +381,9 @@
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/place-9.jpg);">
+									style="background-image: url(../images/main/place-9.jpg);">
 								<li class="one-forth text-center"
-									style="background-image: url(../images/place-9.jpg);">
+									style="background-image: url(../images/main/place-9.jpg);">
 								<li class="one-forth text-center"
 									style="background-image: url(../images/main/jy.jpg);"><a
 									href="https://www.instagram.com/lim_c_1118/">
@@ -423,7 +393,7 @@
 								</a></li>
 
 								<li class="one-forth text-center"
-									style="background-image: url(../images/place-9.jpg);"><a
+									style="background-image: url(../images/main/place-9.jpg);"><a
 									href="#">
 										<div class="case-studies-summary">
 											<h2>Yebin Lee</h2>
@@ -445,16 +415,16 @@
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/place-9.jpg);"><a
+									style="background-image: url(../images/main/place-9.jpg);"><a
 									href="#">
 										<div class="case-studies-summary">
 											<h2>Junseong Lee</h2>
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/place-9.jpg);">
+									style="background-image: url(../images/main/place-9.jpg);">
 								<li class="one-forth text-center"
-									style="background-image: url(../images/place-9.jpg);">
+									style="background-image: url(../images/main/place-9.jpg);">
 								<li class="one-forth text-center"
 									style="background-image: url(../images/main/DANBI.png);"><a
 									href="#">
@@ -534,61 +504,24 @@
 				</div>
 			</div>
 		</div>
-		<!-- END fh5co-page -->
 	</div>
-	<!-- END fh5co-wrapper -->
-
-	<!-- jQuery -->
 
 
 	<script src="js/jquery.min.js"></script>
-	<!-- jQuery Easing -->
 	<script src="js/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
 	<script src="js/bootstrap.min.js"></script>
-	<!-- Waypoints -->
 	<script src="js/jquery.waypoints.min.js"></script>
 	<script src="js/sticky.js"></script>
 
-	<!-- Stellar -->
 	<script src="js/jquery.stellar.min.js"></script>
-	<!-- Superfish -->
 	<script src="js/hoverIntent.js"></script>
 	<script src="js/superfish.js"></script>
-	<!-- Magnific Popup -->
 	<script src="js/jquery.magnific-popup.min.js"></script>
 	<script src="js/magnific-popup-options.js"></script>
-	<!-- Date Picker -->
 	<script src="js/bootstrap-datepicker.min.js"></script>
-	<!-- CS Select -->
 	<script src="js/classie.js"></script>
 	<script src="js/selectFx.js"></script>
-
-	<!-- Main JS -->
 	<script src="js/main.js"></script>
-	
-	
-	
-	
-	<script src="../../js/main/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="../../js/main/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="../../js/main/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="../../js/main/jquery.waypoints.min.js"></script>
-	<!-- Superfish -->
-	<script src="../../js/main/hoverIntent.js"></script>
-	<script src="../../js/main/superfish.js"></script>
-	<!-- Flexslider -->
-	<script src="../../js/main/jquery.flexslider-min.js"></script>
-	<!-- Stellar -->
-	<script src="../../js/main/jquery.stellar.min.js"></script>
-	<!-- Counters -->
-	<script src="../../js/main/jquery.countTo.js"></script>
-
-	<!-- Main JS (Do not remove) -->
-	<script src="../../js/main/main.js"></script>
 
 </body>
 </html>
