@@ -5,9 +5,9 @@ package com.planb_jeju.controller;
 * @Class : PostScriptController
 * @Project : PLANB_JEJU
 * @Date : 2017.06.16
-* @LastEditDate : 2017.06.16
-* @Author : 강나영
-* @Desc : 후기 게시판 ui연결 /
+* @LastEditDate : 2017.06.19
+* @Author : 정다혜
+* @Desc : 후기 게시판 컨트롤러 
 */
 
 import java.io.FileInputStream;
@@ -32,6 +32,8 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
+import com.planb_jeju.service.MemberService;
+import com.planb_jeju.service.PostscriptService;
 
 
 @Controller
@@ -44,12 +46,14 @@ public class PostScriptController {
 	@Autowired
 	private SqlSession sqlsession;*/
 	
+	private PostscriptService postscriptservice = new PostscriptService();
+	
 
-	@RequestMapping("/Root/List.do")
+	@RequestMapping(value="/Root/List.do", method=RequestMethod.GET)
 	public String postscriptRoot_list() throws ClassNotFoundException, SQLException {
+//		postscriptservice.
 		
 		return "PostScript.Root.listBoard";	
-
 	}
 	
 	@RequestMapping("/Site/List.do")
