@@ -2,6 +2,7 @@ package com.planb_jeju.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -67,4 +68,15 @@ public class RouteService {
 		return result;
 
 	}
+	
+	public List<Route> getRouteList(Map<String, Object> map) throws ClassNotFoundException, SQLException {
+
+		// Mybatis 적용
+		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+		List<Route> routeList = routeDao.getRouteList(map);
+
+		return routeList;
+
+	}
+	
 }
