@@ -1526,12 +1526,13 @@ div.cs-select{
 	a{
 		img{
 	
-			width: 100%;
+			width:100%
 
 			&:hover{
 			}
 		}
 	}
+	
 	@media screen and (max-width: $screen-sm) {
 		width: 100%;
 	}

@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletOutputStream;
@@ -43,23 +44,23 @@ import com.planb_jeju.service.PostscriptService;
 @RequestMapping("/PostScript/")
 public class PostScriptController {
 
-/*	
-	private static MemberDao memberDao;
+//  private static MemberDao memberDao; 
 
 	@Autowired
-	private SqlSession sqlsession;*/
+	private SqlSession sqlsession;
 	
 	PostscriptService postscriptservice = new PostscriptService();
 	
 
 	@RequestMapping(value="Route/List.do", method=RequestMethod.GET)
-	public String postscriptRoot_list(HttpSession session, Model model) throws ClassNotFoundException, SQLException {
+	public String listRoutePostscript(HttpSession session, Model model) throws ClassNotFoundException, SQLException {
 		System.out.println("후기 게시판 들어옴");
 		Member member = (Member)session.getAttribute("member");
-		List<RoutePostscript> routePostscriptList = postscriptservice.listRoutePostscript(member.getUsername());
+		System.out.println("로그인된 아이디 : " + member.getUsername());
+		List<RoutePostscript> routePostscriptList = postscriptservice.listRoutePostscript(member.getUsername(), sqlsession);
 		System.out.println("routePostscriptList : " + routePostscriptList);
 		model.addAttribute("routePostscriptList", routePostscriptList);
-		return "PostScript.Root.listBoard";	
+		return "PostScript.Route.listBoard";	
 	}
 	
 	@RequestMapping("/Site/List.do")
@@ -72,7 +73,7 @@ public class PostScriptController {
 	@RequestMapping("Route/Detail.do")
 	public String postscriptRoot_detail() throws ClassNotFoundException, SQLException {
 		
-		return "PostScript.Root.detail";	
+		return "PostScript.Route.detail";	
 
 	}
 	

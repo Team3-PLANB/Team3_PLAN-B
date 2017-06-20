@@ -78,3 +78,8 @@
 .portfolio-item:hover .overlay {
   opacity: 1;
 }
+
+.likeChange{
+	width:30px;
+	height:30px;
+}
