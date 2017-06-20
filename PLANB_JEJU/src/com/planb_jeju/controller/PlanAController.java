@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
 import java.net.URL;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,8 +34,10 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.xml.sax.InputSource;
@@ -44,6 +47,7 @@ import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.RouteDao;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RouteDetail;
+import com.planb_jeju.service.RouteDetailService;
 import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.TourApiService;
 import com.planb_jeju.utils.CheckBoxParse;
@@ -56,6 +60,9 @@ public class PlanAController {
 
 	@Autowired
 	private RouteService routeService;
+	
+	@Autowired
+	private RouteDetailService routeDetailService;
 
 	/*
 	 * @date : 2017. 6. 16
@@ -90,6 +97,10 @@ public class PlanAController {
 	public String makeSelfRoute(HttpServletRequest request, Route route, String personal)
 			throws ClassNotFoundException, SQLException, SAXException, IOException, ParserConfigurationException {
 
+		/*System.out.println("principal"+principal);
+		Object principal2 = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("prin2"+principal2);
+		System.out.println("아이디 : "+principal.getName());*/
 		// Route, Personal DB insert 함수 호출
 		insertRouteAndPersonal(route, personal);
 		
@@ -109,6 +120,10 @@ public class PlanAController {
 		}
 		request.setAttribute("pageCase", "routeRecommendPage");
 		request.setAttribute("siteList", siteLists);
+		
+		// 현재 루트 코드 가져오기 -> id principal
+		int routecode = routeService.getRoutecode("a@naver.com");
+		request.setAttribute("route_code", routecode); // route_detail 저장을 위해 값 넘기기
 
 		return "PlanA.tmapMakeRoute";
 
@@ -128,12 +143,39 @@ public class PlanAController {
 		// Route, Personal DB insert 함수 호출
 		insertRouteAndPersonal(route, personal);
 
+		// RouteDao mapper 사용해서 루트 코드리스트 가져온 다음 코드 리스트에 부합하는 routeDetail list 또 가져오기  -> mapper 2개
+		
 		// 여행루트 추천 뽑아서 보낼 것
 
 		return "PlanA.tmapMakeRoute";
 
 	}
 
+	/*
+	 * @date : 2017. 6. 19
+	 * 
+	 * @description : PLANA RouteDetail 저장
+	 * 
+	 *           비동기 처리 
+	 * @return : ?
+	 */
+	@RequestMapping(value = "PLANA.detail.insert.do", method = RequestMethod.POST)
+	public String makeRouteDetail(@RequestBody RouteDetail routedetail, Principal principal)
+			throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
+
+		// 화면 단에서 RouteDetail List 타입으로 정보 다 담아서 넣어서 전달 되어짐
+		// routedetail.routeDetailList 에 담긴 정보 가져와서 hashMap에 담아서 insert 호출
+
+		// route_detail DB insert
+		// routeDetailService.insert(route);
+			
+
+		// 일단  마이 페이지 일정 확인 페이지로 이동 /비동기라면 처리 바꿔야..
+		return "PlanA.tmapMakeRoute";
+
+	}
+	
+	
 	/*
 	 * @date : 2017. 6. 19
 	 * 

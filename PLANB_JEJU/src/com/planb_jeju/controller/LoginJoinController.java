@@ -1,5 +1,6 @@
 package com.planb_jeju.controller;
 
+import java.security.Principal;
 import java.sql.SQLException;
 
 /*
@@ -14,10 +15,13 @@ import java.sql.SQLException;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.swing.text.View;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -38,7 +42,8 @@ public class LoginJoinController {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	private MemberService memberservice = new MemberService();
+	@Autowired
+	private MemberService memberservice;
 
 	/*
 	* @date : 2017. 6. 16
@@ -57,8 +62,30 @@ public class LoginJoinController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping("Login/loginok.do")
-	public String nLoginOK(){
-		return "LoginJoin.Login.SLogin.detail_JS";
+	public String nLoginOK(String username, String password , HttpSession session,Principal principal){
+		System.out.println("loginok");
+		System.out.println("principal"+principal);
+		Object principal2 = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("prin2"+principal2);
+		System.out.println("아이디 : ");
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(authentication.getName());
+		
+		Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
+		System.out.println(authentication1.getName());
+		
+		System.out.println(username);
+		System.out.println(password);
+		
+		Member member = new Member();
+		member.setUsername(username);
+		member.setPassword(password);
+		//닉네임 가져와 값넣기
+		
+		session.setAttribute("member", member);
+		
+		return "MyPage.Info.infoMain";
 	}
 	
 	/*
@@ -114,7 +141,12 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Join/loginCheck.do")
 	public @ResponseBody String loginCheck(String username, String password) throws Exception {
+		
 		System.out.println(username + "/" + password);
+		
+		
+		
+		
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		String result = memberservice.loginCheck(username, password, sqlsession);
 		System.out.println("logincontroller : " + result);
@@ -128,9 +160,9 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Login/fblogin")
 	public @ResponseBody String fblogin(String username) throws Exception {
-/*		sqlsession.getMapper(MemberDAO.class).fblogin(email);
-		return sqlsession.getMapper(MemberDAO.class).getfbpassword(email);*/
-		return null;
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		String result = memberDao.getFBpassword(username);
+		return result;
 	}	
 
 	/*

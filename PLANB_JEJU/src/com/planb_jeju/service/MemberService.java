@@ -138,14 +138,13 @@ public class MemberService {
 	public String loginCheck(String username, String password, SqlSession sqlsession) throws Exception {
 		String result = "";
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		System.out.println("login service : " + password);
 		if(memberDao.checkEmail(username) < 1) {
 			result = "efalse";	// 해당 email 존재 x
-		} else {
-			if(password != memberDao.loginCheck(password)) {
-				result = "false";	// email 존재 + pwd 틀림
-			} else {
+		} else {			
+			if(password.equals(memberDao.loginCheck(username).trim())) {
 				result = "true";
+			} else {
+				result = "false";	// email 존재 + pwd 틀림
 			}
 		}
 		return result;

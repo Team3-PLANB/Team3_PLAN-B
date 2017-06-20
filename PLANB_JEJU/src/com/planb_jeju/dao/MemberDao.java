@@ -48,21 +48,21 @@ public interface MemberDao {
 	 * @return : int
 	 * @param spec : x
 	 */
-	public String loginCheck(String password) throws ClassNotFoundException, SQLException;
+	public String loginCheck(String username) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 페이스북 로그인
 	 * @return : int
 	 * @param spec : x
 	 */
-	public void fblogin(String email) throws ClassNotFoundException, SQLException;
+	public void fblogin(String username) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 페이스북 비밀번호(for security)
 	 * @return : int
 	 * @param spec : x
 	 */
-	public String getFBpassword(String email) throws ClassNotFoundException, SQLException;
+	public String getFBpassword(String username) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 회원 정보
