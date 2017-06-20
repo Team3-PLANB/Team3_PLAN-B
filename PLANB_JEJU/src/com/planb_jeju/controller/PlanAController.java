@@ -137,16 +137,38 @@ public class PlanAController {
 	 * @return : String(View 페이지)
 	 */
 	@RequestMapping(value = "PLANA.recommend.do", method = RequestMethod.POST)
-	public String makeRecommendRoute(Route route, String personal)
+	public String makeRecommendRoute(HttpServletRequest request,Route route, String personal)
 			throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
 
 		// Route, Personal DB insert 함수 호출
 		insertRouteAndPersonal(route, personal);
 
+		// 여행루트 추천 DB 가져오기
 		// RouteDao mapper 사용해서 루트 코드리스트 가져온 다음 코드 리스트에 부합하는 routeDetail list 또 가져오기  -> mapper 2개
+		//route.getPartner_code();
+		String[] personalList = CheckBoxParse.parseString(personal);
 		
-		// 여행루트 추천 뽑아서 보낼 것
-
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("partner_code", route.getPartner_code());
+		map.put("personal_code", personalList);
+		map.put("personal_code_len", personalList.length);
+		map.put("username", "a@naver.com");//session값으로 바꾸기
+		
+		java.util.List<Route> routeList = routeService.getRouteList(map);
+		
+		System.out.println("여행지 추천 결과"+routeList.toString());
+		if(routeList.size()>0){
+			System.out.println("여행지 추천 결과"+routeList.toString());
+			
+			Map<String, Object> resultMap = new HashMap<String, Object>();
+			resultMap.put("list", routeList);
+			java.util.List<RouteDetail> routeDetailList = routeDetailService.getRouteDetailList(resultMap);
+			
+			System.out.println("여행지 경로 상세 결과");
+			System.out.println(routeDetailList.toString());
+			request.setAttribute("routeList", routeDetailList);
+		}
+		
 		return "PlanA.tmapMakeRoute";
 
 	}
