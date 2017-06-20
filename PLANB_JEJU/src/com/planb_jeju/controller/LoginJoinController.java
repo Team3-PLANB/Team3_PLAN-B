@@ -62,7 +62,7 @@ public class LoginJoinController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping("Login/loginok.do")
-	public String nLoginOK(String username, String password , HttpSession session,Principal principal){
+	public String nLoginOK(String username, String password , HttpSession session,Principal principal) throws ClassNotFoundException, SQLException{
 		System.out.println("loginok");
 		System.out.println("principal"+principal);
 		Object principal2 = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -81,7 +81,11 @@ public class LoginJoinController {
 		Member member = new Member();
 		member.setUsername(username);
 		member.setPassword(password);
+		
 		//닉네임 가져와 값넣기
+		MemberDao memberDao = sqlsession.getMapper(MemberDao.class);
+		Member member2 = memberDao.getMember(username);
+		member.setNickname(member2.getNickname());
 		
 		session.setAttribute("member", member);
 		
