@@ -74,17 +74,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 												 FROM route_postscript_like
 												 WHERE username = #{param1})
 					 ),'true','false') as 'route_like'
-		FROM route_postscript
+		FROM route_postscript rp
+		JOIN route r
+		ON rp.route_code = r.route_code
 	</select>
 	
 	<!-- 루트 후기 상세보기 -->
-	<select id="getRoutePost" parameterType="Integer" resultType="com.planb_jeju.dto.RoutePostscript">
+	<select id="getRoutePost" resultType="com.planb_jeju.dto.RoutePostscript">
 		SELECT *, IF((route_postscript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
-												 WHERE username = #{param1})
+												 WHERE username = #{param2})
 					 ),'true','false') as 'route_like'
-		FROM route_postscript
-		WHERE route_postcript_rownum = #{route_postcript_rownum}
+		FROM route_postscript  rp
+		JOIN route r
+		ON rp.route_code = r.route_code
+		WHERE route_postcript_rownum = #{param1}
 	</select>
 	
 	<!-- 찜콩하기 -->

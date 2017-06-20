@@ -52,7 +52,7 @@ public interface RoutePostScriptDao {
 	 * @return : RoutePostscript 루트 후기
 	 * @param spec : int 상세보기할 루트 후기 고유 번호
 	 */
-	public RoutePostscript getRoutePost(int route_postscript_rownum) throws ClassNotFoundException, SQLException;
+	public RoutePostscript getRoutePost(int route_postscript_rownum, String username) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 찜콩하기
