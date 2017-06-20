@@ -10,9 +10,9 @@
     background-color: grey;
     color: white;
     padding: 15px;
-    width: 20%;
-    height: 400px;
-    float : right;
+    /* width: 20%; */
+    /* height: 400px; */
+    /* float : right; */
     overflow:auto;
 } 
 
