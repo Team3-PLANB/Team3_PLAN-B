@@ -67,7 +67,7 @@
 								<h2>낮코밤코</h2>
 								<p>
 									<a href="${pageContext.request.contextPath}/PLANA.make.do" class="btn btn-default btn-sm">일정 만들기</a>
-									<a href="${pageContext.request.contextPath}/PostScript/Root/List.do" class="btn btn-default btn-sm">후기 게시판</a>
+									<a href="${pageContext.request.contextPath}/PostScript/Route/List.do" class="btn btn-default btn-sm">후기 게시판</a>
 									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do" class="btn btn-default btn-sm">로그인/회원가입</a>
 								</p>
 							</div>
