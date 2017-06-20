@@ -26,7 +26,7 @@
 	<security:intercept-url pattern="/LoginJoin/**" access="permitAll" />    					 
 	    					 
 	 	<security:logout logout-success-url="/index.jsp" /> 
-		<!-- <security:intercept-url pattern="/MyPage/**" access="hasRole('ROLE_USER')" /> -->
+		<security:intercept-url pattern="/PlanA/**" access="hasRole('ROLE_USER')" /> 
 	</security:http>
 <!-- password 인코딩 -->
 <security:authentication-manager>

@@ -34,6 +34,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -96,8 +97,10 @@ public class PlanAController {
 	public String makeSelfRoute(HttpServletRequest request, Route route, String personal, Principal principal)
 			throws ClassNotFoundException, SQLException, SAXException, IOException, ParserConfigurationException {
 
-		
-		System.out.println("아이디 : "+principal.getName());
+		/*System.out.println("principal"+principal);
+		Object principal2 = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("prin2"+principal2);
+		System.out.println("아이디 : "+principal.getName());*/
 		// Route, Personal DB insert 함수 호출
 		insertRouteAndPersonal(route, personal);
 		
