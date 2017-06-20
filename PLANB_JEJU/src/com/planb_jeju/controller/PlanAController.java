@@ -94,7 +94,7 @@ public class PlanAController {
 	 * @return : String(View 페이지)
 	 */
 	@RequestMapping(value = "PLANA.make.do", method = RequestMethod.POST)
-	public String makeSelfRoute(HttpServletRequest request, Route route, String personal, Principal principal)
+	public String makeSelfRoute(HttpServletRequest request, Route route, String personal)
 			throws ClassNotFoundException, SQLException, SAXException, IOException, ParserConfigurationException {
 
 		/*System.out.println("principal"+principal);
