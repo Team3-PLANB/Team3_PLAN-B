@@ -106,24 +106,24 @@
 							<c:forEach var="routePostscript" items="${routePostscriptList}">
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
-										<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_code=${route_code}">
+										<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostScript.getRoute_postscript_rownum()}">
 											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Route.jpg" alt="">
 										</a>
 										<div class="blog-text">
 											<div class="prod-title">
 												<h3>
-													<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_code=${route_code}">낮코밤코의 첫 제주도</a>
+													<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostScript.getRoute_postscript_rownum()}">${routePostScript.getRoutename()}</a>
 												</h3>
-												<span class="posted_by">${routePostScript.getNickname()}</span> 
+												<span class="posted_by">${member.getNickname()}</span> 
 												<span class="posted_by" style="float:right;">${routePostScript.getWritetime()}</span> 
 												<span class="comment" id="like">
 													<a href="">찜콩
 														<c:choose>
 															<c:when test="routePostscript.getRoute_like()=='true'">
-																<img src="${pageContext.request.contextPath}/images/PostScript/full_like.png" class="likeChange">
+																<img src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;" class="likeChange">
 															</c:when>
 															<c:otherwise>
-																<img src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" class="likeChange">
+																<img src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;" class="likeChange">
 															</c:otherwise>
 														</c:choose>
 													</a>
@@ -136,31 +136,6 @@
 									</div>
 								</div>
 							</c:forEach>
-							
-							
-							<div class="col-lg-4 col-md-4 col-sm-6">
-								<div class="fh5co-blog animate-box">
-									<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do"><img
-										class="img-responsive" src="../../images/PostScript/listBoard_Root.JPG" alt=""></a>
-									<div class="blog-text">
-										<div class="prod-title">
-											<h3>
-												<a href="${pageContext.request.contextPath}/PostScript/Root/Detail.do">낮코밤코의 첫 제주도</a>
-											</h3>
-											<span class="posted_by">2017.06.09</span> 
-											<span class="comment" id="like">
-											
-											<a href="">찜콩
-											<i class="icon-bubble2" id="like2"></i>
-											</a></span>
-											<p>#힐링#자연#건강#웃음</p>
-											<p>
-												<a href="#">쪽지 쓰기</a>
-											</p>
-										</div>
-									</div>
-								</div>
-							</div>
 						</div>
 					</div>
 				</div>
