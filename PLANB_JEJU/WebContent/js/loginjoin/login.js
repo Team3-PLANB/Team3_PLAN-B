@@ -21,7 +21,7 @@ function loginCheck() {
 					$('.pwdCheck').text("비밀번호가 일치하지 않습니다.");
 					$('#loginform').find('#password').focus();
 				} else if (result == "true"){
-					$('#loginform').submit();
+					$('#loginfrm').submit();
 				}
 			}
 		},

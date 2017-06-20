@@ -64,7 +64,7 @@ footer {
 					</ul>
 				</div>
 				<div class="col-md-2 col-sm-2 col-xs-12 fh5co-footer-link">
-					<h3><a href="#">메인 페이지</a></h3>
+					<h3><a href="${pageContext.request.contextPath}/Index/main.do">메인 페이지</a></h3>
 				</div>
 			</div>
 			<div class="row">

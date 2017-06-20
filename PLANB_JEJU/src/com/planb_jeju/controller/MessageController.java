@@ -22,10 +22,14 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import com.planb_jeju.dao.ExDao;
@@ -78,5 +82,19 @@ public class MessageController {
 	 * sqlsession.getMapper(NoticeDao.class); noticeDao.delete(seq); return
 	 * "redirect:notice.htm"; //location.href 동일 }
 	 */
+	
+	
+	/*웹소켓  알림  컨트롤러*/
+	
+	@MessageMapping("/hello")
+	    @SendTo("/topic/roomId") 
+	    public String broadcasting(@RequestParam String message, @RequestParam
+	    							String userId) throws Exception {
+			
+			System.out.println("넘어오니" + message + userId);
+	        return message;
+	    }
+	}
+	
+		
 
-}
