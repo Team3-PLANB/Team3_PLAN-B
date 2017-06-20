@@ -1,26 +1,21 @@
 package com.planb_jeju.service;
 
-import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.xml.parsers.ParserConfigurationException;
+import java.util.List;
 
 /*
-* @FileName : PlanAController.java
-* @Class : PlanAController
+* @FileName : PostscriptService.java
+* @Class : PostscriptService
 * @Project : PLANB_JEJU
 * @Date : 2017.06.12
-* @LastEditDate : 2017.06.16
-* @Author : 강나영 
-* @Desc : 일정 만들기 / 제주도 API 정보   컨트롤러
+* @LastEditDate : 2017.06.20
+* @Author : 정다혜
+* @Desc : 루트 후기 게시판 서비스
 */
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xml.sax.SAXException;
 
 import com.planb_jeju.dao.RoutePostScriptDao;
 import com.planb_jeju.dao.SitePostScriptDao;
@@ -40,14 +35,12 @@ public class PostscriptService {
 		SitePostscriptDao sitePostscriptDao = sqlsession.getMapper(SitePostscriptDao.class);
 	}*/
 	
-	public int insertRoute(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException {
-		
+	public List<RoutePostscript> listRoutePostscript(String username) throws ClassNotFoundException, SQLException {
+		System.out.println("루트 후기게시판 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
-		/*int result = routePostscriptDao.insert(route);*/
+		List<RoutePostscript> routePostscriptList = routePostscriptDao.getList(username);
 		
-		// 고쳐야 함
-
-		return 0;
+		return routePostscriptList;
 
 	}
 }
