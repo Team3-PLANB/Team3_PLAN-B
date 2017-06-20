@@ -26,7 +26,8 @@
 <!-- 페이지 유형 파악 -->
 
 
-<%-- <c:if test="${requestScope.pageCase=='routeRecommendPage'}">
+
+<%-- <c:if test="${requestScope.pageCase=='siteRecommendPage'}">
             	<c:forEach var="item" items="${requestScope.siteList}" >
 				     장소 : ${item.site}
 				     위도 : ${item.lat}
@@ -70,15 +71,32 @@ $( function() {
             map.addLayer(markerLayer);
             /* searchRoute(); */
             
-            /* 만약  페이지 유형이 추천 여행지 출력이라면*/
-            <c:if test="${requestScope.pageCase=='routeRecommendPage'}">
-	            <c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> 
-	        	
-	            	addSiteMarkers(${item.lon}, ${item.lat}, '${item.site}');
-		      	
-				</c:forEach>
-            	
-            </c:if>
+            
+            
+            <c:choose>
+				<c:when test="${requestScope.pageCase=='siteRecommendPage'}">
+					<c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> 
+		        	
+		            	addSiteMarkers(${item.lon}, ${item.lat}, '${item.site}');
+			      	
+					</c:forEach>
+				</c:when>
+				
+				<c:when test="${requestScope.pageCase=='routeRecommendPage'}">
+					<c:forEach var="item" items="${requestScope.routeMap}" varStatus="itemnum"> 
+						<c:forEach var="i" items="${item.value}" varStatus="inum">
+			            	console.log('루트!!!추천!!');
+			            	
+			            	console.log('${i}');
+			            </c:forEach>
+					</c:forEach>
+				</c:when>
+			</c:choose>
+            
+            
+            
+            
+           
         	
         };
         
