@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		public int delete(int route_postscript_rownum);
 		
 		// 루트 후기 리스트
-		public List<RoutePostscript> getList(String username);
+		public HashMap<String, RoutePostscript> getList(String username);
 		
 		// 루트 후기 상세보기
 		public RoutePostscript getRoutePost(int route_postscript_rownum);
@@ -69,19 +69,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<!-- 루트 후기 리스트 -->
-	<select id="getList" parameterType="String" resultType="List">
-		SELECT *, IF((route_postcript_rownum in (SELECT route_postscript_rownum 
+	<select id="getList" resultType="com.planb_jeju.dto.RoutePostscript">
+		SELECT *, IF((route_postscript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
-												 WHERE username = #{username})
+												 WHERE username = #{param1})
 					 ),'true','false') as 'route_like'
 		FROM route_postscript
 	</select>
 	
 	<!-- 루트 후기 상세보기 -->
 	<select id="getRoutePost" parameterType="Integer" resultType="com.planb_jeju.dto.RoutePostscript">
-		SELECT *, IF((route_postcript_rownum in (SELECT route_postscript_rownum 
+		SELECT *, IF((route_postscript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
-												 WHERE username = #{username})
+												 WHERE username = #{param1})
 					 ),'true','false') as 'route_like'
 		FROM route_postscript
 		WHERE route_postcript_rownum = #{route_postcript_rownum}

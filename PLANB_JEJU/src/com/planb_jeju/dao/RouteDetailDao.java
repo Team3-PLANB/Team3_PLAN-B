@@ -16,19 +16,8 @@ public interface RouteDetailDao {
 	 * @return : int
 	 * @param spec : x
 	 */
-	public int getCount() throws ClassNotFoundException, SQLException;
-	
-	// 루트 디테일 입력
-	public int insert(Map<String, Object> map) throws ClassNotFoundException, SQLException;
-	
-	// 루트 가져오기
-	public RouteDetail getRoute(RouteDetail routedetail) throws ClassNotFoundException, SQLException;
-		
-	//게시물 수정
-	public int update(RouteDetail routedetail) throws ClassNotFoundException, SQLException;
-	
-	//게시물 삭제
-	public int delete(RouteDetail routedetail) throws ClassNotFoundException, SQLException;
+	// 추천 대상 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함
+	public List<RouteDetail> getRouteDetailList(Map<String, Object> map) throws ClassNotFoundException, SQLException;
 	
 	
 }	
