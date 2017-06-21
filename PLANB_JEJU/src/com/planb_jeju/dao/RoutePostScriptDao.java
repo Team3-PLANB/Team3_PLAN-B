@@ -7,6 +7,7 @@ import java.util.List;
 import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.dto.RoutePostscriptLike;
+import com.planb_jeju.dto.RoutePostscriptTag;
 
 //CRUD
 public interface RoutePostScriptDao {
@@ -92,8 +93,21 @@ public interface RoutePostScriptDao {
 	/*	
 	 * @description : 좋아요(찜콩수) 증가
 	 * @return : int 업데이트된 라인 수
-	 * @param spec : int route_postscript_rownum 루트 후기 고유 번호
+	 * @param spec : RoutePostscriptLike routePostscriptLike 루트 후기 고유 번호를 포함하고 있는 객체
 	 */
-	public int updateLikeNum(int route_postscript_rownum) throws ClassNotFoundException, SQLException;
+	public int upLikeNum(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
 	
+	/*	
+	 * @description : 좋아요(찜콩수) 감소
+	 * @return : int 업데이트된 라인 수
+	 * @param spec : RoutePostscriptLike routePostscriptLike 루트 후기 고유 번호를 포함하고 있는 객체
+	 */
+	public int downLikeNum(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 태그 가져오기
+	 * @return : List<RoutePostscriptTag> 태그들
+	 * @param spec : RoutePostscript routePostscript 루트 후기 고유 번호를 포함하고 있는 객체
+	 */
+	public List<RoutePostscriptTag> getRoutePostTagList(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException;
 }
