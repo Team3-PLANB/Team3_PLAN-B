@@ -20,11 +20,8 @@
  						 login-processing-url="/login"
  						 default-target-url="/LoginJoin/Login/loginok.do"/>
 	<!-- 로그아웃 -->
-<!-- 	<logout invalidate-session = "true"
-			logout-url="/Join/logout.do"
-			logout-success-urk="/"
-			delete-cookies="">
-	</logout> -->
+	<security:logout logout-success-url="/Main.mainpage"/>
+
 	<!-- 로그인/가입 페이지 접근 허용 -->
 	<security:intercept-url pattern="/LoginJoin/**" access="permitAll" />
 	<security:intercept-url pattern="/PLANA.make.do" access="hasRole('ROLE_USER')"/>

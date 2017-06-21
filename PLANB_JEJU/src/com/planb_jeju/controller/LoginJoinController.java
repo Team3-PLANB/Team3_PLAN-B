@@ -72,6 +72,16 @@ public class LoginJoinController {
 	}
 	
 	/*
+	 * @date : 2017. 6. 21
+	 * @description : 로그아웃
+	 * @return : 
+	 */
+	@RequestMapping("Join/Logout.do")
+	public String logout() {
+		return "Main.mainpage";
+	}
+	
+	/*
 	* @date : 2017. 6. 18
 	* @description : 로그인 ok > 화면 이동 
 	* @return : String(View 페이지) 
@@ -79,7 +89,6 @@ public class LoginJoinController {
 	@RequestMapping("Login/loginok.do")
 	public String nLoginOK(HttpSession session,Principal principal) throws ClassNotFoundException, SQLException{
 		System.out.println("loginok");
-		System.out.println("principal : "+principal);
 		User principal2 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		System.out.println("prin2 : "+principal2);
 		
@@ -88,14 +97,10 @@ public class LoginJoinController {
 		UserDetails userinfo = (UserDetails)auth.getPrincipal();
 		
 		System.out.println(userinfo.getUsername());
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println("au1 : " + authentication.getName());
-		
 		System.out.println(auth.getAuthorities());
 		System.out.println(auth.isAuthenticated());
 	
-		return "MyPage.Info.infoMain";
+		return "Main.mainpage";
 	}
 	
 	/*
@@ -118,7 +123,7 @@ public class LoginJoinController {
 	public @ResponseBody String duplicationEmailCheck(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		String result = memberservice.duplicationEmailCheck(username, sqlsession);
-		System.out.println("controller"+username);
+
 		return result;
 	}
 	
@@ -152,11 +157,8 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Join/loginCheck.do")
 	public @ResponseBody String loginCheck(String username, String password) throws Exception {
-		
-		System.out.println(username + "/" + password);
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		String result = memberservice.loginCheck(username, password, sqlsession);
-		System.out.println("logincontroller : " + result);
 
 		return result;
 	}
@@ -169,9 +171,8 @@ public class LoginJoinController {
 	@RequestMapping("Join/fblogin.do")
 	public @ResponseBody String fblogin(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		System.out.println("fblogincontroller" + username);
 		String result = memberDao.getFBpassword(username);
-		System.out.println("fblogin : rel : "+result);
+		
 		return result;
 	}	
 
@@ -182,18 +183,12 @@ public class LoginJoinController {
 	* @param spec : HttpServletRequest request
 	*/
 	@RequestMapping("Join/emailAuth.do")
-	public @ResponseBody String emailAuth(HttpServletRequest request) throws Exception{
-	System.out.println(">>>>>>>Email_controller<<<<<<<");
-		
+	public @ResponseBody String emailAuth(HttpServletRequest request) throws Exception{		
 		String username = request.getParameter("username");
-		System.out.println("username : " + username);
 		String authNum = "";
-		System.out.println("랜덤 시작");
+		
 		authNum = memberservice.RandomNum();
-		System.out.println("랜덤 끝 / authNum : " + authNum);
-		System.out.println("메일 보내기 시작");
 		memberservice.sendEmail(username.toString(), authNum);
-		System.out.println("메일 보내기 끝");
 		
 		return authNum;
 		
@@ -209,18 +204,16 @@ public class LoginJoinController {
 	public String insert(Member member) throws ClassNotFoundException, SQLException{
 		int result = 0;
 		String viewpage = "";
+		
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		rolldao = sqlsession.getMapper(RollDAO.class);
 		result = memberDao.insert(member);
-		System.out.println(result);
-		System.out.println("member" + member);
+		
 		int rollResult = rolldao.insertRoll(member.getUsername());
 		System.out.println("insert : " + result);
 		if (result > 0 && rollResult > 0) {  
-			System.out.println("insert성공");
 			viewpage = "LoginJoin.Join.NJoin.joinForm";
 		} else {
-			System.out.println("insert실패");
 			viewpage = "LoginJoin.Join.NJoin.joinForm";
 		}
 		return viewpage;

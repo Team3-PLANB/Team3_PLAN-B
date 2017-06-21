@@ -22,7 +22,7 @@
 							<li><a href="${pageContext.request.contextPath}/PLANA.make.do">일정만들기</a></li>
 							<li><a href="${pageContext.request.contextPath}/PostScript/Route/List.do">후기게시판</a></li>
 							<!-- ROLE_USER만 : 로그인 시 보이는 탭-->
-						 	<security:authorize access="hasRole('ROLE_USER')">	
+						 	<security:authorize access="hasRole('user')">	
 								<li class="">
 									<a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do" class="fh5co-sub-ddown sf-with-ul">My Page</a>
 									<ul class="fh5co-sub-menu" style="display: none;">
@@ -35,17 +35,16 @@
 									</ul>
 								</li>
 							</security:authorize>
-							<security:authorize access ="isAnonymous()">							
+							<security:authorize access="!hasRole('ROLE_USER')">
+							<%-- <security:authorize access ="isAnonymous()"> --%>
 								<li>
-									<a href="${pageContext.request.contextPath}/LoginJoin/Login/NLogin.do">LOGIN</a>
+									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
 								</li>
 							</security:authorize>
 							<!-- 로그아웃 -->
-							<security:authorize access="isAuthenticated()">
-						   <security:authentication property="name" var="loginUser"/>
-								<form action="${logoutUrl}" method="post" class="navbar-form navbar-right">
-					                <button type="submit"><li>${loginUser }로그아웃</li></button>
-			            		</form>
+						    <security:authentication property="name" var="loginUser"/>
+							<security:authorize access="hasRole('ROLE_USER')">
+								<li><a href="${pageContext.request.contextPath}/logout">${loginUser }로그아웃</a></li>
 			            	</security:authorize>
 			           </ul>
 					</nav>
