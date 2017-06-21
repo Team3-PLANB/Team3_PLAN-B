@@ -16,7 +16,7 @@
 	<security:csrf disabled="true"/>
  	
  	<!-- 로그인 -->
- 	<security:form-login login-page="Join/NJoin.do"
+ 	<security:form-login login-page="/Join/NJoin.do"
 						 authentication-failure-url="/Index/main.do"
  						 default-target-url="/MyPage/Schedule/schedule.do"
 	    				 />  				 
