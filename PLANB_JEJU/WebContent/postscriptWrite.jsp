@@ -40,29 +40,25 @@
 <link rel="stylesheet" href="css/style.css">
 
 <!-- 갤러리 등록을 위한 css  -->
-<link rel="stylesheet"
-	href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-<link rel="stylesheet"
-	href="https://netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="css/PostScript/style.css">
-<script src="js/modernizr-2.6.2.min.js"></script>
-<link rel="stylesheet" href="css/PostScript/checkbox-bootstrap.css">
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<link href="dist/styles.imageuploader.css" rel="stylesheet" type="text/css">
 
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/sticky.js"></script>
-	<script src="js/jquery.stellar.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<script src="js/bootstrap-datepicker.min.js"></script>
-	<script src="js/classie.js"></script>
-	<script src="js/selectFx.js"></script>
-	<script src="js/main.js"></script>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery.waypoints.min.js"></script>
+<script src="js/sticky.js"></script>
+<script src="js/jquery.stellar.min.js"></script>
+<script src="js/hoverIntent.js"></script>
+<script src="js/superfish.js"></script>
+<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="js/magnific-popup-options.js"></script>
+<script src="js/bootstrap-datepicker.min.js"></script>
+<script src="js/classie.js"></script>
+<script src="js/selectFx.js"></script>
+<script src="js/main.js"></script>
 
 
 
@@ -132,8 +128,7 @@
 <!-- 상세보기 일정 -->
 
 
-<link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="css/PostScript/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script
 	src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
@@ -176,7 +171,6 @@
 	padding: 0;
 	width: 60%;
 	height: auto;
-	
 }
 /* .sortable div{
 
@@ -237,84 +231,76 @@ style="display: block; height: 458px;" */
 </style>
 
 <script>
-  $(document).ready(function() {
-      $('#schedulebox').animate({
-           width: '+=380px'
-      });
-      $('#schedulebox2').animate({
-           width: '+=30%'
-      });
-      $('.spinner').spinner({
-         min : 0,
-         max : 300,
-         step : 15,
-         start : 0
-      });
-      $(".sortable").sortable();
-      /* $(".sortable").disableSelection(); */
-      $(".sortable").selectable();
-      
-      /* $('.sortable').selectable({
-         cancle: '.sort-handle'
-      }).sortable({
-         items: "> li",
-         handle: '.sort-handle',
-         helper: function(e, item) {
-            if ( ! item.hasClass('ui-selected') ) {
-               item.parent().children('.ui-selected').removeClass('ui-selected');
-               item.addClass('ui-selected');
-            }
-            var selected = item.parent().children('.ui-selected').clone();
-            item.data('multidrag', selected).siblings('.ui-selected').remove();
-            return $('</li>').append(selected);
-         },
-         stop: function(e, ui) {
-            var selected = ui.item.data('multidrag');
-            ui.item.after(selected);
-            ui.item.remove();
-         }
-      }); */
-      $("#accordion")
-      .accordion({
-         collapsible : true,
-         header : ".day_info_box"
-      })
-      .sortable({
-         axis : "y",
-         handle : ".day_info_box",
-         stop : function(event, ui) {
-            // IE doesn't register the blur when sorting
-            // so trigger focusout handlers to remove .ui-state-focus
-            ui.item.children(".day_info_box").triggerHandler("focusout");
-            // Refresh accordion to handle new order
-            $(this).accordion("refresh");
-         }
-      });
-      $("#accordion2")
-      .accordion({
-         collapsible : true,
-         header : "> div > h3",
-         autoHeight: false,
-         navigation: true,
-         heightStyle: "content" /* 이걸 추가하기 위해 염병을 했다 */
-      })
-      .sortable({
-         axis : "y",
-         handle : "h3",
-         stop : function(event, ui) {
-            // IE doesn't register the blur when sorting
-            // so trigger focusout handlers to remove .ui-state-focus
-            ui.item.children("div").triggerHandler("focusout");
-            // Refresh accordion to handle new order
-            $(this).accordion("refresh");
-         }
-      });
-    
-    });
+	$(document).ready(function() {
+		$('#schedulebox').animate({
+			width : '+=380px'
+		});
+		$('#schedulebox2').animate({
+			width : '+=30%'
+		});
+		$('.spinner').spinner({
+			min : 0,
+			max : 300,
+			step : 15,
+			start : 0
+		});
+		$(".sortable").sortable();
+		/* $(".sortable").disableSelection(); */
+		$(".sortable").selectable();
 
-  
-  
-  
+		/* $('.sortable').selectable({
+		   cancle: '.sort-handle'
+		}).sortable({
+		   items: "> li",
+		   handle: '.sort-handle',
+		   helper: function(e, item) {
+		      if ( ! item.hasClass('ui-selected') ) {
+		         item.parent().children('.ui-selected').removeClass('ui-selected');
+		         item.addClass('ui-selected');
+		      }
+		      var selected = item.parent().children('.ui-selected').clone();
+		      item.data('multidrag', selected).siblings('.ui-selected').remove();
+		      return $('</li>').append(selected);
+		   },
+		   stop: function(e, ui) {
+		      var selected = ui.item.data('multidrag');
+		      ui.item.after(selected);
+		      ui.item.remove();
+		   }
+		}); */
+		$("#accordion").accordion({
+			collapsible : true,
+			header : ".day_info_box"
+		}).sortable({
+			axis : "y",
+			handle : ".day_info_box",
+			stop : function(event, ui) {
+				// IE doesn't register the blur when sorting
+				// so trigger focusout handlers to remove .ui-state-focus
+				ui.item.children(".day_info_box").triggerHandler("focusout");
+				// Refresh accordion to handle new order
+				$(this).accordion("refresh");
+			}
+		});
+		$("#accordion2").accordion({
+			collapsible : true,
+			header : "> div > h3",
+			autoHeight : false,
+			navigation : true,
+			heightStyle : "content" /* 이걸 추가하기 위해 염병을 했다 */
+		}).sortable({
+			axis : "y",
+			handle : "h3",
+			stop : function(event, ui) {
+				// IE doesn't register the blur when sorting
+				// so trigger focusout handlers to remove .ui-state-focus
+				ui.item.children("div").triggerHandler("focusout");
+				// Refresh accordion to handle new order
+				$(this).accordion("refresh");
+			}
+		});
+
+	});
 </script>
 </head>
 
@@ -332,7 +318,79 @@ style="display: block; height: 458px;" */
 
 
 
+<header>
+	<nav class="navbar navbar-default" style="margin: 0px;">
+		<div class="container">
+			<div class="nav-header">
+				<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"> <i></i>
+				</a>
+				<h1 id="fh5co-logo">
+					<a href="${pageContext.request.contextPath}/Index/main.do"> <i
+						class="icon-airplane"></i>PLAN'B JEJU
+					</a>
+				</h1>
+				<!-- START #fh5co-menu-wrap -->
+				<nav id="fh5co-menu-wrap" role="navigation">
+					<ul class="sf-menu sf-js-enabled sf-arrows" id="fh5co-primary-menu"
+						style="touch-action: pan-y;">
+						<li class="active"><a
+							href="${pageContext.request.contextPath}/index.jsp">HOME</a></li>
+						<!-- ROLE_USER만 : 클릭 시 로그인 페이지로 이동 > 수정할거야 -->
+						<%-- <security:authorize access ="isAnonymous()">							
+								<li>
+									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">일정만들기</a>
+								</li>
+							</security:authorize> --%>
+						<%-- <security:authorize access="isAuthenticated()">
+								<li><a href="${pageContext.request.contextPath}/PLANA.do">일정만들기</a></li>
+							</security:authorize> --%>
 
+						<li><a
+							href="${pageContext.request.contextPath}/PLANA.make.do">일정만들기</a></li>
+
+						<li><a
+							href="${pageContext.request.contextPath}/PostScript/Route/List.do">후기게시판</a></li>
+						<!-- ROLE_USER만 : 로그인 시 보이는 탭-->
+						<security:authorize access="hasRole('ROLE_USER')">
+							<li class=""><a
+								href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do"
+								class="fh5co-sub-ddown sf-with-ul">My Page</a>
+								<ul class="fh5co-sub-menu" style="display: none;">
+									<li><a
+										href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do">일정
+											관리</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/MyPage/PostScript/postScriptMain.do">나의
+											후기</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/MyPage/Like/like.do">찜한
+											후기</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do">쪽지함</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/MyPage/Info/info.do">회원정보수정</a></li>
+									<li><a
+										href="${pageContext.request.contextPath}/MyPage/History/history.do">히스토리</a></li>
+								</ul></li>
+						</security:authorize>
+						<security:authorize access="isAnonymous()">
+							<li><a
+								href="${pageContext.request.contextPath}/LoginJoin/Login/NLogin.do">LOGIN</a>
+							</li>
+						</security:authorize>
+						<!-- 로그아웃 -->
+						<security:authorize access="isAuthenticated()">
+							<form action="${logoutUrl}" method="post"
+								class="navbar-form navbar-right">
+								<button type="submit" class="btn btn-default">로그아웃</button>
+							</form>
+						</security:authorize>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</nav>
+</header>
 
 
 
@@ -348,12 +406,12 @@ style="display: block; height: 458px;" */
 	<!-- 이놈은 아님 -->
 	<div id="accordion2"
 		style="overflow: auto; width: 450px; height: 650px;">
-		<div class="group" style="width: 280px;">
+		<div class="group" style="width: 400px;">
 			<h3>DAY 1</h3>
 			<!--min-height   -->
 			<div>
 				<div class="sortable">
-					<div class="sch_content" style="width: 250px;">
+					<div class="sch_content" style="width: 280px;">
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
@@ -374,8 +432,8 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 					</div>
-					
-					<div class="sch_content" style="width: 250px;">
+
+					<div class="sch_content" style="width: 280px;">
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
@@ -399,7 +457,7 @@ style="display: block; height: 458px;" */
 				</div>
 			</div>
 		</div>
-		<div class="group" style="width: 280px;">
+		<div class="group" style="width: 400px;">
 			<h3>DAY 2</h3>
 			<div>
 				<div class="sortable">
@@ -424,8 +482,7 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -451,8 +508,7 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -478,8 +534,7 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -506,8 +561,7 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -516,7 +570,7 @@ style="display: block; height: 458px;" */
 			</div>
 		</div>
 
-		<div class="group" style="width: 280px;">
+		<div class="group" style="width: 400px;">
 			<h3>DAY 3</h3>
 			<div>
 				<div class="sortable">
@@ -541,8 +595,7 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -568,8 +621,7 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -597,8 +649,7 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -624,8 +675,7 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -651,8 +701,7 @@ style="display: block; height: 458px;" */
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -687,154 +736,190 @@ style="display: block; height: 458px;" */
 
 
 
-	<div class="container" style="float: left; position:relative; bottom:522px; left:300px;">
-		<div class="row">
-			<div class="col-sm-5 col-md-5">
-				<div class="tabulation animate-box fadeInUp animated">
+<div class="container"
+	style="float: left; position: relative; bottom: 522px; left: 450px;">
+	<div class="row">
+		<div class="col-sm-5 col-md-12">
+			<div class="tabulation animate-box fadeInUp animated">
 
-					<!-- Nav tabs -->
-					<ul class="nav nav-tabs" role="tablist">
-						<li role="presentation" class="active"><a href="#step1"
-							aria-controls="flights" role="tab" data-toggle="tab">루트 후기 작성</a></li>
-						<li role="presentation"><a href="#step2"
-							aria-controls="hotels" role="tab" data-toggle="tab">여행지 후기 작성</a></li>
-					</ul>
+				<!-- Nav tabs -->
+				<ul class="nav nav-tabs" role="tablist">
+					<li role="presentation" class="active"><a href="#step1"
+						aria-controls="flights" role="tab" data-toggle="tab">루트 후기 작성</a></li>
+					<li role="presentation"><a href="#step2"
+						aria-controls="hotels" role="tab" data-toggle="tab">여행지 후기 작성</a></li>
+				</ul>
 
-					<!-- Tab panes -->
-					<div class="tab-content">
-						<div role="tabpanel" class="tab-pane active" id="step1">
-							<div class="table-responsive">
+				<!-- Tab panes -->
+				<div class="tab-content">
+					<div role="tabpanel" class="tab-pane active" id="step1">
+						<div class="table-responsive">
 
-								<div role="tabpanel" class="tab-pane active" id="root">
-									<input type="text" class="form-control" placeholder="제목"><br>
-									<textarea name="" class="form-control" id="" cols="30" rows="7"
-										placeholder="후기"></textarea>
-									<br> <input type="text" class="form-control"
-										placeholder="태그"><br>
-									<div align="center">
-										<input type="submit" value="작성 완료"
-											class="btn btn-primary btn-block">
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-						<div role="tabpanel" class="tab-pane" id="step2">
-							<div class="table-responsive">
-								<div class="wrap-upload-buttons">
-									<div class="container">
-										<ul class="btn-nav">
-											<li><span><img
-													src="images/PostScript/landscape.png" /><input type="file"
-													name="" click-type="type1" class="picupload" multiple
-													accept="image/*" /></span></li>
-										</ul>
-									</div>
-								</div>
-
-
-								<!--boostatrp modal-->
-								<div class="modal fade popups" id="hint_brand" role="dialog"
-									aria-labelledby="myModalLabel" aria-hidden="true">
-									<div class="modal-dialog">
-										<div class="modal-content clearfix">
-											<div class="modal-body login-box clearfix">
-
-												<!--user post text -wrap end-->
-												<ul id="media-list" class="clearfix">
-													<li class="myupload"><span><i
-															class="fa fa-plus" aria-hidden="true"></i><input
-															type="file" click-type="type2" id="picupload"
-															class="picupload" multiple></span></li>
-												</ul>
-
-												<!--post btn wrap-->
-												<div class="user-post-btn-wrap clearfix">
-													<input type="submit" class="btn" value="사진 등록">
-												</div>
-												<!--post btn wrap end-->
-											</div>
-										</div>
-									</div>
-								</div>
-								<br> <input type="text" class="form-control"
-									placeholder="제목"><br>
+							<div role="tabpanel" class="tab-pane active" id="root">
+								<input type="text" class="form-control" placeholder="제목"><br>
 								<textarea name="" class="form-control" id="" cols="30" rows="7"
 									placeholder="후기"></textarea>
-								<br>
-								<div align="center">
-									<div class="checkbox">
-										<img alt="" src="images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<label class="checkbox-bootstrap checkbox-lg"> <input
-											name="aaa" type="checkbox" value="1"
-											onclick="doOpenCheck(this);"> <span
-											class="checkbox-placeholder"></span> 맑음
-										</label>&nbsp;&nbsp;&nbsp; <label
-											class="checkbox-bootstrap checkbox-lg"> <input
-											name="aaa" type="checkbox" value="2"
-											onclick="doOpenCheck(this);"> <span
-											class="checkbox-placeholder"></span> 흐림
-										</label>&nbsp;&nbsp;&nbsp;<label
-											class="checkbox-bootstrap checkbox-lg"> <input
-											name="aaa" type="checkbox" value="3"
-											onclick="doOpenCheck(this);"> <span
-											class="checkbox-placeholder"></span> 우중충
-										</label>
-									</div>
-									<br>
-									<div class="checkbox">
-										<img alt="" src="images/PostScript/002-money.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<label class="checkbox-bootstrap checkbox-lg"> <input
-											name="bbb" type="checkbox" value="1"
-											onclick="doOpenCheck2(this);"> <span
-											class="checkbox-placeholder"></span> 부족
-										</label>&nbsp;&nbsp;&nbsp; <label
-											class="checkbox-bootstrap checkbox-lg"> <input
-											name="bbb" type="checkbox" value="2"
-											onclick="doOpenCheck2(this);"> <span
-											class="checkbox-placeholder"></span> 적당
-										</label>&nbsp;&nbsp;&nbsp;<label
-											class="checkbox-bootstrap checkbox-lg"> <input
-											name="bbb" type="checkbox" value="3"
-											onclick="doOpenCheck2(this);"> <span
-											class="checkbox-placeholder"></span> 풍족
-										</label>
-									</div>
-									<br>
-									<div class="checkbox">
-										<img alt="" src="images/PostScript/001-hospital.png"
-											width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-										<label class="checkbox-bootstrap checkbox-lg"> <input
-											name="ccc" type="checkbox" value="1"
-											onclick="doOpenCheck3(this);"> <span
-											class="checkbox-placeholder"></span> 양호
-										</label>&nbsp;&nbsp;&nbsp; <label
-											class="checkbox-bootstrap checkbox-lg"> <input
-											name="ccc" type="checkbox" value="2"
-											onclick="doOpenCheck3(this);"> <span
-											class="checkbox-placeholder"></span> 쏘쏘
-										</label>&nbsp;&nbsp;&nbsp;<label
-											class="checkbox-bootstrap checkbox-lg"> <input
-											name="ccc" type="checkbox" value="3"
-											onclick="doOpenCheck3(this);"> <span
-											class="checkbox-placeholder"></span> 악화
-										</label>
-									</div>
-								</div>
 								<br>
 								<div align="center">
 									<input type="submit" value="작성 완료"
 										class="btn btn-primary btn-block">
 								</div>
-
 							</div>
+						</div>
+					</div>
+
+
+					<div role="tabpanel" class="tab-pane" id="step2">
+						<div class="table-responsive">
+							
+
+
+
+
+
+
+
+
+
+
+
+							
+							<section role="main" class="l-main">
+								
+								<div class="uploader__box js-uploader__box l-center-box">
+									<form action="your/nonjs/fallback/" method="POST">
+										<div class="uploader__contents">
+											<label class="button button--secondary" for="fileinput">Image
+												Files</label> <input id="fileinput" class="uploader__file-input"
+												type="file" multiple value="Select Files">
+										</div>
+										<input class="button button--big-bottom" type="submit"
+											value="Upload Selected Files">
+									</form>
+								</div>
+							</section>
+							<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+							<script src="dist/jquery.imageuploader.js"></script>
+							<script>
+								(function() {
+									var options = {};
+									$('.js-uploader__box').uploader(options);
+								}());
+							</script>
+							<script type="text/javascript">
+								var _gaq = _gaq || [];
+								_gaq.push([ '_setAccount', 'UA-36251023-1' ]);
+								_gaq.push([ '_setDomainName',
+										'jqueryscript.net' ]);
+								_gaq.push([ '_trackPageview' ]);
+
+								(function() {
+									var ga = document.createElement('script');
+									ga.type = 'text/javascript';
+									ga.async = true;
+									ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+											: 'http://www')
+											+ '.google-analytics.com/ga.js';
+									var s = document
+											.getElementsByTagName('script')[0];
+									s.parentNode.insertBefore(ga, s);
+								})();
+							</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+							<br> <input type="text" class="form-control"
+								placeholder="제목"><br>
+							<textarea name="" class="form-control" id="" cols="30" rows="7"
+								placeholder="후기"></textarea>
+							<br>
+							<div align="center">
+								<div class="checkbox">
+									<img alt="" src="images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<label class="checkbox-bootstrap checkbox-lg"> <input
+										name="aaa" type="checkbox" value="1"
+										onclick="doOpenCheck(this);"> <span
+										class="checkbox-placeholder"></span> 맑음
+									</label>&nbsp;&nbsp;&nbsp; <label
+										class="checkbox-bootstrap checkbox-lg"> <input
+										name="aaa" type="checkbox" value="2"
+										onclick="doOpenCheck(this);"> <span
+										class="checkbox-placeholder"></span> 흐림
+									</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
+										<input name="aaa" type="checkbox" value="3"
+										onclick="doOpenCheck(this);"> <span
+										class="checkbox-placeholder"></span> 우중충
+									</label>
+								</div>
+								<br>
+								<div class="checkbox">
+									<img alt="" src="images/PostScript/002-money.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<label class="checkbox-bootstrap checkbox-lg"> <input
+										name="bbb" type="checkbox" value="1"
+										onclick="doOpenCheck2(this);"> <span
+										class="checkbox-placeholder"></span> 부족
+									</label>&nbsp;&nbsp;&nbsp; <label
+										class="checkbox-bootstrap checkbox-lg"> <input
+										name="bbb" type="checkbox" value="2"
+										onclick="doOpenCheck2(this);"> <span
+										class="checkbox-placeholder"></span> 적당
+									</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
+										<input name="bbb" type="checkbox" value="3"
+										onclick="doOpenCheck2(this);"> <span
+										class="checkbox-placeholder"></span> 풍족
+									</label>
+								</div>
+								<br>
+								<div class="checkbox">
+									<img alt="" src="images/PostScript/001-hospital.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<label class="checkbox-bootstrap checkbox-lg"> <input
+										name="ccc" type="checkbox" value="1"
+										onclick="doOpenCheck3(this);"> <span
+										class="checkbox-placeholder"></span> 양호
+									</label>&nbsp;&nbsp;&nbsp; <label
+										class="checkbox-bootstrap checkbox-lg"> <input
+										name="ccc" type="checkbox" value="2"
+										onclick="doOpenCheck3(this);"> <span
+										class="checkbox-placeholder"></span> 쏘쏘
+									</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
+										<input name="ccc" type="checkbox" value="3"
+										onclick="doOpenCheck3(this);"> <span
+										class="checkbox-placeholder"></span> 악화
+									</label>
+								</div>
+							</div>
+							<br>
+							<div align="center">
+								<input type="submit" value="작성 완료"
+									class="btn btn-primary btn-block">
+							</div>
+
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 
 </body>
 
