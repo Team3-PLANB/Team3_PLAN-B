@@ -18,6 +18,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		VALUES (#{param1}, #{param2}, #{param3})			
 	</insert>
 	
+	<!-- 페이스북 비밀번호 가져오기 -->
+	<select resultType="String" id="getFBpassword" parameterType="String">
+		SELECT password 
+		FROM member
+		WHERE username = #{username}
+	</select>
+	
 	<!-- 이메일 중복확인 -->
 	<select id="checkEmail" resultType="Integer" parameterType = "String" >
 		SELECT count(username)
@@ -60,9 +67,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 일반 회원가입 -->
-	<insert id="insert">
+	<insert id="insert" parameterType="com.planb_jeju.dto.Member">
 		INSERT INTO member
-	    VALUES( #{param1}, #{param2}, #{param3})
+	    VALUES( #{username}, #{password}, #{nickname})
 	</insert>
+<!-- 	<insert id="insertRole">
+		INSERT INTO member_role
+		VALUES('ROLE_USER', #{username})
+	</insert> -->
 	
 </mapper>

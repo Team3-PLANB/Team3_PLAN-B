@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
@@ -76,6 +77,15 @@
 														<input type="button" onclick="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
 														<input type="hidden" id="saveAuthNum" >
+															 <c:if test="${param.error != null }">
+															 	<div>
+															 		로그인 실패<br>
+															 		<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+															 			이유 : <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
+															 		</c:if>
+															 	</div>
+															 </c:if>
+																												
 													</div>
 													
 												<div class = "email-msg" id="email-msg" style="clear:both;"></div>
@@ -108,7 +118,7 @@
 								</div>
 								<!-- Tab LOGIN -->
 								<div role="tabpanel" class="tab-pane" id="loginform">
-									<form action="<%=request.getContextPath() %>/LoginJoin/Login/loginok.do" class="row" id="loginfrm" method="POST">
+									<form action="<%=request.getContextPath() %>/login" class="row" id="loginfrm" method="POST">
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%">
 											<div class="input-field">
 												<label for="email">이메일</label> 

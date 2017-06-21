@@ -20,16 +20,22 @@ import javax.swing.text.View;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.planb_jeju.dao.MemberDao;
+import com.planb_jeju.dao.RollDAO;
 import com.planb_jeju.dto.Member;
 import com.planb_jeju.service.MemberService;
 
@@ -38,13 +44,18 @@ import com.planb_jeju.service.MemberService;
 public class LoginJoinController {
 
 	private static MemberDao memberDao;
-
+	private static RollDAO rolldao;
+	private static Member member;
+	
 	@Autowired
 	private SqlSession sqlsession;
 	
 	@Autowired
 	private MemberService memberservice;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	/*
 	* @date : 2017. 6. 16
 	* @description : 회원가입 화면 이동 
@@ -52,8 +63,22 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Join/NJoin.do")
 	public String nJoin(){
-		System.out.println(">>>>>>>nJoin_controller<<<<<<<");
-		return "LoginJoin.Join.NJoin.joinForm";		
+		return "LoginJoin.Join.NJoin.joinForm";
+	}
+
+	@RequestMapping("Login/NLogin.do")
+	public String loginView(){
+		return "LoginJoin.Login.NLogin.loginForm";		
+	}
+	
+	/*
+	 * @date : 2017. 6. 21
+	 * @description : 로그아웃
+	 * @return : 
+	 */
+	@RequestMapping("Join/Logout.do")
+	public String logout() {
+		return "Main.mainpage";
 	}
 	
 	/*
@@ -62,34 +87,20 @@ public class LoginJoinController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping("Login/loginok.do")
-	public String nLoginOK(String username, String password , HttpSession session,Principal principal) throws ClassNotFoundException, SQLException{
+	public String nLoginOK(HttpSession session,Principal principal) throws ClassNotFoundException, SQLException{
 		System.out.println("loginok");
-		System.out.println("principal"+principal);
-		Object principal2 = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("prin2"+principal2);
-		System.out.println("아이디 : ");
+		User principal2 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		System.out.println("prin2 : "+principal2);
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(authentication.getName());
+		SecurityContext context = SecurityContextHolder.getContext();
+		Authentication auth = context.getAuthentication();
+		UserDetails userinfo = (UserDetails)auth.getPrincipal();
 		
-		Authentication authentication1 = SecurityContextHolder.getContext().getAuthentication();
-		System.out.println(authentication1.getName());
-		
-		System.out.println(username);
-		System.out.println(password);
-		
-		Member member = new Member();
-		member.setUsername(username);
-		member.setPassword(password);
-		
-		//닉네임 가져와 값넣기
-		MemberDao memberDao = sqlsession.getMapper(MemberDao.class);
-		Member member2 = memberDao.getMember(username);
-		member.setNickname(member2.getNickname());
-		
-		session.setAttribute("member", member);
-		
-		return "MyPage.Info.infoMain";
+		System.out.println(userinfo.getUsername());
+		System.out.println(auth.getAuthorities());
+		System.out.println(auth.isAuthenticated());
+	
+		return "Main.mainpage";
 	}
 	
 	/*
@@ -112,6 +123,7 @@ public class LoginJoinController {
 	public @ResponseBody String duplicationEmailCheck(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		String result = memberservice.duplicationEmailCheck(username, sqlsession);
+
 		return result;
 	}
 	
@@ -133,9 +145,9 @@ public class LoginJoinController {
 	* @return : String(ResponseBody) 
 	*/
 	@RequestMapping("Join/fbjoin.do")
-	public @ResponseBody void fbjoin(String username, String fbaccesstoken, String userid) throws Exception {
+	public @ResponseBody void fbjoin(String username, String fbaccesstoken, String nickname) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		memberDao.fbjoin(username,fbaccesstoken.substring(0, 10), userid);
+		memberDao.fbjoin(username,fbaccesstoken.substring(0, 10), nickname);
 	}
 
 	/*
@@ -145,15 +157,9 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Join/loginCheck.do")
 	public @ResponseBody String loginCheck(String username, String password) throws Exception {
-		
-		System.out.println(username + "/" + password);
-		
-		
-		
-		
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		String result = memberservice.loginCheck(username, password, sqlsession);
-		System.out.println("logincontroller : " + result);
+
 		return result;
 	}
 	
@@ -162,10 +168,11 @@ public class LoginJoinController {
 	* @description : 페이스북 로그인 중복체크 > 중복-로그인 > 비중복-가입mapper
 	* @return : String(ResponseBody) 
 	*/
-	@RequestMapping("Login/fblogin")
+	@RequestMapping("Join/fblogin.do")
 	public @ResponseBody String fblogin(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		String result = memberDao.getFBpassword(username);
+		
 		return result;
 	}	
 
@@ -176,18 +183,12 @@ public class LoginJoinController {
 	* @param spec : HttpServletRequest request
 	*/
 	@RequestMapping("Join/emailAuth.do")
-	public @ResponseBody String emailAuth(HttpServletRequest request) throws Exception{
-	System.out.println(">>>>>>>Email_controller<<<<<<<");
-		
+	public @ResponseBody String emailAuth(HttpServletRequest request) throws Exception{		
 		String username = request.getParameter("username");
-		System.out.println("username : " + username);
 		String authNum = "";
-		System.out.println("랜덤 시작");
+		
 		authNum = memberservice.RandomNum();
-		System.out.println("랜덤 끝 / authNum : " + authNum);
-		System.out.println("메일 보내기 시작");
 		memberservice.sendEmail(username.toString(), authNum);
-		System.out.println("메일 보내기 끝");
 		
 		return authNum;
 		
@@ -199,10 +200,22 @@ public class LoginJoinController {
 	* @return : Model(Ajax 처리)
 	* @param spec : String
 	*/
-	@RequestMapping("Join/joinok.do")
-	public String insert(String username, String password, String nickname) throws ClassNotFoundException, SQLException{
+	@RequestMapping(value="Join/joinok.do", method=RequestMethod.POST)
+	public String insert(Member member) throws ClassNotFoundException, SQLException{
+		int result = 0;
+		String viewpage = "";
+		
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		memberDao.insert(username, password, nickname);
-		return "LoginJoin.Login.NLogin.loginForm";
+		rolldao = sqlsession.getMapper(RollDAO.class);
+		result = memberDao.insert(member);
+		
+		int rollResult = rolldao.insertRoll(member.getUsername());
+		System.out.println("insert : " + result);
+		if (result > 0 && rollResult > 0) {  
+			viewpage = "LoginJoin.Join.NJoin.joinForm";
+		} else {
+			viewpage = "LoginJoin.Join.NJoin.joinForm";
+		}
+		return viewpage;
 	}	
 }
