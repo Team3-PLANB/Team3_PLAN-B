@@ -58,13 +58,11 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Join/NJoin.do")
 	public String nJoin(){
-		System.out.println(">>>>>>>nJoin_controller<<<<<<<");
 		return "LoginJoin.Join.NJoin.joinForm";		
 	}
 
 	@RequestMapping("Login/NLogin.do")
 	public String loginView(){
-		System.out.println(">>>>>>>LoginView_controller<<<<<<<");
 		return "LoginJoin.Login.NLogin.loginForm";		
 	}
 	
@@ -160,10 +158,6 @@ public class LoginJoinController {
 	public @ResponseBody String loginCheck(String username, String password) throws Exception {
 		
 		System.out.println(username + "/" + password);
-		
-		
-		
-		
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		String result = memberservice.loginCheck(username, password, sqlsession);
 		System.out.println("logincontroller : " + result);

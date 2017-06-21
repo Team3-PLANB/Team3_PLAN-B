@@ -16,25 +16,22 @@
 	<security:csrf disabled="true"/>
  	
  	<!-- 로그인 -->
- 	<!-- login-processing-url="/LoginJoin/Login/loginok.do" -->
- 	<security:form-login login-page="/LoginJoin/Login/NLogin.do"
-
+ 	<security:form-login login-page="Join/NJoin.do"
+						 authentication-failure-url="/Index/main.do"
  						 default-target-url="/MyPage/Schedule/schedule.do"
-	    				 authentication-failure-url="/"/>  				 
-	    					 
+	    				 />  				 
+	<!-- 로그아웃 -->
+	
 	<!-- 로그인/가입 페이지 접근 허용 -->
-	<security:intercept-url pattern="/LoginJoin/**" access="permitAll" />    					 
-	    					 
-	 	<security:logout logout-success-url="/index.jsp" /> 
-<!-- 		<security:intercept-url pattern="/PlanA*" access="hasRole('ROLE_USER')" />  -->
-		<security:intercept-url pattern="/*" access="hasRole('ROLE_ANONYMOUS')" />
+	<security:intercept-url pattern="/LoginJoin/**" access="isAnonymous()" />    					 
+	<security:intercept-url pattern="/PostScript/**" access="hasRole('ROLE_USER')" />
 </security:http>
 <!-- password 인코딩 -->
 <security:authentication-manager>
 	<security:authentication-provider>
 		<security:jdbc-user-service data-source-ref="driverManagerDataSource"
 										users-by-username-query="select username, password, 1 enabled from member where username = ?"
-										authorities-by-username-query="select m.username, r.ROLE_CODE
+										authorities-by-username-query="select m.username, r.ROLE_CODE as role_name
 																	   from member m join member_role r
 																	   on m.username = r.username
 																	   where m.username = ?" />
