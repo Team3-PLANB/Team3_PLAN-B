@@ -28,7 +28,7 @@
 			
 			
 		
-		<property name="username" value="root"></property>
+		<property name="username" value="kosta"></property>
 		<property name="password" value="1004"></property>
 	</bean>
 
