@@ -67,13 +67,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 일반 회원가입 -->
-	<insert id="insert">
+	<insert id="insert" parameterType="com.planb_jeju.dto.Member">
 		INSERT INTO member
-	    VALUES( #{param1}, #{param2}, #{param3})
+	    VALUES( #{username}, #{password}, #{nickname})
 	</insert>
-	<insert id="insertRole">
+<!-- 	<insert id="insertRole">
 		INSERT INTO member_role
 		VALUES('ROLE_USER', #{username})
-	</insert>
+	</insert> -->
 	
 </mapper>
