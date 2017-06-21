@@ -89,6 +89,12 @@
 							$('#step2Nav').addClass('active');
 							$('#step2').addClass('active');
 						});
+						$('#stepThreeNextBtn').click(function() {
+							$('#step3Nav').removeClass('active');
+							$('#step3').removeClass('active');
+							$('#step4Nav').addClass('active');
+							$('#step4').addClass('active');
+						});
 <%----------------------------------파트너 div 선택 시 -> 파트너  값 가져오기 ----------------------------------------%>
 	$('.partner-radio').click(
 								function() {
@@ -143,17 +149,22 @@
 
 									<%----------------------------------tab 나누기 ----------------------------------------%>
 									<ul class="nav nav-tabs" role="tablist">
+									
 										<li role="presentation" class="active" id="step1Nav"><a
-											href="#step1" aria-controls="flights" role="tab"
+											href="#step1" aria-controls="a" role="tab"
 											data-toggle="tab">STEP1 - 여행 일정</a></li>
+											
 										<li role="presentation" id="step2Nav"><a href="#step2"
-											aria-controls="hotels" role="tab" data-toggle="tab">STEP2
+											aria-controls="b" role="tab" data-toggle="tab">STEP2
 												- 여행 파트너</a></li>
+												
 										<li role="presentation" id="step3Nav"><a href="#step3"
-											aria-controls="packages" role="tab" data-toggle="tab">STEP3
+											aria-controls="c" role="tab" data-toggle="tab">STEP3
 												- 여행 취향</a></li>
-
-										<li role="presentation" id="step4Nav">
+												
+										<li role="presentation" id="step4Nav"><a href="#step4"
+											aria-controls="d" role="tab" data-toggle="tab">STEP4
+												- 나의 여행 경로 만들기</a></li>
 									</ul>
 
 									<%----------------------------------STEP1 - 여행 일정 ----------------------------------------%>
@@ -182,13 +193,11 @@
 												</div>
 
 												<div class="col-xxs-12 col-xs-4 mt alternate"></div>
-												<div class="col-xs-4 btn btn-primary">
-													<a href="#step2" id="stepOneNextBtn" aria-controls="hotels"
-														role="tab" data-toggle="tab" style="color: white;">NEXT</a>
-												</div>
+												<div class="col-xs-4 btn btn-primary" href="#step2"
+													id="stepOneNextBtn" aria-controls="b" role="tab"
+													data-toggle="tab">NEXT</div>
 												<div class="col-xxs-12 col-xs-4 mt alternate"></div>
 
-												<!-- </div> -->
 											</div>
 										</div>
 
@@ -209,7 +218,7 @@
 														<div class="input-field" align="center">
 															<img alt="" src="images/PlanA/alone.png" width="100">
 															<br>
-															<p style="color: #807f7d;">혼자
+															<p style="color: #807f7d;"><strong>혼자</strong></p>
 														</div>
 													</div>
 
@@ -219,7 +228,7 @@
 														<div class="input-field" align="center">
 															<img alt="" src="images/PlanA/friend.png" width="100">
 															<br>
-															<p style="color: #807f7d;">친구와
+															<p style="color: #807f7d;"><strong>친구와</strong></p>
 														</div>
 													</div>
 
@@ -229,7 +238,7 @@
 														<div class="input-field" align="center">
 															<img alt="" src="images/PlanA/couple.png" width="100">
 															<br>
-															<p style="color: #807f7d;">연인과
+															<p style="color: #807f7d;"><strong>연인과</strong></p>
 														</div>
 													</div>
 
@@ -239,7 +248,7 @@
 														<div class="input-field" align="center">
 															<img alt="" src="images/PlanA/family.png" width="100">
 															<br>
-															<p style="color: #807f7d;">가족과
+															<p style="color: #807f7d;"><strong>가족과</strong></p>
 														</div>
 													</div>
 
@@ -249,19 +258,15 @@
 
 												</div>
 												<br>
-												<div class="col-xxs-12 col-xs-4 btn btn-primary">
-													<a href="#step1" id="stepTwoPrevBtn"
-														aria-controls="flights" role="tab" data-toggle="tab"
-														style="color: white;">PREV</a>
-												</div>
+												<div class="col-xxs-12 col-xs-4 btn btn-primary"
+													href="#step1" id="stepTwoPrevBtn" aria-controls="a"
+													role="tab" data-toggle="tab">PREV</div>
 
 												<div class="col-xxs-12 col-xs-4 mt partner-radio"></div>
 
-												<div class="col-xxs-12 col-xs-4  btn btn-primary">
-													<a href="#step3" id="stepTwoNextBtn"
-														aria-controls="flights" role="tab" data-toggle="tab"
-														style="color: white;">NEXT</a>
-												</div>
+												<div class="col-xxs-12 col-xs-4  btn btn-primary"
+													href="#step3" id="stepTwoNextBtn" aria-controls="c"
+													role="tab" data-toggle="tab">NEXT</div>
 
 											</div>
 										</div>
@@ -288,9 +293,9 @@
 										<%----------------------------------STEP3 - 여행 취향 ----------------------------------------%>
 										<div role="tabpanel" class="tab-pane" id="step3">
 											<div class="row">
-												<div class="col-xxs-12 col-xs-12 mt alternate">
+												<div class="col-xxs-12 col-xs-12 mt alternate"
+													style="left: 300px">
 													<div class="checkbox">
-														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/shopping&food.png"
 															width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
@@ -306,7 +311,6 @@
 													</div>
 													<br>
 													<div class="checkbox">
-														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/mountains.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
 															type="checkbox" name="personal" id="checkbox-7"
@@ -336,7 +340,6 @@
 													</div>
 													<br>
 													<div class="checkbox">
-														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/building.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
 															type="checkbox" name="personal" id="checkbox-12"
@@ -351,7 +354,6 @@
 													</div>
 													<br>
 													<div class="checkbox">
-														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/festival.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
 															type="checkbox" name="personal" id="checkbox-14"
@@ -366,7 +368,6 @@
 													</div>
 													<br>
 													<div class="checkbox">
-														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/sports.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
 															type="checkbox" name="personal" id="checkbox-4"
@@ -391,19 +392,14 @@
 													</div>
 													<br>
 												</div>
-
-
-												<div class="col-xxs-12 col-xs-6 btn btn-primary">
-													<a href="#step2" id="stepThreePrevBtn" role="tab"
-														data-toggle="tab" style="color: white;">PREV</a>
-												</div>
-
-												<div class="col-xxs-12 col-xs-6 btn btn-primary">
-													<a href="#step4" id="stepThreeNextBtn" role="tab"
-														data-toggle="tab" style="color: white;">NEXT</a>
-												</div>
-
-
+												<br>
+												<div class="col-xxs-12 col-xs-4 btn btn-primary"
+													href="#step2" id="stepThreePrevBtn" role="tab"
+													data-toggle="tab" aria-controls="b">PREV</div>
+												<div class="col-xxs-12 col-xs-4 mt partner-radio"></div>
+												<div class="col-xxs-12 col-xs-4 btn btn-primary"
+													href="#step4" id="stepThreeNextBtn" role="tab" aria-controls="d"
+													data-toggle="tab">NEXT</div>
 											</div>
 										</div>
 
@@ -416,17 +412,15 @@
 													<div class="input-field">
 
 														<input type="text" class="form-control" id="routename"
-															name="routename" placeholder="여행 이름을 정해주세요">
+															name="routename" placeholder="여행 이름을 정해주세요.">
 													</div>
 												</div>
-
 												<div class="col-xxs-12 col-xs-6 mt">
 													<input type="submit" class="btn btn-primary btn-block"
 														value="내 경로 만들기" onclick='Submit()'> <input
 														type="submit" class="btn btn-primary btn-block"
 														value="경로 추천 받기" onclick='Submit(1)'>
 												</div>
-
 											</div>
 										</div>
 									</div>
