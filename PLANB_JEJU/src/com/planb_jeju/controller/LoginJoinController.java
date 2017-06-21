@@ -20,12 +20,14 @@ import javax.swing.text.View;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -38,13 +40,17 @@ import com.planb_jeju.service.MemberService;
 public class LoginJoinController {
 
 	private static MemberDao memberDao;
-
+	private static Member member;
+	
 	@Autowired
 	private SqlSession sqlsession;
 	
 	@Autowired
 	private MemberService memberservice;
 
+	@Autowired
+	private BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	/*
 	* @date : 2017. 6. 16
 	* @description : 회원가입 화면 이동 
@@ -52,8 +58,12 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Join/NJoin.do")
 	public String nJoin(){
-		System.out.println(">>>>>>>nJoin_controller<<<<<<<");
 		return "LoginJoin.Join.NJoin.joinForm";		
+	}
+
+	@RequestMapping("Login/NLogin.do")
+	public String loginView(){
+		return "LoginJoin.Login.NLogin.loginForm";		
 	}
 	
 	/*
@@ -112,6 +122,7 @@ public class LoginJoinController {
 	public @ResponseBody String duplicationEmailCheck(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		String result = memberservice.duplicationEmailCheck(username, sqlsession);
+		System.out.println("controller"+username);
 		return result;
 	}
 	
@@ -133,9 +144,9 @@ public class LoginJoinController {
 	* @return : String(ResponseBody) 
 	*/
 	@RequestMapping("Join/fbjoin.do")
-	public @ResponseBody void fbjoin(String username, String fbaccesstoken, String userid) throws Exception {
+	public @ResponseBody void fbjoin(String username, String fbaccesstoken, String nickname) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		memberDao.fbjoin(username,fbaccesstoken.substring(0, 10), userid);
+		memberDao.fbjoin(username,fbaccesstoken.substring(0, 10), nickname);
 	}
 
 	/*
@@ -147,10 +158,6 @@ public class LoginJoinController {
 	public @ResponseBody String loginCheck(String username, String password) throws Exception {
 		
 		System.out.println(username + "/" + password);
-		
-		
-		
-		
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		String result = memberservice.loginCheck(username, password, sqlsession);
 		System.out.println("logincontroller : " + result);
@@ -162,10 +169,12 @@ public class LoginJoinController {
 	* @description : 페이스북 로그인 중복체크 > 중복-로그인 > 비중복-가입mapper
 	* @return : String(ResponseBody) 
 	*/
-	@RequestMapping("Login/fblogin")
+	@RequestMapping("Join/fblogin.do")
 	public @ResponseBody String fblogin(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
+		System.out.println("fblogincontroller" + username);
 		String result = memberDao.getFBpassword(username);
+		System.out.println("fblogin : rel : "+result);
 		return result;
 	}	
 
@@ -199,10 +208,20 @@ public class LoginJoinController {
 	* @return : Model(Ajax 처리)
 	* @param spec : String
 	*/
-	@RequestMapping("Join/joinok.do")
+	@RequestMapping(value="Join/joinok.do", method=RequestMethod.POST)
 	public String insert(String username, String password, String nickname) throws ClassNotFoundException, SQLException{
+		String viewpage = "";
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		memberDao.insert(username, password, nickname);
-		return "LoginJoin.Login.NLogin.loginForm";
+		int insertResult = memberDao.insert(username, password, nickname);
+		//int rollResult = memberDao.insertRole(username);
+		System.out.println("insert : " + insertResult);
+		if (insertResult > 0) { // && rollResult > 0
+			System.out.println("insert성공");
+			viewpage = "LoginJoin.Login.NLogin.loginForm";
+		} else {
+			System.out.println("insert실패");
+			viewpage = "LoginJoin.Join.NJoin.JoinForm";
+		}
+		return viewpage;
 	}	
 }
