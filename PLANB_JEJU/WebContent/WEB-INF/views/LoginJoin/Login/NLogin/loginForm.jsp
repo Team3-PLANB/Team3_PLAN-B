@@ -27,10 +27,10 @@
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/LoginJoin/join.css">
 
-	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
-	<script src="${pageContext.request.contextPath}/js/email.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/facebook.js" ></script>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/login.js" ></script>
+	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
+	<script src="${pageContext.request.contextPath}/js/email.js"></script>
 	
  <%
     String clientId = "q6YKhoTAKENem9wjtax9";//애플리케이션 클라이언트 아이디값";
@@ -72,7 +72,7 @@
 											<div class="input-field" >
 												<label for="email">이메일</label> 
 													<div>
-														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" keypress="revText()"> <!-- onblur="emailCheck()" -->
+														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" onkeyup="revText()"> <!-- onblur="emailCheck()" -->
 														<input type="button" onclick="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
 														<input type="hidden" id="saveAuthNum" >
@@ -100,7 +100,7 @@
 											<div class="input-field">
 												<label for="nickname">닉네임</label> 
 												<input type="text"class="form-control" name = "nickname" id="nickname"
-													placeholder="닉네임을 입력해주세요" onclick = "nickCheck()">
+													placeholder="닉네임을 입력해주세요" onkeyup = "nickCheck()">
 												<div class = "nick-msg" id="nick-msg"></div>
 											</div>
 										</div>
@@ -108,25 +108,25 @@
 								</div>
 								<!-- Tab LOGIN -->
 								<div role="tabpanel" class="tab-pane active" id="loginform">
-									<form action="" class="row" method="POST">
+									<form action="<%=request.getContextPath() %>/LoginJoin/Login/loginok.do" class="row" id="loginfrm" method="POST">
 										<div class="col-xxs-12 col-xs-6 mt" style="margin-left:10%">
 											<div class="input-field">
 												<label for="email">이메일</label> 
 												<input type="text" class="form-control" id="username" name = "username"
-													placeholder="이메일을 입력">
+													placeholder="이메일을 입력해주세요">
 												<div class="emailCheck"></div>
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear:both;margin-left:10%">
 											<div class="input-field">
 												<label for="password">비밀번호</label> 
-												<input type="password" class="form-control" id="password" name="password"
-													placeholder="비밀번호를 입력">
-												<div class="pwdCheck"></div>
+												<input type="password" class="form-control" id="password"
+													placeholder="비밀번호를 입력해주세요">
+												<div class="pwdCheck" id = "pwdCheck"></div>
 											</div>
 										</div>
 										<div class="col-xs-12">
-											<input type="submit" class="btn btn-primary btn-block" value="Login" onclick="loginCheck()">
+											<input type="button" class="btn btn-primary btn-block" value="Login" onclick="loginCheck()">
 										</div>
 									</form>
 								</div>
@@ -135,6 +135,7 @@
 					</div>
 					
 					<!-- 이메일 인증 -->
+					
 					<div class="col-sm-5 col-md-5"  style="margin-left:180px;" id="social_join" >
 						<div class="tabulation animate-box fadeInUp animated" >
 							<div class="tab-content" >
@@ -163,6 +164,8 @@
 											</div>
 										</div>
 										<div class="col-xs-12">
+											<input type="hidden" id="overOk">
+											<input type="hidden" id="authOk">
 											<input type="button" class="btn btn-primary btn-block" value="Join" onclick="frm_submit()">
 										</div>
 									</div>
