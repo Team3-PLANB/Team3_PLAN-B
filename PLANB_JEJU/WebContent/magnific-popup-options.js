@@ -1,4 +1,4 @@
-$(document).ready(function() {
+/*$(document).ready(function() {
   // MagnificPopup
 	var magnifPopup = function() {
 		$('.image-popup').magnificPopup({
@@ -45,4 +45,4 @@ $(document).ready(function() {
 	magnifPopup();
 	magnifVideo();
 
-});
+});*/

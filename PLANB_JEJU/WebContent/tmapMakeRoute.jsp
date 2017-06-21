@@ -70,15 +70,7 @@ $( function() {
             map.addLayer(markerLayer);
             /* searchRoute(); */
             
-            /* 만약  페이지 유형이 추천 여행지 출력이라면*/
-            <c:if test="${requestScope.pageCase=='routeRecommendPage'}">
-	            <c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> 
-	        	
-	            	addSiteMarkers(${item.lon}, ${item.lat}, '${item.site}');
-		      	
-				</c:forEach>
-            	
-            </c:if>
+           
         	 
         };
         
@@ -97,19 +89,7 @@ $( function() {
 	  
 	       	var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); /* 마커 아이콘 */
 	     
-	       /* 	<c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> */
-	        	
-			  	/* var marker = new Tmap.Markers(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon, new Tmap.Label('${item.site}'));
-		      	markerLayer.addMarker(marker);  */
-		      	/* if(${num.index}=='1'){
-		      		var marker1 = new Tmap.Markers(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon, new Tmap.Label('${item.site}'));
-			      	markerLayer.addMarker(marker1);
-		      	}  */
-		      	
-		        /* var num${num.index} = new Tmap.Markers(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon, new Tmap.Label('${item.site}'));
-		      	markerLayer.addMarker(num${num.index});  */
-		      	
-			/* </c:forEach> */
+	       
 		      	
 		     var marker = new Tmap.Markers(new Tmap.LonLat(lon, lat).transform(pr_4326, pr_3857), icon, new Tmap.Label(site));
 		     markerLayer.addMarker(marker); 	
