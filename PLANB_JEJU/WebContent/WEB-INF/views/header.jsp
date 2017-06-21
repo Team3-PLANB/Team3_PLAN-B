@@ -35,17 +35,16 @@
 									</ul>
 								</li>
 							</security:authorize>
-							<security:authorize access ="isAnonymous()">							
+							<security:authorize access="!hasRole('ROLE_USER')">
+							<%-- <security:authorize access ="isAnonymous()"> --%>
 								<li>
-									<a href="${pageContext.request.contextPath}/LoginJoin/Login/NLogin.do">LOGIN</a>
+									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
 								</li>
 							</security:authorize>
 							<!-- 로그아웃 -->
-							<security:authorize access="isAuthenticated()">
-						   <security:authentication property="name" var="loginUser"/>
-								<form action="${logoutUrl}" method="post" class="navbar-form navbar-right">
-					                <button type="submit"><li>${loginUser }로그아웃</li></button>
-			            		</form>
+						    <security:authentication property="name" var="loginUser"/>
+							<security:authorize access="hasRole('ROLE_USER')">
+								<li><a href="${pageContext.request.contextPath}/logout">${loginUser }로그아웃</a></li>
 			            	</security:authorize>
 			           </ul>
 					</nav>

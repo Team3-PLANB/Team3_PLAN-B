@@ -1,6 +1,8 @@
 package com.planb_jeju.dto;
 
 import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class RoutePostscript {
@@ -8,7 +10,7 @@ public class RoutePostscript {
 	private String routename;
 	private String route_thumbnail;
 	private String comment;
-	private Time writetime;
+	private Date writetime;
 	private int hitnum;
 	private int likenum;
 	private String username;
@@ -26,7 +28,7 @@ public class RoutePostscript {
 
 
 	public RoutePostscript(int route_postscript_rownum, String routename, String route_thumbnail, String comment,
-			Time writetime, int hitnum, int likenum, String username, int route_code, int route_postscript_tag_rownum,
+			Date writetime, int hitnum, int likenum, String username, int route_code, int route_postscript_tag_rownum,
 			String tag, String route_like) {
 		super();
 		this.route_postscript_rownum = route_postscript_rownum;
@@ -77,11 +79,13 @@ public class RoutePostscript {
 		this.comment = comment;
 	}
 
-	public Time getWritetime() {
+	public Date getWritetime() throws ParseException {
+		SimpleDateFormat new_format = new SimpleDateFormat("yyyy/mm/dd(E) HH:mm");
+		writetime = new_format.parse(new_format.format(writetime));
 		return writetime;
 	}
 
-	public void setWritetime(Time writetime) {
+	public void setWritetime(Date writetime){
 		this.writetime = writetime;
 	}
 
