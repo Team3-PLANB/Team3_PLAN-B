@@ -1,8 +1,10 @@
 @CHARSET "UTF-8";
 
 .partner-radio .selected{
-	background-color: #ffcaa5;
+	background-color: #ffe5d3;
+	color : white;
 }
 .selected{
-	background-color: #ffcaa5;    
+	background-color: #ffe5d3;    
+	color:white;
 }
