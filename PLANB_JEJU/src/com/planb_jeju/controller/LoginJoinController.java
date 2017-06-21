@@ -218,7 +218,7 @@ public class LoginJoinController {
 		System.out.println("insert : " + result);
 		if (result > 0 && rollResult > 0) {  
 			System.out.println("insert성공");
-			viewpage = "LoginJoin.Login.NJoin.joinForm";
+			viewpage = "LoginJoin.Join.NJoin.joinForm";
 		} else {
 			System.out.println("insert실패");
 			viewpage = "LoginJoin.Join.NJoin.joinForm";

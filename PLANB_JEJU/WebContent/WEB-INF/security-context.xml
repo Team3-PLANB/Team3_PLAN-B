@@ -10,7 +10,6 @@
 <security:http pattern="/css/**" security="none" />
 <security:http pattern="/js/**" security="none" />
 <security:http pattern="/websockethandler/**" security="none" /> <!-- 알림관련 핸들러 -->
-	<!-- <security:http pattern="/LoginJoin/**" security="none" /> -->
 
 <security:http use-expressions="true">
 	<security:csrf disabled="true"/>
@@ -28,8 +27,8 @@
 	</logout> -->
 	<!-- 로그인/가입 페이지 접근 허용 -->
 	<security:intercept-url pattern="/LoginJoin/**" access="permitAll" />
-	<security:intercept-url pattern="/PLANA.make.do" access="hasRole('user')"/>
-	<security:intercept-url pattern="/PostScript/**" access="hasRole('user')"/>
+	<security:intercept-url pattern="/PLANA.make.do" access="hasRole('ROLE_USER')"/>
+	<security:intercept-url pattern="/PostScript/**" access="hasRole('ROLE_USER')"/>
 </security:http>
 
 <!-- password 인코딩 -->

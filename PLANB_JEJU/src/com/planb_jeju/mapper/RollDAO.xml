@@ -1,6 +1,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.planb_jeju.dao.RollDAO">
 	<insert id = "insertRoll" parameterType="com.planb_jeju.dto.Roll">
-		INSERT INTO member_role VALUES('ROLE_member', #{username})
+		INSERT INTO member_role VALUES('ROLE_USER', #{username})
 	</insert>
 </mapper>
