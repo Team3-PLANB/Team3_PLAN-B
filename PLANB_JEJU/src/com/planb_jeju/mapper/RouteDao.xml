@@ -55,8 +55,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				                </foreach>
 				            
 			)subtable group by rc, n ) 
-		subtable2 WHERE countpc = #{personal_code_len} and n != #{username}; 
-		 
+		subtable2 WHERE countpc = #{personal_code_len} ; 
+		 <!-- and n != #{username} 추가할 것 -->
 		
 	</select>	
 	

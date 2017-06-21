@@ -24,15 +24,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	 <!-- 루트경로 여러개 가져오기 -->
-	 <select id="getRouteDetailList" resultType="com.planb_jeju.dto.RouteDetail" parameterType="java.util.Map">
+	 <select id="getRouteDetailList" resultType="com.planb_jeju.dto.RouteDetail">
 		
-		 SELETE * 
+		 SELECT * 
 		 FROM
 		 	route_detail
 		 WHERE
-		 <foreach collection="list" item="item" separator=",">
-	    	route_code = #{item.route_code} and username = #{item.username}
-	     </foreach>
-		
+	    	route_code = #{route_code} and username = #{username}
+	     
 	</select>	
 </mapper>

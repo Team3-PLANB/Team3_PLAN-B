@@ -170,7 +170,6 @@
 												</div>
 												<div class="col-xxs-12 col-xs-6 mt alternate">
 													<div class="input-field">
-
 														<img alt="" src="images/PlanA/calendar.png" width="100"
 															align="center"><label for="date-end">도착일 :
 														</label> <input type="text" class="form-control" id="date-end"
@@ -294,87 +293,75 @@
 														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/shopping&food.png"
 															width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														<label class="checkbox-bootstrap checkbox-lg"> 
-														<input type="checkbox"
- 																name="personal" id="checkbox-1" value="A0401"> 
-														<span
-															class="checkbox-placeholder"></span> 쇼핑
+														<label class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-1"
+															value="A0401"> <span class="checkbox-placeholder"></span>
+															쇼핑
 														</label>&nbsp;&nbsp;&nbsp; <label
-															class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-2" value="A0502"> <span
-															class="checkbox-placeholder"></span> 맛집
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-2"
+															value="A0502"> <span class="checkbox-placeholder"></span>
+															맛집
 														</label>
 													</div>
 													<br>
 													<div class="checkbox">
 														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/mountains.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														<label class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-7" value="A0101"> 
- 														<span
-															class="checkbox-placeholder"></span> 자연
+														<label class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-7"
+															value="A0101"> <span class="checkbox-placeholder"></span>
+															자연
 														</label> &nbsp;&nbsp;&nbsp;<label
-															class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-8" value="A0201"> <span
-															class="checkbox-placeholder"></span> 역사관광
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-8"
+															value="A0201"> <span class="checkbox-placeholder"></span>
+															역사관광
 														</label>&nbsp;&nbsp;&nbsp; <label
-															class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-9" value="A0202"> <span
-															class="checkbox-placeholder"></span> 힐링
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-9"
+															value="A0202"> <span class="checkbox-placeholder"></span>
+															힐링
 														</label> &nbsp;&nbsp;&nbsp;<label
-															class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-10" value="A0203"> <span
-															class="checkbox-placeholder"></span> 체험
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-10"
+															value="A0203"> <span class="checkbox-placeholder"></span>
+															체험
 														</label>&nbsp;&nbsp;&nbsp; <label
-															class="checkbox-bootstrap checkbox-lg"> 
-															<input
-															type="checkbox"
- 																name="personal" id="checkbox-11" value="A0204"> <span
-															class="checkbox-placeholder"></span> 산업관광
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-11"
+															value="A0204"> <span class="checkbox-placeholder"></span>
+															산업관광
 														</label>
 													</div>
 													<br>
 													<div class="checkbox">
 														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/building.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														<label class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-12" value="A0205"> <span
-															class="checkbox-placeholder"></span> 건축/조형
+														<label class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-12"
+															value="A0205"> <span class="checkbox-placeholder"></span>
+															건축/조형
 														</label> &nbsp;&nbsp;&nbsp;<label
-															class="checkbox-bootstrap checkbox-lg"> 
-															<input
-															type="checkbox"
- 																name="personal" id="checkbox-13" value="A0206"> <span
-															class="checkbox-placeholder"></span> 문화시설
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-13"
+															value="A0206"> <span class="checkbox-placeholder"></span>
+															문화시설
 														</label>
 													</div>
 													<br>
 													<div class="checkbox">
 														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/festival.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-														<label class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-14" value="A0207"> <span
-															class="checkbox-placeholder"></span> 축제
+														<label class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-14"
+															value="A0207"> <span class="checkbox-placeholder"></span>
+															축제
 														</label> &nbsp;&nbsp;&nbsp;<label
-															class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-15" value="A0208"> <span
-															class="checkbox-placeholder"></span> 행사/공연
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-15"
+															value="A0208"> <span class="checkbox-placeholder"></span>
+															행사/공연
 														</label>
 													</div>
 													<br>
@@ -382,27 +369,24 @@
 														&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<img alt="" src="images/PlanA/sports.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
-															type="checkbox"
- 																name="personal" id="checkbox-4" value="A0302"> <span
-															class="checkbox-placeholder"></span> 육상 레포츠
+															type="checkbox" name="personal" id="checkbox-4"
+															value="A0302"> <span class="checkbox-placeholder"></span>
+															육상 레포츠
 														</label>&nbsp;&nbsp;&nbsp; <label
-															class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-5" value="A0303"> <span
-															class="checkbox-placeholder"></span> 수상 레포츠
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-5"
+															value="A0303"> <span class="checkbox-placeholder"></span>
+															수상 레포츠
 														</label>&nbsp;&nbsp;&nbsp;<label
-															class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-6" value="A0304"> <span
-															class="checkbox-placeholder"></span> 항공 레포츠
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-6"
+															value="A0304"> <span class="checkbox-placeholder"></span>
+															항공 레포츠
 														</label>&nbsp;&nbsp;&nbsp;<label
-															class="checkbox-bootstrap checkbox-lg"> 
-														<input
-															type="checkbox"
- 																name="personal" id="checkbox-3" value="A0305"> <span
-															class="checkbox-placeholder"></span> 복합 레포츠
+															class="checkbox-bootstrap checkbox-lg"> <input
+															type="checkbox" name="personal" id="checkbox-3"
+															value="A0305"> <span class="checkbox-placeholder"></span>
+															복합 레포츠
 														</label>
 													</div>
 													<br>
@@ -410,15 +394,13 @@
 
 
 												<div class="col-xxs-12 col-xs-6 btn btn-primary">
-													<a href="#step2" id="stepThreePrevBtn"
-														role="tab" data-toggle="tab"
-														style="color: white;">PREV</a>
+													<a href="#step2" id="stepThreePrevBtn" role="tab"
+														data-toggle="tab" style="color: white;">PREV</a>
 												</div>
 
 												<div class="col-xxs-12 col-xs-6 btn btn-primary">
-													<a href="#step4" id="stepThreeNextBtn"
-														role="tab" data-toggle="tab"
-														style="color: white;">NEXT</a>
+													<a href="#step4" id="stepThreeNextBtn" role="tab"
+														data-toggle="tab" style="color: white;">NEXT</a>
 												</div>
 
 
@@ -455,7 +437,8 @@
 				</div>
 
 			</div>
-		</div>	</div>
+		</div>
+	</div>
 
 </form>
 
