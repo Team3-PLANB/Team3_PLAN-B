@@ -20,9 +20,9 @@ public class RouteDetailService {
 	@Autowired
 	private SqlSession sqlsession;
 
-	public HashMap<Integer, Object> getRouteDetailList(java.util.List<Route> routeList) throws ClassNotFoundException, SQLException {
+	public HashMap<String, Object> getRouteDetailList(java.util.List<Route> routeList) throws ClassNotFoundException, SQLException {
 
-		HashMap<Integer,Object> routeDetailMap = new HashMap<>();
+		HashMap<String,Object> routeDetailMap = new HashMap<>();
 		
 		
 		for(int i  = 0; i<routeList.size(); i++){
@@ -30,7 +30,7 @@ public class RouteDetailService {
 			RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
 			java.util.List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i));
 			
-			routeDetailMap.put(i, routeDetailList);
+			routeDetailMap.put(routeList.get(i).getRoutename(), routeDetailList);
 		}
 		
 		return routeDetailMap;

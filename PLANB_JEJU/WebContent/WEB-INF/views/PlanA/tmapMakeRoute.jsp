@@ -88,9 +88,17 @@ $( function() {
 				<c:when test="${requestScope.pageCase=='routeRecommendPage'}">
 					<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
 				    
+						//경로 이름 버튼 생성
+						console.log('${item.key}');
+						/* $('#schedulebox2').append('${item.key}'); */
+						
+						
+					
 						//벡터레이어 생성
 						var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
 						map.addLayers([vector_layer]); 
+						
+						
 						
 						//polyline 좌표 배열.
 						var pointList = [];
@@ -120,9 +128,20 @@ $( function() {
 						 
 						vector_layer.addFeatures([mLineFeature]);
 						
+						
+						 //Feature Select 추가
+						 /* select = new Tmap.Control.SelectFeature(vector_layer, {hover: false, onSelect: onFeatureSelect() });
+				         map.addControl(select);
+				         select.activate();
+				         vector_layer.events.on({
+				             "featureselected": onFeatureSelect()
+				         }); */
+						
 					</c:forEach>
 				
-				
+				/*var selectCtrl = new Tmap.Control.SelectFeature(vectors,
+				     {clickout: true}
+				);  */
 						 
 						
 						
@@ -132,6 +151,7 @@ $( function() {
         	 
         };
         
+       
         //추천 여행지 마커 추가하기 
         function addSiteMarkers(lon, lat, site){
     	  
@@ -170,20 +190,13 @@ $( function() {
 	     }
         //맵 클릭시 이벤트 함수 -> 마커 출력
         function onClickMap(evt){
-            /* console.log(evt.clientX);
             
-            console.log(evt.clientY);
-            console.log(map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY)));
-            
-            console.log('2'); */
-            /* console.log(lonlat); */
-            /* var lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY)); */
             lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,(evt.clientY-80)));/* header 높이 만큼 처리 */
             
              
-            console.log(lonlat);
+           /*  console.log(lonlat);
             console.log(lonlat.lat);
-            console.log(lonlat.lon); 
+            console.log(lonlat.lon);  */
            /*  var markerLayer = new Tmap.Layer.Markers(); *//* 마커 뿌릴 레이어 추가 */
             /* map.addLayer(markerLayer); */
             
@@ -200,16 +213,16 @@ $( function() {
             var marker = new Tmap.Markers(lonlat, icon, label);
             markerLayer.addMarker(marker);
            
-            console.log(marker);
+            /* console.log(marker);
             console.log(markerLayer.markers);
-            console.log(markerLayer.markers.length);
+            console.log(markerLayer.markers.length); */
             
             /* markers.markers[0].popup.setContentHTML("수정할 label의 html 문자열"); */
-            console.log(markerLayer.markers[0].lonlat);
+            /* console.log(markerLayer.markers[0].lonlat); */
             
-            if(marker.labelHtml=='0'){
+            /* if(marker.labelHtml=='0'){
             	 console.log(marker.labelHtml);
-            }
+            } */
         }
         
         /* alert(map.getLonLatFromPixel(
@@ -944,15 +957,6 @@ style="display: block; height: 458px;" */
 		</div>
 	</div>
 </div>
-
-
-
-
-
-
-
-
-
 
 
 

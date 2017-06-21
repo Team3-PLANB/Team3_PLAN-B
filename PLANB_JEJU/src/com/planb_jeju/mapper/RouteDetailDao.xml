@@ -26,11 +26,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 <!-- 루트경로 여러개 가져오기 -->
 	 <select id="getRouteDetailList" resultType="com.planb_jeju.dto.RouteDetail">
 		
-		 SELECT * 
+		 SELECT 
+		 	route_detail.route_order as route_order,
+		 	route_detail.username as username,
+		 	route_detail.route_code as route_code,
+		 	route_detail.route_date as route_date,
+		 	route_detail.site as site,
+		 	route_detail.lon as lon,
+		 	route_detail.lat as lat,
+		 	route_detail.category as category,
+		 	route_detail.stime as stime,
+		 	route_detail.etime as etime,
+		 	route.routename as routename
 		 FROM
 		 	route_detail
+		 JOIN
+		 	route
+		 ON 
+		 	route_detail.username = route.username
+		 AND
+		 	route_detail.route_code = route.route_code
 		 WHERE
-	    	route_code = #{route_code} and username = #{username}
+	    	route_detail.route_code = #{route_code} and route_detail.username = #{username}
 	     
 	</select>	
 </mapper>

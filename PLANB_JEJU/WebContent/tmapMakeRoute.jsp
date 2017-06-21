@@ -357,7 +357,7 @@ $( function() {
 <%----------------------------------왼쪽 일정 짜기 부분 스크립트 ----------------------------------------%>
 
 <link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+	href="<%=request.getContextPath()%>/css/PlanA/jqueryUI.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
 <script
 	src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
