@@ -22,7 +22,7 @@
 							<li><a href="${pageContext.request.contextPath}/PLANA.make.do">일정만들기</a></li>
 							<li><a href="${pageContext.request.contextPath}/PostScript/Route/List.do">후기게시판</a></li>
 							<!-- ROLE_USER만 : 로그인 시 보이는 탭-->
-						 	<security:authorize access="hasRole('user')">	
+						 	<security:authorize access="hasRole('ROLE_USER')">	
 								<li class="">
 									<a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do" class="fh5co-sub-ddown sf-with-ul">My Page</a>
 									<ul class="fh5co-sub-menu" style="display: none;">
