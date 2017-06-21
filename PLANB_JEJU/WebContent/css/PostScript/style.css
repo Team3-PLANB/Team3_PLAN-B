@@ -175,3 +175,7 @@ button#moveTopBtn {
 	display: none;
 	z-index: 999;
 }
+
+.likeChange{
+	height:30px;
+}

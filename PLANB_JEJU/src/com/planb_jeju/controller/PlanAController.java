@@ -118,7 +118,7 @@ public class PlanAController {
 
 			siteLists.addAll(siteList);
 		}
-		request.setAttribute("pageCase", "routeRecommendPage");
+		request.setAttribute("pageCase", "siteRecommendPage");
 		request.setAttribute("siteList", siteLists);
 		
 		// 현재 루트 코드 가져오기 -> id principal
@@ -160,13 +160,13 @@ public class PlanAController {
 		if(routeList.size()>0){
 			System.out.println("여행지 추천 결과"+routeList.toString());
 			
-			Map<String, Object> resultMap = new HashMap<String, Object>();
-			resultMap.put("list", routeList);
-			java.util.List<RouteDetail> routeDetailList = routeDetailService.getRouteDetailList(resultMap);
+			Map<Integer, Object> routeDetailMap = routeDetailService.getRouteDetailList(routeList);
 			
 			System.out.println("여행지 경로 상세 결과");
-			System.out.println(routeDetailList.toString());
-			request.setAttribute("routeList", routeDetailList);
+			System.out.println(routeDetailMap.toString());
+			
+			request.setAttribute("pageCase", "routeRecommendPage");
+			request.setAttribute("routeMap", routeDetailMap);
 		}
 		
 		return "PlanA.tmapMakeRoute";
