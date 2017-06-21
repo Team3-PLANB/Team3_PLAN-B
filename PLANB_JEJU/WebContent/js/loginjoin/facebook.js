@@ -58,7 +58,7 @@ function statusChangeCallback(response) {
 // 신규사용자 ->token있는지 확인후 없으면 권한동의 팝업창 뜬다 ->db에 저장하면됨
 
 function login() {
-
+	
 	var username; // 이메일 저장할 변수
 	var nickname; // 이름 저장할 변수
 	console.log("FB LOGIN START");
@@ -70,47 +70,48 @@ function login() {
 				FB.api(
 				'/me',
 				'GET',
-				{fields : 'username'},
+				{fields : 'email'},
 				function(member) {
-					username = member.username;
+					username = member.email;
 					$.ajax({
 						type : "get",
 						url : "duplicationCheck.do",
-						data : {"userid" : username},
+						data : {"username" : username},
 						dataType : "json",
 						success : function(result) {
-							console.log("로그인시도");
+							console.log("로그인시도>>>" + result + "<<<");
 							if (result == false) { // 아이디 중복 > 로그인(fblogin.do)
+								console.log("false-username : "+username);
 								$.ajax({
 									type : "post",
 									url : "fblogin.do",
-									data : {"userid" : username},
+									data : {"username" : username},
 									success : function(result) {// 로그인성공
 										console.log("로그인 성공");
 										document.getElementById('username').value = username;
 										document.getElementById('password').value = result;
-										document.getElementById('joinform').submit();
+										$('#loginfrm').submit();
 									},
 									error : function(error) {// 로그인실패
 										alert(error.statusText);
 									}
 								});
 							} else { // 회원가입 한다.
+								console.log("true-username : "+username);
 								console.log(response.authResponse.accessToken);
 								$.ajax({
 									type : "get",
-									url  : "Login/fbsignup.do",
+									url  : "fbjoin.do",
 									data : {
-										"userid" : username,
+										"username" : username,
 										"fbaccesstoken" : response.authResponse.accessToken,
-										"username" : nickname
+										"nickname" : username
 										// userid가 email, username이 사용자 이름으로 넘어와서
 										// userid를 username에 넣어주고, username을 nickname에 넣어줌
 										// 페이스북 가입회원은 이름 default값이 nickname.
 									},
 									success : function() {
-										alert('회원가입 완료! 로그인해주세요.');
-										location.href = "LoginJoin/Login/NLogin/loginForm.jsp";
+										location.href = "../Login/loginok.do";
 									},
 									error : function(error) {
 										alert('error!');
@@ -131,7 +132,7 @@ function login() {
 				console.log('else part');
 				// 페이스북에 로그인이 되어있지 않아서, 앱에 로그인 되어있는지 불명확하다.
 			}
-		}, {scope : 'email'}); // email 에 대한 권한을 요청한다.
+		}, {scope : 'public_profile, email'}); // email 에 대한 권한을 요청한다.
 }
 /*
  * // 페이스북 로그아웃 function logout(){ FB.logout(function(response) {// 사용자 로그 아웃 이후

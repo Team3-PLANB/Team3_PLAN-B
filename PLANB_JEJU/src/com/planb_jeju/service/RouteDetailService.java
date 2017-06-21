@@ -1,6 +1,8 @@
 package com.planb_jeju.service;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,13 +20,20 @@ public class RouteDetailService {
 	@Autowired
 	private SqlSession sqlsession;
 
-	public List<RouteDetail> getRouteDetailList(Map<String, Object> map) throws ClassNotFoundException, SQLException {
+	public HashMap<Integer, Object> getRouteDetailList(java.util.List<Route> routeList) throws ClassNotFoundException, SQLException {
 
-		// Mybatis 적용
-		RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
-		List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(map);
-
-		return routeDetailList;
+		HashMap<Integer,Object> routeDetailMap = new HashMap<>();
+		
+		
+		for(int i  = 0; i<routeList.size(); i++){
+			// Mybatis 적용
+			RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
+			java.util.List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i));
+			
+			routeDetailMap.put(i, routeDetailList);
+		}
+		
+		return routeDetailMap;
 
 	}
 }
