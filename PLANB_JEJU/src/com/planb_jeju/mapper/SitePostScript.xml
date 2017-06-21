@@ -3,38 +3,129 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.planb_jeju.dao.SitePostScriptDao">
-	<!-- 전체 수 -->
-	<select id="getCount" resultType="Integer">
+	<!-- 
+	
+		// 여행지 후기 전체 수
+		public int getCount();
 		
+		// 여행지루트 후기 등록
+		public int insert(SitePostscript sitePostscript);
+			
+		// 여행지 후기 수정
+		public int update(SitePostscript sitePostscript);
+			
+		// 여행지 후기 삭제
+		public int delete(int site_postscript_rownum, String username);
+		
+		// 여행지 후기 리스트
+		public List<SitePostscript> getList(String username);
+		
+		// 여행지 후기 상세보기
+		public SitePostscript getSitePost(int site_postscript_rownum);
+		
+		// 찜콩하기
+		public int insertLike(SitePostscriptLike sitePostscriptLike);
+	
+		// 찜콩 해제
+		public int deleteLike(SitePostscriptLike sitePostscriptLike);
+		
+		// 태그 등록
+		public int insertTag(SitePostscript sitePostscript);
+		
+		// 태그 삭제
+		public int deleteTag(int site_postscript_rownum);
+		
+		// 조회수 증가
+		public int updateHitNum(int site_postscript_rownum);
+		
+		// 좋아요(찜콩수) 증가
+		public int updateLikeNum(int site_postscript_rownum);
+		
+	-->
+
+	<!-- 여행지 후기 전체 수 -->
+	<select id="getCount" resultType="Integer">
 		SELECT COUNT(*)
-		FROM route
+		FROM site_postscript
 	</select>
 	
-	<!-- 멤버 한명 셀렉 -->
-	<select id="getRoute" resultType="com.planb_jeju.dto.Route">
-		SELECT *
-		FROM route
-		WHERE route_code = #{param1}, username =#{param2}
-	</select>
+	<!-- 여행지 후기 등록 -->
+	<insert id="insert" parameterType="com.planb_jeju.dto.SitePostscript">
+		INSERT INTO site_postscript (site_postscript_rownum, username, site, category, comment, health, inoutside, cost, writetime, hitnum, likenum, route_code)
+		VALUES (NULL, #{username}, #{site}, #{category}, #{comment}, #{health}, #{inoutside}, #{cost}, to_char(SYSDATE, 'YYYY-MM-DD HH24:MI'), 0, 0, #{route_code}) 
+	</insert>
 	
-	<!-- 삭제 -->
-	<delete id="delete">
-	 	DELETE route WHERE route_code = #{param1}, username =#{param2}
-	</delete>
-	
-	<!-- 수정 -->
-	<update id="update" >
-		UPDATE route 
-		SET routename=#{routename}, 
-		    partner_code=#{partner_code},
-		    sday=#{sday},
-		    eday=#{eday}
-		WHERE route_code = #{route_code}, username =#{username}
+	<!-- 여행지 후기 수정 -->
+	<update id="update" parameterType="com.planb_jeju.dto.SitePostscript">
+		UPDATE site_postscript 
+		SET comment = #{comment}, health = #{health}, inoutside = #{inoutside}, cost = #{cost}
+		WHERE site_postscript_rownum = #{site_postscript_rownum}
 	</update>
 	
-	<!-- 입력 -->
-<!-- 	<insert id="insert">
-		INSERT INTO route(route_code, username, routename, partner_code, sday, eday)
-	    VALUES( NULL, #{username}, #{routename}, #{partner_code}, #{sday}, #{eday})
-	</insert> -->
+	<!-- 여행지 후기 삭제 -->
+	<delete id="delete" parameterType="Integer">
+	 	DELETE site_postscript 
+	 	WHERE site_postscript_rownum = #{site_postscript_rownum}
+	</delete>
+	
+	<!-- 여행지 후기 리스트 -->
+	<select id="getList" parameterType="String" resultType="List">
+		SELECT *, IF((site_postcript_rownum in (SELECT site_postscript_rownum 
+												 FROM site_postscript_like
+												 WHERE username = #{username})
+					 ),'true','false') as 'site_like'
+		FROM site_postscript
+	</select>
+	
+	<!--  여행지 후기 상세보기 -->
+	<select id="getSitePost" parameterType="Integer" resultType="com.planb_jeju.dto.SitePostscript">
+		SELECT *, IF((site_postcript_rownum in (SELECT site_postscript_rownum 
+												 FROM site_postscript_like
+												 WHERE username = #{username})
+					 ),'true','false') as 'site_like'
+		FROM site_postscript
+		WHERE site_postcript_rownum = #{site_postcript_rownum}
+	</select>
+	
+	<!-- 찜콩하기 -->
+	<insert id="insertLike" parameterType="com.planb_jeju.dto.SitePostscriptLike">
+		INSERT INTO site_postscript_like (site_postscript_like_rownum, username, site_postscript_rownum)
+		VALUES (NULL, #{username}, #{site_postscript_rownum})
+	</insert> 
+	
+	<!-- 찜콩 해제 -->
+	<delete id="deleteLike" parameterType="com.planb_jeju.dto.SitePostscriptLike">
+		DELETE route_postscript_like
+		WHERE username = #{username} AND route_postscript_rownum = #{route_postscript_rownum}
+	</delete>
+	
+	<!-- 태그 등록 -->
+	<insert id="insertTag" parameterType="com.planb_jeju.dto.SitePostscriptLike">
+		INSERT site_postscript_tag (site_postscript_tag_rownum, tag, site_postscript_rownum)
+		VALUES (NULL, ${tag}, ${site_postscript_rownum})
+	</insert>
+	
+	<!-- 태그 삭제 -->
+	<delete id="deleteTag" parameterType="Integer">
+		DELETE site_postscript_tag
+		WHERE site_postscript_rownum = ${site_postscript_rownum}
+	</delete>
+	
+	<!-- 조회수 증가 -->
+	<update id="updateHitNum" parameterType="Integer">
+		UPDATE site_postscript_tag
+		SET hitnum = hitnum + 1
+		WHERE site_postscript_rownum = ${site_postscript_rownum} 
+	</update>
+	
+	<!-- 좋아요(찜콩수) 증가 -->
+	<update id="updateLikeNum" parameterType="Integer">
+		UPDATE site_postscript_tag
+		SET likenum = likenum + 1
+		WHERE site_postscript_rownum = ${site_postscript_rownum}
+	</update>
+	
+	<!-- 사진 등록 -->
+	
+	<!-- 사진 삭제 -->
 </mapper>

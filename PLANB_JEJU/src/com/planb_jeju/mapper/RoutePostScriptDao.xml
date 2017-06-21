@@ -16,10 +16,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		public int update(RoutePostscript routePostscript);
 			
 		// 루트 후기 삭제
-		public int delete(int route_postscript_rownum, String username);
+		public int delete(int route_postscript_rownum);
 		
 		// 루트 후기 리스트
-		public List<RoutePostscript> getList();
+		public HashMap<String, RoutePostscript> getList(String username);
 		
 		// 루트 후기 상세보기
 		public RoutePostscript getRoutePost(int route_postscript_rownum);
@@ -52,38 +52,43 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 루트 후기 등록 -->
 	<insert id="insert" parameterType="com.planb_jeju.dto.RoutePostscript">
-		INSERT INTO rout_postscript (route_postscript_rownum, comment, writetime, hitnum, likenum, username, route_code)
+		INSERT INTO route_postscript (route_postscript_rownum, comment, writetime, hitnum, likenum, username, route_code)
 	    VALUES (NULL, #{comment}, #{writetime}, 0 ,0 , #{username}, #{route_code})
 	</insert>
 	
 	<!-- 루트 후기 수정 -->
 	<update id="update" parameterType="com.planb_jeju.dto.RoutePostscript">
-		UPDATE rout_postscript 
+		UPDATE route_postscript 
 		SET comment = #{comment}
 		WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</update>
 	
 	<!-- 루트 후기 삭제 -->
-	<delete id="delete">
-	 	DELETE rout_postscript WHERE rout_postscript_rownum = #{param1} AND username =#{param2}
+	<delete id="delete" parameterType="Integer">
+	 	DELETE route_postscript WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</delete>
 	
 	<!-- 루트 후기 리스트 -->
-	<select id="getList" parameterType="String" resultType="List">
-		SELECT *, IF((route_postcript_rownum in (SELECT route_postscript_rownum 
+	<select id="getList" resultType="com.planb_jeju.dto.RoutePostscript">
+		SELECT *, IF((route_postscript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
-												 WHERE username = #{username})
+												 WHERE username = #{param1})
 					 ),'true','false') as 'route_like'
-		FROM rout_postscript
+		FROM route_postscript rp
+		JOIN route r
+		ON rp.route_code = r.route_code
 	</select>
 	
-	<select id="getRoutePost" parameterType="Integer" resultType="com.planb_jeju.dto.RoutePostscript">
-		SELECT *, IF((route_postcript_rownum in (SELECT route_postscript_rownum 
+	<!-- 루트 후기 상세보기 -->
+	<select id="getRoutePost" resultType="com.planb_jeju.dto.RoutePostscript">
+		SELECT *, IF((route_postscript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
-												 WHERE username = #{username})
+												 WHERE username = #{param2})
 					 ),'true','false') as 'route_like'
-		FROM rout_postscript
-		WHERE route_postcript_rownum = #{route_postcript_rownum}
+		FROM route_postscript  rp
+		JOIN route r
+		ON rp.route_code = r.route_code
+		WHERE route_postcript_rownum = #{param1}
 	</select>
 	
 	<!-- 찜콩하기 -->
@@ -100,14 +105,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 태그 등록 -->
 	<insert id="insertTag" parameterType="com.planb_jeju.dto.RoutePostscript">
-		INSERT route_postscript_tag (route_postscript_tag_rownum, tag, route_postscript_tag)
-		VALUES (NULL, ${tag}, ${route_postscript_tag})
+		INSERT route_postscript_tag (route_postscript_tag_rownum, tag, route_postscript_rownum)
+		VALUES (NULL, ${tag}, ${route_postscript_rownum})
 	</insert>
 	
 	<!-- 태그 삭제 -->
 	<delete id="deleteTag" parameterType="Integer">
 		DELETE route_postscript_tag
-		WHERE route_postscript_tag_rownum = ${route_postscript_rownum}
+		WHERE route_postscript_rownum = ${route_postscript_rownum}
 	</delete>
 	
 	<!-- 조회수 증가 -->

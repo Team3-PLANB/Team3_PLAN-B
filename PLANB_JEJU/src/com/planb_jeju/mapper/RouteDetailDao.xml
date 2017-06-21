@@ -23,4 +23,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    
 	</insert>
 	
+	 <!-- 루트경로 여러개 가져오기 -->
+	 <select id="getRouteDetailList" resultType="com.planb_jeju.dto.RouteDetail">
+		
+		 SELECT * 
+		 FROM
+		 	route_detail
+		 WHERE
+	    	route_code = #{route_code} and username = #{username}
+	     
+	</select>	
 </mapper>

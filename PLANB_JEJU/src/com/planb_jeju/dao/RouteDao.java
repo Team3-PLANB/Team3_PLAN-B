@@ -34,8 +34,8 @@ public interface RouteDao {
 	// 루트한개 가져오기
 	public Route getRoute(int route_code, String username) throws ClassNotFoundException, SQLException;
 		
-	// 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함
-	public List<Route> getRouteList(/*int route_code, String username*/) throws ClassNotFoundException, SQLException;
+	// 추천 대상 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함
+	public List<Route> getRouteList(Map<String, Object> map) throws ClassNotFoundException, SQLException;
 	
 	
 	//게시물 수정

@@ -1,6 +1,7 @@
 package com.planb_jeju.dao;
 
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
 
 import com.planb_jeju.dto.Member;
@@ -34,15 +35,15 @@ public interface RoutePostScriptDao {
 	/*	
 	 * @description : 루트 후기 삭제
 	 * @return : int 성공 여부 ( > 0 : 성공)
-	 * @param spec : int route_postscript_rownum 삭제할 루트 후기 고유 번호, String username 삭제할 루트 후기의 작성자
+	 * @param spec : int route_postscript_rownum 삭제할 루트 후기 고유 번호
 	 */
-	public int delete(int route_postscript_rownum, String username) throws ClassNotFoundException, SQLException;
+	public int delete(int route_postscript_rownum) throws ClassNotFoundException, SQLException;
 	
 	
 	/*	
 	 * @description : 루트 후기 리스트
 	 * @return : List<RoutePostscript> 루트 후기 리스트
-	 * @param spec : String username
+	 * @param spec : String username 로그인한 회원 아이디 (찜콩 현황때문에 보내줌)
 	 */
 	public List<RoutePostscript> getList(String username) throws ClassNotFoundException, SQLException;
 	
@@ -51,7 +52,7 @@ public interface RoutePostScriptDao {
 	 * @return : RoutePostscript 루트 후기
 	 * @param spec : int 상세보기할 루트 후기 고유 번호
 	 */
-	public RoutePostscript getRoutePost(int route_postscript_rownum) throws ClassNotFoundException, SQLException;
+	public RoutePostscript getRoutePost(int route_postscript_rownum, String username) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 찜콩하기

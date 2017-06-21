@@ -113,16 +113,22 @@
 											<div class="input-field">
 												<label for="email">이메일</label> 
 												<input type="text" class="form-control" id="username" name = "username"
-													placeholder="이메일을 입력해주세요">
+													placeholder="이메일을 입력">
 												<div class="emailCheck"></div>
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear:both;margin-left:10%">
 											<div class="input-field">
 												<label for="password">비밀번호</label> 
+<<<<<<< HEAD
 												<input type="password" class="form-control" id="password"
 													placeholder="비밀번호를 입력해주세요">
 												<div class="pwdCheck" id = "pwdCheck"></div>
+=======
+												<input type="password" class="form-control" id="password" name="password"
+													placeholder="비밀번호를 입력">
+												<div class="pwdCheck"></div>
+>>>>>>> branch 'master' of https://github.com/Team3-PLANB/Team3_PLAN-B.git
 											</div>
 										</div>
 										<div class="col-xs-12">

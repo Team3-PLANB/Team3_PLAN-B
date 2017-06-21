@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 						http://www.springframework.org/schema/beans/spring-beans.xsd
 	  					http://www.springframework.org/schema/security 
-	  					http://www.springframework.org/schema/security/spring-security.xsd" >
+	  					http://www.springframework.org/schema/security/spring-security.xsd">
 
-
-<!-- 시큐리티 적용X -->
-<security:http pattern="/websockethandler/**" security="none" /> <!-- 알림관련 핸들러 -->
-<security:http pattern="/css/**" security="none" />
-<security:http pattern="/js/**" security="none" /><!-- 
-<security:http pattern="/LoginJoin/**" security="none" /> -->
+	<!-- 시큐리티 적용X -->
+	<security:http pattern="/css/**" security="none" />
+	<security:http pattern="/js/**" security="none" />
+	<security:http pattern="/websockethandler/**" security="none" /> <!-- 알림관련 핸들러 -->
+	<!-- <security:http pattern="/LoginJoin/**" security="none" /> -->
 
 <security:http use-expressions="true">
 	<security:csrf disabled="true"/>
@@ -30,7 +28,7 @@
 	 	<security:logout logout-success-url="/index.jsp" /> 
 <!-- 		<security:intercept-url pattern="/PlanA*" access="hasRole('ROLE_USER')" />  -->
 		<security:intercept-url pattern="/*" access="hasRole('ROLE_ANONYMOUS')" />
-	</security:http>
+</security:http>
 <!-- password 인코딩 -->
 <security:authentication-manager>
 	<security:authentication-provider>

@@ -27,6 +27,39 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE route_code = #{param1}, username =#{param2}
 	</select>
 	
+	<!-- // 추천 대상 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함
+	public List<Route> getRouteList(Map<String, Object> map) throws ClassNotFoundException, SQLException; -->
+	<select id="getRouteList" resultType="com.planb_jeju.dto.Route" parameterType="java.util.Map">
+		
+		<!--
+		select * from
+			(select count(pc) as countpc, rc, n from
+				(select r.route_code as rc, r.username as n, rp.personal_code as pc from route r 
+				join route_personal rp on r.username = rp.username 
+				and r.route_code = rp.route_code
+				where partner_code = 'P02' and rp.personal_code in('A0101', 'A0302')) 
+			subtable group by rc, n ) 
+		subtable2 where countpc=2; 
+		 -->
+		 SELECT rc as route_code, n as username FROM
+			(SELECT count(pc) as countpc, rc, n 
+				FROM (SELECT r.route_code as rc, r.username as n, rp.personal_code as pc 
+						FROM route r join route_personal rp 
+							on r.username = rp.username 
+					  		and r.route_code = rp.route_code
+					  	WHERE partner_code = #{partner_code} 
+					  	
+				            	and rp.personal_code in
+				                <foreach collection="personal_code" item="item" index="index" separator="," open="(" close=")">
+				                    #{item}
+				                </foreach>
+				            
+			)subtable group by rc, n ) 
+		subtable2 WHERE countpc = #{personal_code_len} ; 
+		 <!-- and n != #{username} 추가할 것 -->
+		
+	</select>	
+	
 	<!-- 삭제 -->
 	<delete id="delete">
 	 	DELETE route WHERE route_code = #{param1}, username =#{param2}
