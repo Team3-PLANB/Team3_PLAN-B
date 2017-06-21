@@ -18,26 +18,29 @@
 	<security:csrf disabled="true"/>
  	
  	<!-- 로그인 -->
- 	<security:form-login login-page="/LoginJoin/Join/NJoin.do"
+ 	<!-- login-processing-url="/LoginJoin/Login/loginok.do" -->
+ 	<security:form-login login-page="/LoginJoin/Login/NLogin.do"
+
  						 default-target-url="/MyPage/Schedule/schedule.do"
-	    				 authentication-failure-url="/PLANA.do"/>  				 
+	    				 authentication-failure-url="/"/>  				 
 	    					 
 	<!-- 로그인/가입 페이지 접근 허용 -->
 	<security:intercept-url pattern="/LoginJoin/**" access="permitAll" />    					 
 	    					 
 	 	<security:logout logout-success-url="/index.jsp" /> 
-		<security:intercept-url pattern="/PlanA/**" access="hasRole('ROLE_USER')" /> 
+<!-- 		<security:intercept-url pattern="/PlanA*" access="hasRole('ROLE_USER')" />  -->
+		<security:intercept-url pattern="/*" access="hasRole('ROLE_ANONYMOUS')" />
 	</security:http>
 <!-- password 인코딩 -->
 <security:authentication-manager>
 	<security:authentication-provider>
 		<security:jdbc-user-service data-source-ref="driverManagerDataSource"
-										users-by-username-query="select username as userid, password, 1 enabled from member where username = ?"
+										users-by-username-query="select username, password, 1 enabled from member where username = ?"
 										authorities-by-username-query="select m.username, r.ROLE_CODE
 																	   from member m join member_role r
 																	   on m.username = r.username
 																	   where m.username = ?" />
-
+		<security:password-encoder ref="bCryptPasswordEncoder"/>
 	</security:authentication-provider>
 </security:authentication-manager>
 <security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled" />
