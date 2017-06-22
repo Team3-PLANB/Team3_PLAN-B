@@ -556,6 +556,60 @@ h1, h2, h3, h4, h5, h6, figure {
   height: 44px;
   font-size: 18px;
 }
+
+
+
+.timeline > li > .timeline-badge-ch {
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  line-height: 50px;
+  font-size: 1.4em;
+  text-align: center;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  margin-left: -21px;
+  background-color: #00ad7c;
+  z-index: 100;
+  display: table;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  border-radius: 50%;
+}
+@media screen and (max-width: 768px) {
+  .timeline > li > .timeline-badge-ch {
+    margin-left: -10px !important;
+  }
+}
+@media screen and (max-width: 992px) {
+  .timeline > li > .timeline-badge-ch {
+    margin-left: -10px !important;
+  }
+}
+.timeline > li > .timeline-badge-ch i {
+  display: table-cell;
+  vertical-align: middle;
+  height: 44px;
+  font-size: 18px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .timeline > li.timeline-unverted {
   text-align: right;
 }
