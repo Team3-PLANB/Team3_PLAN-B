@@ -36,7 +36,7 @@
 								<span></span>
 								<h3>6월의 제주도</h3>
 								<span>2017.06.07-2017.06.12</span>
-								<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/views/MyPage/History/historyDetail.jsp">상세보기<i class="icon-arrow-right22"></i></a>
+								<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/History/historyDetial.do">상세보기<i class="icon-arrow-right22"></i></a>
 							</div>
 						</div>
 					</div>
@@ -46,7 +46,7 @@
 								<span></span>
 								<h3>7월의 제주도</h3>
 								<span>2017.07.07-2017.07.12</span>
-								<a class="btn btn-primary btn-outline" href="#">상세보기<i class="icon-arrow-right22"></i></a>
+								<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/History/historyDetial.do">상세보기<i class="icon-arrow-right22"></i></a>
 							</div>
 						</div>
 					</div>
@@ -56,7 +56,7 @@
 								<span></span>
 								<h3>8월의 제주도</h3>
 								<span>2017.08.07-2017.08.12</span>
-								<a class="btn btn-primary btn-outline" href="#">상세보기<i class="icon-arrow-right22"></i></a>
+								<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/History/historyDetial.do">상세보기<i class="icon-arrow-right22"></i></a>
 							</div>
 						</div>
 					</div>
