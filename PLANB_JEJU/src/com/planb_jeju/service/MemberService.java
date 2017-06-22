@@ -149,4 +149,11 @@ public class MemberService {
 		}
 		return result;
 	}
+	
+	// 회원 정보 가져오기
+	public Member getMemberInfo(String username, SqlSession sqlsession) throws Exception {
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		Member member = memberDao.getMember(username);
+		return member;
+	}
 }

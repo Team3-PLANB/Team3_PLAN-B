@@ -64,17 +64,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 여행지 후기 삭제 -->
 	<delete id="delete" parameterType="Integer">
-	 	DELETE site_postscript 
+	 	DELETE FROM site_postscript 
 	 	WHERE site_postscript_rownum = #{site_postscript_rownum}
 	</delete>
 	
 	<!-- 여행지 후기 리스트 -->
-	<select id="getList" parameterType="String" resultType="List">
-		SELECT *, IF((site_postcript_rownum in (SELECT site_postscript_rownum 
+	<select id="getList" resultType="com.planb_jeju.dto.SitePostscript">
+		SELECT *, IF((site_postscript_rownum in (SELECT site_postscript_rownum 
 												 FROM site_postscript_like
-												 WHERE username = #{username})
+												 WHERE username = #{param1})
 					 ),'true','false') as 'site_like'
-		FROM site_postscript
+		FROM site_postscript 
 	</select>
 	
 	<!--  여행지 후기 상세보기 -->
@@ -95,33 +95,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 찜콩 해제 -->
 	<delete id="deleteLike" parameterType="com.planb_jeju.dto.SitePostscriptLike">
-		DELETE route_postscript_like
-		WHERE username = #{username} AND route_postscript_rownum = #{route_postscript_rownum}
+		DELETE FROM site_postscript_like
+		WHERE username = #{username} AND site_postscript_rownum = #{site_postscript_rownum}
 	</delete>
 	
 	<!-- 태그 등록 -->
-	<insert id="insertTag" parameterType="com.planb_jeju.dto.SitePostscriptLike">
+	<insert id="insertTag" parameterType="com.planb_jeju.dto.SitePostscript">
 		INSERT site_postscript_tag (site_postscript_tag_rownum, tag, site_postscript_rownum)
 		VALUES (NULL, ${tag}, ${site_postscript_rownum})
 	</insert>
+	<!--  -->
 	
 	<!-- 태그 삭제 -->
 	<delete id="deleteTag" parameterType="Integer">
-		DELETE site_postscript_tag
+		DELETE FROM FROM site_postscript_tag
 		WHERE site_postscript_rownum = ${site_postscript_rownum}
 	</delete>
 	
 	<!-- 조회수 증가 -->
 	<update id="updateHitNum" parameterType="Integer">
-		UPDATE site_postscript_tag
+		UPDATE site_postscript
 		SET hitnum = hitnum + 1
 		WHERE site_postscript_rownum = ${site_postscript_rownum} 
 	</update>
 	
 	<!-- 좋아요(찜콩수) 증가 -->
-	<update id="updateLikeNum" parameterType="Integer">
-		UPDATE site_postscript_tag
+	<update id="upLikeNum" parameterType="com.planb_jeju.dto.SitePostscriptLike">
+		UPDATE site_postscript
 		SET likenum = likenum + 1
+		WHERE site_postscript_rownum = ${site_postscript_rownum}
+	</update>
+	
+	<!-- 좋아요(찜콩수) 감소 -->
+	<update id="downLikeNum" parameterType="com.planb_jeju.dto.SitePostscriptLike">
+		UPDATE site_postscript
+		SET likenum = likenum - 1
 		WHERE site_postscript_rownum = ${site_postscript_rownum}
 	</update>
 	

@@ -34,13 +34,12 @@ import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
 
 @Service
-public class PostscriptService {
+public class RoutePostscriptService {
 	
 	private static RoutePostScriptDao routePostscriptDao;
 	
-	SitePostScriptDao sitePostscriptDao;
 	
-	public PostscriptService(){
+	public RoutePostscriptService(){
 		
 		
 	}

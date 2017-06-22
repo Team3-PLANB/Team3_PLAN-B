@@ -2,6 +2,7 @@ package com.planb_jeju.dto;
 
 import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 public class SitePostscript {
 	private int site_postscript_rownum;
@@ -11,23 +12,23 @@ public class SitePostscript {
 	private String inoutside;
 	private String cost;
 	private String comment;
-	private Time writetime;
+	private Date writetime;
 	private int hitnum;
 	private int likenum;
 	private String username;
 	private int route_code;
 	
-	// 태그
-	private int site_postscript_tag_rownum;
-//	private int site_postscript_rownum;
-	private String tag;
+	// 태그 리스트
+	private List<SitePostscriptTag> sitePostscriptTag;
+		
+	// 로그인한 사용자의 찜콩 여부
+	private String site_like;
 	
-	
-	public SitePostscript(){}	
+	public SitePostscript(){}
 
 	public SitePostscript(int site_postscript_rownum, String site, String category, String health, String inoutside,
-			String cost, String comment, Time writetime, int hitnum, int likenum, String username, int route_code,
-			int site_postscript_tag_rownum, String tag) {
+			String cost, String comment, Date writetime, int hitnum, int likenum, String username, int route_code,
+			List<SitePostscriptTag> sitePostscriptTag, String site_like) {
 		super();
 		this.site_postscript_rownum = site_postscript_rownum;
 		this.site = site;
@@ -41,8 +42,8 @@ public class SitePostscript {
 		this.likenum = likenum;
 		this.username = username;
 		this.route_code = route_code;
-		this.site_postscript_tag_rownum = site_postscript_tag_rownum;
-		this.tag = tag;
+		this.sitePostscriptTag = sitePostscriptTag;
+		this.site_like = site_like;
 	}
 
 	public int getSite_postscript_rownum() {
@@ -101,11 +102,11 @@ public class SitePostscript {
 		this.comment = comment;
 	}
 
-	public Time getWritetime() {
+	public Date getWritetime() {
 		return writetime;
 	}
 
-	public void setWritetime(Time writetime) {
+	public void setWritetime(Date writetime) {
 		this.writetime = writetime;
 	}
 
@@ -141,20 +142,20 @@ public class SitePostscript {
 		this.route_code = route_code;
 	}
 
-	public int getSite_postscript_tag_rownum() {
-		return site_postscript_tag_rownum;
+	public List<SitePostscriptTag> getSitePostscriptTag() {
+		return sitePostscriptTag;
 	}
 
-	public void setSite_postscript_tag_rownum(int site_postscript_tag_rownum) {
-		this.site_postscript_tag_rownum = site_postscript_tag_rownum;
+	public void setSitePostscriptTag(List<SitePostscriptTag> sitePostscriptTag) {
+		this.sitePostscriptTag = sitePostscriptTag;
 	}
 
-	public String getTag() {
-		return tag;
+	public String getSite_like() {
+		return site_like;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setSite_like(String site_like) {
+		this.site_like = site_like;
 	}
 
 	@Override
@@ -162,8 +163,8 @@ public class SitePostscript {
 		return "SitePostscript [site_postscript_rownum=" + site_postscript_rownum + ", site=" + site + ", category="
 				+ category + ", health=" + health + ", inoutside=" + inoutside + ", cost=" + cost + ", comment="
 				+ comment + ", writetime=" + writetime + ", hitnum=" + hitnum + ", likenum=" + likenum + ", username="
-				+ username + ", route_code=" + route_code + ", site_postscript_tag_rownum=" + site_postscript_tag_rownum
-				+ ", tag=" + tag + "]";
+				+ username + ", route_code=" + route_code + ", sitePostscriptTag=" + sitePostscriptTag + ", site_like="
+				+ site_like + "]";
 	}	
 	
 }

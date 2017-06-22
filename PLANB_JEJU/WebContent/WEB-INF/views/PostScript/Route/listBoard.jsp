@@ -92,7 +92,7 @@
 													<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.getRoute_postscript_rownum()}">${routePostscript.getRoutename()}</a>
 												</h3>
 												<span class="comment" id="like" style="float:right;">
-													<span id="likeChange_route">찜콩
+													<span id="routeLikeChange">찜콩
 														<c:choose>
 															<c:when test="${routePostscript.getRoute_like()=='true'}">
 																<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
@@ -105,10 +105,14 @@
 													<input type="hidden" id="route_postscript_rownum" value="${routePostscript.getRoute_postscript_rownum()}">
 													<input type="hidden" id="route_like" value="${routePostscript.getRoute_like()}">
 												</span>
-												<span class="posted_by">${member.getNickname()}</span> 
+												<span class="posted_by">${routePostscript.getUsername()}</span> 
 												<span class="posted_by" style="float:right;">${routePostscript.getWritetime()}</span> 
-												<span id="tag">
-													${routePostscript.getComment()}
+												<span>
+													<span id="tag">
+														${routePostscript.getComment()}
+													</span>
+													<span id="contentElement">
+													</span>
 												</span>
 												<p><a href="#">쪽지 쓰기</a></p>
 											</div>
