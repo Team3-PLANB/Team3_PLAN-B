@@ -25,13 +25,13 @@ function frm_submit() {
 	var check = $('#saveAuthNum').val();
 
 	if($('#overOk').val() == 'false' || $('#overOk').val() == ''){
-		alert("이메일 중복 확인을 해주세요.");
+		swal("이메일 중복 확인을 해주세요.");
 		$('#username').focus();
 	}else if($('#authOk').val() == 'false' || $('#authOk').val() == ''){
-		alert('이메일 인증이 필요합니다.');
+		swal('이메일 인증이 필요합니다.');
 		$('#username').focus();
 	}else if(authnum != check){
-		alert('인증번호를 확인해주세요.');
+		swal('인증번호를 확인해주세요.');
 	} else {
 		$('#joinfrm').submit();
 	}
@@ -64,7 +64,7 @@ function authCheck(){
 				if (!result) { 
 					console.log("잘못된 값");
 				}else {
-					alert('인증번호가 발송되었습니다.');
+					swal('인증번호가 발송되었습니다.');
 					console.log(result);
 					$('#authnum').focus();
 					$('#saveAuthNum').val(result);
@@ -81,14 +81,14 @@ function authNumCheck(){
 	var check = $('#saveAuthNum').val();
 	
 	if(!authnum){
-		alert("인증번호를 입력하세요");
+		swal("인증번호를 입력하세요");
 		$('#authnum').focus();
 	}else if(authnum != check){
-		alert("인증번호가 맞지 않습니다. 확인해주세요.");
+		swal("인증번호가 맞지 않습니다. 확인해주세요.");
 		$('#authnum').focus();
 		authnum = "";
 	}else if(authnum == check){
-		alert("인증완료");
+		swal("인증완료");
 		$('#authOk').val('true');
 	}
 }

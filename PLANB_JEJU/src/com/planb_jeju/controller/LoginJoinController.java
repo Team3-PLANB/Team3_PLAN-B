@@ -94,7 +94,7 @@ public class LoginJoinController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping("Login/loginok.do")
-	public String nLoginOK(HttpSession session,Principal principal) throws ClassNotFoundException, SQLException{
+	public String nLoginOK(Principal principal) throws ClassNotFoundException, SQLException{
 		System.out.println("loginok");	
 		return "Main.mainpage";
 	}
