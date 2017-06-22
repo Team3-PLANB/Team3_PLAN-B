@@ -5,32 +5,32 @@
 	<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
 	
 
-	<link rel="stylesheet" href="css/Mypage/history/animate.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Mypage/history/animate.css">
 
-	<link rel="stylesheet" href="css/Mypage/history/icomoon.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Mypage/history/icomoon.css">
 
-	<link rel="stylesheet" href="css/Mypage/history/bootstrap.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Mypage/history/bootstrap.css">
 
-	<link rel="stylesheet" href="css/Mypage/history/style.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/Mypage/history/style.css">
 
-	<script src="js/mypage/history/modernizr-2.6.2.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/modernizr-2.6.2.min.js"></script>
 	
 	<!-- jQuery -->
-	<script src="js/mypage/history/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.min.js"></script>
 	<!-- jQuery Easing -->
-	<script src="js/mypage/history/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script src="js/mypage/history/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/bootstrap.min.js"></script>
 	<!-- Waypoints -->
-	<script src="js/mypage/history/jquery.waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.waypoints.min.js"></script>
 	<!-- Stellar Parallax -->
-	<script src="js/mypage/history/jquery.stellar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.stellar.min.js"></script>
 	<!-- Easy PieChart -->
-	<script src="js/mypage/history/jquery.easypiechart.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.easypiechart.min.js"></script>
 	
 	
 	<!-- Main -->
-	<script src="js/mypage/history/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/main.js"></script>
 
 </head>
 <body>
