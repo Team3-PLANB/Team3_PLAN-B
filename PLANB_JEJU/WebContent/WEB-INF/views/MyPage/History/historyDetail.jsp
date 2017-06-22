@@ -1,3 +1,10 @@
+<%--
+@Project : PLANB_JEJU
+@File name : historyDetail.jsp 
+@Author : 임정연
+ @Data : 2017.06.22
+@Desc : 히스토리 상세보기
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
@@ -52,7 +59,7 @@
 
 
 
-<!-- 히스토리 과정 보여주기  -->
+<%----------------------------------수정 내역 보여주기 스타일&스크립트 ----------------------------------------%>
 <style>
 body {
 	font-family: arial, helvetica;
@@ -98,15 +105,8 @@ body {
 
 </head>
 <body>
-
-
-
-
 	<div class="fh5co-loader"></div>
-
 	<div id="page">
-
-
 		<div id="fh5co-resume" class="fh5co-bg-color">
 			<div class="container">
 				<div class="row animate-box">
@@ -127,10 +127,6 @@ body {
 								<div class="timeline-badge">
 									<i class="icon-map-pin"></i>
 								</div>
-
-
-
-
 								<div class="timeline-panel">
 									<div class="timeline-heading">
 										<h3 class="timeline-title">한라산</h3>
@@ -152,31 +148,36 @@ body {
 								<div class="timeline-panel">
 
 									<div class="timeline-heading">
-
+										<%----------------------------------플랜비 받은 부분 ----------------------------------------%>
 										<h3 class="timeline-title">테디베어 뮤지엄</h3>
 										<span class="company">2017.06.22</span>
 										<div class="accordion">
 											<div class="item">
 												<div class="heading" align="center">수정 내역 보기</div>
-												<div class="content" style="width: 650px; height:350px;">
+												<div class="content" style="width: 650px; height: 350px;">
 													<div style="width: 200px">
 														<h2 align="center">PLAN'A</h2>
 														<img
 															src="${pageContext.request.contextPath}/images/MyPage/history.jpg"
-															align="center" /><br><br>
+															align="center" /><br>
+														<br>
 														<p align="center">협재해변</p>
 													</div>
-													<div style="width: 150px; position: relative;left: 250px;bottom:230px;">
+													<div
+														style="width: 150px; position: relative; left: 250px; bottom: 230px;">
 														<img
 															src="${pageContext.request.contextPath}/images/MyPage/arrow.png"
-															align="center" width="100px" height="100px"/><br><br>
-															<p>&nbsp;&nbsp;&nbsp;&nbsp;건강 악화</p>
+															align="center" width="100px" height="100px" /><br>
+														<br>
+														<p>&nbsp;&nbsp;&nbsp;&nbsp;건강 악화</p>
 													</div>
-													<div style="width: 200px;position: relative;left: 400px;bottom:515px;">
+													<div
+														style="width: 200px; position: relative; left: 400px; bottom: 515px;">
 														<h2 align="center">PLAN'B</h2>
 														<img
 															src="${pageContext.request.contextPath}/images/MyPage/history.jpg"
-															align="center" /><br><br>
+															align="center" /><br>
+														<br>
 														<p align="center">테디베어 뮤지엄</p>
 													</div>
 												</div>

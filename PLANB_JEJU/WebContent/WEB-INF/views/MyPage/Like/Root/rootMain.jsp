@@ -1,9 +1,9 @@
 <%--
 @Project : PLANB_JEJU
-@File name :listBoard.jsp 
+@File name : rootMain.jsp 
 @Author : 임정연
 @Data : 2017.06.16
-@Desc : 루트 후기 게시판의 리스트
+@Desc : 찜한 루트 후기의 리스트
 --%>
 
 

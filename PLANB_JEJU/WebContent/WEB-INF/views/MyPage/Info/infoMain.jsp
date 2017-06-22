@@ -1,4 +1,10 @@
-
+<%--
+@Project : PLANB_JEJU
+@File name : infoMain.jsp 
+@Author : 임정연
+ @Data : 2017.06.22
+@Desc : 회원정보수정
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <script>
