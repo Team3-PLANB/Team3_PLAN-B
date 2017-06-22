@@ -2,6 +2,8 @@ package com.planb_jeju.controller;
 
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
 
 /*
 * @FileName : LoginJoinController.java
@@ -21,7 +23,12 @@ import javax.swing.text.View;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
@@ -35,8 +42,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import com.planb_jeju.dao.MemberDao;
-import com.planb_jeju.dao.RollDAO;
+import com.planb_jeju.dao.RoleDAO;
 import com.planb_jeju.dto.Member;
+import com.planb_jeju.dto.Role;
 import com.planb_jeju.service.MemberService;
 
 @Controller
@@ -44,7 +52,7 @@ import com.planb_jeju.service.MemberService;
 public class LoginJoinController {
 
 	private static MemberDao memberDao;
-	private static RollDAO rolldao;
+	private static RoleDAO roledao;
 	private static Member member;
 	
 	@Autowired
@@ -53,8 +61,6 @@ public class LoginJoinController {
 	@Autowired
 	private MemberService memberservice;
 
-	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	/*
 	* @date : 2017. 6. 16
@@ -78,6 +84,7 @@ public class LoginJoinController {
 	 */
 	@RequestMapping("Join/Logout.do")
 	public String logout() {
+		System.out.println("logoutok");
 		return "Main.mainpage";
 	}
 	
@@ -88,18 +95,7 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Login/loginok.do")
 	public String nLoginOK(HttpSession session,Principal principal) throws ClassNotFoundException, SQLException{
-		System.out.println("loginok");
-		User principal2 = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		System.out.println("prin2 : "+principal2);
-		
-		SecurityContext context = SecurityContextHolder.getContext();
-		Authentication auth = context.getAuthentication();
-		UserDetails userinfo = (UserDetails)auth.getPrincipal();
-		
-		System.out.println(userinfo.getUsername());
-		System.out.println(auth.getAuthorities());
-		System.out.println(auth.isAuthenticated());
-	
+		System.out.println("loginok");	
 		return "Main.mainpage";
 	}
 	
@@ -145,9 +141,16 @@ public class LoginJoinController {
 	* @return : String(ResponseBody) 
 	*/
 	@RequestMapping("Join/fbjoin.do")
-	public @ResponseBody void fbjoin(String username, String fbaccesstoken, String nickname) throws Exception {
+	public @ResponseBody void fbjoin(String username, String password, String nickname) throws Exception {
+		int result = 0;
+		int roleResult = 0;
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		memberDao.fbjoin(username,fbaccesstoken.substring(0, 10), nickname);
+		roledao = sqlsession.getMapper(RoleDAO.class);
+		result = memberDao.fbjoin(username,password.substring(0, 10), nickname);
+		roleResult = roledao.insertRole(username);
+
+		System.out.println("insert : " + result);
+		System.out.println("roleresult: " + roleResult);
 	}
 
 	/*
@@ -171,9 +174,22 @@ public class LoginJoinController {
 	@RequestMapping("Join/fblogin.do")
 	public @ResponseBody String fblogin(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		String result = memberDao.getFBpassword(username);
-		
-		return result;
+		roledao = sqlsession.getMapper(RoleDAO.class);
+		System.out.println("getFBRole >>> "+roledao.getFbRole(username));
+		Role role = roledao.getFbRole(username);
+		System.out.println("getRole_code >>> "+role);
+//		String result = memberDao.getFBpassword(username);
+		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
+		authorities.add(new SimpleGrantedAuthority(role.getROLE_NAME()));
+
+		UsernamePasswordAuthenticationToken authRequest = new UsernamePasswordAuthenticationToken(role.getUsername(), role.getPassword(), authorities);
+			
+		SecurityContext context = SecurityContextHolder.getContext();
+		context.setAuthentication(authRequest);
+		System.out.println("authRequest" +authRequest);
+//		Authentication auth = context.getAuthentication();
+//		UserDetails userinfo = (UserDetails)auth.getPrincipal();
+		return "true";
 	}	
 
 	/*
@@ -197,7 +213,7 @@ public class LoginJoinController {
 	/*
 	* @date : 2017. 6. 17
 	* @description : 회원가입 완료
-	* @return : Model(Ajax 처리)
+	* @return : String
 	* @param spec : String
 	*/
 	@RequestMapping(value="Join/joinok.do", method=RequestMethod.POST)
@@ -206,12 +222,12 @@ public class LoginJoinController {
 		String viewpage = "";
 		
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		rolldao = sqlsession.getMapper(RollDAO.class);
+		roledao = sqlsession.getMapper(RoleDAO.class);
 		result = memberDao.insert(member);
 		
-		int rollResult = rolldao.insertRoll(member.getUsername());
+		int roleResult = roledao.insertRole(member.getUsername());
 		System.out.println("insert : " + result);
-		if (result > 0 && rollResult > 0) {  
+		if (result > 0 && roleResult > 0) {  
 			viewpage = "LoginJoin.Join.NJoin.joinForm";
 		} else {
 			viewpage = "LoginJoin.Join.NJoin.joinForm";
