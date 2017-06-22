@@ -2,7 +2,7 @@
 @Project : PLANB_JEJU
 @File name : myPageMain.jsp 
 @Author : 임정연
- @Data : 2017.06.22
+@Data : 2017.06.22
 @Desc : 마이페이지의 헤더
 --%>
 
