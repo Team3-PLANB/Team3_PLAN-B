@@ -41,9 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			subtable group by rc, n ) 
 		subtable2 where countpc=2; 
 		 -->
-		 SELECT rc as route_code, n as username FROM
-			(SELECT count(pc) as countpc, rc, n 
-				FROM (SELECT r.route_code as rc, r.username as n, rp.personal_code as pc 
+		 SELECT rc as route_code, n as username, routename FROM
+			(SELECT count(pc) as countpc, rc, n, routename 
+				FROM (SELECT r.route_code as rc, r.username as n, rp.personal_code as pc, r.routename as routename 
 						FROM route r join route_personal rp 
 							on r.username = rp.username 
 					  		and r.route_code = rp.route_code

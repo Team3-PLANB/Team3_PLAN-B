@@ -160,7 +160,7 @@ public class PlanAController {
 		if(routeList.size()>0){
 			System.out.println("여행지 추천 결과"+routeList.toString());
 			
-			Map<Integer, Object> routeDetailMap = routeDetailService.getRouteDetailList(routeList);
+			Map<String, Object> routeDetailMap = routeDetailService.getRouteDetailList(routeList);
 			
 			System.out.println("여행지 경로 상세 결과");
 			System.out.println(routeDetailMap.toString());

@@ -1,8 +1,9 @@
 <%--
 @Project : PLANB_JEJU
 @File name : detail.jsp 
-@Author : 임정연
- @Data : 2017.06.16
+@Author : 임정연 & 정다혜
+@Data : 2017.06.16 & 2017.06.21
+@Last Edit Data : 2017.06.21
 @Desc : 루트 후기 게시판의 상세보기
 --%>
 
@@ -10,8 +11,8 @@
 
 
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -26,9 +27,7 @@
 
 <link rel="shortcut icon" href="favicon.ico">
 
-<link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
-	rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/icomoon.css">
 <link rel="stylesheet" href="css/bootstrap.css">
@@ -41,6 +40,8 @@
 <link rel="stylesheet" href="css/style.css">
 
 <script src="js/modernizr-2.6.2.min.js"></script>
+
+<script src="${pageContext.request.contextPath}/js/postscript/postscript.js"></script>
 </head>
 <body>
 	<div id="fh5co-wrapper">
@@ -57,7 +58,7 @@
 					<div class="row row-bottom-padded-md">
 						<%------------------------------제목 부분 ----------------------------------------%>
 						<div class="col-md-12 animate-box">
-							<h2 class="heading-title">드라이브를 맘껏 즐길 수 있었던 일주일~</h2>
+							<h2 class="heading-title">${routePostscript.getRoutename()}</h2>
 						</div>
 
 						<%------------------------------이미지와 태그 부분 ----------------------------------------%>
@@ -69,13 +70,13 @@
 									<span class="p-flight">태그</span>
 								</div>
 								<div class="desc">
-
 									<div class="left">
-										<span class="price"> <!-- <i class="icon-arrow-down22"></i> -->
-											#활동적#드라이브#자연#맑음#행복#또가자#제주감귤
+										<span class="price" > <!-- <i class="icon-arrow-down22"></i> -->
+											<span id="tag">
+												${routePostscript.getComment()}
+											</span>
 										</span>
 									</div>
-
 								</div>
 							</a>
 						</div>
@@ -85,10 +86,19 @@
 							<br>
 							<div class="box-testimony animate-box">
 								<blockquote>
-									<span class="quote"><span><i
-											class="icon-quotes-right"></i></span></span>
-									<p>&ldquo;저는 드라이브를 무척 좋아하는 편인데 첫 여행지부터 드라이브 코스를 추천해줘서 정말 기분
-										좋았습니다ㅎㅎ&rdquo;</p>
+									<span class="quote">
+										<span>
+											<i class="icon-quotes-left"></i>
+										</span>
+									</span>
+									<span id="contentElement">
+										${routePostscript.getComment()}
+									</span>
+									<span class="quote">
+										<span>
+											<i class="icon-quotes-right"></i>
+										</span>
+									</span>
 								</blockquote>
 							</div>
 
@@ -98,19 +108,32 @@
 
 								<div class="blog-text">
 									<div class="prod-title">
-										<span class="comment"><a href="">찜콩<i
-												class="icon-bubble2"></i></a></span>
+										<span class="comment" id="like" style="float:right;">
+											<span id="likeChange_route">찜콩
+												<c:choose>
+													<c:when test="${routePostscript.getRoute_like()=='true'}">
+														<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
+													</c:when>
+													<c:otherwise>
+														<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
+													</c:otherwise>
+												</c:choose>
+											</span>
+											<input type="hidden" id="route_postscript_rownum" value="${routePostscript.getRoute_postscript_rownum()}">
+											<input type="hidden" id="route_like" value="${routePostscript.getRoute_like()}">
+										</span>
 									</div>
 								</div>
-								<br> <input type="submit" value="히스토리"
-									class="btn btn-primary">
+								<br> 
+								<input type="submit" value="히스토리" class="btn btn-primary">
 							</div>
 
 						</div>
 						<br>
 						<div align="right">
-							<a href="PostScript_Board_Site.jsp">목록으로<i
-								class="icon-arrow-right22"></i></a>
+							<a href="PostScript_Board_Site.jsp">목록으로
+								<i class="icon-arrow-right22"></i>
+							</a>
 						</div>
 
 					</div>

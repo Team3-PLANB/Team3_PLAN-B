@@ -26,8 +26,7 @@
 <!-- 페이지 유형 파악 -->
 
 
-
-<%-- <c:if test="${requestScope.pageCase=='siteRecommendPage'}">
+<%-- <c:if test="${requestScope.pageCase=='routeRecommendPage'}">
             	<c:forEach var="item" items="${requestScope.siteList}" >
 				     장소 : ${item.site}
 				     위도 : ${item.lat}
@@ -48,11 +47,17 @@ $( function() {
  } );
       //초기화 함수
         function init(){
+        	//pr_3857 인스탄스 생성. (Google Mercator)
+			var pr_3857 = new Tmap.Projection("EPSG:3857");
+			 
+			//pr_4326 인스탄스 생성. (WGS84 GEO)
+			var pr_4326 = new Tmap.Projection("EPSG:4326");
+			
             /* centerLL = new Tmap.LonLat(14145677.4, 4511257.6); */
             centerLL = new Tmap.LonLat(14085866.64992, 3963136.5754785);
             map = new Tmap.Map({div:'map_div',
-                                width:'80%', 
-                                height:'400px',
+                                width:'77%', 
+                                height:'610px',
                                 transitionEffect:"resize",
                                 animation:true
                             }); 
@@ -70,37 +75,84 @@ $( function() {
             markerLayer = new Tmap.Layer.Markers();
             map.addLayer(markerLayer);
             /* searchRoute(); */
-            
-            
-            
             <c:choose>
 				<c:when test="${requestScope.pageCase=='siteRecommendPage'}">
 					<c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> 
-		        	
+					    
+						//추천 여행지 마커 추가하기 
 		            	addSiteMarkers(${item.lon}, ${item.lat}, '${item.site}');
 			      	
 					</c:forEach>
 				</c:when>
 				
 				<c:when test="${requestScope.pageCase=='routeRecommendPage'}">
-					<c:forEach var="item" items="${requestScope.routeMap}" varStatus="itemnum"> 
-						<c:forEach var="i" items="${item.value}" varStatus="inum">
-			            	console.log('루트!!!추천!!');
-			            	
-			            	console.log('${i}');
-			            </c:forEach>
+					<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
+				    
+						//경로 이름 버튼 생성
+						console.log('${item.key}');
+						/* $('#schedulebox2').append('${item.key}'); */
+						
+						
+					
+						//벡터레이어 생성
+						var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
+						map.addLayers([vector_layer]); 
+						
+						
+						
+						//polyline 좌표 배열.
+						var pointList = [];
+					
+						<c:forEach var="i" items="${item.value}" varStatus="num">
+							
+							/* console.log('${i.site}');
+							console.log('${i.lon}');
+							console.log('${i.lat}'); */
+							 var pointlonlat = new Tmap.LonLat(${i.lon}, ${i.lat}).transform(pr_4326, pr_3857);
+							pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
+							addSiteMarkers(${i.lon}, ${i.lat}, '${i.site}');
+						</c:forEach>
+						
+						//좌표 배열 객체화
+						var lineString = new Tmap.Geometry.LineString(pointList);
+						
+						var style_bold = {fillColor:"#FE9A2E",
+							     fillOpacity:0.2,
+							     strokeColor: "#FE9A2E",
+							     strokeWidth: 3,
+							     strokeDashstyle: "solid"};
+					
+						
+						var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
+						 
+						 
+						vector_layer.addFeatures([mLineFeature]);
+						
+						
+						 //Feature Select 추가
+						 /* select = new Tmap.Control.SelectFeature(vector_layer, {hover: false, onSelect: onFeatureSelect() });
+				         map.addControl(select);
+				         select.activate();
+				         vector_layer.events.on({
+				             "featureselected": onFeatureSelect()
+				         }); */
+						
 					</c:forEach>
+				
+				/*var selectCtrl = new Tmap.Control.SelectFeature(vectors,
+				     {clickout: true}
+				);  */
+						 
+						
+						
 				</c:when>
 			</c:choose>
-            
-            
-            
-            
            
-        	
+        	 
         };
         
-      //추천 여행지 마커 추가하기 
+       
+        //추천 여행지 마커 추가하기 
         function addSiteMarkers(lon, lat, site){
     	  
      		
@@ -115,19 +167,7 @@ $( function() {
 	  
 	       	var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); /* 마커 아이콘 */
 	     
-	       /* 	<c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> */
-	        	
-			  	/* var marker = new Tmap.Markers(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon, new Tmap.Label('${item.site}'));
-		      	markerLayer.addMarker(marker);  */
-		      	/* if(${num.index}=='1'){
-		      		var marker1 = new Tmap.Markers(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon, new Tmap.Label('${item.site}'));
-			      	markerLayer.addMarker(marker1);
-		      	}  */
-		      	
-		        /* var num${num.index} = new Tmap.Markers(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon, new Tmap.Label('${item.site}'));
-		      	markerLayer.addMarker(num${num.index});  */
-		      	
-			/* </c:forEach> */
+	       
 		      	
 		     var marker = new Tmap.Markers(new Tmap.LonLat(lon, lat).transform(pr_4326, pr_3857), icon, new Tmap.Label(site));
 		     markerLayer.addMarker(marker); 	
@@ -150,20 +190,13 @@ $( function() {
 	     }
         //맵 클릭시 이벤트 함수 -> 마커 출력
         function onClickMap(evt){
-            /* console.log(evt.clientX);
             
-            console.log(evt.clientY);
-            console.log(map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY)));
-            
-            console.log('2'); */
-            /* console.log(lonlat); */
-            /* var lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,evt.clientY)); */
             lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,(evt.clientY-80)));/* header 높이 만큼 처리 */
             
              
-            console.log(lonlat);
+           /*  console.log(lonlat);
             console.log(lonlat.lat);
-            console.log(lonlat.lon); 
+            console.log(lonlat.lon);  */
            /*  var markerLayer = new Tmap.Layer.Markers(); *//* 마커 뿌릴 레이어 추가 */
             /* map.addLayer(markerLayer); */
             
@@ -180,16 +213,16 @@ $( function() {
             var marker = new Tmap.Markers(lonlat, icon, label);
             markerLayer.addMarker(marker);
            
-            console.log(marker);
+            /* console.log(marker);
             console.log(markerLayer.markers);
-            console.log(markerLayer.markers.length);
+            console.log(markerLayer.markers.length); */
             
             /* markers.markers[0].popup.setContentHTML("수정할 label의 html 문자열"); */
-            console.log(markerLayer.markers[0].lonlat);
+            /* console.log(markerLayer.markers[0].lonlat); */
             
-            if(marker.labelHtml=='0'){
+            /* if(marker.labelHtml=='0'){
             	 console.log(marker.labelHtml);
-            }
+            } */
         }
         
         /* alert(map.getLonLatFromPixel(
@@ -396,9 +429,9 @@ $( function() {
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script
-	src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
+<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
+<!-- <script
+	src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script> -->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="shortcut icon" href="favicon.ico">
@@ -610,12 +643,12 @@ style="display: block; height: 458px;" */
 	<!-- 이놈은 아님 -->
 	<div id="accordion2"
 		style="overflow: auto; width: 450px; height: 650px;">
-		<div class="group">
+		<div class="group" style="width: 280px;">
 			<h3>DAY 1</h3>
 			<!--min-height   -->
 			<div>
 				<div class="sortable">
-					<div class="sch_content" style="width: 280px;">
+					<div class="sch_content" style="width: 250px;">
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
@@ -635,24 +668,19 @@ style="display: block; height: 458px;" */
 								</div>
 							</div>
 						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
 					</div>
-					<div class="sch_content" style="width: 280px;">
+					
+					<div class="sch_content" style="width: 250px;">
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
 							onerror="this.src='/res/img/common/no_img/sight55.png';"
 							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
 							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
+						<div class="spot_content_box" style="width: 130px;">
 							<div class="spot_name"
 								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">222</div>
+								style="cursor: pointer;">2번</div>
 							<div class="spot_info">
 								<div class="tag">유명한거리/지역</div>
 								<div class="sinfo_line"></div>
@@ -662,42 +690,11 @@ style="display: block; height: 458px;" */
 								</div>
 							</div>
 						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
 					</div>
-
-					<%-- <div class="sch_content" style="width:280px;">
-        <img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-         alt="" class="spot_img"
-         onerror="this.src='/res/img/common/no_img/sight55.png';"
-         onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-         style="cursor: pointer;">
-    <div class="spot_content_box" style="width:150px;">
-         <div class="spot_name"
-          onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-          style="cursor: pointer;">333 </div>
-     <div class="spot_info">
-     <div class="tag">유명한거리/지역</div>
-     <div class="sinfo_line"></div>
-     <div class="sinfo_txt" style="padding:0px">
-     <img src="<%= request.getContextPath() %>/css/history/like.png" style="height : 20px">
-       6 / 10 <span>1개의 평가</span>
-     </div>
-     </div>
-     </div>
-     		<div class="spot_btn_box">
-        		<img src="<%= request.getContextPath() %>/css/history/map_ico.png" alt="" class="spot_btn map_view" onclick="set_center(33.51010100,126.48125500)">
-        	</div>
-     	 </div> --%>
-
 				</div>
 			</div>
 		</div>
-		<div class="group">
+		<div class="group" style="width: 280px;">
 			<h3>DAY 2</h3>
 			<div>
 				<div class="sortable">
@@ -814,7 +811,7 @@ style="display: block; height: 458px;" */
 			</div>
 		</div>
 
-		<div class="group">
+		<div class="group" style="width: 280px;">
 			<h3>DAY 3</h3>
 			<div>
 				<div class="sortable">
@@ -984,23 +981,15 @@ style="display: block; height: 458px;" */
 
 
 
+<%-- ----------------------------------지도 부분---------------------------------------- --%>
 
 
-
-
-
-
-
-
-
-<%----------------------------------지도 부분----------------------------------------%>
-
-<div id="tocheck"></div>
-<div id="body_map">
-	<div id="map_div" style="float: left; position: absolute"></div>
-	<div id="route_float">
+<div id="body_map" >
+	<div id="map_div" style="float: left; position:relative; bottom:635px; left:300px;"></div>
+	
+</div>
+<div id="route_float">
 		<input type="button" id="btn" value="길찾기"
 			class="btn btn-primary btn-outline btn-lg" onclick="search()" />
 	</div>
-</div>
 </html>

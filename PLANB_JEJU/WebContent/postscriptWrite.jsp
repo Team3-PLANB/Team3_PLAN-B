@@ -46,8 +46,12 @@
 
 
 <script src="js/jquery.min.js"></script>
-<script src="js/jquery.easing.1.3.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
+
+<!-- 
+계속 죽일지는 차후 확인
+<script src="js/jquery.easing.1.3.js"></script>
 <script src="js/jquery.waypoints.min.js"></script>
 <script src="js/sticky.js"></script>
 <script src="js/jquery.stellar.min.js"></script>
@@ -58,74 +62,13 @@
 <script src="js/bootstrap-datepicker.min.js"></script>
 <script src="js/classie.js"></script>
 <script src="js/selectFx.js"></script>
-<script src="js/main.js"></script>
-
-
-
-
-
-<script type="text/javascript">
-	/* 첫번째 체크박스 중복체크 X  */
-	function doOpenCheck(chk) {
-		var obj = document.getElementsByName("aaa");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-	/* 두번째 체크박스 중복체크 X  */
-	function doOpenCheck2(chk) {
-		var obj = document.getElementsByName("bbb");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-	/* 세번째 체크박스 중복체크 X  */
-	function doOpenCheck3(chk) {
-		var obj = document.getElementsByName("ccc");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-</script>
+ -->
 
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!-- 상세보기 일정 -->
 
 
 <link rel="stylesheet" href="css/PostScript/jquery-ui.css">
@@ -302,6 +245,41 @@ style="display: block; height: 458px;" */
 
 	});
 </script>
+
+
+<script>
+	/* 첫번째 체크박스 중복체크 X  */
+	function doOpenCheck(chk) {
+		var obj = document.getElementsByName("aaa");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+	/* 두번째 체크박스 중복체크 X  */
+	function doOpenCheck2(chk) {
+		var obj = document.getElementsByName("bbb");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+	/* 세번째 체크박스 중복체크 X  */
+	function doOpenCheck3(chk) {
+		var obj = document.getElementsByName("ccc");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+</script>
+
+
+
+
 </head>
 
 
@@ -569,171 +547,8 @@ style="display: block; height: 458px;" */
 				</div>
 			</div>
 		</div>
-
-		<div class="group" style="width: 400px;">
-			<h3>DAY 3</h3>
-			<div>
-				<div class="sortable">
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">1번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">22</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-
-
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">333</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">444</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">555</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</div>
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <div class="container"
@@ -769,36 +584,29 @@ style="display: block; height: 458px;" */
 					</div>
 
 
-					<div role="tabpanel" class="tab-pane" id="step2">
-						<div class="table-responsive">
-							
-
-
-
-
-
-
-
-
-
-
-
-							
-							<section role="main" class="l-main">
-								
-								<div class="uploader__box js-uploader__box l-center-box">
-									<form action="your/nonjs/fallback/" method="POST">
-										<div class="uploader__contents">
-											<label class="button button--secondary" for="fileinput">Image
-												Files</label> <input id="fileinput" class="uploader__file-input"
-												type="file" multiple value="Select Files">
-										</div>
-										<input class="button button--big-bottom" type="submit"
-											value="Upload Selected Files">
-									</form>
-								</div>
-							</section>
-							<script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+<div role="tabpanel" class="tab-pane" id="step2">
+	<div class="table-responsive">
+		<section role="main" class="l-main">
+			<div class="uploader__box js-uploader__box l-center-box">
+				<form action="your/nonjs/fallback/" method="POST">
+					<div class="uploader__contents">
+						<label class="button button--secondary" for="fileinput">ImageFiles</label> 
+							<input id="fileinput" class="uploader__file-input" type="file" multiple value="Select Files">
+					</div>
+						<input class="button button--big-bottom" type="submit"
+					    value="Upload Selected Files">
+		  	  </form>
+		    </div>
+		</section>
+		
+		
+		
+		
+							<!--
+							 이새끼 충돌
+							 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
+							 -->
+							 
 							<script src="dist/jquery.imageuploader.js"></script>
 							<script>
 								(function() {
@@ -806,7 +614,7 @@ style="display: block; height: 458px;" */
 									$('.js-uploader__box').uploader(options);
 								}());
 							</script>
-							<script type="text/javascript">
+							<script>
 								var _gaq = _gaq || [];
 								_gaq.push([ '_setAccount', 'UA-36251023-1' ]);
 								_gaq.push([ '_setDomainName',
@@ -815,7 +623,7 @@ style="display: block; height: 458px;" */
 
 								(function() {
 									var ga = document.createElement('script');
-									ga.type = 'text/javascript';
+								
 									ga.async = true;
 									ga.src = ('https:' == document.location.protocol ? 'https://ssl'
 											: 'http://www')
@@ -825,26 +633,6 @@ style="display: block; height: 458px;" */
 									s.parentNode.insertBefore(ga, s);
 								})();
 							</script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 							<br> <input type="text" class="form-control"

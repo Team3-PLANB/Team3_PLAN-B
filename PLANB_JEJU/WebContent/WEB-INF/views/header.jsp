@@ -18,19 +18,8 @@
 					<!-- START #fh5co-menu-wrap -->
 					<nav id="fh5co-menu-wrap" role="navigation">
 						<ul class="sf-menu sf-js-enabled sf-arrows" id="fh5co-primary-menu" style="touch-action: pan-y;">
-							<li class="active"><a href="${pageContext.request.contextPath}/index.jsp">HOME</a></li>
-							<!-- ROLE_USER만 : 클릭 시 로그인 페이지로 이동 > 수정할거야 -->
-							<%-- <security:authorize access ="isAnonymous()">							
-								<li>
-									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">일정만들기</a>
-								</li>
-							</security:authorize> --%>
-							<%-- <security:authorize access="isAuthenticated()">
-								<li><a href="${pageContext.request.contextPath}/PLANA.do">일정만들기</a></li>
-							</security:authorize> --%>
-							
+							<li class="active"><a href="${pageContext.request.contextPath}/index.jsp">HOME</a></li>			                 
 							<li><a href="${pageContext.request.contextPath}/PLANA.make.do">일정만들기</a></li>
-							
 							<li><a href="${pageContext.request.contextPath}/PostScript/Route/List.do">후기게시판</a></li>
 							<!-- ROLE_USER만 : 로그인 시 보이는 탭-->
 						 	<security:authorize access="hasRole('ROLE_USER')">	
@@ -46,19 +35,18 @@
 									</ul>
 								</li>
 							</security:authorize>
-							<security:authorize access ="isAnonymous()">							
+							<security:authorize access="!hasRole('ROLE_USER')">
+							<%-- <security:authorize access ="isAnonymous()"> --%>
 								<li>
-									<a href="${pageContext.request.contextPath}/LoginJoin/Login/NLogin.do">LOGIN</a>
+									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
 								</li>
 							</security:authorize>
 							<!-- 로그아웃 -->
-							<security:authorize access="isAuthenticated()">
-								<form action="${logoutUrl}" method="post"
-					                class="navbar-form navbar-right">
-					                <button type="submit" class="btn btn-default">로그아웃</button>
-			            		</form>
-							</security:authorize>
-						</ul>
+						    <security:authentication property="name" var="loginUser"/>
+							<security:authorize access="hasRole('ROLE_USER')">
+								<li><a href="${pageContext.request.contextPath}/logout">${loginUser }로그아웃</a></li>
+			            	</security:authorize>
+			           </ul>
 					</nav>
 				</div>
 		</div>
