@@ -27,7 +27,7 @@ public interface MemberDao {
 	 * @return : int
 	 * @param spec : x
 	 */
-	public void fbjoin(String username, String password, String nickname) throws ClassNotFoundException, SQLException;
+	public int fbjoin(String username, String password, String nickname) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 회원가입 시 이메일 중복확인

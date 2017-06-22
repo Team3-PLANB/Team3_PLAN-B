@@ -35,7 +35,7 @@
 									</ul>
 								</li>
 							</security:authorize>
-							<security:authorize access="!hasRole('ROLE_USER')">
+							<security:authorize access="!isAuthenticated()">
 							<%-- <security:authorize access ="isAnonymous()"> --%>
 								<li>
 									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
@@ -43,7 +43,7 @@
 							</security:authorize>
 							<!-- 로그아웃 -->
 						    <security:authentication property="name" var="loginUser"/>
-							<security:authorize access="hasRole('ROLE_USER')">
+							<security:authorize access="isAuthenticated()">
 								<li><a href="${pageContext.request.contextPath}/logout">${loginUser }로그아웃</a></li>
 			            	</security:authorize>
 			           </ul>

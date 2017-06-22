@@ -87,10 +87,14 @@ function login() {
 									url : "fblogin.do",
 									data : {"username" : username},
 									success : function(result) {// 로그인성공
-										console.log("로그인 성공");
-										document.getElementById('username').value = username;
-										document.getElementById('password').value = result;
-										$('#loginfrm').submit();
+										if (result == "true") {
+											console.log("페북로그인 성공");
+											location.href = "../../Index/main.do";
+										}
+										//console.log("로그인 성공" + result);
+										//document.getElementById('username').value = username;
+										//document.getElementById('password').value = result;
+										//$('#loginfrm').submit();
 									},
 									error : function(error) {// 로그인실패
 										alert(error.statusText);
@@ -104,14 +108,14 @@ function login() {
 									url  : "fbjoin.do",
 									data : {
 										"username" : username,
-										"fbaccesstoken" : response.authResponse.accessToken,
+										"password" : response.authResponse.accessToken,
 										"nickname" : username
 										// userid가 email, username이 사용자 이름으로 넘어와서
 										// userid를 username에 넣어주고, username을 nickname에 넣어줌
 										// 페이스북 가입회원은 이름 default값이 nickname.
 									},
 									success : function() {
-										location.href = "../Login/loginok.do";
+										location.href = "../../Index/main.do";
 									},
 									error : function(error) {
 										alert('error!');

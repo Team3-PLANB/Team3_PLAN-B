@@ -42,6 +42,9 @@
 $( function() {
 	var lonlat; 
 	var markerLayer;
+	
+	
+	
 	init();
 	
  } );
@@ -89,8 +92,10 @@ $( function() {
 					<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
 				    
 						//경로 이름 버튼 생성
-						console.log('${item.key}');
-						/* $('#schedulebox2').append('${item.key}'); */
+						/* console.log('${item.key}'); */
+						 $('#accordion2').prepend("<input type='button' value='${item.key}' class='routeButton' onclick='routeButtonClick(this)'><br>"); 
+						
+						 
 						
 						
 					
@@ -151,6 +156,128 @@ $( function() {
         	 
         };
         
+        // 루트 선택 버튼 클릭 함수
+        function routeButtonClick(btn){
+        	/* console.log(btn.value); */
+        	
+        	// map위 Layers 제거
+        	deleteLayers();
+        	
+        	//pr_3857 인스탄스 생성. (Google Mercator)
+        	var pr_3857 = new Tmap.Projection("EPSG:3857");
+        	 
+        	//pr_4326 인스탄스 생성. (WGS84 GEO)
+        	var pr_4326 = new Tmap.Projection("EPSG:4326");
+        	
+        	// 해당 경로 경로 출력
+        	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
+		    
+				/* console.log('${item.key}'); */
+				
+				
+				
+				
+				
+				/* <c:if test="${requestScope.pageCase=='routeRecommendPage'}">
+	            	            	
+				</c:if> */
+				
+				if(btn.value == '${item.key}'){
+					//벡터레이어 생성
+					var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
+					map.addLayers([vector_layer]); 
+					
+					
+					
+					//polyline 좌표 배열.
+					var pointList = [];
+				
+					<c:forEach var="i" items="${item.value}" varStatus="num">
+						
+						/* console.log('${i.site}');
+						console.log('${i.lon}');
+						console.log('${i.lat}'); */
+						 var pointlonlat = new Tmap.LonLat(${i.lon}, ${i.lat}).transform(pr_4326, pr_3857);
+						pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
+						/* addSiteMarkers(${i.lon}, ${i.lat}, '${i.site}'); */
+					</c:forEach>
+					
+					//좌표 배열 객체화
+					var lineString = new Tmap.Geometry.LineString(pointList);
+					
+					var style_bold = {fillColor:"#FE9A2E",
+						     fillOpacity:0.2,
+						     strokeColor: "#FE9A2E",
+						     strokeWidth: 3,
+						     strokeDashstyle: "solid"};
+				
+					
+					var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
+					 
+					 
+					vector_layer.addFeatures([mLineFeature]);
+					
+				};	
+				
+			</c:forEach>
+			
+        };
+        
+        // 맵 위 Layer 제거 함수
+        function deleteLayers(){
+			var mapLayers = map.layers;
+		        	
+		        	var mapLayerCount = mapLayers.length;
+		        	
+		        	for(var i =1; i<mapLayerCount; i++){
+		        		console.log("길이"+mapLayerCount);
+		        		console.log("i"+i);
+		        		console.log(mapLayers[i]); 
+		        		if(mapLayers[i]!=null){
+		        			map.removeLayer(mapLayers[i]); 
+		        		}else{
+		        			var mapLayers = map.layers;
+		                	
+		                	var mapLayerCount = mapLayers.length;
+		                	
+		                	for(var i =1; i<mapLayerCount; i++){
+		                		console.log("길이"+mapLayerCount);
+		                		console.log("i"+i);
+		                		console.log(mapLayers[i]); 
+		                		if(mapLayers[i]!=null){
+		                			map.removeLayer(mapLayers[i]); 
+		                		}else{
+		                			var mapLayers = map.layers;
+		                        	
+		                        	var mapLayerCount = mapLayers.length;
+		                        	
+		                        	for(var i =1; i<mapLayerCount; i++){
+		                        		console.log("길이"+mapLayerCount);
+		                        		console.log("i"+i);
+		                        		console.log(mapLayers[i]); 
+		                        		if(mapLayers[i]!=null){
+		                        			map.removeLayer(mapLayers[i]); 
+		                        		}else{
+		                        			var mapLayers = map.layers;
+		                                	
+		                                	var mapLayerCount = mapLayers.length;
+		                                	
+		                                	for(var i =1; i<mapLayerCount; i++){
+		                                		console.log("길이"+mapLayerCount);
+		                                		console.log("i"+i);
+		                                		console.log(mapLayers[i]); 
+		                                		if(mapLayers[i]!=null){
+		                                			map.removeLayer(mapLayers[i]); 
+		                                		}
+		                                	}
+		                        		}
+		                        	}
+		                		}
+		                	}
+		        		}
+		        		
+		        	}
+        };
        
         //추천 여행지 마커 추가하기 
         function addSiteMarkers(lon, lat, site){
@@ -408,17 +535,6 @@ $( function() {
         /* End : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
      
 </script>
-
-
-
-
-
-
-
-
-
-
-
 
 
 
