@@ -3,12 +3,9 @@
 @File name : detail.jsp 
 @Author : 임정연 & 정다혜
 @Data : 2017.06.16 & 2017.06.21
-@Last Edit Data : 2017.06.21
+@Last Edit Data : 2017.06.22
 @Desc : 루트 후기 게시판의 상세보기
 --%>
-
-
-
 
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -80,6 +77,24 @@
 								</div>
 							</a>
 						</div>
+						<div class="blog-text">
+							<div class="prod-title">
+								<span class="comment" id="like" style="float:right;">
+									<span id="routeLikeChange">찜콩
+										<c:choose>
+											<c:when test="${routePostscript.getRoute_like()=='true'}">
+												<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
+											</c:when>
+											<c:otherwise>
+												<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
+											</c:otherwise>
+										</c:choose>
+									</span>
+									<input type="hidden" id="route_postscript_rownum" value="${routePostscript.getRoute_postscript_rownum()}">
+									<input type="hidden" id="route_like" value="${routePostscript.getRoute_like()}">
+								</span>
+							</div>
+						</div>
 
 						<%------------------------------후기글 부분 ----------------------------------------%>
 						<div class="col-md-6 animate-box">
@@ -102,39 +117,18 @@
 								</blockquote>
 							</div>
 
-							<%------------------------------찜콩, 히스토리, 목록으로 버튼 ----------------------------------------%>
-							<br> <br> <br> <br>
+							<%------------------------------히스토리, 목록으로 버튼 ----------------------------------------%>
+							<br> <br>
 							<div class="col-md-12 animate-box" align="center">
-
-								<div class="blog-text">
-									<div class="prod-title">
-										<span class="comment" id="like" style="float:right;">
-											<span id="routeLikeChange">찜콩
-												<c:choose>
-													<c:when test="${routePostscript.getRoute_like()=='true'}">
-														<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
-													</c:when>
-													<c:otherwise>
-														<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
-													</c:otherwise>
-												</c:choose>
-											</span>
-											<input type="hidden" id="route_postscript_rownum" value="${routePostscript.getRoute_postscript_rownum()}">
-											<input type="hidden" id="route_like" value="${routePostscript.getRoute_like()}">
-										</span>
-									</div>
+								<div align="center">
+									<a href="" class="btn btn-primary">히스토리</a>
+									<a href="List.do" class="btn btn-primary">목록으로<i class="icon-arrow-right22"></i></a>
 								</div>
-								<br> 
-								<input type="submit" value="히스토리" class="btn btn-primary">
 							</div>
 
 						</div>
 						<br>
-						<div align="right">
-							<a href="PostScript_Board_Site.jsp">목록으로
-								<i class="icon-arrow-right22"></i>
-							</a>
-						</div>
+						
 
 					</div>
 				</div>
