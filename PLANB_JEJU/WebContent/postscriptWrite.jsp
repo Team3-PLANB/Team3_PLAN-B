@@ -15,7 +15,7 @@
 	uri="http://www.springframework.org/security/tags"%>
 <!DOCTYPE html>
 
-<html class="no-js">
+<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -25,10 +25,14 @@
 <meta name="keywords"
 	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" />
-<link rel="shortcut icon" href="favicon.ico">
+
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
 	rel='stylesheet' type='text/css'>
+	
+	
+<!-- 
+ 추후 수정 (준성)
 <link rel="stylesheet" href="css/animate.css">
 <link rel="stylesheet" href="css/icomoon.css">
 <link rel="stylesheet" href="css/bootstrap.css">
@@ -38,15 +42,23 @@
 <link rel="stylesheet" href="css/cs-select.css">
 <link rel="stylesheet" href="css/cs-skin-border.css">
 <link rel="stylesheet" href="css/style.css">
-
+ -->
+ 
+ 
+<!-- 여행후기작성  -->
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+ 
+ 
+ 
+ 
 <!-- 갤러리 등록을 위한 css  -->
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link href="dist/styles.imageuploader.css" rel="stylesheet" type="text/css">
 
 
 
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+
 
 
 <!-- 
@@ -73,228 +85,47 @@
 
 <link rel="stylesheet" href="css/PostScript/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
-<script
-	src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="shortcut icon" href="favicon.ico">
 
-<link
+
+<!-- <script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script> -->
+
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
+
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<!-- <link rel="shortcut icon" href="favicon.ico"> -->
+
+ <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
 	rel='stylesheet' type='text/css'>
+
+
 
 <!-- Icomoon Icon Fonts-->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/icomoon.css">
+	
+	
 <!-- Bootstrap  -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/bootstrap.css">
+	
+	
 <!-- Superfish -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/superfish.css">
+	
+	
 <!-- histroy css -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/history.css">
-
+	
+<!-- 체크박스 css -->	
+<link rel="stylesheet" href="css/PlanA/checkbox-bootstrap.css">
 
 
 <!-- html2canvas 연습 -->
 <link>
-
-
-
-
-<!-- 상세보기 일정 -->
-
-<style>
-.sortable {
-	font-size: 10px;
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	width: 60%;
-	height: auto;
-}
-/* .sortable div{
-
- 	height: auto; 
-}
- */
-
-/* .sortable li {
-	margin: 3px;
-	padding: 0.4em;
-	padding-left: 1.5em;
-	font-size: 1.4em;
-	height: 40px;
-} */
-
-/* .sortable li span {
-	position: absolute;
-	margin-left: -1.3em;
-} */
-div.over {
-	background:
-		url("http://cfile1.uf.tistory.com/image/20558E424FEE324E2693F1");
-	cursor: pointer; /* 마우스 손모양 */
-}
-
-/* class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"
-
-id="ui-id-2"
-
-aria-labelledby="ui-id-1"
-
-role="tabpanel"
-
-aria-hidden="false"
-
-style="display: block; height: 458px;" */
-
-/* .sortable .sort-handle {
-      display: none;
-   }
-   .sortable .ui-selected .sort-handle {
-      display: inline;
-      padding: 0 0.5em;
-      cursor: pointer;
-   } */
-/* li.ui-selecting { background: #FECA40; }
-     li.ui-selected { background: #F39814; color: white; } */
-.spinner {
-	padding: 10px;
-	width: 30px;
-	height: 15px;
-}
-
-.group {
-	width: 80%;
-	margin: 15px;
-}
-</style>
-
-<script>
-	$(document).ready(function() {
-		$('#schedulebox').animate({
-			width : '+=380px'
-		});
-		$('#schedulebox2').animate({
-			width : '+=30%'
-		});
-		$('.spinner').spinner({
-			min : 0,
-			max : 300,
-			step : 15,
-			start : 0
-		});
-		$(".sortable").sortable();
-		/* $(".sortable").disableSelection(); */
-		$(".sortable").selectable();
-
-		/* $('.sortable').selectable({
-		   cancle: '.sort-handle'
-		}).sortable({
-		   items: "> li",
-		   handle: '.sort-handle',
-		   helper: function(e, item) {
-		      if ( ! item.hasClass('ui-selected') ) {
-		         item.parent().children('.ui-selected').removeClass('ui-selected');
-		         item.addClass('ui-selected');
-		      }
-		      var selected = item.parent().children('.ui-selected').clone();
-		      item.data('multidrag', selected).siblings('.ui-selected').remove();
-		      return $('</li>').append(selected);
-		   },
-		   stop: function(e, ui) {
-		      var selected = ui.item.data('multidrag');
-		      ui.item.after(selected);
-		      ui.item.remove();
-		   }
-		}); */
-		$("#accordion").accordion({
-			collapsible : true,
-			header : ".day_info_box"
-		}).sortable({
-			axis : "y",
-			handle : ".day_info_box",
-			stop : function(event, ui) {
-				// IE doesn't register the blur when sorting
-				// so trigger focusout handlers to remove .ui-state-focus
-				ui.item.children(".day_info_box").triggerHandler("focusout");
-				// Refresh accordion to handle new order
-				$(this).accordion("refresh");
-			}
-		});
-		$("#accordion2").accordion({
-			collapsible : true,
-			header : "> div > h3",
-			autoHeight : false,
-			navigation : true,
-			heightStyle : "content" /* 이걸 추가하기 위해 염병을 했다 */
-		}).sortable({
-			axis : "y",
-			handle : "h3",
-			stop : function(event, ui) {
-				// IE doesn't register the blur when sorting
-				// so trigger focusout handlers to remove .ui-state-focus
-				ui.item.children("div").triggerHandler("focusout");
-				// Refresh accordion to handle new order
-				$(this).accordion("refresh");
-			}
-		});
-
-	});
-</script>
-
-
-<script>
-	/* 첫번째 체크박스 중복체크 X  */
-	function doOpenCheck(chk) {
-		var obj = document.getElementsByName("aaa");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-	/* 두번째 체크박스 중복체크 X  */
-	function doOpenCheck2(chk) {
-		var obj = document.getElementsByName("bbb");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-	/* 세번째 체크박스 중복체크 X  */
-	function doOpenCheck3(chk) {
-		var obj = document.getElementsByName("ccc");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-</script>
-
-
-
-
-</head>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <header>
 	<nav class="navbar navbar-default" style="margin: 0px;">
@@ -369,6 +200,131 @@ style="display: block; height: 458px;" */
 		</div>
 	</nav>
 </header>
+
+
+
+<!-- 상세보기 일정 -->
+
+<style>
+.sortable {
+	font-size: 10px;
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	width: 60%;
+	height: auto;
+}
+
+div.over {
+	background:
+		url("http://cfile1.uf.tistory.com/image/20558E424FEE324E2693F1");
+	cursor: pointer; /* 마우스 손모양 */
+}
+
+.spinner {
+	padding: 10px;
+	width: 30px;
+	height: 15px;
+}
+
+.group {
+	width: 80%;
+	margin: 15px;
+}
+</style>
+
+<script>
+	$(document).ready(function() {
+		$('#schedulebox').animate({
+			width : '+=380px'
+		});
+		$('#schedulebox2').animate({
+			width : '+=30%'
+		});
+		$('.spinner').spinner({
+			min : 0,
+			max : 300,
+			step : 15,
+			start : 0
+		});
+		$(".sortable").sortable();
+		/* $(".sortable").disableSelection(); */
+		$(".sortable").selectable();
+
+		
+		$("#accordion").accordion({
+			collapsible : true,
+			header : ".day_info_box"
+		}).sortable({
+			axis : "y",
+			handle : ".day_info_box",
+			stop : function(event, ui) {
+				// IE doesn't register the blur when sorting
+				// so trigger focusout handlers to remove .ui-state-focus
+				ui.item.children(".day_info_box").triggerHandler("focusout");
+				// Refresh accordion to handle new order
+				$(this).accordion("refresh");
+			}
+		});
+		$("#accordion2").accordion({
+			collapsible : true,
+			header : "> div > h3",
+			autoHeight : false,
+			navigation : true,
+			heightStyle : "content" 
+		}).sortable({
+			axis : "y",
+			handle : "h3",
+			stop : function(event, ui) {
+				// IE doesn't register the blur when sorting
+				// so trigger focusout handlers to remove .ui-state-focus
+				ui.item.children("div").triggerHandler("focusout");
+				// Refresh accordion to handle new order
+				$(this).accordion("refresh");
+			}
+		});
+
+	});
+</script>
+
+
+<script>
+	/* 첫번째 체크박스 중복체크 X  */
+	function doOpenCheck(chk) {
+		var obj = document.getElementsByName("aaa");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+	/* 두번째 체크박스 중복체크 X  */
+	function doOpenCheck2(chk) {
+		var obj = document.getElementsByName("bbb");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+	/* 세번째 체크박스 중복체크 X  */
+	function doOpenCheck3(chk) {
+		var obj = document.getElementsByName("ccc");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+</script>
+
+
+
+
+</head>
+
+
+
 
 
 
@@ -693,6 +649,10 @@ style="display: block; height: 458px;" */
 										onclick="doOpenCheck3(this);"> <span
 										class="checkbox-placeholder"></span> 악화
 									</label>
+									
+									
+									
+									
 								</div>
 							</div>
 							<br>
