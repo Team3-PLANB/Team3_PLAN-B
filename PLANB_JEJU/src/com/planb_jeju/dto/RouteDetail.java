@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.List;
 
 public class RouteDetail {
+	private String routename;
+	
 	private int route_code;
 	private String username;
 	private int route_order;
@@ -37,10 +39,11 @@ public class RouteDetail {
 	public RouteDetail(){}
 
 
-	public RouteDetail(int route_code, String username, int route_order, Date route_date, String site, String lon,
-			String lat, String category, Time stime, Time etime, int update_rownum, String update_reason,
+	public RouteDetail(String routename, int route_code, String username, int route_order, Date route_date, String site,
+			String lon, String lat, String category, Time stime, Time etime, int update_rownum, String update_reason,
 			List<RouteDetail> routeDetailList) {
 		super();
+		this.routename = routename;
 		this.route_code = route_code;
 		this.username = username;
 		this.route_order = route_order;
@@ -54,6 +57,16 @@ public class RouteDetail {
 		this.update_rownum = update_rownum;
 		this.update_reason = update_reason;
 		this.routeDetailList = routeDetailList;
+	}
+
+
+	public String getRoutename() {
+		return routename;
+	}
+
+
+	public void setRoutename(String routename) {
+		this.routename = routename;
 	}
 
 
@@ -189,11 +202,15 @@ public class RouteDetail {
 
 	@Override
 	public String toString() {
-		return "RouteDetail [route_code=" + route_code + ", username=" + username + ", route_order=" + route_order
-				+ ", route_date=" + route_date + ", site=" + site + ", lon=" + lon + ", lat=" + lat + ", category="
-				+ category + ", stime=" + stime + ", etime=" + etime + ", update_rownum=" + update_rownum
-				+ ", update_reason=" + update_reason + ", routeDetailList=" + routeDetailList + "]";
+		return "RouteDetail [routename=" + routename + ", route_code=" + route_code + ", username=" + username
+				+ ", route_order=" + route_order + ", route_date=" + route_date + ", site=" + site + ", lon=" + lon
+				+ ", lat=" + lat + ", category=" + category + ", stime=" + stime + ", etime=" + etime
+				+ ", update_rownum=" + update_rownum + ", update_reason=" + update_reason + ", routeDetailList="
+				+ routeDetailList + "]";
 	}
+
+
+	
 	
 	
 }
