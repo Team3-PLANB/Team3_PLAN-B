@@ -1,3 +1,11 @@
+<%--
+@Project : PLANB_JEJU
+@File name : myPageMain.jsp 
+@Author : 임정연
+@Data : 2017.06.22
+@Desc : 마이페이지의 헤더
+--%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -28,7 +36,7 @@
 					<a class="btn btn-default"	href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do"
 						data-filter=".e">쪽지함</a></li>
 				<li>
-					<a class="btn btn-default" href="${pageContext.request.contextPath}/MyPage/Info/info.do"
+					<a class="btn btn-default" href="${pageContext.request.contextPath}/MyPage/Info/updateInfo.do"
 						data-filter=".f">회원정보수정</a>
 				</li>
 			</ul>
