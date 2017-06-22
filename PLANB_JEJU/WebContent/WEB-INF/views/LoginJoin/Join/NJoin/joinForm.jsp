@@ -27,7 +27,9 @@
 	<link rel="stylesheet" href="css/cs-skin-border.css">	
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/LoginJoin/join.css">
+	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sweetalert.css">
 
+	<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/facebook.js" ></script>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
 	<script src="${pageContext.request.contextPath}/js/email.js"></script>
@@ -76,16 +78,7 @@
 														<input type="text"	class="form-control" style="width:250px;float:left;" name = "username" id="username" placeholder="이메일을 입력해주세요" onkeyup="revText()"> <!-- onblur="emailCheck()" -->
 														<input type="button" onclick="emailCheck()" id="overlabCheck" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="메일중복확인">
 														<input type="button" onclick="authCheck()" id="authNumSend" class="btn btn-primary btn-block" style="float:left;width:80px;height:40px;float:left;font-size:10px;padding:3px;margin-left:15px;" value="인증번호받기">
-														<input type="hidden" id="saveAuthNum" >
-															 <c:if test="${param.error != null }">
-															 	<div>
-															 		로그인 실패<br>
-															 		<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
-															 			이유 : <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
-															 		</c:if>
-															 	</div>
-															 </c:if>
-																												
+														<input type="hidden" id="saveAuthNum" >										
 													</div>
 													
 												<div class = "email-msg" id="email-msg" style="clear:both;"></div>
@@ -95,14 +88,14 @@
 											<div class="input-field">
 												<label for="password">비밀번호</label> 
 												<input type="password" class="form-control" name = "password" id="password"
-													placeholder="비밀번호를 입력해주세요">
+													placeholder="비밀번호를 입력해주세요" autocomplete="off">
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-left:10%;">
 											<div class="input-field">
 												<label for="passwordck">비밀번호 확인</label> 
 												<input type="password" class="form-control" id="passwordck"
-													placeholder="비밀번호를 입력해주세요" onkeyup="passwordCheck()">
+													placeholder="비밀번호를 입력해주세요" onkeyup="passwordCheck()" autocomplete="off">
 												<div class = "pwdck" id="pwdck"></div>
 											</div>
 										</div>
@@ -110,7 +103,7 @@
 											<div class="input-field">
 												<label for="nickname">닉네임</label> 
 												<input type="text"class="form-control" name = "nickname" id="nickname"
-													placeholder="닉네임을 입력해주세요" onkeyup = "nickCheck()">
+													placeholder="닉네임을 입력해주세요" onkeyup = "nickCheck()" autocomplete="off">
 												<div class = "nick-msg" id="nick-msg"></div>
 											</div>
 										</div>
@@ -131,7 +124,7 @@
 											<div class="input-field">
 												<label for="password">비밀번호</label> 
 												<input type="password" class="form-control" id="password" name = "password"
-													placeholder="비밀번호를 입력해주세요">
+													placeholder="비밀번호를 입력해주세요" autocomplete="off">
 												<div class="pwdCheck" id = "pwdCheck"></div>
 											</div>
 										</div>
@@ -153,7 +146,7 @@
 										<div class="col-xxs-12 col-xs-6 mt" >
 											<div class="input-field" >
 												<input type="text"	class="form-control" id="authnum" name="authnum"
-														placeholder="인증 번호 7자리를 입력해주세요" style="margin-left:30%;">
+														placeholder="인증 번호 7자리를 입력해주세요" style="margin-left:30%;" autocomplete="off">
 												<input type="button" onclick="authNumCheck()" class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "authNumCheck" value="이메일 인증하기">
 												
 											</div>

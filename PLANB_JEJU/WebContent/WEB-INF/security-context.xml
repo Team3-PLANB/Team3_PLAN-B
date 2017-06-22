@@ -20,7 +20,7 @@
  						 login-processing-url="/login"
  						 default-target-url="/LoginJoin/Login/loginok.do"/>
 	<!-- 로그아웃 -->
-	<security:logout logout-success-url="/Main.mainpage"/>
+	<security:logout logout-success-url="/LoginJoin/Join/Logout.do"/>
 
 	<!-- 로그인/가입 페이지 접근 허용 -->
 	<security:intercept-url pattern="/LoginJoin/**" access="permitAll" />

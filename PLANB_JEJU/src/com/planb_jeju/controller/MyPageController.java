@@ -1,88 +1,135 @@
 package com.planb_jeju.controller;
 
+import java.security.Principal;
+import java.sql.SQLException;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
+
 /*
 * @FileName : 수정 필
 * @Class : LoginJoinController
 * @Project : PLANB_JEJU
-* @Date : 2017.06.07
+* @Date : 2017.06.22
 * @LastEditDate : 2017.06.16
 * @Author : 정다혜, 홍단비 
-* @Desc : 회원가입  / 로그인   컨트롤러
+* @Desc : Mypage 컨트롤러
 */
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.planb_jeju.dao.MemberDao;
+import com.planb_jeju.dto.Member;
+import com.planb_jeju.service.MemberService;
 
 
 @Controller
+@RequestMapping("/MyPage/")
 public class MyPageController {
-
+	
+	private static MemberDao memberDao;
+	private static Member member;
+	
+	@Autowired
+	private SqlSession sqlsession;
+	
+	@Autowired
+	private MemberService memberservice;
+	
 	/* 나의 일정 - schedule() */
-	@RequestMapping("MyPage/Schedule/schedule.do")
+	@RequestMapping("Schedule/schedule.do")
 	public String schedule(){
-		System.out.println("MyPage/Schedule/schedule.do 컨트롤러 들어옴");
 		return "MyPage.Schedule.scheduleMain";
 	}
 
 	/* 히스토리 - history() */
-	@RequestMapping("MyPage/History/history.do")
+	@RequestMapping("History/history.do")
 	public String history(){
-		System.out.println("MyPage/History/history.do 컨트롤러 들어옴");
 		return "MyPage.History.historyMain";
 	}
 	
 	/* 나의 후기 메인 - postMain() */
-	@RequestMapping("MyPage/PostScript/postScriptMain.do")
+	@RequestMapping("PostScript/postScriptMain.do")
 	public String postMain(){
-		System.out.println("MyPage/PostScript/postScriptMain.do 컨트롤러 들어옴");
 		return "MyPage.PostScript.postScriptMain";
 	}
 	
 	/* 나의 후기 - root() */
-	@RequestMapping("MyPage/PostScript/Root/root.do")
+	@RequestMapping("PostScript/Root/root.do")
 	public String root(){
-		System.out.println("MyPage/PostScript/Site/root.do 컨트롤러 들어옴");
 		return "MyPage.PostScript.Root.rootMain";
 	}
 	
 	/* 나의 후기 - site() */
-	@RequestMapping("MyPage/PostScript/Site/site.do")
+	@RequestMapping("PostScript/Site/site.do")
 	public String site(){
-		System.out.println("MyPage/PostScript/Site/site.do 컨트롤러 들어옴");
 		return "MyPage.PostScript.Site.siteMain";
 	}	
 
 	/* 찜한 후기 메인 - likeMain() */
-	@RequestMapping("MyPage/Like/likeMain.do")
+	@RequestMapping("Like/likeMain.do")
 	public String like(){
-		System.out.println("MyPage/Like/likeMain.do 컨트롤러 들어옴");
 		return "MyPage.Like.likeMain";
 	}
 	/* 찜한 후기 - likeRoot() */
-	@RequestMapping("MyPage/Like/Root/root.do")
+	@RequestMapping("Like/Root/root.do")
 	public String likeRoot(){
-		System.out.println("MyPage/Like/Root/root.do 컨트롤러 들어옴");
 		return "MyPage.Like.Root.rootMain";
 	}
 	/* 찜한 후기 - likeSite() */
-	@RequestMapping("MyPage/Like/Site/site.do")
+	@RequestMapping("Like/Site/site.do")
 	public String likeSite(){
-		System.out.println("MyPage/Like/Site/site.do 컨트롤러 들어옴");
 		return "MyPage.Like.Site.siteMain";
 	}
 	
 	/* 쪽지함 - msg() */
-	@RequestMapping("MyPage/Message/msgMain.do")
+	@RequestMapping("Message/msgMain.do")
 	public String msg(){
-		System.out.println("MyPage/Message/msgMain.do 컨트롤러 들어옴");
 		return "MyPage.Message.msgMain";
 	}
 	
-	/* 회원정보수정 - info() */
-	@RequestMapping("MyPage/Info/info.do")
-	public String info(){
-		System.out.println("MyPage/Info/info.do 컨트롤러 들어옴");
+	/*
+	* @date : 2017. 6. 16
+	* @description : 회원정보수정 닉네임 체크 (비동기)
+	* @return : String(t/f) 
+	*/
+	@RequestMapping("Info/duplicationNCheck.do")
+	public @ResponseBody String duplicationNickCheck(String nickname) throws Exception {
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		String result = memberservice.duplicationNickCheck(nickname, sqlsession);
+		return result;
+	}
+
+	/*
+	* @date : 2017. 6. 22
+	* @description : 회원정보 get
+	* @return : String(View) 
+	*/
+	@RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.GET)
+	public String getUserInfo(HttpServletRequest request, Principal principal) throws Exception {
+		member = memberservice.getMemberInfo(principal, sqlsession);
+		request.setAttribute("nickname", member.getNickname());
 		return "MyPage.Info.infoMain";
 	}
+
+	/*
+	* @date : 2017. 6. 22
+	* @description : 회원정보수정 
+	* @return : String(View) 
+	*/
+	@RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.POST)
+	public String updateInfo(Member member) throws Exception {
+		System.out.println("update 페이지 POST controller");
+		System.out.println("member>>>>"+member);
+		memberservice.update(member, sqlsession);
+		System.out.println(memberDao.update(member));
+		return "Main.mainpage";
+	}
 	
+
 }

@@ -59,8 +59,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<!-- 수정 -->
-	<update id="update" >
-		UPDATE member 
+	<update id="update" parameterType="com.planb_jeju.dto.Member">
+		UPDATE member
 		SET password=#{password}, 
 		    nickname=#{nickname}
 		WHERE username=#{username}

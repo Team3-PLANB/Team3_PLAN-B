@@ -1,4 +1,10 @@
-
+<%--
+@Project : PLANB_JEJU
+@File name : msgMain.jsp 
+@Author : 임정연
+ @Data : 2017.06.22
+@Desc : 쪽지함 페이지
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <link rel="stylesheet" href="WEB-INF/views/Mypage/msg.css">

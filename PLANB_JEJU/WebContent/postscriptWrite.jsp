@@ -1,18 +1,18 @@
 <%--
 @Project : PLANB_JEJU
 @File name : postscriptWrite.jsp 
-@Author : 임정연
- @Data : 2017.06.17
+@Author : 임정연 & 정다혜
+@Data : 2017.06.17 & 2017.06.22
+@ Last Edit : 2017.06.22
 @Desc : 후기 작성 페이지
 --%>
 
 
 
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 
 <html>
@@ -58,9 +58,6 @@
 
 
 
-
-
-
 <!-- 
 계속 죽일지는 차후 확인
 <script src="js/jquery.easing.1.3.js"></script>
@@ -75,12 +72,6 @@
 <script src="js/classie.js"></script>
 <script src="js/selectFx.js"></script>
  -->
-
-
-
-
-
-
 
 
 <link rel="stylesheet" href="css/PostScript/jquery-ui.css">
@@ -112,20 +103,14 @@
 	
 	
 <!-- Superfish -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/superfish.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/superfish.css">
 	
 	
 <!-- histroy css -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/history.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/history.css">
 	
 <!-- 체크박스 css -->	
 <link rel="stylesheet" href="css/PlanA/checkbox-bootstrap.css">
-
-
-<!-- html2canvas 연습 -->
-<link>
 
 <header>
 	<nav class="navbar navbar-default" style="margin: 0px;">
@@ -326,14 +311,6 @@ div.over {
 
 
 
-
-
-
-
-
-
-
-
 <%----------------------------------일정 짜기 부분 ----------------------------------------%>
 
 <div style="background-color: white; width: 450px;" id="schedulebox2">
@@ -360,7 +337,7 @@ div.over {
 								<div class="tag">유명한거리/지역</div>
 								<div class="sinfo_line"></div>
 								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
+									<img src="${pageContext.request.contextPath}/css/history/like.png"
 										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
 								</div>
 							</div>
@@ -382,7 +359,7 @@ div.over {
 								<div class="tag">유명한거리/지역</div>
 								<div class="sinfo_line"></div>
 								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
+									<img src="${pageContext.request.contextPath}/css/history/like.png"
 										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
 								</div>
 							</div>
@@ -410,13 +387,13 @@ div.over {
 								<div class="tag">유명한거리/지역</div>
 								<div class="sinfo_line"></div>
 								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
+									<img src="${pageContext.request.contextPath}/css/history/like.png"
 										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
 								</div>
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="${pageContext.request.contextPath}/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -436,13 +413,13 @@ div.over {
 								<div class="tag">유명한거리/지역</div>
 								<div class="sinfo_line"></div>
 								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
+									<img src="${pageContext.request.contextPath}/css/history/like.png"
 										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
 								</div>
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="${pageContext.request.contextPath}/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -508,52 +485,53 @@ div.over {
 
 
 <div class="container"
-	style="float: left; position: relative; bottom: 522px; left: 450px;">
+	style="float: left; position: relative; bottom: 522px; left: 450px;width:67%">
 	<div class="row">
 		<div class="col-sm-5 col-md-12">
 			<div class="tabulation animate-box fadeInUp animated">
 
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active"><a href="#step1"
-						aria-controls="flights" role="tab" data-toggle="tab">루트 후기 작성</a></li>
-					<li role="presentation"><a href="#step2"
-						aria-controls="hotels" role="tab" data-toggle="tab">여행지 후기 작성</a></li>
+					<li role="presentation" class="active">
+						<a href="#routePost" aria-controls="route" role="tab" data-toggle="tab">루트 후기 작성</a>
+					</li>
+					<li role="presentation">
+						<a href="#sitePost" aria-controls="site" role="tab" data-toggle="tab">여행지 후기 작성</a>
+					</li>
 				</ul>
 
 				<!-- Tab panes -->
 				<div class="tab-content">
-					<div role="tabpanel" class="tab-pane active" id="step1">
+					<div role="tabpanel" class="tab-pane active" id="routePost">
 						<div class="table-responsive">
-
-							<div role="tabpanel" class="tab-pane active" id="root">
-								<input type="text" class="form-control" placeholder="제목"><br>
-								<textarea name="" class="form-control" id="" cols="30" rows="7"
-									placeholder="후기"></textarea>
-								<br>
-								<div align="center">
-									<input type="submit" value="작성 완료"
-										class="btn btn-primary btn-block">
+							<form action="${pageContext.request.contextPath}/PostScript/Route/Write.do?route_code=${route_code}" method="POST">
+								<div role="tabpanel" class="tab-pane active" id="route">
+									<input type="text" class="form-control" value="${route.getRoutename()}" readonly><br>
+									<textarea name="" class="form-control" id="comment" cols="30" rows="7"
+										placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
+									<br>
+									<div align="center">
+										<input type="submit" value="작성 완료" class="btn btn-primary">
+									</div>
 								</div>
-							</div>
+							</form>
 						</div>
 					</div>
 
 
-<div role="tabpanel" class="tab-pane" id="step2">
-	<div class="table-responsive">
-		<section role="main" class="l-main">
-			<div class="uploader__box js-uploader__box l-center-box">
-				<form action="your/nonjs/fallback/" method="POST">
-					<div class="uploader__contents">
-						<label class="button button--secondary" for="fileinput">ImageFiles</label> 
-							<input id="fileinput" class="uploader__file-input" type="file" multiple value="Select Files">
-					</div>
-						<input class="button button--big-bottom" type="submit"
-					    value="Upload Selected Files">
-		  	  </form>
-		    </div>
-		</section>
+					<div role="tabpanel" class="tab-pane" id="sitePost">
+						<div class="table-responsive">
+							<section role="main" class="l-main">
+								<div class="uploader__box js-uploader__box l-center-box">
+									<form action="your/nonjs/fallback/" method="POST">
+										<div class="uploader__contents">
+											<label class="button button--secondary" for="fileinput">ImageFiles</label> 
+											<input id="fileinput" class="uploader__file-input" type="file" multiple value="Select Files">
+										</div>
+										<input class="button button--big-bottom" type="submit" value="Upload Selected Files">
+							  	  </form>
+							    </div>
+							</section>
 		
 		
 		

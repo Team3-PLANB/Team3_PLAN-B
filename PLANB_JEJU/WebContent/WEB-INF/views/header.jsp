@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
-
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <header>
 <nav class="navbar navbar-default" style="margin:0px;">
 	<div class="container">
@@ -25,17 +24,17 @@
 						 	<security:authorize access="hasRole('ROLE_USER')">	
 								<li class="">
 									<a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do" class="fh5co-sub-ddown sf-with-ul">My Page</a>
-									<ul class="fh5co-sub-menu" style="display: none;">
+									<ul class="fh5co-sub-menu" >
 										<li><a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do">일정 관리</a></li>
 										<li><a href="${pageContext.request.contextPath}/MyPage/PostScript/postScriptMain.do">나의 후기</a></li>
 										<li><a href="${pageContext.request.contextPath}/MyPage/Like/like.do">찜한 후기</a></li>
 										<li><a href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do">쪽지함</a></li>
-										<li><a href="${pageContext.request.contextPath}/MyPage/Info/info.do">회원정보수정</a></li>
+										<li><a href="${pageContext.request.contextPath}/MyPage/Info/updateInfo.do">회원정보수정</a></li>
 										<li><a href="${pageContext.request.contextPath}/MyPage/History/history.do">히스토리</a></li>
 									</ul>
 								</li>
 							</security:authorize>
-							<security:authorize access="!hasRole('ROLE_USER')">
+							<security:authorize access="!isAuthenticated()">
 							<%-- <security:authorize access ="isAnonymous()"> --%>
 								<li>
 									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
@@ -43,7 +42,7 @@
 							</security:authorize>
 							<!-- 로그아웃 -->
 						    <security:authentication property="name" var="loginUser"/>
-							<security:authorize access="hasRole('ROLE_USER')">
+							<security:authorize access="isAuthenticated()">
 								<li><a href="${pageContext.request.contextPath}/logout">${loginUser }로그아웃</a></li>
 			            	</security:authorize>
 			           </ul>

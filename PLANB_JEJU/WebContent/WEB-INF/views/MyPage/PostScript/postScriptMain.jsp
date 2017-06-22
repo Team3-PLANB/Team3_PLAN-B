@@ -1,4 +1,10 @@
-
+<%--
+@Project : PLANB_JEJU
+@File name : postscriptMain.jsp 
+@Author : 임정연
+ @Data : 2017.06.22
+@Desc : 마이페이지의 나의 후기
+--%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <jsp:include page="../myPageMain.jsp"></jsp:include>
