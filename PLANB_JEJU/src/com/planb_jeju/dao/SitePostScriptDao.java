@@ -78,9 +78,9 @@ public interface SitePostScriptDao {
 	/*	
 	 * @description : 태그 삭제
 	 * @return : int 업데이트된 라인 수
-	 * @param spec : int site_postscript_rownum 여행지 후기 고유 번호
+	 * @param spec : SitePostscript 여행지 후기 정보 중 태그 정보
 	 */
-	public int deleteTag(int site_postscript_rownum) throws ClassNotFoundException, SQLException;
+	public int deleteTag(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 조회수 증가
@@ -92,8 +92,15 @@ public interface SitePostScriptDao {
 	/*	
 	 * @description : 좋아요(찜콩수) 증가
 	 * @return : int 업데이트된 라인 수
-	 * @param spec : int site_postscript_rownum 여행지 후기 고유 번호
+	 * @param spec : 
 	 */
-	public int updateLikeNum(int site_postscript_rownum) throws ClassNotFoundException, SQLException;
+	public int upLikeNum(SitePostscriptLike sitePostscriptLike) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 좋아요(찜콩수) 감소
+	 * @return : int 업데이트된 라인 수
+	 * @param spec : 
+	 */
+	public int downLikeNum(SitePostscriptLike sitePostscriptLike) throws ClassNotFoundException, SQLException;
 	
 }

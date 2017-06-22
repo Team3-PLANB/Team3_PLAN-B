@@ -73,7 +73,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 루트 후기 삭제 -->
 	<delete id="delete" parameterType="Integer">
-	 	DELETE FROM route_postscript WHERE route_postscript_rownum = #{route_postscript_rownum}
+	 	DELETE FROM route_postscript 
+	 	WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</delete>
 	
 	<!-- 루트 후기 리스트 -->

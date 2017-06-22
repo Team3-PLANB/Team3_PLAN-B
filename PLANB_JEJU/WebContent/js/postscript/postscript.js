@@ -1,5 +1,5 @@
 $(document).ready(function(){
-	$('#likeChange').click(function(){
+	$('#routeLikeChange').click(function(){
 		$.ajax({
 			type : "get",
 			url : 'Like.do',
@@ -26,12 +26,12 @@ $(document).ready(function(){
 		});
 	});
 	
-	$('#likeChange_site').click(function(){
+	$('#siteLikeChange').click(function(){
 		$.ajax({
 			type : "get",
 			url : 'Like.do',
-			data : {"route_postscript_rownum" : $('#route_postscript_rownum').val(),
-					"route_like" : $('#route_like').val()
+			data : {"site_postscript_rownum" : $('#site_postscript_rownum').val(),
+					"site_like" : $('#site_like').val()
 					},
 			success : function(result){
 					console.log(result);
@@ -40,11 +40,11 @@ $(document).ready(function(){
 					}else if (result=='tTf'){
 						console.log("찜콩 해제");
 						$('#heart').attr("src", "../../images/PostScript/empty_like.png");
-						$('#route_like').val("false");
+						$('#site_like').val("false");
 					}else if (result=='fTt'){
 						console.log("찜콩 설정");
 						$('#heart').attr("src", "../../images/PostScript/full_like.png");
-						$('#route_like').val("true");
+						$('#site_like').val("true");
 					}
 			},
 			error : function(xhr) {
@@ -85,10 +85,10 @@ $(document).ready(function(){
     var splitedArray2 = content2.split(' ');
     var linkedContent2 = '';
     for(var word2 in splitedArray2){
-    	console.log("splitedArray2 : " + splitedArray2);
     	word2 = splitedArray2[word2].trim();
     	if(word2.indexOf('#') == 0){
     		word2 = '<a href=\'링크\'>' + word2 + '</a>';
+    		console.log("word2 : " + word2);
     		linkedContent2 += word2 + '&nbsp;&nbsp;&nbsp;';
     	}
     }
