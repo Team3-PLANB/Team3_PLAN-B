@@ -4,6 +4,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class RoutePostscript {
 	private int route_postscript_rownum;
@@ -16,20 +17,17 @@ public class RoutePostscript {
 	private String username;
 	private int route_code;
 	
-	// 태그
-	private int route_postscript_tag_rownum;
-//	private int route_postscript_rownum;
-	private String tag;
+	// 태그 리스트
+	private List<RoutePostscriptTag> routePostscriptTag;
 	
 	// 로그인한 사용자의 찜콩 여부
 	private String route_like;
 	
 	public RoutePostscript(){}
 
-
 	public RoutePostscript(int route_postscript_rownum, String routename, String route_thumbnail, String comment,
-			Date writetime, int hitnum, int likenum, String username, int route_code, int route_postscript_tag_rownum,
-			String tag, String route_like) {
+			Date writetime, int hitnum, int likenum, String username, int route_code,
+			List<RoutePostscriptTag> routePostscriptTag, String route_like) throws ParseException {
 		super();
 		this.route_postscript_rownum = route_postscript_rownum;
 		this.routename = routename;
@@ -40,8 +38,7 @@ public class RoutePostscript {
 		this.likenum = likenum;
 		this.username = username;
 		this.route_code = route_code;
-		this.route_postscript_tag_rownum = route_postscript_tag_rownum;
-		this.tag = tag;
+		this.routePostscriptTag = routePostscriptTag;
 		this.route_like = route_like;
 	}
 
@@ -57,11 +54,9 @@ public class RoutePostscript {
 		return routename;
 	}
 
-
 	public void setRoutename(String routename) {
 		this.routename = routename;
 	}
-
 
 	public String getRoute_thumbnail() {
 		return route_thumbnail;
@@ -79,13 +74,11 @@ public class RoutePostscript {
 		this.comment = comment;
 	}
 
-	public Date getWritetime() throws ParseException {
-		SimpleDateFormat new_format = new SimpleDateFormat("yyyy/mm/dd(E) HH:mm");
-		writetime = new_format.parse(new_format.format(writetime));
+	public Date getWritetime() {
 		return writetime;
 	}
 
-	public void setWritetime(Date writetime){
+	public void setWritetime(Date writetime) {
 		this.writetime = writetime;
 	}
 
@@ -121,20 +114,12 @@ public class RoutePostscript {
 		this.route_code = route_code;
 	}
 
-	public int getRoute_postscript_tag_rownum() {
-		return route_postscript_tag_rownum;
+	public List<RoutePostscriptTag> getRoutePostscriptTag() {
+		return routePostscriptTag;
 	}
 
-	public void setRoute_postscript_tag_rownum(int route_postscript_tag_rownum) {
-		this.route_postscript_tag_rownum = route_postscript_tag_rownum;
-	}
-
-	public String getTag() {
-		return tag;
-	}
-
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setRoutePostscriptTag(List<RoutePostscriptTag> routePostscriptTag) {
+		this.routePostscriptTag = routePostscriptTag;
 	}
 
 	public String getRoute_like() {
@@ -150,8 +135,6 @@ public class RoutePostscript {
 		return "RoutePostscript [route_postscript_rownum=" + route_postscript_rownum + ", routename=" + routename
 				+ ", route_thumbnail=" + route_thumbnail + ", comment=" + comment + ", writetime=" + writetime
 				+ ", hitnum=" + hitnum + ", likenum=" + likenum + ", username=" + username + ", route_code="
-				+ route_code + ", route_postscript_tag_rownum=" + route_postscript_tag_rownum + ", tag=" + tag
-				+ ", route_like=" + route_like + "]";
+				+ route_code + ", routePostscriptTag=" + routePostscriptTag + ", route_like=" + route_like + "]";
 	}
-	
 }
