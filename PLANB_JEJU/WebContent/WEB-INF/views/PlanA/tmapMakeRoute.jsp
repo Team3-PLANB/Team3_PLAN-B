@@ -366,7 +366,19 @@ $( function() {
               step : 15,
               start : 0
            });
-           $(".sortable").sortable();
+           $(".sortable").sortable({
+        	   
+        
+        	   update: function(event, ui) {
+                   /* var result = $(this).sortable('toArray'); */
+                   var result = $(this).sortable('toArray', {attribute: 'value'});
+                   alert(result);
+                   }
+           /* $('.sortable').each(function(){
+			    result.push($(this).sortable('toArray'));
+			}) */
+           
+           });
            /* $(".sortable").disableSelection(); */
            $(".sortable").selectable();
            
