@@ -14,13 +14,13 @@
 	<bean id="driverManagerDataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		<!-- <property name="url"
-				value="jdbc:mysql://192.168.0.170:3306/planb?charcterEncoding=UTF-8"></property> -->
+		 <property name="url"
+				value="jdbc:mysql://192.168.0.170:3306/planb?charcterEncoding=UTF-8"></property> 
 <!--		  			value="jdbc:mysql://localhost:3306/kostatest?charcterEncoding=UTF-8"></property>  -->
 		<!-- <property name="url"  집에서 할때 로컬호스트 (준성)
 			value="jdbc:mysql://localhost:3306/test?charcterEncoding=UTF-8"></property> -->
-		<property name="url"
-				value="jdbc:mysql://192.168.0.101:3306/planb?charcterEncoding=UTF-8"></property><!-- 10강의실 -->
+		<!-- <property name="url"
+				value="jdbc:mysql://192.168.0.101:3306/planb?charcterEncoding=UTF-8"></property> --><!-- 10강의실 -->
 		<property name="username" value="kosta"></property>
 		<property name="password" value="1004"></property>
 	</bean>
