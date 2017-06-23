@@ -24,6 +24,7 @@ import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
+import com.planb_jeju.dto.SitePostscriptTag;
 
 @Service
 public class SitePostscriptService {
@@ -125,29 +126,29 @@ public class SitePostscriptService {
 	* @date : 2017. 6. 21
 	* @description : 루트 후기 게시판 상세보기
 	* @parameter : 
-	* @return :  
-	
-	public RoutePostscript detailRoutePostscript(int route_postscript_rownum, String username, SqlSession sqlsession) throws ClassNotFoundException, SQLException {
-		System.out.println("루트 후기게시판 상세보기 서비스 들어옴");
-		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
+	* @return :
+	* */	
+	public SitePostscript detailSitePostscript(int site_postscript_rownum, String username, SqlSession sqlsession) throws ClassNotFoundException, SQLException {
+		System.out.println("사이트 후기게시판 상세보기 서비스 들어옴");
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		System.out.println("username : " + username);
-		RoutePostscript routePostscript = routePostscriptDao.getRoutePost(route_postscript_rownum, username);
+		SitePostscript sitePostscript = sitePostscriptDao.getSitePost(site_postscript_rownum, username);
 		
-		return routePostscript;
+		return sitePostscript;
 
 	}
 	
 	/*
-	* @date : 2017. 6. 21
-	* @description : 루트 후기 태그 가져오기
+	* @date : 2017. 6. 22
+	* @description : 사이트 후기 태그 가져오기
 	* @parameter : 
 	* @return :  
 	*/
-	/*public List<RoutePostscriptTag> getRoutePostTagList(RoutePostscript routePostscript, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	public List<SitePostscriptTag> getSitePostTagList(SitePostscript sitePostscript, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 태그 가져오기");
-		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
-		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptDao.getRoutePostTagList(routePostscript);
-		System.out.println("routePostscriptTagList : " + routePostscriptTagList);
-		return routePostscriptTagList;
-	}*/
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptDao.getSitePostTagList(sitePostscript);
+		System.out.println("sitePostscriptTagList : " + sitePostscriptTagList);
+		return sitePostscriptTagList;
+	}
 }

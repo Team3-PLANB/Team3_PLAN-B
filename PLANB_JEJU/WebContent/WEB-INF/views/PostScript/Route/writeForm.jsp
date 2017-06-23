@@ -22,13 +22,10 @@
 <title>PLAN'B &mdash; JEJU</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-<meta name="keywords"
-	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
+<meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" />
 
-<link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
-	rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
 	
 <!-- 
@@ -46,15 +43,15 @@
  
  
 <!-- 여행후기작성  -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
  
  
  
  
 <!-- 갤러리 등록을 위한 css  -->
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
-<link href="dist/styles.imageuploader.css" rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/dist/styles.imageuploader.css" rel="stylesheet" type="text/css">
 
 
 
@@ -74,8 +71,8 @@
  -->
 
 
-<link rel="stylesheet" href="css/PostScript/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/jquery-ui.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/demos/style.css">
 
 
 <!-- <script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script> -->
@@ -94,102 +91,23 @@
 
 <!-- Icomoon Icon Fonts-->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/icomoon.css">
+	href="${pageContext.request.contextPath}/css/icomoon.css">
 	
 	
 <!-- Bootstrap  -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/bootstrap.css">
+	href="${pageContext.request.contextPath}/css/bootstrap.css">
 	
 	
 <!-- Superfish -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/superfish.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
 	
 	
 <!-- histroy css -->
-<link rel="stylesheet" href="<%=request.getContextPath()%>/css/history.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/history.css">
 	
 <!-- 체크박스 css -->	
-<link rel="stylesheet" href="css/PlanA/checkbox-bootstrap.css">
-
-<header>
-	<nav class="navbar navbar-default" style="margin: 0px;">
-		<div class="container">
-			<div class="nav-header">
-				<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark"> <i></i>
-				</a>
-				<h1 id="fh5co-logo">
-					<a href="${pageContext.request.contextPath}/Index/main.do"> <i
-						class="icon-airplane"></i>PLAN'B JEJU
-					</a>
-				</h1>
-				<!-- START #fh5co-menu-wrap -->
-				<nav id="fh5co-menu-wrap" role="navigation">
-					<ul class="sf-menu sf-js-enabled sf-arrows" id="fh5co-primary-menu"
-						style="touch-action: pan-y;">
-						<li class="active"><a
-							href="${pageContext.request.contextPath}/index.jsp">HOME</a></li>
-						<!-- ROLE_USER만 : 클릭 시 로그인 페이지로 이동 > 수정할거야 -->
-						<%-- <security:authorize access ="isAnonymous()">							
-								<li>
-									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">일정만들기</a>
-								</li>
-							</security:authorize> --%>
-						<%-- <security:authorize access="isAuthenticated()">
-								<li><a href="${pageContext.request.contextPath}/PLANA.do">일정만들기</a></li>
-							</security:authorize> --%>
-
-						<li><a
-							href="${pageContext.request.contextPath}/PLANA.make.do">일정만들기</a></li>
-
-						<li><a
-							href="${pageContext.request.contextPath}/PostScript/Route/List.do">후기게시판</a></li>
-						<!-- ROLE_USER만 : 로그인 시 보이는 탭-->
-						<security:authorize access="hasRole('ROLE_USER')">
-							<li class=""><a
-								href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do"
-								class="fh5co-sub-ddown sf-with-ul">My Page</a>
-								<ul class="fh5co-sub-menu" style="display: none;">
-									<li>
-										<a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do">일정 관리</a>
-									</li>
-									<li>
-										<a href="${pageContext.request.contextPath}/MyPage/PostScript/postScriptMain.do">나의 후기</a></li>
-									<li>
-										<a href="${pageContext.request.contextPath}/MyPage/Like/like.do">찜한 후기</a>
-									</li>
-									<li>
-										<a href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do">쪽지함</a>
-									</li>
-									<li>
-										<a href="${pageContext.request.contextPath}/MyPage/Info/info.do">회원정보수정</a>
-									</li>
-									<li>
-										<a href="${pageContext.request.contextPath}/MyPage/History/history.do">히스토리</a>
-									</li>
-								</ul>
-							</li>
-						</security:authorize>
-						<security:authorize access="isAnonymous()">
-							<li><a
-								href="${pageContext.request.contextPath}/LoginJoin/Login/NLogin.do">LOGIN</a>
-							</li>
-						</security:authorize>
-						<!-- 로그아웃 -->
-						<security:authorize access="isAuthenticated()">
-							<form action="${logoutUrl}" method="post"
-								class="navbar-form navbar-right">
-								<button type="submit" class="btn btn-default">로그아웃</button>
-							</form>
-						</security:authorize>
-					</ul>
-				</nav>
-			</div>
-		</div>
-	</nav>
-</header>
-
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PlanA/checkbox-bootstrap.css">
 
 <!-- 상세보기 일정 -->
 
@@ -329,7 +247,7 @@ div.over {
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
+							onerror="this.src='${pageContext.request.contextPath}/res/img/common/no_img/sight55.png';"
 							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
 							style="cursor: pointer;">
 						<div class="spot_content_box" style="width: 150px;">
@@ -351,7 +269,7 @@ div.over {
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
+							onerror="this.src='${pageContext.request.contextPath}/res/img/common/no_img/sight55.png';"
 							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
 							style="cursor: pointer;">
 						<div class="spot_content_box" style="width: 130px;">
@@ -379,7 +297,7 @@ div.over {
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
+							onerror="this.src='${pageContext.request.contextPath}/res/img/common/no_img/sight55.png';"
 							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
 							style="cursor: pointer;">
 						<div class="spot_content_box" style="width: 150px;">
@@ -405,7 +323,7 @@ div.over {
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
+							onerror="this.src='${pageContext.request.contextPath}/res/img/common/no_img/sight55.png';"
 							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
 							style="cursor: pointer;">
 						<div class="spot_content_box" style="width: 150px;">
@@ -431,7 +349,7 @@ div.over {
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
+							onerror="this.src='${pageContext.request.contextPath}/res/img/common/no_img/sight55.png';"
 							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
 							style="cursor: pointer;">
 						<div class="spot_content_box" style="width: 150px;">
@@ -442,7 +360,7 @@ div.over {
 								<div class="tag">유명한거리/지역</div>
 								<div class="sinfo_line"></div>
 								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
+									<img src="${pageContext.request.contextPath}/css/history/like.png"
 										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
 								</div>
 							</div>
@@ -475,7 +393,7 @@ div.over {
 							</div>
 						</div>
 						<div class="spot_btn_box">
-							<img src="<%=request.getContextPath()%>/css/history/map_ico.png"
+							<img src="${pageContext.request.contextPath}/css/history/map_ico.png"
 								alt="" class="spot_btn map_view"
 								onclick="set_center(33.51010100,126.48125500)">
 						</div>
@@ -507,7 +425,7 @@ div.over {
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="routePost">
 						<div class="table-responsive">
-							<form action="${pageContext.request.contextPath}/PostScript/Route/Write.do?route_code=${route_code}" method="POST">
+							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.getRoute_code()}" method="POST">
 								<div role="tabpanel" class="tab-pane active" id="route">
 									<input type="text" class="form-control" value="${route.getRoutename()}" readonly><br>
 									<textarea name="" class="form-control" id="comment" cols="30" rows="7"
@@ -538,13 +456,12 @@ div.over {
 		
 		
 		
-		
 							<!--
 							 이새끼 충돌
 							 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 							 -->
 							 
-							<script src="dist/jquery.imageuploader.js"></script>
+							<script src="${pageContext.request.contextPath}/dist/jquery.imageuploader.js"></script>
 							<script>
 								(function() {
 									var options = {};
@@ -565,81 +482,64 @@ div.over {
 									ga.src = ('https:' == document.location.protocol ? 'https://ssl'
 											: 'http://www')
 											+ '.google-analytics.com/ga.js';
-									var s = document
-											.getElementsByTagName('script')[0];
+									var s = document.getElementsByTagName('script')[0];
 									s.parentNode.insertBefore(ga, s);
 								})();
 							</script>
 
 
-							<br> <input type="text" class="form-control"
-								placeholder="제목"><br>
-							<textarea name="" class="form-control" id="" cols="30" rows="7"
-								placeholder="후기"></textarea>
+							<br> 
+							<input type="text" class="form-control" value=""><br>
+							<textarea name="" class="form-control" id="" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
 							<br>
 							<div align="center">
 								<div class="checkbox">
-									<img alt="" src="images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<label class="checkbox-bootstrap checkbox-lg"> <input
-										name="aaa" type="checkbox" value="1"
-										onclick="doOpenCheck(this);"> <span
-										class="checkbox-placeholder"></span> 맑음
-									</label>&nbsp;&nbsp;&nbsp; <label
-										class="checkbox-bootstrap checkbox-lg"> <input
-										name="aaa" type="checkbox" value="2"
-										onclick="doOpenCheck(this);"> <span
-										class="checkbox-placeholder"></span> 흐림
-									</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
-										<input name="aaa" type="checkbox" value="3"
-										onclick="doOpenCheck(this);"> <span
-										class="checkbox-placeholder"></span> 우중충
+									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<label class="checkbox-bootstrap checkbox-lg"> 
+										<input name="aaa" type="checkbox" value="1" onclick="doOpenCheck(this);"> 
+										<span class="checkbox-placeholder"></span> 맑음
+									</label>&nbsp;&nbsp;&nbsp; 
+									<label class="checkbox-bootstrap checkbox-lg"> 
+										<input name="aaa" type="checkbox" value="2" onclick="doOpenCheck(this);"> 
+										<span class="checkbox-placeholder"></span> 흐림
+									</label>&nbsp;&nbsp;&nbsp;
+								</div>
+								<br>
+								<div class="checkbox">
+									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/002-money.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<label class="checkbox-bootstrap checkbox-lg"> 
+										<input name="bbb" type="checkbox" value="1" onclick="doOpenCheck2(this);"> 
+											<span class="checkbox-placeholder"></span> 부족
+									</label>&nbsp;&nbsp;&nbsp; 
+									<label class="checkbox-bootstrap checkbox-lg"> 
+										<input name="bbb" type="checkbox" value="2" onclick="doOpenCheck2(this);"> 
+										<span class="checkbox-placeholder"></span> 적당
+									</label>&nbsp;&nbsp;&nbsp;
+									<label class="checkbox-bootstrap checkbox-lg">
+										<input name="bbb" type="checkbox" value="3" onclick="doOpenCheck2(this);"> 
+										<span class="checkbox-placeholder"></span> 풍족
 									</label>
 								</div>
 								<br>
 								<div class="checkbox">
-									<img alt="" src="images/PostScript/002-money.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<label class="checkbox-bootstrap checkbox-lg"> <input
-										name="bbb" type="checkbox" value="1"
-										onclick="doOpenCheck2(this);"> <span
-										class="checkbox-placeholder"></span> 부족
-									</label>&nbsp;&nbsp;&nbsp; <label
-										class="checkbox-bootstrap checkbox-lg"> <input
-										name="bbb" type="checkbox" value="2"
-										onclick="doOpenCheck2(this);"> <span
-										class="checkbox-placeholder"></span> 적당
-									</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
-										<input name="bbb" type="checkbox" value="3"
-										onclick="doOpenCheck2(this);"> <span
-										class="checkbox-placeholder"></span> 풍족
+									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/001-hospital.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+									<label class="checkbox-bootstrap checkbox-lg"> 
+									<input name="ccc" type="checkbox" value="1" onclick="doOpenCheck3(this);"> 
+										<span class="checkbox-placeholder"></span> 양호
+									</label>&nbsp;&nbsp;&nbsp; 
+									<label class="checkbox-bootstrap checkbox-lg"> 
+										<input name="ccc" type="checkbox" value="2" onclick="doOpenCheck3(this);"> 
+										<span class="checkbox-placeholder"></span> 쏘쏘
+									</label>&nbsp;&nbsp;&nbsp;
+									<label class="checkbox-bootstrap checkbox-lg">
+										<input name="ccc" type="checkbox" value="3" onclick="doOpenCheck3(this);"> 
+										<span class="checkbox-placeholder"></span> 악화
 									</label>
-								</div>
-								<br>
-								<div class="checkbox">
-									<img alt="" src="images/PostScript/001-hospital.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-									<label class="checkbox-bootstrap checkbox-lg"> <input
-										name="ccc" type="checkbox" value="1"
-										onclick="doOpenCheck3(this);"> <span
-										class="checkbox-placeholder"></span> 양호
-									</label>&nbsp;&nbsp;&nbsp; <label
-										class="checkbox-bootstrap checkbox-lg"> <input
-										name="ccc" type="checkbox" value="2"
-										onclick="doOpenCheck3(this);"> <span
-										class="checkbox-placeholder"></span> 쏘쏘
-									</label>&nbsp;&nbsp;&nbsp;<label class="checkbox-bootstrap checkbox-lg">
-										<input name="ccc" type="checkbox" value="3"
-										onclick="doOpenCheck3(this);"> <span
-										class="checkbox-placeholder"></span> 악화
-									</label>
-									
-									
-									
-									
 								</div>
 							</div>
 							<br>
 							<div align="center">
-								<input type="submit" value="작성 완료"
-									class="btn btn-primary btn-block">
+								<input type="submit" value="작성 완료" class="btn btn-primary btn-block">
 							</div>
 
 						</div>

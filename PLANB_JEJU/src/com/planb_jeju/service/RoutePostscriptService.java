@@ -13,6 +13,9 @@ package com.planb_jeju.service;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /*
 * @FileName : PostscriptService.java
@@ -26,6 +29,7 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import com.planb_jeju.dao.RoutePostScriptDao;
 import com.planb_jeju.dao.SitePostScriptDao;
@@ -149,6 +153,27 @@ public class RoutePostscriptService {
 	}
 	
 	/*
+	* @date : 2017. 6. 22
+	* @description : 루트 후기  작성
+	* @parameter : 
+	* @return :  
+	*/
+	public RoutePostscript writeRoutePostscript(RoutePostscript routePostscript, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+		System.out.println("루트 후기 작성");
+		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
+		RoutePostscript routePostscript2 = null;
+		int check = routePostscriptDao.insert(routePostscript);
+		
+		if(check > 0){
+			System.out.println("루트 후기 작성 완료");
+			routePostscript2 = routePostscriptDao.getLastRoutePost();
+		}else{
+			System.out.println("루트 후기 작성 오류남");
+		}
+		return routePostscript2;
+	}
+	
+	/*
 	* @date : 2017. 6. 21
 	* @description : 루트 후기 태그 가져오기
 	* @parameter : 
@@ -161,4 +186,36 @@ public class RoutePostscriptService {
 		System.out.println("routePostscriptTagList : " + routePostscriptTagList);
 		return routePostscriptTagList;
 	}*/
+	
+	/*
+	* @date : 2017. 6. 22
+	* @description : 루트 후기  태그 만들기
+	* @parameter : 
+	* @return :  
+	*/
+	public void insertTag(RoutePostscript routePostscript, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+		System.out.println("루트 후기 태그 만들기");
+		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
+		
+		String comment = routePostscript.getComment();
+		
+		RoutePostscriptTag routePostscriptTag = new RoutePostscriptTag();
+		routePostscriptTag.setRoute_postscript_rownum(routePostscript.getRoute_postscript_rownum());
+		
+		// 해시 태그 추출
+		Pattern p = Pattern.compile("\\#([0-9a-zA-Z가-힣]*)");
+		Matcher m = p.matcher(comment);
+		String extracHashTag = null;
+		
+		while(m.find()){
+			extracHashTag = StringUtils.replace(extracHashTag, "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~) ", "");
+			
+			if(extracHashTag != null){
+				System.out.println("최종 추출 해시태그 : " + extracHashTag);
+			}
+			routePostscriptTag.setTag(extracHashTag);
+			routePostscriptDao.insertTag(routePostscript);
+		}
+	}
+	
 }

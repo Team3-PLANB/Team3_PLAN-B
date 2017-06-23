@@ -23,19 +23,40 @@
 
 <link rel="stylesheet" href="css/plana_tmap.css">
 
-<!-- 페이지 유형 파악 -->
 
 
-<%-- <c:if test="${requestScope.pageCase=='routeRecommendPage'}">
-            	<c:forEach var="item" items="${requestScope.siteList}" >
-				     장소 : ${item.site}
-				     위도 : ${item.lat}
-				     경도 : ${item.lon}
-				  var marker = new Tmap.Marker(new Tmap.LonLat(${item.lon}, ${item.lat}).transform(pr_4326, pr_3857), icon);
-			      markerLayer.addMarker(marker);
-				</c:forEach>
-            	
-</c:if> --%>
+<!-- Start : 일정부분 적용 링크 -->
+
+
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="shortcut icon" href="favicon.ico">
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
+
+
+
+
+<!-- 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
+	rel='stylesheet' type='text/css'> -->
+
+<!-- Icomoon Icon Fonts-->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/icomoon.css">
+<!-- Bootstrap  -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/bootstrap.css">
+<!-- Superfish -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/superfish.css">
+<!-- histroy css -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/history.css">
+
+<!-- End : 일정부분 적용 링크 -->
+
 <%----------------------------------지도 부분 스크립트----------------------------------------%>
 
 <script type="text/javascript">
@@ -78,6 +99,8 @@ $( function() {
             markerLayer = new Tmap.Layer.Markers();
             map.addLayer(markerLayer);
             /* searchRoute(); */
+            
+            
             <c:choose>
 				<c:when test="${requestScope.pageCase=='siteRecommendPage'}">
 					<c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> 
@@ -93,9 +116,8 @@ $( function() {
 				    
 						//경로 이름 버튼 생성
 						/* console.log('${item.key}'); */
-						 $('#accordion2').prepend("<input type='button' value='${item.key}' class='routeButton' onclick='routeButtonClick(this)'><br>"); 
+						 $('#accordion1').prepend("<input type='button' value='${item.key}' class='routeButton' onclick='routeButtonClick(this)'><br>"); 
 						
-						 
 						
 						
 					
@@ -141,12 +163,17 @@ $( function() {
 				         vector_layer.events.on({
 				             "featureselected": onFeatureSelect()
 				         }); */
-						
+				         
+				         
+				         
+				         
+				         
+				         
+				         
+				         
 					</c:forEach>
 				
-				/*var selectCtrl = new Tmap.Control.SelectFeature(vectors,
-				     {clickout: true}
-				);  */
+					
 						 
 						
 						
@@ -162,6 +189,9 @@ $( function() {
         	
         	// map위 Layers 제거
         	deleteLayers();
+        	
+        	// 일정 Drag 박스 empty 적용
+        	$('#accordion2').empty();
         	
         	//pr_3857 인스탄스 생성. (Google Mercator)
         	var pr_3857 = new Tmap.Projection("EPSG:3857");
@@ -217,11 +247,198 @@ $( function() {
 					 
 					vector_layer.addFeatures([mLineFeature]);
 					
+					
+					/* Start : 여행지 일정표 정리 */
+		         	
+			         var dayOrder=0;
+			         
+			         var routedate;
+			         
+					 
+			         <c:forEach var="i" items="${item.value}" varStatus="num">
+						
+			         	// 날짜 별 Drag 박스 생성
+			         	if(routedate!='${i.route_date}'){
+			         		routedate = '${i.route_date}';
+			         		++dayOrder;
+			         		
+			         		// Day 드래그 박스 추가
+			         		/*
+			         		<div class='group' style='width: 280px;'>
+								<h3>DAY 1</h3>
+								<div>
+									<div class='sortable'>
+									</div>
+								</div>
+							</div>
+			         		*/
+			         		$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
+			         	
+			         	}
+			         	
+			         
+			         	/* console.log(routedate);
+						console.log('${i.site}');
+						console.log('${i.lon}');
+						console.log('${i.lat}'); */
+						
+						
+						// 각 Day 안에 Site 순서대로 append
+												
+						var $sch_content = $( "<div class='sch_content ' style='width: 250px;'></div>" );
+						var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+						var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
+						var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
+						var $spot_info = $("<div class='spot_info'></div>");
+						var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
+						var $sinfo_line = $("<div class='sinfo_line'></div>");
+						var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
+						var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
+						
+						var scheduleday = '#'+'ScheduleDay'+dayOrder;
+						<%-- $(scheduleday).append('<div class="sch_content" style="width: 250px;"><img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg" alt="" class="spot_img" style="cursor: pointer;"> <div class="spot_content_box" style="width: 150px;"><div class="spot_name" style="cursor: pointer;">1번</div> <div class="spot_info"> <div class="tag">유명한거리/지역</div> <div class="sinfo_line"></div> <div class="sinfo_txt" style="padding: 0px"> 	<img src="<%=request.getContextPath()%>/css/history/like.png" style="height: 20px"> 6 / 10 <span>1개의 평가</span> </div> </div> </div> </div>');
+						 --%>
+						 
+						 $sinfo_txt_img.appendTo($sinfo_txt);
+						 
+						 $tag.appendTo($spot_info);
+						 $sinfo_line.appendTo($spot_info);
+						 $sinfo_txt.appendTo($spot_info);
+						 
+						 $spot_name.appendTo($spot_content_box);
+						 $spot_info.appendTo($spot_content_box);
+						 
+						 $content_img.appendTo($sch_content);
+						 $spot_content_box.appendTo($sch_content);
+						 
+						 $(scheduleday).append($sch_content);
+						
+						<%-- 	
+						<div class="sch_content" style="width: 250px;">
+						<img
+							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
+							alt="" class="spot_img"
+							onerror="this.src='/res/img/common/no_img/sight55.png';"
+							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+							style="cursor: pointer;">
+						<div class="spot_content_box" style="width: 150px;">
+							<div class="spot_name"
+								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+								style="cursor: pointer;">1번</div>
+							<div class="spot_info">
+								<div class="tag">유명한거리/지역</div>
+								<div class="sinfo_line"></div>
+								<div class="sinfo_txt" style="padding: 0px">
+									<img src="<%=request.getContextPath()%>/css/history/like.png"
+										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
+								</div>
+							</div>
+						</div>
+					</div> --%>
+						
+						 
+					 </c:forEach>
+				       
+					
+			         
+			         
+					 /* End : 여행지 일정표 정리 */
+					
 				};	
 				
 			</c:forEach>
 			
+			// 일정 Drag 박스 스타일 적용 함수 호출
+			scheduleBoxStyle();
         };
+        
+        // 일정 Drag 박스 스타일 적용 함수
+        function scheduleBoxStyle(){
+        	$('#schedulebox').animate({
+                width: '+=380px'
+           });
+           $('#schedulebox2').animate({
+                width: '+=30%'
+           });
+           $('.spinner').spinner({
+              min : 0,
+              max : 300,
+              step : 15,
+              start : 0
+           });
+           $(".sortable").sortable({
+        	   
+        
+        	   update: function(event, ui) {
+                   /* var result = $(this).sortable('toArray'); */
+                   var result = $(this).sortable('toArray', {attribute: 'value'});
+                   alert(result);
+                   }
+           /* $('.sortable').each(function(){
+			    result.push($(this).sortable('toArray'));
+			}) */
+           
+           });
+           /* $(".sortable").disableSelection(); */
+           $(".sortable").selectable();
+           
+           /* $('.sortable').selectable({
+              cancle: '.sort-handle'
+           }).sortable({
+              items: "> li",
+              handle: '.sort-handle',
+              helper: function(e, item) {
+                 if ( ! item.hasClass('ui-selected') ) {
+                    item.parent().children('.ui-selected').removeClass('ui-selected');
+                    item.addClass('ui-selected');
+                 }
+                 var selected = item.parent().children('.ui-selected').clone();
+                 item.data('multidrag', selected).siblings('.ui-selected').remove();
+                 return $('</li>').append(selected);
+              },
+              stop: function(e, ui) {
+                 var selected = ui.item.data('multidrag');
+                 ui.item.after(selected);
+                 ui.item.remove();
+              }
+           }); */
+           $("#accordion")
+           .accordion({
+              collapsible : true,
+              header : ".day_info_box"
+           })
+           .sortable({
+              axis : "y",
+              handle : ".day_info_box",
+              stop : function(event, ui) {
+                 // IE doesn't register the blur when sorting
+                 // so trigger focusout handlers to remove .ui-state-focus
+                 ui.item.children(".day_info_box").triggerHandler("focusout");
+                 // Refresh accordion to handle new order
+                 $(this).accordion("refresh");
+              }
+           });
+           $("#accordion2")
+           .accordion({
+              collapsible : true,
+              header : "> div > h3",
+              autoHeight: false,
+              navigation: true,
+              heightStyle: "content" 
+           })
+           .sortable({
+              axis : "y",
+              handle : "h3",
+              stop : function(event, ui) {
+                 // IE doesn't register the blur when sorting
+                 // so trigger focusout handlers to remove .ui-state-focus
+                 ui.item.children("div").triggerHandler("focusout");
+                 // Refresh accordion to handle new order
+                 $(this).accordion("refresh");
+              }
+           });
+         
+         };
         
         // 맵 위 Layer 제거 함수
         function deleteLayers(){
@@ -230,9 +447,9 @@ $( function() {
 		        	var mapLayerCount = mapLayers.length;
 		        	
 		        	for(var i =1; i<mapLayerCount; i++){
-		        		console.log("길이"+mapLayerCount);
+		        		/* console.log("길이"+mapLayerCount);
 		        		console.log("i"+i);
-		        		console.log(mapLayers[i]); 
+		        		console.log(mapLayers[i]);  */
 		        		if(mapLayers[i]!=null){
 		        			map.removeLayer(mapLayers[i]); 
 		        		}else{
@@ -241,9 +458,9 @@ $( function() {
 		                	var mapLayerCount = mapLayers.length;
 		                	
 		                	for(var i =1; i<mapLayerCount; i++){
-		                		console.log("길이"+mapLayerCount);
+		                		/* console.log("길이"+mapLayerCount);
 		                		console.log("i"+i);
-		                		console.log(mapLayers[i]); 
+		                		console.log(mapLayers[i]); */ 
 		                		if(mapLayers[i]!=null){
 		                			map.removeLayer(mapLayers[i]); 
 		                		}else{
@@ -252,9 +469,9 @@ $( function() {
 		                        	var mapLayerCount = mapLayers.length;
 		                        	
 		                        	for(var i =1; i<mapLayerCount; i++){
-		                        		console.log("길이"+mapLayerCount);
+		                        		/* console.log("길이"+mapLayerCount);
 		                        		console.log("i"+i);
-		                        		console.log(mapLayers[i]); 
+		                        		console.log(mapLayers[i]);  */
 		                        		if(mapLayers[i]!=null){
 		                        			map.removeLayer(mapLayers[i]); 
 		                        		}else{
@@ -263,9 +480,9 @@ $( function() {
 		                                	var mapLayerCount = mapLayers.length;
 		                                	
 		                                	for(var i =1; i<mapLayerCount; i++){
-		                                		console.log("길이"+mapLayerCount);
+		                                		/* console.log("길이"+mapLayerCount);
 		                                		console.log("i"+i);
-		                                		console.log(mapLayers[i]); 
+		                                		console.log(mapLayers[i]);  */
 		                                		if(mapLayers[i]!=null){
 		                                			map.removeLayer(mapLayers[i]); 
 		                                		}
@@ -538,16 +755,41 @@ $( function() {
 
 
 
+<!-- append clone 해서 사용할 div 생성해두기 -->
+<!-- style="display:none;" -->
+<%-- <div class="sch_content" style="width: 250px; display:none;"/>
+
+
+						<img
+							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
+							alt="" class="spot_img"
+							onerror="this.src='/res/img/common/no_img/sight55.png';"
+							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+							style="cursor: pointer; display:none;">
+							
+						<div class="spot_content_box" style="width: 150px; display:none;" />
+						
+							<div class="spot_name"
+								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+								style="cursor: pointer; display:none;">1번</div>
+								
+							<div class="spot_info"  style="display:none;"/>
+								<div class="tag"  style="display:none;">유명한거리/지역</div>
+								<div class="sinfo_line"  style="display:none;"></div>
+								<div class="sinfo_txt" style="padding: 0px; display:none;">
+									<img src="<%=request.getContextPath()%>/css/history/like.png"
+										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
+								</div> --%>
+							
+						
+					
 
 
 
 <%----------------------------------왼쪽 일정 짜기 부분 스크립트 ----------------------------------------%>
 
-<link rel="stylesheet"
+<%-- <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<!-- <link rel="stylesheet" href="/resources/demos/style.css"> -->
-<!-- <script
-	src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script> -->
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="shortcut icon" href="favicon.ico">
@@ -567,12 +809,9 @@ $( function() {
 	href="<%=request.getContextPath()%>/css/superfish.css">
 <!-- histroy css -->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/history.css">
+	href="<%=request.getContextPath()%>/css/history.css"> --%>
 
 
-
-<!-- html2canvas 연습 -->
-<link>
 
 
 
@@ -580,7 +819,7 @@ $( function() {
 <!-- 상세보기 일정 -->
 
 <style>
-.sortable {
+/* .sortable {
 	font-size: 10px;
 	list-style-type: none;
 	margin: 0;
@@ -588,7 +827,7 @@ $( function() {
 	width: 60%;
 	height: auto;
 	display: inline;
-}
+} */
 /* .sortable div{
 
  	height: auto; 
@@ -727,7 +966,6 @@ style="display: block; height: 458px;" */
   
   
 </script>
-</head>
 
 
 
@@ -757,8 +995,10 @@ style="display: block; height: 458px;" */
 
 <div style="background-color: white; width: 450px;" id="schedulebox2">
 	<!-- 이놈은 아님 -->
+	<div id="accordion1" style="overflow: auto; width: 450px;" />
 	<div id="accordion2"
 		style="overflow: auto; width: 450px; height: 650px;">
+		
 		<div class="group" style="width: 280px;">
 			<h3>DAY 1</h3>
 			<!--min-height   -->
@@ -809,8 +1049,10 @@ style="display: block; height: 458px;" */
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="group" style="width: 280px;">
+		</div>   
+		
+		
+		<%-- <div class="group" style="width: 280px;">
 			<h3>DAY 2</h3>
 			<div>
 				<div class="sortable">
@@ -925,9 +1167,9 @@ style="display: block; height: 458px;" */
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 
-		<div class="group" style="width: 280px;">
+		<%-- <div class="group" style="width: 280px;">
 			<h3>DAY 3</h3>
 			<div>
 				<div class="sortable">
@@ -1070,7 +1312,7 @@ style="display: block; height: 458px;" */
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> --%>
 	</div>
 </div>
 

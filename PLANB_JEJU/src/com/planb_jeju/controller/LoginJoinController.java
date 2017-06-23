@@ -47,6 +47,16 @@ import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Role;
 import com.planb_jeju.service.MemberService;
 
+/*
+* @FileName : 
+* @Class : LoginJoinController
+* @Project : PLANB_JEJU
+* @Date : 2017.06.16
+* @LastEditDate : 2017.06.21
+* @Author : 홍단비 
+* @Desc : LoginJoin 컨트롤러
+*/
+
 @Controller
 @RequestMapping("/LoginJoin/")
 public class LoginJoinController {
@@ -94,7 +104,7 @@ public class LoginJoinController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping("Login/loginok.do")
-	public String nLoginOK(HttpSession session,Principal principal) throws ClassNotFoundException, SQLException{
+	public String nLoginOK(Principal principal) throws ClassNotFoundException, SQLException{
 		System.out.println("loginok");	
 		return "Main.mainpage";
 	}
@@ -178,7 +188,7 @@ public class LoginJoinController {
 		System.out.println("getFBRole >>> "+roledao.getFbRole(username));
 		Role role = roledao.getFbRole(username);
 		System.out.println("getRole_code >>> "+role);
-//		String result = memberDao.getFBpassword(username);
+		String result = memberDao.getFBpassword(username);
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(role.getROLE_NAME()));
 
@@ -187,8 +197,9 @@ public class LoginJoinController {
 		SecurityContext context = SecurityContextHolder.getContext();
 		context.setAuthentication(authRequest);
 		System.out.println("authRequest" +authRequest);
-//		Authentication auth = context.getAuthentication();
+		Authentication auth = context.getAuthentication();
 //		UserDetails userinfo = (UserDetails)auth.getPrincipal();
+//		System.out.println(userinfo);
 		return "true";
 	}	
 

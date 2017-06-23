@@ -1,12 +1,13 @@
 <%--
 @Project : PLANB_JEJU
 @File name : scheduleMain.jsp 
-@Author : 임정연
+@Author : 임정연 & 정다혜
  @Data : 2017.06.22
 @Desc : 마이페이지의 일정 관리
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="../myPageMain.jsp"></jsp:include>
 
     <link rel="shortcut icon" href="favicon.ico">
@@ -36,42 +37,20 @@
 <div id="fh5co-tours">
 			<div class="container">
 				<div class="row">
-					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-							<div class="desc">
-								<span></span>
-								<h3>6월의 제주도</h3>
-								<span>2017.06.07-2017.06.12</span>
-								<a class="btn btn-primary btn-outline" href="#">상세보기<i class="icon-arrow-right22"></i></a>
-								<a class="btn btn-primary btn-outline" href="#">히스토리<i class="icon-arrow-right22"></i></a>
-								<a class="btn btn-primary btn-outline" href="#">후기 작성<i class="icon-arrow-right22"></i></a>
+					<c:forEach var="mytRoute" items="${mytRouteList}">
+						<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
+							<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+								<div class="desc">
+									<span></span>
+									<h3>${mytRoute.getRoutename()}</h3>
+									<span>${mytRoute.getSday()} ~ ${mytRoute.getEday()}</span>
+									<a class="btn btn-primary btn-outline" href="">상세보기<i class="icon-arrow-right22"></i></a>
+									<a class="btn btn-primary btn-outline" href="#">히스토리<i class="icon-arrow-right22"></i></a>
+									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PostScript/Route/Write.do?route_code=${mytRoute.getRoute_code()}">후기 작성<i class="icon-arrow-right22"></i></a>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-							<div class="desc">
-								<span></span>
-								<h3>7월의 제주도</h3>
-								<span>2017.07.07-2017.07.12</span>
-								<a class="btn btn-primary btn-outline" href="#">상세보기<i class="icon-arrow-right22"></i></a>
-								<a class="btn btn-primary btn-outline" href="#">히스토리<i class="icon-arrow-right22"></i></a>
-								<a class="btn btn-primary btn-outline" href="#">후기 작성<i class="icon-arrow-right22"></i></a>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
-							<div class="desc">
-								<span></span>
-								<h3>8월의 제주도</h3>
-								<span>2017.08.07-2017.08.12</span>
-								<a class="btn btn-primary btn-outline" href="#">상세보기<i class="icon-arrow-right22"></i></a>
-								<a class="btn btn-primary btn-outline" href="#">히스토리<i class="icon-arrow-right22"></i></a>
-								<a class="btn btn-primary btn-outline" href="#">후기 작성<i class="icon-arrow-right22"></i></a>
-							</div>
-						</div>
-					</div>
+					</c:forEach>
 					<div class="col-md-12 text-center animate-box fadeInUp animated">
 						<p><a class="btn btn-primary btn-outline btn-lg" href="#">일정 만들기<i class="icon-arrow-right22"></i></a></p>
 					</div>

@@ -1,5 +1,6 @@
 package com.planb_jeju.service;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,16 +25,28 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeUtility;
+import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
+
+/*
+* @FileName : MemberService.java
+* @Class : MemberService
+* @Project : PLANB_JEJU
+* @Date : 2017.06.22
+* @LastEditDate : 2017.06.16
+* @Author : 홍단비 
+* @Desc : Mypage 컨트롤러
+*/
 
 @Service
 public class MemberService {
@@ -156,4 +169,13 @@ public class MemberService {
 		Member member = memberDao.getMember(username);
 		return member;
 	}
+
+	// 회원 정보 수정
+	public Member update(Member member, SqlSession sqlsession) throws Exception {
+		memberDao = sqlsession.getMapper(MemberDao.class);
+		System.out.println(member.getPassword());
+		memberDao.update(member);
+		return member;
+	}
+	
 }

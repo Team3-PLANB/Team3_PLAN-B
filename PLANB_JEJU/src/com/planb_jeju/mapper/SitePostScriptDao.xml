@@ -21,7 +21,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		public List<SitePostscript> getList(String username);
 		
 		// 여행지 후기 상세보기
-		public SitePostscript getSitePost(int site_postscript_rownum);
+		public SitePostscript getSitePost(int site_postscript_rownum, String username);
 		
 		// 찜콩하기
 		public int insertLike(SitePostscriptLike sitePostscriptLike);
@@ -41,6 +41,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		// 좋아요(찜콩수) 증가
 		public int updateLikeNum(int site_postscript_rownum);
 		
+		// 태그 가져오기
+		public List<SitePostScriptTag> getSitePostTagList(SitePostscript sitePostscript);
+		
 	-->
 
 	<!-- 여행지 후기 전체 수 -->
@@ -52,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 여행지 후기 등록 -->
 	<insert id="insert" parameterType="com.planb_jeju.dto.SitePostscript">
 		INSERT INTO site_postscript (site_postscript_rownum, username, site, category, comment, health, inoutside, cost, writetime, hitnum, likenum, route_code)
-		VALUES (NULL, #{username}, #{site}, #{category}, #{comment}, #{health}, #{inoutside}, #{cost}, to_char(SYSDATE, 'YYYY-MM-DD HH24:MI'), 0, 0, #{route_code}) 
+		VALUES (NULL, #{username}, #{site}, #{category}, #{comment}, #{health}, #{inoutside}, #{cost}, to_char(SYSDATE, 'YYYY/MM/DD HH24:MI'), 0, 0, #{route_code}) 
 	</insert>
 	
 	<!-- 여행지 후기 수정 -->
@@ -78,13 +81,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!--  여행지 후기 상세보기 -->
-	<select id="getSitePost" parameterType="Integer" resultType="com.planb_jeju.dto.SitePostscript">
-		SELECT *, IF((site_postcript_rownum in (SELECT site_postscript_rownum 
+	<select id="getSitePost" resultType="com.planb_jeju.dto.SitePostscript">
+		SELECT *, IF((site_postscript_rownum in (SELECT site_postscript_rownum 
 												 FROM site_postscript_like
-												 WHERE username = #{username})
+												 WHERE username = #{param2})
 					 ),'true','false') as 'site_like'
 		FROM site_postscript
-		WHERE site_postcript_rownum = #{site_postcript_rownum}
+		WHERE site_postscript_rownum = #{param1}
 	</select>
 	
 	<!-- 찜콩하기 -->
@@ -104,7 +107,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		INSERT site_postscript_tag (site_postscript_tag_rownum, tag, site_postscript_rownum)
 		VALUES (NULL, ${tag}, ${site_postscript_rownum})
 	</insert>
-	<!--  -->
 	
 	<!-- 태그 삭제 -->
 	<delete id="deleteTag" parameterType="Integer">
@@ -113,10 +115,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<!-- 조회수 증가 -->
-	<update id="updateHitNum" parameterType="Integer">
+	<update id="updateHitNum">
 		UPDATE site_postscript
 		SET hitnum = hitnum + 1
-		WHERE site_postscript_rownum = ${site_postscript_rownum} 
+		WHERE site_postscript_rownum = ${parma1} 
 	</update>
 	
 	<!-- 좋아요(찜콩수) 증가 -->
@@ -132,6 +134,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET likenum = likenum - 1
 		WHERE site_postscript_rownum = ${site_postscript_rownum}
 	</update>
+	
+	<!-- 태그 가져오기 -->
+	<select id="getSitePostTagList" parameterType="com.planb_jeju.dto.SitePostscript" resultType="com.planb_jeju.dto.SitePostscriptTag">
+		SELECT *
+		FROM site_postscript_tag
+		WHERE site_postscript_rownum = ${site_postscript_rownum}
+	</select>
 	
 	<!-- 사진 등록 -->
 	

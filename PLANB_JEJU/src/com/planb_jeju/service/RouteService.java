@@ -79,4 +79,26 @@ public class RouteService {
 
 	}
 	
+	public List<Route> getMyRouteList(String username) throws ClassNotFoundException, SQLException {
+		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+		List<Route> routeList = routeDao.getMyRouteList(username);
+
+		return routeList;
+
+	}
+	
+	
+	/*
+	* @date : 2017. 6. 23
+	* @Author : 정다혜
+	* @description : 루트 정보 가져오기
+	* @parameter : int route_code 루트 코드, String username 접속자 아이디
+	* @return : Route route 루트 정보
+	*/
+	public Route getRouteInfo(int route_code, String username) throws ClassNotFoundException, SQLException {
+		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+		Route route = routeDao.getRoute(route_code, username);
+		return route;
+	}
+	
 }

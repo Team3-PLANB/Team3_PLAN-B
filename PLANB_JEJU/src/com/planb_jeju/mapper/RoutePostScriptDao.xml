@@ -24,6 +24,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		// 루트 후기 상세보기
 		public RoutePostscript getRoutePost(int route_postscript_rownum);
 		
+		// 루트 후기 상세보기 (방금 쓴글 정보 가져오기)
+		public RoutePostscript getLastRoutePost();
+		
 		// 찜콩하기
 		public int insertLike(RoutePostscriptLike routePostscriptLike);
 	
@@ -61,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 루트 후기 등록 -->
 	<insert id="insert" parameterType="com.planb_jeju.dto.RoutePostscript">
 		INSERT INTO route_postscript (route_postscript_rownum, comment, writetime, hitnum, likenum, username, route_code)
-	    VALUES (NULL, #{comment}, #{writetime}, 0 ,0 , #{username}, #{route_code})
+	    VALUES (NULL, #{comment}, to_date(to_char(SYSDATE,'YYYY/MM/DD HH24:MI'),'YYYY/MM/DD HH24:MI'), 0 ,0 , #{username}, #{route_code})
 	</insert>
 	
 	<!-- 루트 후기 수정 -->
@@ -100,6 +103,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE route_postscript_rownum = #{param1}
 	</select>
 	
+	<!-- 루트 후기 상세보기 -->
+	<select id="getLastRoutePost" resultType="com.planb_jeju.dto.RoutePostscript">
+		SELECT *
+		FROM route_postscript  rp
+		JOIN route r
+		ON rp.route_code = r.route_code
+		WHERE route_postscript_rownum = MAX(route_postscript_rownum)
+	</select>
+	
 	<!-- 찜콩하기 -->
 	<insert id="insertLike" parameterType="com.planb_jeju.dto.RoutePostscriptLike">
 		INSERT INTO route_postscript_like (route_postscript_like_rownum, username, route_postscript_rownum)
@@ -113,15 +125,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<!-- 태그 등록 -->
-	<insert id="insertTag" parameterType="com.planb_jeju.dto.RoutePostscript">
+	<insert id="insertTag" parameterType="com.planb_jeju.dto.RoutePostscriptTag">
 		INSERT route_postscript_tag (route_postscript_tag_rownum, tag, route_postscript_rownum)
 		VALUES (NULL, ${tag}, ${route_postscript_rownum})
 	</insert>
 	
 	<!-- 태그 삭제 -->
-	<delete id="deleteTag" parameterType="Integer">
+	<delete id="deleteTag" >
 		DELETE FROM route_postscript_tag
-		WHERE route_postscript_rownum = ${route_postscript_rownum}
+		WHERE route_postscript_rownum = ${param1}
 	</delete>
 	
 	<!-- 조회수 증가 -->
