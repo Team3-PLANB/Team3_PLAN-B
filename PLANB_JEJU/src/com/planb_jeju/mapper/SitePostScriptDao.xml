@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 여행지 후기 등록 -->
 	<insert id="insert" parameterType="com.planb_jeju.dto.SitePostscript">
 		INSERT INTO site_postscript (site_postscript_rownum, username, site, category, comment, health, inoutside, cost, writetime, hitnum, likenum, route_code)
-		VALUES (NULL, #{username}, #{site}, #{category}, #{comment}, #{health}, #{inoutside}, #{cost}, to_char(SYSDATE, 'YYYY-MM-DD HH24:MI'), 0, 0, #{route_code}) 
+		VALUES (NULL, #{username}, #{site}, #{category}, #{comment}, #{health}, #{inoutside}, #{cost}, to_char(SYSDATE, 'YYYY/MM/DD HH24:MI'), 0, 0, #{route_code}) 
 	</insert>
 	
 	<!-- 여행지 후기 수정 -->

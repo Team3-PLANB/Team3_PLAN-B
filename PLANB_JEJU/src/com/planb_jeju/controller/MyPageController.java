@@ -2,6 +2,7 @@ package com.planb_jeju.controller;
 
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,13 +20,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 */
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
+import com.planb_jeju.dto.Route;
+import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.service.MemberService;
+import com.planb_jeju.service.RoutePostscriptService;
+import com.planb_jeju.service.RouteService;
 
 
 @Controller
@@ -41,10 +47,56 @@ public class MyPageController {
 	@Autowired
 	private MemberService memberservice;
 	
-	/* 나의 일정 - schedule() */
+	@Autowired
+	private RouteService routeservice;
+	
+	@Autowired
+	private RoutePostscriptService routePostscriptservice;
+	
+	/* 나의 일정 - schedule() 관리 */
+	// 내 일정 뿌려주기
 	@RequestMapping("Schedule/schedule.do")
-	public String schedule(){
+	public String schedule(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+		List<Route> mytRouteList = routeservice.getMyRouteList(principal.getName());
+		model.addAttribute("mytRouteList", mytRouteList);
 		return "MyPage.Schedule.scheduleMain";
+	}
+	
+	/*
+	* @date : 2017. 6. 22
+	* @description : 루트 후기 작성
+	* @parameter : 
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Schedule/Write.do", method=RequestMethod.GET)
+	public String writeRoutePostscript() throws Exception {
+		System.out.println("루트 후기 작성");
+		
+		return "Schedule.WritePostScript.postWriteForm";	
+	}
+	
+	
+	/*
+	* @date : 2017. 6. 22
+	* @description : 루트 후기 작성 OK
+	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Schedule/WriteOk.do", method=RequestMethod.POST)
+	public String writeRoutePostscriptOk(HttpServletRequest request, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
+		System.out.println("루트 후기 작성 ok");
+		System.out.println("로그인된 아이디 : " + principal.getName());
+		routePostscript.setUsername(principal.getName());
+		routePostscript.setRoute_code(Integer.parseInt(request.getParameter("route_code")));
+		
+		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
+		
+		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
+		
+		System.out.println("방금 쓴 루트 후기 : " + routePostscript);
+		model.addAttribute("routePostscript", myRoutePostscript);
+		
+		return "PostScript.Route.detail";	
 	}
 
 	/* 히스토리 - history() */

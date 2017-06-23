@@ -52,6 +52,8 @@ public class RouteController {
 			memberDao = sqlsession.getMapper(MemberDao.class);
 		}
 	}*/
+	
+	
 
 	/*//글 상세 보기
 	@RequestMapping("Member/insert.do")*/

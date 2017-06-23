@@ -216,7 +216,5 @@ public class RoutePostscriptService {
 			routePostscriptTag.setTag(extracHashTag);
 			routePostscriptDao.insertTag(routePostscript);
 		}
-		
-		return routePostscript2;
 	}
 }

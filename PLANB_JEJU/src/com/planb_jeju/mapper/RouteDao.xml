@@ -58,7 +58,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		subtable2 WHERE countpc = #{personal_code_len} ; 
 		 <!-- and n != #{username} 추가할 것 -->
 		
-	</select>	
+	</select>
+	
+	<!-- 내 루트 리스트 가져오기 -->
+	<select id="getMyRouteList" resultType="com.planb_jeju.dto.Route">
+		SELECT * 
+		FROM route
+		WHERE username = #{param1}
+	</select>
 	
 	<!-- 삭제 -->
 	<delete id="delete">
