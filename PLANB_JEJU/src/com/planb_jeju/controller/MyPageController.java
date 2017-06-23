@@ -75,6 +75,17 @@ public class MyPageController {
    public String history(){
       return "MyPage.History.historyMain";
    }
+
+   /*
+   * @date : 2017. 6. 23
+   * @description : Mypage 히스토리 Detail view
+   * @return : String(view) 
+   */
+   @RequestMapping("History/historyDetial.do")
+   public String historyDetailView(){
+      return "MyPage.History.historyDetail";
+   }
+
    
    /*
    * @date : 2017. 6. 16
