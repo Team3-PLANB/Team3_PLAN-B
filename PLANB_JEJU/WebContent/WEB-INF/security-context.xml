@@ -9,7 +9,7 @@
 	<!-- 시큐리티 적용X -->
 <security:http pattern="/css/**" security="none" />
 <security:http pattern="/js/**" security="none" />
-<security:http pattern="/websockethandler/**" security="none" /> <!-- 알림관련 핸들러 -->
+<security:http pattern="/websocket/**" security="none" /> <!-- 알림관련 핸들러 -->
 
 <security:http use-expressions="true">
 	<security:csrf disabled="true"/>
@@ -31,12 +31,13 @@
 <!-- password 인코딩 -->
  <security:authentication-manager>
 	<security:authentication-provider>
-		<security:jdbc-user-service data-source-ref="driverManagerDataSource"
-										users-by-username-query="select username as userid, password, 1 enabled from member where username = ?"
-										authorities-by-username-query="select trim(m.username) as userid, trim(r.ROLE_CODE) as role_name
-																	   from member m join member_role r
-																	   on m.username = r.username
-																	   where m.username = ?" />
+		<security:jdbc-user-service
+				data-source-ref="driverManagerDataSource"
+				users-by-username-query="select username as userid, password, 1 enabled from member where username = ?"
+				authorities-by-username-query="select trim(m.username) as userid, trim(r.ROLE_CODE) as role_name
+											   from member m join member_role r on m.username = r.username
+											   where m.username = ?"
+		/>
 	</security:authentication-provider>
 </security:authentication-manager>
 <security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled" />
