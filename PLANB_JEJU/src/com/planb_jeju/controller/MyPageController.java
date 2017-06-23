@@ -31,6 +31,13 @@ public class MyPageController {
 		return "MyPage.History.historyMain";
 	}
 	
+	/* 히스토리 - historyDetail() */
+	@RequestMapping("MyPage/History/historyDetial.do")
+	public String historyDetail(){
+		System.out.println("MyPage/History/historyDetail.do 컨트롤러 들어옴");
+		return "MyPage.History.historyDetail";
+	}
+	
 	/* 나의 후기 메인 - postMain() */
 	@RequestMapping("MyPage/PostScript/postScriptMain.do")
 	public String postMain(){
