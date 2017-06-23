@@ -7,7 +7,8 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="WEB-INF/views/Mypage/msg.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/WEB-INF/views/Mypage/msg.css">
 
 <jsp:include page="../myPageMain.jsp"></jsp:include>
 <link rel="shortcut icon" href="favicon.ico">
@@ -16,43 +17,61 @@
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
 	rel='stylesheet' type='text/css'>
 
-<!-- Animate.css -->
-<link rel="stylesheet" href="css/animate.css">
-<!-- Icomoon Icon Fonts-->
-<link rel="stylesheet" href="css/icomoon.css">
-<!-- Bootstrap  -->
-<link rel="stylesheet" href="css/bootstrap.css">
-<!-- Superfish -->
-<link rel="stylesheet" href="css/superfish.css">
-<!-- Magnific Popup -->
-<link rel="stylesheet" href="css/magnific-popup.css">
-<!-- Date Picker -->
-<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-<!-- CS Select -->
-<link rel="stylesheet" href="css/cs-select.css">
-<link rel="stylesheet" href="css/cs-skin-border.css">
-
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/superfish.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/cs-select.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/cs-skin-border.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
 
 <script>
+	/* 전체 선택   */
 	$(document).ready(function() {
-		$("#mytable #checkall").click(function() {
-			if ($("#mytable #checkall").is(':checked')) {
-				$("#mytable input[type=checkbox]").each(function() {
-					$(this).prop("checked", true);
-				});
+		$("#checkall1").click(function() {
+			if ($("#checkall1").prop("checked")) {
+				$("input[type=checkbox]").prop("checked", true);
 
 			} else {
-				$("#mytable input[type=checkbox]").each(function() {
-					$(this).prop("checked", false);
+				$("input[type=checkbox]").each(function() {
+					$("input[type=checkbox]").prop("checked", false);
 				});
 			}
 		});
 
 		$("[data-toggle=tooltip]").tooltip();
 	});
-</script><br><br>
-<div class="container">
+	
+	$(document).ready(function() {
+		$("#checkall2").click(function() {
+			if ($("#checkall2").prop("checked")) {
+				$("input[type=checkbox]").prop("checked", true);
+
+			} else {
+				$("input[type=checkbox]").each(function() {
+					$("input[type=checkbox]").prop("checked", false);
+				});
+			}
+		});
+
+		$("[data-toggle=tooltip]").tooltip();
+	});
+
+</script>
+<br>
+<br>
+<div class="container" style="margin-bottom: 100px">
 	<div class="row">
 		<div class="tabulation animate-box fadeInUp animated">
 
@@ -69,10 +88,8 @@
 				<div role="tabpanel" class="tab-pane active" id="step1">
 					<div class="table-responsive">
 						<table id="mytable" class="table table-bordred table-striped">
-
 							<thead>
-
-								<th><input type="checkbox" id="checkall" /></th>
+								<th><input type="checkbox" id="checkall1" /></th>
 								<th>닉네임</th>
 								<th>이메일</th>
 								<th>제목</th>
@@ -80,7 +97,6 @@
 								<th>Delete</th>
 							</thead>
 							<tbody>
-
 								<tr>
 									<td><input type="checkbox" class="checkthis" /></td>
 									<td>뚱녀</td>
@@ -197,7 +213,7 @@
 
 							<thead>
 
-								<th><input type="checkbox" id="checkall" /></th>
+								<th><input type="checkbox" id="checkall2" /></th>
 								<th>닉네임</th>
 								<th>이메일</th>
 								<th>제목</th>
@@ -319,4 +335,4 @@
 			</div>
 		</div>
 	</div>
-</div><br><br><br><br>
+</div>

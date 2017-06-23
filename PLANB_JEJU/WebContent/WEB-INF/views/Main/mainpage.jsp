@@ -27,33 +27,19 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
 	rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/icomoon.css">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/superfish.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" href="css/cs-select.css">
-<link rel="stylesheet" href="css/cs-skin-border.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/main/mainCss.css">
-<script src="js/modernizr-2.6.2.min.js"></script>
-
-
-
-<%-- <!-- 로그인 스크립터  -->
-<script
-	src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
-<script src="${pageContext.request.contextPath}/js/email.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/loginjoin/facebook.js"></script>
-<script src="${pageContext.request.contextPath}/js/loginjoin/login.js"></script>
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/LoginJoin/join.css"> --%>
-
+<script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
 
 
 <!-- slider를 위한 css  -->
@@ -69,35 +55,38 @@
 		<section class="slider">
 			<article class="slide one">
 				<span>One
-					<h3 style="color: white"><strong>&nbsp; : 눈부신 바다</strong></h3>
+					<h3 style="color: white">
+						<strong>&nbsp; : 눈부신 바다</strong>
+					</h3>
 				</span>
 			</article>
-			<!--
-      -->
 			<article class="slide two">
 				<span> Two
-					<h3 style="color: white"><strong>&nbsp;: 아름다운 자연</strong></h3>
+					<h3 style="color: white">
+						<strong>&nbsp;: 아름다운 자연</strong>
+					</h3>
 				</span>
 			</article>
-			<!--
-      -->
+
 			<article class="slide three">
 				<span> Three
-					<h3 style="color: white"><strong>&nbsp;: 편안한 숙박 시설</strong></h3>
+					<h3 style="color: white">
+						<strong>&nbsp;: 편안한 숙박 시설</strong>
+					</h3>
 				</span>
 			</article>
-			<!--
-      -->
 			<article class="slide four">
 				<span>Four
-					<h3 style="color: white"><strong>&nbsp;: 볼 것 많은 관광지</strong></h3>
+					<h3 style="color: white">
+						<strong>&nbsp;: 볼 것 많은 관광지</strong>
+					</h3>
 				</span>
 			</article>
-			<!--
-      -->
 			<article class="slide five">
-				<span>Five
-					<h3 style="color: white"><strong>&nbsp;: 함께 하는 사람들과의 행복</strong></h3>
+				<span>five
+					<h3 style="color: white">
+						<strong>&nbsp;: '함께'라는 행복</strong>
+					</h3>
 				</span>
 			</article>
 		</section>
@@ -223,7 +212,7 @@
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/wa1.jpg);">
+									style="background-image: url(../images/main/wa1.png);">
 								<li class="one-forth text-center"
 									style="background-image: url(../images/main/wa2.jpg);">
 								<li class="one-forth text-center"
@@ -349,21 +338,21 @@
 	</div>
 
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/sticky.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/sticky.js"></script>
 
-	<script src="js/jquery.stellar.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<script src="js/bootstrap-datepicker.min.js"></script>
-	<script src="js/classie.js"></script>
-	<script src="js/selectFx.js"></script>
-	<script src="js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/hoverIntent.js"></script>
+	<script src="${pageContext.request.contextPath}/js/superfish.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/magnific-popup-options.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/classie.js"></script>
+	<script src="${pageContext.request.contextPath}/js/selectFx.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 
 </body>
 </html>
