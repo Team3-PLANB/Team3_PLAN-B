@@ -2,6 +2,7 @@ package com.planb_jeju.controller;
 
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,12 +10,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*
-* @FileName : MyPageController.java
-* @Class : MyPageController
+* @FileName : 수정 필
+* @Class : LoginJoinController
 * @Project : PLANB_JEJU
-* @Date : 2017.06.16
-* @LastEditDate : 2017.06.22
-* @Author : 홍단비 
+* @Date : 2017.06.22
+* @LastEditDate : 2017.06.16
+* @Author : 정다혜, 홍단비 
 * @Desc : Mypage 컨트롤러
 */
 
@@ -26,7 +27,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
+import com.planb_jeju.dto.Route;
+import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.service.MemberService;
+import com.planb_jeju.service.RoutePostscriptService;
+import com.planb_jeju.service.RouteService;
 
 
 @Controller
@@ -42,91 +47,99 @@ public class MyPageController {
 	@Autowired
 	private MemberService memberservice;
 	
-	/*
-	* @date : 2017. 6. 16
-	* @description : Mypage 일정관리 view
-	* @return : String(view) 
-	*/
+	@Autowired
+	private RouteService routeservice;
+	
+	@Autowired
+	private RoutePostscriptService routePostscriptservice;
+	
+	/* 나의 일정 - schedule() 관리 */
+	// 내 일정 뿌려주기
 	@RequestMapping("Schedule/schedule.do")
-	public String schedule(){
+	public String schedule(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+		List<Route> mytRouteList = routeservice.getMyRouteList(principal.getName());
+		model.addAttribute("mytRouteList", mytRouteList);
 		return "MyPage.Schedule.scheduleMain";
 	}
-
+	
 	/*
-	* @date : 2017. 6. 16
-	* @description : Mypage 히스토리 view
-	* @return : String(view) 
+	* @date : 2017. 6. 22
+	* @description : 루트 후기 작성
+	* @parameter : 
+	* @return : String(View 페이지) 
 	*/
+	@RequestMapping(value="Schedule/Write.do", method=RequestMethod.GET)
+	public String writeRoutePostscript() throws Exception {
+		System.out.println("루트 후기 작성");
+		
+		return "Schedule.WritePostScript.postWriteForm";	
+	}
+	
+	
+	/*
+	* @date : 2017. 6. 22
+	* @description : 루트 후기 작성 OK
+	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Schedule/WriteOk.do", method=RequestMethod.POST)
+	public String writeRoutePostscriptOk(HttpServletRequest request, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
+		System.out.println("루트 후기 작성 ok");
+		System.out.println("로그인된 아이디 : " + principal.getName());
+		routePostscript.setUsername(principal.getName());
+		routePostscript.setRoute_code(Integer.parseInt(request.getParameter("route_code")));
+		
+		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
+		
+		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
+		
+		System.out.println("방금 쓴 루트 후기 : " + routePostscript);
+		model.addAttribute("routePostscript", myRoutePostscript);
+		
+		return "PostScript.Route.detail";	
+	}
+
+	/* 히스토리 - history() */
 	@RequestMapping("History/history.do")
 	public String history(){
 		return "MyPage.History.historyMain";
 	}
 	
-	/*
-	* @date : 2017. 6. 16
-	* @description : Mypage 나의후기 main view
-	* @return : String(view) 
-	*/
+	/* 나의 후기 메인 - postMain() */
 	@RequestMapping("PostScript/postScriptMain.do")
 	public String postMain(){
 		return "MyPage.PostScript.postScriptMain";
 	}
 	
-	/*
-	* @date : 2017. 6. 16
-	* @description : Mypage 나의후기 root view
-	* @return : String(view) 
-	*/
+	/* 나의 후기 - root() */
 	@RequestMapping("PostScript/Root/root.do")
 	public String root(){
 		return "MyPage.PostScript.Root.rootMain";
 	}
 	
-	/*
-	* @date : 2017. 6. 16
-	* @description : Mypage 나의후기 site view
-	* @return : String(view) 
-	*/
+	/* 나의 후기 - site() */
 	@RequestMapping("PostScript/Site/site.do")
 	public String site(){
 		return "MyPage.PostScript.Site.siteMain";
 	}	
 
-	/*
-	* @date : 2017. 6. 16
-	* @description : Mypage 찜한후기 site view
-	* @return : String(view) 
-	*/
+	/* 찜한 후기 메인 - likeMain() */
 	@RequestMapping("Like/likeMain.do")
 	public String like(){
 		return "MyPage.Like.likeMain";
 	}
-
-	/*
-	* @date : 2017. 6. 16
-	* @description : Mypage 찜한후기 root view
-	* @return : String(view) 
-	*/
+	/* 찜한 후기 - likeRoot() */
 	@RequestMapping("Like/Root/root.do")
 	public String likeRoot(){
 		return "MyPage.Like.Root.rootMain";
 	}
-
-	/*
-	* @date : 2017. 6. 16
-	* @description : Mypage 찜한후기 site view
-	* @return : String(view) 
-	*/
+	/* 찜한 후기 - likeSite() */
 	@RequestMapping("Like/Site/site.do")
 	public String likeSite(){
 		return "MyPage.Like.Site.siteMain";
 	}
 	
-	/*
-	* @date : 2017. 6. 16
-	* @description : Mypage 쪽지함 view
-	* @return : String(view) 
-	*/
+	/* 쪽지함 - msg() */
 	@RequestMapping("Message/msgMain.do")
 	public String msg(){
 		return "MyPage.Message.msgMain";
@@ -151,9 +164,8 @@ public class MyPageController {
 	*/
 	@RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.GET)
 	public String getUserInfo(HttpServletRequest request, Principal principal) throws Exception {
-		member = memberservice.getMemberInfo(principal.getName(), sqlsession);
+		member = memberservice.getMemberInfo(principal, sqlsession);
 		request.setAttribute("nickname", member.getNickname());
-		request.setAttribute("originpwd", member.getPassword());
 		return "MyPage.Info.infoMain";
 	}
 
@@ -163,13 +175,13 @@ public class MyPageController {
 	* @return : String(View) 
 	*/
 	@RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.POST)
-	public String updateInfo(Member member, Principal principal) throws Exception {
-		
-		Member updatemember = memberservice.getMemberInfo(principal.getName(), sqlsession);
-
-		updatemember.setNickname(member.getNickname());
-		updatemember.setPassword(member.getPassword());
-		memberservice.update(updatemember, sqlsession);
+	public String updateInfo(Member member) throws Exception {
+		System.out.println("update 페이지 POST controller");
+		System.out.println("member>>>>"+member);
+		memberservice.update(member, sqlsession);
+		System.out.println(memberDao.update(member));
 		return "Main.mainpage";
 	}
+	
+
 }

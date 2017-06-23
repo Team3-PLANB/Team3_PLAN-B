@@ -79,4 +79,12 @@ public class RouteService {
 
 	}
 	
+	public List<Route> getMyRouteList(String username) throws ClassNotFoundException, SQLException {
+		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+		List<Route> routeList = routeDao.getMyRouteList(username);
+
+		return routeList;
+
+	}
+	
 }

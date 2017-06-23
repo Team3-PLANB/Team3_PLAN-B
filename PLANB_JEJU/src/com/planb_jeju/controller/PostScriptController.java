@@ -131,31 +131,7 @@ public class PostScriptController {
 		return change;
 	}
 	
-	/*
-	* @date : 2017. 6. 22
-	* @description : 루트 후기 작성
-	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
-	* @return : String(View 페이지) 
-	*/
-	@RequestMapping(value="Route/Write.do", method=RequestMethod.POST)
-	public String writeRoutePostscript(HttpServletRequest request, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
-		System.out.println("루트 후기 작성");
-		System.out.println("로그인된 아이디 : " + principal.getName());
-		routePostscript.setUsername(principal.getName());
-		routePostscript.setRoute_code(Integer.parseInt(request.getParameter("route_code")));
 		
-		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
-		
-		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
-		
-		System.out.println("방금 쓴 루트 후기 : " + routePostscript);
-		model.addAttribute("routePostscript", myRoutePostscript);
-		
-		return "MyPage.Route.detail";	
-	}
-	
-	
-	
 	/*
 	* @date : 2017. 6. 22
 	* @description : 사이트 후기 게시판 리스트
