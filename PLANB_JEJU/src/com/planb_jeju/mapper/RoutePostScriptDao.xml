@@ -64,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 루트 후기 등록 -->
 	<insert id="insert" parameterType="com.planb_jeju.dto.RoutePostscript">
 		INSERT INTO route_postscript (route_postscript_rownum, comment, writetime, hitnum, likenum, username, route_code)
-	    VALUES (NULL, #{comment}, to_char(SYSDATE, 'YYYY/MM/DD HH24:MI'), 0 ,0 , #{username}, #{route_code})
+	    VALUES (NULL, #{comment}, to_date(to_char(SYSDATE,'YYYY/MM/DD HH24:MI'),'YYYY/MM/DD HH24:MI'), 0 ,0 , #{username}, #{route_code})
 	</insert>
 	
 	<!-- 루트 후기 수정 -->

@@ -425,7 +425,7 @@ div.over {
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="routePost">
 						<div class="table-responsive">
-							<form action="${pageContext.request.contextPath}/PostScript/Route/Write.do?route_code=${route_code}" method="POST">
+							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.getRoute_code()}" method="POST">
 								<div role="tabpanel" class="tab-pane active" id="route">
 									<input type="text" class="form-control" value="${route.getRoutename()}" readonly><br>
 									<textarea name="" class="form-control" id="comment" cols="30" rows="7"
