@@ -188,7 +188,7 @@ public class LoginJoinController {
 		System.out.println("getFBRole >>> "+roledao.getFbRole(username));
 		Role role = roledao.getFbRole(username);
 		System.out.println("getRole_code >>> "+role);
-//		String result = memberDao.getFBpassword(username);
+		String result = memberDao.getFBpassword(username);
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(role.getROLE_NAME()));
 
@@ -197,8 +197,9 @@ public class LoginJoinController {
 		SecurityContext context = SecurityContextHolder.getContext();
 		context.setAuthentication(authRequest);
 		System.out.println("authRequest" +authRequest);
-//		Authentication auth = context.getAuthentication();
+		Authentication auth = context.getAuthentication();
 //		UserDetails userinfo = (UserDetails)auth.getPrincipal();
+//		System.out.println(userinfo);
 		return "true";
 	}	
 
