@@ -41,6 +41,7 @@ import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
+import com.planb_jeju.dto.SitePostscriptTag;
 import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.RoutePostscriptService;
 import com.planb_jeju.service.SitePostscriptService;
@@ -80,7 +81,7 @@ public class PostScriptController {
 	/*
 	* @date : 2017. 6. 21
 	* @description : 루트 후기 게시판 상세보기
-	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, session 세션, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Route/Detail.do", method=RequestMethod.GET)
@@ -102,7 +103,7 @@ public class PostScriptController {
 	/*
 	* @date : 2017. 6. 21
 	* @description : 루트 후기 찜콩 설정/해제
-	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, session 세션, model 루트 후기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Route/Like.do", method=RequestMethod.GET)
@@ -132,8 +133,33 @@ public class PostScriptController {
 	
 	/*
 	* @date : 2017. 6. 22
-	* @description : 사이트 후기 게시판 리스트
+	* @description : 루트 후기 작성
 	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Route/Write.do", method=RequestMethod.POST)
+	public String writeRoutePostscript(HttpServletRequest request, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
+		System.out.println("루트 후기 작성");
+		System.out.println("로그인된 아이디 : " + principal.getName());
+		routePostscript.setUsername(principal.getName());
+		routePostscript.setRoute_code(Integer.parseInt(request.getParameter("route_code")));
+		
+		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
+		
+		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
+		
+		System.out.println("방금 쓴 루트 후기 : " + routePostscript);
+		model.addAttribute("routePostscript", myRoutePostscript);
+		
+		return "MyPage.Route.detail";	
+	}
+	
+	
+	
+	/*
+	* @date : 2017. 6. 22
+	* @description : 사이트 후기 게시판 리스트
+	* @parameter : principal 로그인한 회원 정보, principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Site/List.do", method=RequestMethod.GET)
@@ -148,19 +174,33 @@ public class PostScriptController {
 	}
 	
 	
-	
+	/*
+	* @date : 2017. 6. 22
+	* @description : 사이트 후기 게시판 상세보기
+	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @return : String(View 페이지) 
+	*/
 	@RequestMapping("Site/Detail.do")
-	public String postscriptSite_detail() throws ClassNotFoundException, SQLException {
+	public String detailSitePostscript(HttpServletRequest request, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+		System.out.println("사이트 후기 게시판 상세보기");
+		System.out.println("로그인된 아이디 : " + principal.getName());
 		
-		return "PostScript.Site.detail";	
-
+		int site_postscript_rownum = Integer.parseInt(request.getParameter("site_postscript_rownum"));
+		
+		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName(), sqlsession);
+		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript, sqlsession);
+		
+		System.out.println("sitePostscript : " + sitePostscript);
+		model.addAttribute("sitePostscript", sitePostscript);
+		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
+		return "PostScript.Site.detail";		
 	}
 	
 	
 	/*
-	* @date : 2017. 6. 21
+	* @date : 2017. 6. 22
 	* @description : 사이트 후기 찜콩 설정/해제
-	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, session 세션, model 사이트 후기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Site/Like.do", method=RequestMethod.GET)

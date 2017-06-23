@@ -3,11 +3,9 @@ package com.planb_jeju.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.planb_jeju.dto.Member;
-import com.planb_jeju.dto.RoutePostscript;
-import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
+import com.planb_jeju.dto.SitePostscriptTag;
 
 public interface SitePostScriptDao {
 	
@@ -50,9 +48,9 @@ public interface SitePostScriptDao {
 	/*	
 	 * @description : 여행지 후기 상세보기
 	 * @return : SitePostscript 여행지 후기
-	 * @param spec : int 상세보기할 여행지 후기 고유 번호
+	 * @param spec : int site_postscript_rownum 상세보기할 루트 후기 고유 번호, String username 로그인한 아이디
 	 */
-	public SitePostscript getSitePost(int site_postscript_rownum) throws ClassNotFoundException, SQLException;
+	public SitePostscript getSitePost(int site_postscript_rownum, String username) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 찜콩하기
@@ -103,4 +101,10 @@ public interface SitePostScriptDao {
 	 */
 	public int downLikeNum(SitePostscriptLike sitePostscriptLike) throws ClassNotFoundException, SQLException;
 	
+	/*	
+	 * @description : 태그 가져오기
+	 * @return : List<SitePostscriptTag> 태그들
+	 * @param spec : SitePostscript sitePostscript 루트 후기 고유 번호를 포함하고 있는 객체
+	 */
+	public List<SitePostscriptTag> getSitePostTagList(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException;
 }

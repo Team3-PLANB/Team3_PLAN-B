@@ -1,8 +1,8 @@
 <%--
 @Project : PLANB_JEJU
 @File name : listBoard.jsp 
-@Author : 임정연
- @Data : 2017.06.16
+@Author : 임정연  & 정다혜
+ @Data : 2017.06.16 & 2017.06.22
 @Desc : 여행지 후기 게시판의 리스트
 --%>
 

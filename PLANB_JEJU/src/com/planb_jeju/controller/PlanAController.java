@@ -182,7 +182,7 @@ public class PlanAController {
 	 * @return : ?
 	 */
 	@RequestMapping(value = "PLANA.detail.insert.do", method = RequestMethod.POST)
-	public String makeRouteDetail(@RequestBody RouteDetail routedetail, Principal principal)
+	public String makeRouteDetail(@RequestBody RouteDetail routedetail)
 			throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
 
 		// 화면 단에서 RouteDetail List 타입으로 정보 다 담아서 넣어서 전달 되어짐
