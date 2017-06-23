@@ -9,16 +9,17 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /*
-* @FileName : 수정 필
-* @Class : LoginJoinController
+* @FileName : MyPageController.java
+* @Class : MyPageController
 * @Project : PLANB_JEJU
-* @Date : 2017.06.22
-* @LastEditDate : 2017.06.16
-* @Author : 정다혜, 홍단비 
+* @Date : 2017.06.16
+* @LastEditDate : 2017.06.22
+* @Author : 홍단비 
 * @Desc : Mypage 컨트롤러
 */
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -41,53 +42,91 @@ public class MyPageController {
 	@Autowired
 	private MemberService memberservice;
 	
-	/* 나의 일정 - schedule() */
+	/*
+	* @date : 2017. 6. 16
+	* @description : Mypage 일정관리 view
+	* @return : String(view) 
+	*/
 	@RequestMapping("Schedule/schedule.do")
 	public String schedule(){
 		return "MyPage.Schedule.scheduleMain";
 	}
 
-	/* 히스토리 - history() */
+	/*
+	* @date : 2017. 6. 16
+	* @description : Mypage 히스토리 view
+	* @return : String(view) 
+	*/
 	@RequestMapping("History/history.do")
 	public String history(){
 		return "MyPage.History.historyMain";
 	}
 	
-	/* 나의 후기 메인 - postMain() */
+	/*
+	* @date : 2017. 6. 16
+	* @description : Mypage 나의후기 main view
+	* @return : String(view) 
+	*/
 	@RequestMapping("PostScript/postScriptMain.do")
 	public String postMain(){
 		return "MyPage.PostScript.postScriptMain";
 	}
 	
-	/* 나의 후기 - root() */
+	/*
+	* @date : 2017. 6. 16
+	* @description : Mypage 나의후기 root view
+	* @return : String(view) 
+	*/
 	@RequestMapping("PostScript/Root/root.do")
 	public String root(){
 		return "MyPage.PostScript.Root.rootMain";
 	}
 	
-	/* 나의 후기 - site() */
+	/*
+	* @date : 2017. 6. 16
+	* @description : Mypage 나의후기 site view
+	* @return : String(view) 
+	*/
 	@RequestMapping("PostScript/Site/site.do")
 	public String site(){
 		return "MyPage.PostScript.Site.siteMain";
 	}	
 
-	/* 찜한 후기 메인 - likeMain() */
+	/*
+	* @date : 2017. 6. 16
+	* @description : Mypage 찜한후기 site view
+	* @return : String(view) 
+	*/
 	@RequestMapping("Like/likeMain.do")
 	public String like(){
 		return "MyPage.Like.likeMain";
 	}
-	/* 찜한 후기 - likeRoot() */
+
+	/*
+	* @date : 2017. 6. 16
+	* @description : Mypage 찜한후기 root view
+	* @return : String(view) 
+	*/
 	@RequestMapping("Like/Root/root.do")
 	public String likeRoot(){
 		return "MyPage.Like.Root.rootMain";
 	}
-	/* 찜한 후기 - likeSite() */
+
+	/*
+	* @date : 2017. 6. 16
+	* @description : Mypage 찜한후기 site view
+	* @return : String(view) 
+	*/
 	@RequestMapping("Like/Site/site.do")
 	public String likeSite(){
 		return "MyPage.Like.Site.siteMain";
 	}
 	
-	/* 쪽지함 - msg() */
+	/*
+	* @date : 2017. 6. 16
+	* @description : Mypage 쪽지함 view
+	* @return : String(view) 
+	*/
 	@RequestMapping("Message/msgMain.do")
 	public String msg(){
 		return "MyPage.Message.msgMain";
@@ -112,8 +151,9 @@ public class MyPageController {
 	*/
 	@RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.GET)
 	public String getUserInfo(HttpServletRequest request, Principal principal) throws Exception {
-		member = memberservice.getMemberInfo(principal, sqlsession);
+		member = memberservice.getMemberInfo(principal.getName(), sqlsession);
 		request.setAttribute("nickname", member.getNickname());
+		request.setAttribute("originpwd", member.getPassword());
 		return "MyPage.Info.infoMain";
 	}
 
@@ -123,13 +163,13 @@ public class MyPageController {
 	* @return : String(View) 
 	*/
 	@RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.POST)
-	public String updateInfo(Member member) throws Exception {
-		System.out.println("update 페이지 POST controller");
-		System.out.println("member>>>>"+member);
-		memberservice.update(member, sqlsession);
-		System.out.println(memberDao.update(member));
+	public String updateInfo(Member member, Principal principal) throws Exception {
+		
+		Member updatemember = memberservice.getMemberInfo(principal.getName(), sqlsession);
+
+		updatemember.setNickname(member.getNickname());
+		updatemember.setPassword(member.getPassword());
+		memberservice.update(updatemember, sqlsession);
 		return "Main.mainpage";
 	}
-	
-
 }
