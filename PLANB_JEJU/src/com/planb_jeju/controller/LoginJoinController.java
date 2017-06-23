@@ -47,6 +47,16 @@ import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Role;
 import com.planb_jeju.service.MemberService;
 
+/*
+* @FileName : 
+* @Class : LoginJoinController
+* @Project : PLANB_JEJU
+* @Date : 2017.06.16
+* @LastEditDate : 2017.06.21
+* @Author : 홍단비 
+* @Desc : LoginJoin 컨트롤러
+*/
+
 @Controller
 @RequestMapping("/LoginJoin/")
 public class LoginJoinController {
