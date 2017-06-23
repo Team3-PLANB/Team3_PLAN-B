@@ -7,7 +7,19 @@
 
 function editMemForm() {
 	console.log('회원정보 수정완료!');
-	$('#editMemForm').submit();
+	if(($('#password').val() != null && $('#passwordck').val() == null)
+			|| ($('#password').val() == null && $('#passwordck').val() != null)
+			|| ($('#password').val() != "" && $('#passwordck').val() == "")
+			|| ($('#password').val() == "" && $('#passwordck').val() != "")) {
+		swal('비밀번호를 확인해주세요');
+	} else if ($('#nickname').val() == null || $('#nickname').val() == "") {
+		swal('닉네임을 입력해주세요');
+	} else if (($('#password').val() == null && $('#passwordck').val() == null)
+		|| ($('#password').val() == "" && $('#passwordck').val() == "")) {
+			swal('비밀번호를 입력해주세요');
+	} else {
+		$('#editMemForm').submit();		
+	}
 }
 
 function passwordCheck() {
@@ -26,6 +38,7 @@ function passwordCheck() {
 }
 
 function nickCheck() {
+	
 	$.ajax({
 		url : "duplicationNCheck.do",
 		type : "get",

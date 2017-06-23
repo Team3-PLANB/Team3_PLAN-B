@@ -38,6 +38,16 @@ import org.springframework.web.servlet.ModelAndView;
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
 
+/*
+* @FileName : MemberService.java
+* @Class : MemberService
+* @Project : PLANB_JEJU
+* @Date : 2017.06.22
+* @LastEditDate : 2017.06.16
+* @Author : 홍단비 
+* @Desc : Mypage 컨트롤러
+*/
+
 @Service
 public class MemberService {
 	
@@ -154,15 +164,16 @@ public class MemberService {
 	}
 	
 	// 회원 정보 가져오기
-	public Member getMemberInfo(Principal principal, SqlSession sqlsession) throws Exception {
+	public Member getMemberInfo(String username, SqlSession sqlsession) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		Member member = memberDao.getMember(principal.getName());
+		Member member = memberDao.getMember(username);
 		return member;
 	}
 
 	// 회원 정보 수정
 	public Member update(Member member, SqlSession sqlsession) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
+		System.out.println(member.getPassword());
 		memberDao.update(member);
 		return member;
 	}

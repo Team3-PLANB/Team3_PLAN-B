@@ -272,7 +272,7 @@ $( function() {
 								</div>
 							</div>
 			         		*/
-			         		$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header">Day'+dayOrder+'</h3><div><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
+			         		$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
 			         	
 			         	}
 			         	
@@ -285,7 +285,7 @@ $( function() {
 						
 						// 각 Day 안에 Site 순서대로 append
 												
-						var $sch_content = $( "<div class='sch_content' style='width: 250px;'></div>" );
+						var $sch_content = $( "<div class='sch_content ' style='width: 250px;'></div>" );
 						var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
 						var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
 						var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
@@ -366,7 +366,19 @@ $( function() {
               step : 15,
               start : 0
            });
-           $(".sortable").sortable();
+           $(".sortable").sortable({
+        	   
+        
+        	   update: function(event, ui) {
+                   /* var result = $(this).sortable('toArray'); */
+                   var result = $(this).sortable('toArray', {attribute: 'value'});
+                   alert(result);
+                   }
+           /* $('.sortable').each(function(){
+			    result.push($(this).sortable('toArray'));
+			}) */
+           
+           });
            /* $(".sortable").disableSelection(); */
            $(".sortable").selectable();
            
