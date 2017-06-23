@@ -91,9 +91,9 @@ public class MyPageController {
    * @description : Mypage 나의후기 root view
    * @return : String(view) 
    */
-   @RequestMapping("PostScript/Root/root.do")
+   @RequestMapping("PostScript/Route/route.do")
    public String root(){
-      return "MyPage.PostScript.Root.rootMain";
+      return "MyPage.PostScript.Route.routeMain";
    }
    
    /*
@@ -121,9 +121,9 @@ public class MyPageController {
    * @description : Mypage 찜한후기 root view
    * @return : String(view) 
    */
-   @RequestMapping("Like/Root/root.do")
+   @RequestMapping("Like/Route/route.do")
    public String likeRoot(){
-      return "MyPage.Like.Root.rootMain";
+      return "MyPage.Like.Route.routeMain";
    }
 
    /*

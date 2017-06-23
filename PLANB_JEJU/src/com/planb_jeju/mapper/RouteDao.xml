@@ -24,7 +24,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getRoute" resultType="com.planb_jeju.dto.Route">
 		SELECT *
 		FROM route
-		WHERE route_code = #{param1}, username =#{param2}
+		WHERE route_code = #{param1} AND username = #{param2}
 	</select>
 	
 	<!-- // 추천 대상 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함
@@ -55,7 +55,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				                </foreach>
 				            
 			)subtable group by rc, n ) 
-		subtable2 WHERE countpc = #{personal_code_len} ; 
+		subtable2 WHERE countpc = #{personal_code_len}
 		 <!-- and n != #{username} 추가할 것 -->
 		
 	</select>
@@ -69,7 +69,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 삭제 -->
 	<delete id="delete">
-	 	DELETE route WHERE route_code = #{param1}, username =#{param2}
+	 	DELETE route WHERE route_code = #{param1} AND username = #{param2}
 	</delete>
 	
 	<!-- 수정 -->
@@ -79,7 +79,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		    partner_code=#{partner_code},
 		    sday=#{sday},
 		    eday=#{eday}
-		WHERE route_code = #{route_code}, username =#{username}
+		WHERE route_code = #{route_code} AND username = #{username}
 	</update>
 	
 	<!-- 입력 -->

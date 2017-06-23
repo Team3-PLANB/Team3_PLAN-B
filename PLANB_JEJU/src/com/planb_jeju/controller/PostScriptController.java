@@ -36,6 +36,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
+import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
@@ -44,6 +45,7 @@ import com.planb_jeju.dto.SitePostscriptLike;
 import com.planb_jeju.dto.SitePostscriptTag;
 import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.RoutePostscriptService;
+import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.SitePostscriptService;
 
 
@@ -56,9 +58,14 @@ public class PostScriptController {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	RoutePostscriptService routePostscriptservice = new RoutePostscriptService();
+	@Autowired
+	RoutePostscriptService routePostscriptservice;
 	
-	SitePostscriptService sitePostscriptservice = new SitePostscriptService();
+	@Autowired
+	SitePostscriptService sitePostscriptservice;
+	
+	@Autowired
+	RouteService routeservice;
 	
 	/*
 	* @date : 2017. 6. 20
@@ -205,16 +212,21 @@ public class PostScriptController {
 	}
 	
 	/*
-	* @date : 2017. 6. 22
+	* @date : 2017. 6. 23
 	* @description : 루트 후기 작성
 	* @parameter : 
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Route/Write.do", method=RequestMethod.GET)
-	public String writeRoutePostscript() throws Exception {
+	public String writeRoutePostscript(HttpServletRequest request, Principal principal, Model model) throws Exception {
 		System.out.println("루트 후기 작성");
+		int route_code = Integer.parseInt(request.getParameter("route_code"));
 		
-		return "Schedule.WritePostScript.postWriteForm";	
+		Route route = routeservice.getRouteInfo(route_code, principal.getName());
+		
+		System.out.println("route : " + route);
+		model.addAttribute("route", route);
+		return "PostScript.Route.writeForm";	
 	}
 
 

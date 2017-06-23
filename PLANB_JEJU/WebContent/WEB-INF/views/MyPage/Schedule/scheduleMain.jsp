@@ -46,7 +46,7 @@
 									<span>${mytRoute.getSday()} ~ ${mytRoute.getEday()}</span>
 									<a class="btn btn-primary btn-outline" href="">상세보기<i class="icon-arrow-right22"></i></a>
 									<a class="btn btn-primary btn-outline" href="#">히스토리<i class="icon-arrow-right22"></i></a>
-									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PostScript/Route/Write.do">후기 작성<i class="icon-arrow-right22"></i></a>
+									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PostScript/Route/Write.do?route_code=${mytRoute.getRoute_code()}">후기 작성<i class="icon-arrow-right22"></i></a>
 								</div>
 							</div>
 						</div>
