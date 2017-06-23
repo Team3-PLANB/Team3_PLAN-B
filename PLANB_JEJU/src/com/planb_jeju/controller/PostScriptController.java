@@ -203,6 +203,43 @@ public class PostScriptController {
 		
 		return change;
 	}
+	
+	/*
+	* @date : 2017. 6. 22
+	* @description : 루트 후기 작성
+	* @parameter : 
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Route/Write.do", method=RequestMethod.GET)
+	public String writeRoutePostscript() throws Exception {
+		System.out.println("루트 후기 작성");
+		
+		return "Schedule.WritePostScript.postWriteForm";	
+	}
+
+
+	/*
+	* @date : 2017. 6. 22
+	* @description : 루트 후기 작성 OK
+	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Route/WriteOk.do", method=RequestMethod.POST)
+	public String writeRoutePostscriptOk(HttpServletRequest request, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
+		System.out.println("루트 후기 작성 ok");
+		System.out.println("로그인된 아이디 : " + principal.getName());
+		routePostscript.setUsername(principal.getName());
+		routePostscript.setRoute_code(Integer.parseInt(request.getParameter("route_code")));
+		
+		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
+		
+		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
+		
+		System.out.println("방금 쓴 루트 후기 : " + routePostscript);
+		model.addAttribute("routePostscript", myRoutePostscript);
+		
+		return "PostScript.Route.detail";	
+	}
 
 
 
