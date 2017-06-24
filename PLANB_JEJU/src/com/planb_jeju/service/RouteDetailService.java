@@ -20,6 +20,18 @@ public class RouteDetailService {
 	@Autowired
 	private SqlSession sqlsession;
 
+	
+	public int insertRouteDetail(Map<String, Object> map) throws ClassNotFoundException, SQLException {
+
+		// Mybatis 적용
+		RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
+		int result = routeDetailDao.insert(map);
+
+		return result;
+
+	}
+	
+	
 	public HashMap<String, Object> getRouteDetailList(java.util.List<Route> routeList) throws ClassNotFoundException, SQLException {
 
 		HashMap<String,Object> routeDetailMap = new HashMap<>();

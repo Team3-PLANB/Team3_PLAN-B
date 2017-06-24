@@ -18,6 +18,7 @@ import java.io.StringReader;
 import java.net.URL;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -182,20 +184,35 @@ public class PlanAController {
 	 * @return : ?
 	 */
 	@RequestMapping(value = "PLANA.detail.insert.do", method = RequestMethod.POST)
-	public String makeRouteDetail(@RequestBody RouteDetail routedetail)
+	public String makeRouteDetail(@ModelAttribute RouteDetail routeDetail)
 			throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
 
 		// 화면 단에서 RouteDetail List 타입으로 정보 다 담아서 넣어서 전달 되어짐
 		// routedetail.routeDetailList 에 담긴 정보 가져와서 hashMap에 담아서 insert 호출
 
+		//Integer[] route_order, String[] username, Integer[] route_code, Date[] route_date, String[] site, String[] lon, String[] lat, String[] category, Time[] stime, Time[] etime
 		// route_detail DB insert
 		// routeDetailService.insert(route);
-			
 
+
+		System.out.println(routeDetail.toString());
+		
+		Map<String, Object> map = new HashMap();
+		map.put("list", routeDetail.getRouteDetailList());
+		
+		int result = routeDetailService.insertRouteDetail(map);
+
+		if(result>0){
+			System.out.println("루트 상세 저장 완료");
+		}
+		
 		// 일단  마이 페이지 일정 확인 페이지로 이동 /비동기라면 처리 바꿔야..
 		return "PlanA.tmapMakeRoute";
 
 	}
+	
+	
+		
 	
 	
 	/*
