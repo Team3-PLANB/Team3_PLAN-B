@@ -49,9 +49,6 @@ public class MyPageController {
    
    @Autowired
 	private RouteService routeservice;
-	
-   @Autowired
-   private RoutePostscriptService routePostscriptservice;
    
    /*
    * @date : 2017. 6. 16
@@ -68,24 +65,20 @@ public class MyPageController {
 
    /*
    * @date : 2017. 6. 16
-   * @description : Mypage 히스토리 view
+   * @description : Mypage 히스토리 list
+   * @parameter : principal 로그인한 회원 정보, model 히스토리 리스트를 저장해 넘겨주기 위한 모델 객체
    * @return : String(view) 
    */
-   @RequestMapping("History/history.do")
-   public String history(){
-      return "MyPage.History.historyMain";
+   @RequestMapping(value = "History/history.do", method=RequestMethod.GET)
+   public String history(Principal principal, Model model) throws Exception {
+	   System.out.println("history list controller");
+	   System.out.println("user : " + principal.getName());
+	   System.out.println("controller sqlsession"+sqlsession);
+	   List<Route> myroutelist = RouteService.getMyRouteList(principal.getName());
+	   System.out.println("myroutelist : " + myroutelist);
+	   model.addAttribute("myroutelist", myroutelist);
+	   return "MyPage.History.historyMain";
    }
-
-   /*
-   * @date : 2017. 6. 23
-   * @description : Mypage 히스토리 Detail view
-   * @return : String(view) 
-   */
-   @RequestMapping("History/historyDetial.do")
-   public String historyDetailView(){
-      return "MyPage.History.historyDetail";
-   }
-
    
    /*
    * @date : 2017. 6. 16

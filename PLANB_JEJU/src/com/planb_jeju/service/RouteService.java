@@ -1,6 +1,5 @@
 package com.planb_jeju.service;
 
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
@@ -9,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
 
 /*
-* @FileName : PlanAController.java
-* @Class : PlanAController
+* @FileName : RouteService.java
+* @Class : RouteService
 * @Project : PLANB_JEJU
 * @Date : 2017.06.12
 * @LastEditDate : 2017.06.16
-* @Author : 강나영 
+* @Author : 강나영, 정다혜
 * @Desc : 일정 만들기 / 제주도 API 정보   컨트롤러
 */
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.xml.sax.SAXException;
 
 import com.planb_jeju.dao.RouteDao;
 import com.planb_jeju.dto.Route;
@@ -30,17 +28,17 @@ import com.planb_jeju.dto.Route;
 public class RouteService {
 
 	@Autowired
-	private SqlSession sqlsession;
+	private static SqlSession sqlsession;
 	
-	RouteDao routeDao;
+	private static RouteDao routeDao;
 	
 	/*public RouteService(){
 		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
 	}*/
 
 	public int insertRoute(Route route) throws ClassNotFoundException, SQLException {
-		
-		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+
+		routeDao = sqlsession.getMapper(RouteDao.class);
 		int result = routeDao.insert(route);
 
 		return result;
@@ -50,7 +48,7 @@ public class RouteService {
 	public int getRoutecode(String username) throws ClassNotFoundException, SQLException {
 
 		// Mybatis 적용
-		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+		routeDao = sqlsession.getMapper(RouteDao.class);
 		int routecode = routeDao.getRouteCode(username);
 
 		return routecode;
@@ -62,7 +60,7 @@ public class RouteService {
 	public int insertPersonal(Map<String, Object> map) throws ClassNotFoundException, SQLException {
 
 		// Mybatis 적용
-		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+		routeDao = sqlsession.getMapper(RouteDao.class);
 		int result = routeDao.insertPersonal(map);
 
 		return result;
@@ -72,19 +70,21 @@ public class RouteService {
 	public List<Route> getRouteList(Map<String, Object> map) throws ClassNotFoundException, SQLException {
 
 		// Mybatis 적용
-		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+		routeDao = sqlsession.getMapper(RouteDao.class);
 		List<Route> routeList = routeDao.getRouteList(map);
 
 		return routeList;
 
 	}
 	
-	public List<Route> getMyRouteList(String username) throws ClassNotFoundException, SQLException {
-		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+	public static List<Route> getMyRouteList(String username) throws ClassNotFoundException, SQLException {
+		System.out.println("service username >> " + username);
+		System.out.println(sqlsession);
+		routeDao = sqlsession.getMapper(RouteDao.class);
+		System.out.println(routeDao);
 		List<Route> routeList = routeDao.getMyRouteList(username);
 
 		return routeList;
-
 	}
 	
 	
@@ -96,7 +96,7 @@ public class RouteService {
 	* @return : Route route 루트 정보
 	*/
 	public Route getRouteInfo(int route_code, String username) throws ClassNotFoundException, SQLException {
-		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
+		routeDao = sqlsession.getMapper(RouteDao.class);
 		Route route = routeDao.getRoute(route_code, username);
 		return route;
 	}
