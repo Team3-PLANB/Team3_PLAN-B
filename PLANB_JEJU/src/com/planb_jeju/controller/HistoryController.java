@@ -36,18 +36,18 @@ public class HistoryController {
 	* @description : 히스토리 상세보기
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
 	* @return : String(View 페이지)
-	*/
-	@RequestMapping(value="History/history.do", method=RequestMethod.GET)
+
+	@RequestMapping(value="/PostScript/History/history.do", method=RequestMethod.GET)
 	public String detailHistory(HttpServletRequest request, Principal principal, Model model) throws ClassNotFoundException, SQLException {
 		System.out.println("히스토리 상세보기");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 
 		int route_code = Integer.parseInt(request.getParameter("route_code"));
-		Route route = historyservice.getRouteDetail(route_code, principal.getName());
-		System.out.println(route);
+		Route myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		System.out.println(myroutehistory);
 
-		return "MyPage.History.historyDetail";	
+		return "MyPage.History.myHistory";	
 
 	}
-
+	*/
 }

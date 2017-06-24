@@ -43,6 +43,7 @@ import com.planb_jeju.dto.RoutePostscriptTag;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
 import com.planb_jeju.dto.SitePostscriptTag;
+import com.planb_jeju.service.HistoryService;
 import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.RoutePostscriptService;
 import com.planb_jeju.service.RouteService;
@@ -66,6 +67,9 @@ public class PostScriptController {
 	
 	@Autowired
 	RouteService routeservice;
+	
+	@Autowired
+	HistoryService historyservice;
 	
 	/*
 	* @date : 2017. 6. 20
@@ -274,6 +278,23 @@ public class PostScriptController {
 		return "PostScript.Route.detail";	
 	}
 
+	/*
+	* @date : 2017. 6. 24
+	* @description : 히스토리 상세보기
+	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
+	* @return : String(View 페이지)
+	*/
+	@RequestMapping(value="/History/history.do", method=RequestMethod.GET)
+	public String detailHistory(HttpServletRequest request, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+		System.out.println("히스토리 상세보기");
+		System.out.println("로그인된 아이디 : " + principal.getName());
 
+		int route_code = Integer.parseInt(request.getParameter("route_code"));
+		Route myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		System.out.println(myroutehistory);
+		model.addAttribute("myroutehistory", myroutehistory);
+		return "MyPage.History.myHistory";	
+
+	}
 
 }
