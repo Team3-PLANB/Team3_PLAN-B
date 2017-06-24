@@ -235,4 +235,33 @@ public class RoutePostscriptService {
 		}
 	}
 	
+	
+	/*
+	* @date : 2017. 6. 24
+	* @description : 루트 후기 태그 검색
+	* @parameter : 
+	* @return :  
+	*/
+	public List<RoutePostscript> getRoutePostListByTag(String searchWord, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+		System.out.println("루트 후기 태그로 찾기");
+		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
+		List<RoutePostscript> routePostscriptList = routePostscriptDao.getRoutePostListByTag(searchWord);
+		System.out.println("routePostscriptList : " + routePostscriptList);
+		return routePostscriptList;
+	}
+	
+	/*
+	* @date : 2017. 6. 24
+	* @description : 검색된 루트 후기 개수
+	* @parameter : 
+	* @return :  
+	*/
+	public int getCountRoutePostByTag(String searchWord, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+		System.out.println("검색된 루트 후기 개수");
+		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
+		int countSearchedPost = routePostscriptDao.getCountRoutePostByTag(searchWord);
+		System.out.println("검색된 루트 후기 개수 : " + countSearchedPost);
+		return countSearchedPost;
+	}
+	
 }

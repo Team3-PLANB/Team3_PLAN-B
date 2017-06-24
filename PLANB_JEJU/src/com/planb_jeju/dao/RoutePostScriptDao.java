@@ -124,6 +124,22 @@ public interface RoutePostScriptDao {
 	 * @param spec : RoutePostscript routePostscript 루트 후기 고유 번호를 포함하고 있는 객체
 	 */
 	public List<RoutePostscriptTag> getRoutePostTagList(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 루트 후기 검색
+	 * @return : List<RoutePostscript> 검색된 루트 후기 리스트
+	 * @param spec : String searchWord 검색어
+	 */
+	public List<RoutePostscript> getRoutePostListByTag(String searchWord) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 검색된 루트 후기 개수
+	 * @return : int 검색된 루트 후기 개수
+	 * @param spec : String searchWord 검색어
+	 */
+	public int getCountRoutePostByTag(String searchWord) throws ClassNotFoundException, SQLException;
 
+	
+	
 
 }

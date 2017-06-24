@@ -138,6 +138,23 @@ public class PostScriptController {
 		return change;
 	}
 	
+	/*
+	* @date : 2017. 6. 24
+	* @description : 루트 후기 태그 검색
+	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Route/Search.do", method=RequestMethod.POST)
+	public @ResponseBody String searchRoutePostscriptByTag(String searchWord, Model model) throws ClassNotFoundException, SQLException {
+		int searchCount = routePostscriptservice.getCountRoutePostByTag(searchWord, sqlsession);
+		List<RoutePostscript> searchRoutePostscriptList = routePostscriptservice.getRoutePostListByTag(searchWord, sqlsession);
+		
+		model.addAttribute("searchCount", searchCount);
+		model.addAttribute("searchRoutePostscriptList", searchRoutePostscriptList);
+		
+		return "PostScript.Route.searchListBoard";
+	}
+	
 		
 	/*
 	* @date : 2017. 6. 22
