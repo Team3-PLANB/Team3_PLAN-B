@@ -149,12 +149,10 @@
 		<div id="fh5co-page">
 			<div class="fh5co-hero">
 				<div class="fh5co-overlay"></div>
-
 				<div class="fh5co-cover" data-stellar-background-ratio="0.5"
 					style="background-image: url(&quot;${pageContext.request.contextPath}/images/cover_bg_1.jpg&quot;); background-position: 0px -47.7px;">
 					<div class="desc">
-						<h3 align="center">일정 만들기</h3>
-						<div class="container" style="margin-top: 50px;">
+						<div class="container" style="margin-top: 90px;">
 							<div class="row">
 								<div class="tabulation animate-box fadeInUp animated">
 
