@@ -49,6 +49,13 @@ public interface RoutePostScriptDao {
 	public List<RoutePostscript> getList(String username) throws ClassNotFoundException, SQLException;
 	
 	/*	
+	 * @description : 내 루트 후기 리스트
+	 * @return : List<RoutePostscript> 내 루트 후기 리스트
+	 * @param spec : String username 로그인한 회원 아이디 (찜콩 현황때문에 보내줌)
+	 */
+	public List<RoutePostscript> getMyList(String username) throws ClassNotFoundException, SQLException;
+	
+	/*	
 	 * @description : 루트 후기 상세보기
 	 * @return : RoutePostscript 루트 후기
 	 * @param spec : int route_postscript_rownum 상세보기할 루트 후기 고유 번호, String username 로그인한 아이디
@@ -81,7 +88,7 @@ public interface RoutePostScriptDao {
 	 * @return : int 업데이트된 라인 수
 	 * @param spec : RoutePostscript 루트 후기 정보 중 태그 정보
 	 */
-	public int insertTag(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException;
+	public int insertTag(RoutePostscriptTag routePostscriptTag) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 태그 삭제

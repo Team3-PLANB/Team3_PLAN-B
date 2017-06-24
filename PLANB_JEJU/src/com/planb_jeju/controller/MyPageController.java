@@ -53,6 +53,7 @@ public class MyPageController {
    @Autowired
    private RoutePostscriptService routePostscriptservice;
    
+   
    /*
    * @date : 2017. 6. 16
    * @description : Mypage 일정관리 view
@@ -98,14 +99,33 @@ public class MyPageController {
    }
    
    /*
-   * @date : 2017. 6. 16
-   * @description : Mypage 나의후기 root view
-   * @return : String(view) 
+   * @date : 2017. 6. 23
+   * @description : Mypage 나의 후기 리스트
+   * @return : String (view page) 
    */
-   @RequestMapping("PostScript/Route/route.do")
-   public String root(){
-      return "MyPage.PostScript.Route.routeMain";
+   @RequestMapping("PostScript/Route/List.do")
+   public String routeList(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+	   
+	   System.out.println("내 루트 후기 리스트");
+	   System.out.println("로그인된 아이디 : " + principal.getName());
+	   List<RoutePostscript> routePostscriptList = routePostscriptservice.listMyRoutePostscript(principal.getName(), sqlsession);
+	   
+	   System.out.println("routePostscriptList : " + routePostscriptList);
+	   model.addAttribute("routePostscriptList", routePostscriptList); 
+	   
+	   return "MyPage.PostScript.Route.listBoard";
    }
+   
+   /*
+    * @date : 2017. 6. 23
+    * @description : Mypage 나의 후기 상세보기
+    * @return : String (view page) 
+    */
+    @RequestMapping("PostScript/Route/Detail.do")
+    public String root(){
+ 	   
+       return "MyPage.PostScript.Route.detail";
+    }
    
    /*
    * @date : 2017. 6. 16
