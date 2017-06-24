@@ -30,12 +30,10 @@
 										<li><a href="${pageContext.request.contextPath}/MyPage/Like/like.do">찜한 후기</a></li>
 										<li><a href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do">쪽지함</a></li>
 										<li><a href="${pageContext.request.contextPath}/MyPage/Info/updateInfo.do">회원정보수정</a></li>
-										<li><a href="${pageContext.request.contextPath}/MyPage/History/history.do">히스토리</a></li>
 									</ul>
 								</li>
 							</security:authorize>
 							<security:authorize access="!isAuthenticated()">
-							<%-- <security:authorize access ="isAnonymous()"> --%>
 								<li>
 									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
 								</li>

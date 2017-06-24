@@ -74,10 +74,7 @@ public class MyPageController {
    */
    @RequestMapping(value = "History/history.do", method=RequestMethod.GET)
    public String history(Principal principal, Model model) throws Exception {
-	   System.out.println("history list controller");
-	   System.out.println("user : " + principal.getName());
 	   List<Route> myroutelist = routeservice.getMyRouteList(principal.getName());
-	   System.out.println("myroutelist : " + myroutelist);
 	   model.addAttribute("myroutelist", myroutelist);
 	   return "MyPage.History.historyMain";
    }

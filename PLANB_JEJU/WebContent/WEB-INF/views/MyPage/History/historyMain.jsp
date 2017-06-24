@@ -39,8 +39,8 @@
 						<div href="${pageContext.request.contextPath}/History/historyDetial.do?routecode=${myroutelist.route_code}"><img src="${pageContext.request.contextPath}/images/historyMain.PNG" alt="${myroutelist.routename }" class="img-responsive">
 							<div class="desc">
 								<span></span>
-								<h3>${myroutelist.routename }</h3>
-								<span>${myroutelist.sdate } - ${myroutelist.edate }</span>
+								<h3 style ="font-size: 22px;">${myroutelist.routename }</h3>
+								<span>${myroutelist.sday } - ${myroutelist.eday }</span>
 								<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/History/historyDetial.do">상세보기<i class="icon-arrow-right22"></i></a>
 							</div>
 						</div>

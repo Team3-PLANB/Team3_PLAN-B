@@ -24,9 +24,6 @@
 					<a class="btn btn-default default" href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do"
 						data-filter=".a">일정 관리</a></li>
 				<li>
-					<a class="btn btn-default" href="${pageContext.request.contextPath}/MyPage/History/history.do"
-						data-filter=".b">히스토리</a></li>
-				<li>
 					<a class="btn btn-default" href="${pageContext.request.contextPath}/MyPage/PostScript/postScriptMain.do"
 						data-filter=".c">나의 후기</a></li>
 				<li>

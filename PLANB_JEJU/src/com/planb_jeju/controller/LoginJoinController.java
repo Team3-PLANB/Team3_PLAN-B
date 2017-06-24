@@ -161,7 +161,7 @@ public class LoginJoinController {
 	@RequestMapping("Join/loginCheck.do")
 	public @ResponseBody String loginCheck(String username, String password) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		String result = memberservice.loginCheck(username, password, sqlsession);
+		String result = memberservice.loginCheck(username, password);
 
 		return result;
 	}
