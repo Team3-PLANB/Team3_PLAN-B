@@ -34,7 +34,6 @@
 								</li>
 							</security:authorize>
 							<security:authorize access="!isAuthenticated()">
-							<%-- <security:authorize access ="isAnonymous()"> --%>
 								<li>
 									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
 								</li>

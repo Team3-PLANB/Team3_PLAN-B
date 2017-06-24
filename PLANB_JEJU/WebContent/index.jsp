@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 	<!DOCTYPE html>
 <html class="no-js">
 <head>
@@ -68,7 +68,12 @@
 								<p>
 									<a href="${pageContext.request.contextPath}/PLANA.make.do" class="btn btn-default btn-sm">일정 만들기</a>
 									<a href="${pageContext.request.contextPath}/PostScript/Route/List.do" class="btn btn-default btn-sm">후기 게시판</a>
+									<security:authorize access="!isAuthenticated()">
 									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do" class="btn btn-default btn-sm">로그인/회원가입</a>
+									</security:authorize>
+									<security:authorize access="isAuthenticated()">
+									<a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do" class="btn btn-default btn-sm">마이 페이지</a>
+			            			</security:authorize>
 								</p>
 							</div>
 						</div>
