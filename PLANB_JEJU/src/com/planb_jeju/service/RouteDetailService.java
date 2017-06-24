@@ -40,8 +40,11 @@ public class RouteDetailService {
 		for(int i  = 0; i<routeList.size(); i++){
 			// Mybatis 적용
 			RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
+			// routeDetail key값을 routeList에 넣고 각 경로의 모든 site값 가져오기
 			java.util.List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i));
 			
+			
+			// 경로의 Name값을 key값으로 설정, value는 해당 경로의 각 Site List
 			routeDetailMap.put(routeList.get(i).getRoutename(), routeDetailList);
 		}
 		

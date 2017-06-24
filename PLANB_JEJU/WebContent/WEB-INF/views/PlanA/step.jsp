@@ -492,8 +492,10 @@
 <%-- <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/magnific-popup-options.js"></script> --%>
 <!-- Date Picker -->
+<%-- <script
+	src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script> --%>
 <script
-	src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
+	src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js"></script>
 <!-- CS Select -->
 <script src="${pageContext.request.contextPath}/js/classie.js"></script>
 <script src="${pageContext.request.contextPath}/js/selectFx.js"></script>

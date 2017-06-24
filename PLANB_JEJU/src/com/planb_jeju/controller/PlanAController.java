@@ -82,7 +82,10 @@ public class PlanAController {
 		return "PlanA.tmap_make_route";
 	}
 
-	@RequestMapping("PLANA.make.do")
+	/*
+	 * @return : String(View 페이지) : step.jsp
+	 */
+	@RequestMapping(value ="PLANA.make.do", method = RequestMethod.GET)
 	public String routeInsert() {
 		return "PlanA.step";
 	}
@@ -95,7 +98,7 @@ public class PlanAController {
 	 * @return : String(View 페이지)
 	 */
 	@RequestMapping(value = "PLANA.make.do", method = RequestMethod.POST)
-	public String makeSelfRoute(HttpServletRequest request, Route route, String personal)
+	public String makeSelfRoute(Principal principal, HttpServletRequest request, Route route, String personal)
 			throws ClassNotFoundException, SQLException, SAXException, IOException, ParserConfigurationException {
 
 		/*System.out.println("principal"+principal);
@@ -103,7 +106,7 @@ public class PlanAController {
 		System.out.println("prin2"+principal2);
 		System.out.println("아이디 : "+principal.getName());*/
 		// Route, Personal DB insert 함수 호출
-		insertRouteAndPersonal(route, personal);
+		insertRouteAndPersonal(route, personal, principal.getName());
 		
 		// Tmap API 에 취향에 맞는 여행지 데이터 요청
 		StringBuilder baseUrl = new StringBuilder("");
@@ -122,8 +125,10 @@ public class PlanAController {
 		request.setAttribute("pageCase", "siteRecommendPage");
 		request.setAttribute("siteList", siteLists);
 		
-		// 현재 루트 코드 가져오기 -> id principal
+		// 현재 루트 코드 가져오기 route_code(Max) 값 -> id principal 
 		int routecode = routeService.getRoutecode("a@naver.com");
+		
+		// 현재 루트 보내기
 		request.setAttribute("route_code", routecode); // route_detail 저장을 위해 값 넘기기
 
 		return "PlanA.tmapMakeRoute";
@@ -138,12 +143,21 @@ public class PlanAController {
 	 * @return : String(View 페이지)
 	 */
 	@RequestMapping(value = "PLANA.recommend.do", method = RequestMethod.POST)
-	public String makeRecommendRoute(HttpServletRequest request,Route route, String personal)
+	public String makeRecommendRoute(Principal principal, HttpServletRequest request, Route route, String personal)
 			throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
 
 		// Route, Personal DB insert 함수 호출
-		insertRouteAndPersonal(route, personal);
-
+		insertRouteAndPersonal(route, personal, principal.getName());
+		
+		// 현재 루트 코드 가져오기 route_code(Max) 값 -> id principal 
+		int routecode = routeService.getRoutecode(principal.getName());
+		// View단으로 return 해줄 Route 객체에 필요한정보 set
+		route.setRoute_code(routecode);
+		route.setUsername(principal.getName());
+		
+		System.out.println("넘어온 시작 날짜"+route.getSday());
+		System.out.println("넘어온 마침 날짜"+route.getEday());
+		
 		// 여행루트 추천 DB 가져오기
 		// RouteDao mapper 사용해서 루트 코드리스트 가져온 다음 코드 리스트에 부합하는 routeDetail list 또 가져오기  -> mapper 2개
 		//route.getPartner_code();
@@ -153,14 +167,15 @@ public class PlanAController {
 		map.put("partner_code", route.getPartner_code());
 		map.put("personal_code", personalList);
 		map.put("personal_code_len", personalList.length);
-		map.put("username", "a@naver.com");//session값으로 바꾸기
+		// 여기 들어가는 username은 누구야??
+		//map.put("username", principal.getName());
 		
 		java.util.List<Route> routeList = routeService.getRouteList(map);
 		
-		System.out.println("여행지 추천 결과"+routeList.toString());
 		if(routeList.size()>0){
-			System.out.println("여행지 추천 결과"+routeList.toString());
+			/*System.out.println("여행지 추천 결과"+routeList.toString());*/
 			
+			// routeDetailMap의 Key값은 각 경로의 이름, Value는 경로의 Site List
 			Map<String, Object> routeDetailMap = routeDetailService.getRouteDetailList(routeList);
 			
 			System.out.println("여행지 경로 상세 결과");
@@ -168,6 +183,7 @@ public class PlanAController {
 			
 			request.setAttribute("pageCase", "routeRecommendPage");
 			request.setAttribute("routeMap", routeDetailMap);
+			request.setAttribute("myRouteInfo", route);
 		}
 		
 		return "PlanA.tmapMakeRoute";
@@ -220,15 +236,15 @@ public class PlanAController {
 	 * @description : makeSelfRoute함수와, makeRecommendRoute함수에서 반복되는 작업 함수로 정리
 	 * 
 	 */
-	public void insertRouteAndPersonal(Route route, String personal) throws ClassNotFoundException, SQLException {
+	public void insertRouteAndPersonal(Route route, String personal, String username) throws ClassNotFoundException, SQLException {
 		// principal 가져오기
-		route.setUsername("a@naver.com");
+		route.setUsername(username);
 
 		// route DB insert
 		routeService.insertRoute(route);
 
 		// 현재 루트 코드 가져오기
-		int routecode = routeService.getRoutecode("a@naver.com");
+		int routecode = routeService.getRoutecode(username);
 
 		// CheckBox 값 배열로 정리
 		String[] personalList = CheckBoxParse.parseString(personal);
@@ -238,7 +254,7 @@ public class PlanAController {
 
 		for (String personalcode : personalList) {
 			Route rp = new Route();
-			rp.setUsername("a@naver.com");
+			rp.setUsername(username);
 			rp.setRoute_code(routecode);
 			rp.setPersonal_code(personalcode);
 

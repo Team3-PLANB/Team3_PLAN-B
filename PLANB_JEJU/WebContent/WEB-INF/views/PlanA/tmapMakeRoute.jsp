@@ -64,30 +64,35 @@ $( function() {
 	var lonlat; 
 	var markerLayer;
 	
-	//전역변수
+	//넘어온 User의 여행 설정 정보
+	route_code = ${requestScope.myRouteInfo.route_code};
+	username = '${requestScope.myRouteInfo.username}';
+	routename = '${requestScope.myRouteInfo.routename}';
+	partner_code = '${requestScope.myRouteInfo.partner_code}';
+	//var dt = new Date('8/24/2009');
+	sday = new Date('${requestScope.myRouteInfo.sday}');
+	eday = new Date('${requestScope.myRouteInfo.eday}');
+	//formatedDate = (date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
+	formatedSday = (sday.getFullYear() + '-' + sday.getMonth() + '-' + sday.getDate());
+	formatedEday = (eday.getFullYear() + '-' + eday.getMonth() + '-' + eday.getDate());
+	
+	console.log(route_code);
+	console.log(username);
+	console.log(routename);
+	console.log(partner_code);
+	console.log(sday);
+	console.log(eday);
+	
+	console.log(formatedSday);
+	console.log(formatedSday);
+	
+	//전역변수 루트 선택 시 초기화
 	routeDetailList = [];
 	
 	// routeDetailList에서 선택 된 경로만 customizedRouteList로 초기화 작업 필요
 	customizedRouteList = [];
 	
 	
-	// 추천 경로 data 배열로 저장
-	/* <c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
-		<c:forEach var="i" items="${item.value}" varStatus="num">
-			routeDetailList.push({
-										"route_code" : '${i.route_code}',
-										"username" : '${i.username}',
-										"route_order" : '${i.route_order}',
-										"route_date" : '${i.route_date}',
-										"site" : '${i.site}',
-										"lon" : '${i.lon}',
-										"lat" : '${i.lat}',
-										"category" : '${i.category}',
-										"stime" : '${i.stime}',
-										"etime" : '${i.etime}'
-			});	         	
-		</c:forEach>
-	</c:forEach> */
 	
 	
 	/* console.log(JSON.stringify(routeDetailList)); */
@@ -275,9 +280,10 @@ $( function() {
     				
     				
     				//JsonArray로 경로의 각 Site 내용 정리
-    				//routeDetailList = [];
+    				//이전 routeDetailList 내용 비우기
+    				routeDetailList = [];
     				<c:forEach var="i" items="${item.value}" varStatus="num">
-    					//이전 routeDetailList 내용 싹 정리 필요
+    					
     					routeDetailList.push({
     												"route_code" : '${i.route_code}',
     												"username" : '${i.username}',
@@ -534,8 +540,6 @@ $( function() {
     		   
     		   	  // 각 Day 별  Site 배열 정리
 			      new_locations = $(this).find('.sch_content').map(function(i, el) {
-			    	  console.log('제대로 뜨는 ');
-			    	  console.log($(el).data('sitedata'));
 				        return $(el).data('sitedata')
 				      }).get()
 			      
@@ -559,8 +563,7 @@ $( function() {
                
 				  // 재정렬 된 Site Data 만 배열로 정리 해 둘 것
 				  customizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
-					  console.log('모방으로 뜨는 ');
-					  console.log($(el).data('sitedata'));
+					  /* console.log($(el).data('sitedata')); */
 				        return $(el).data('sitedata')
 			      }).get()
 			      
@@ -570,7 +573,7 @@ $( function() {
 				  $('#route_list_form_innerdiv').empty();
 				  
 				  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
-				  $.each(new_locations, function( index, value ) {
+				  $.each(customizedRouteList, function( index, value ) {
 					
 					    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+value.route_order+">");
 						var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
