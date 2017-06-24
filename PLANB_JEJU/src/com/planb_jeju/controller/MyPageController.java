@@ -49,7 +49,7 @@ public class MyPageController {
    
    @Autowired
 	private RouteService routeservice;
-	
+   
    @Autowired
    private RoutePostscriptService routePostscriptservice;
    
@@ -60,7 +60,7 @@ public class MyPageController {
    */
    @RequestMapping("Schedule/schedule.do")
    public String schedule(Principal principal, Model model) throws ClassNotFoundException, SQLException{
-		List<Route> mytRouteList = routeservice.getMyRouteList(principal.getName());
+		List<Route> mytRouteList = routeservice.getMyRouteList(principal.getName(), sqlsession);
 		model.addAttribute("mytRouteList", mytRouteList);
 		return "MyPage.Schedule.scheduleMain";
 	}
@@ -68,24 +68,19 @@ public class MyPageController {
 
    /*
    * @date : 2017. 6. 16
-   * @description : Mypage 히스토리 view
+   * @description : Mypage 히스토리 list
+   * @parameter : principal 로그인한 회원 정보, model 히스토리 리스트를 저장해 넘겨주기 위한 모델 객체
    * @return : String(view) 
    */
-   @RequestMapping("History/history.do")
-   public String history(){
-      return "MyPage.History.historyMain";
+   @RequestMapping(value = "History/history.do", method=RequestMethod.GET)
+   public String history(Principal principal, Model model) throws Exception {
+	   System.out.println("history list controller");
+	   System.out.println("user : " + principal.getName());
+	   List<Route> myroutelist = RouteService.getMyRouteList(principal.getName(), sqlsession);
+	   System.out.println("myroutelist : " + myroutelist);
+	   model.addAttribute("myroutelist", myroutelist);
+	   return "MyPage.History.historyMain";
    }
-
-   /*
-   * @date : 2017. 6. 23
-   * @description : Mypage 히스토리 Detail view
-   * @return : String(view) 
-   */
-   @RequestMapping("History/historyDetial.do")
-   public String historyDetailView(){
-      return "MyPage.History.historyDetail";
-   }
-
    
    /*
    * @date : 2017. 6. 16
@@ -98,14 +93,33 @@ public class MyPageController {
    }
    
    /*
-   * @date : 2017. 6. 16
-   * @description : Mypage 나의후기 root view
-   * @return : String(view) 
+   * @date : 2017. 6. 23
+   * @description : Mypage 나의 후기 리스트
+   * @return : String (view page) 
    */
-   @RequestMapping("PostScript/Route/route.do")
-   public String root(){
-      return "MyPage.PostScript.Route.routeMain";
+   @RequestMapping("PostScript/Route/List.do")
+   public String routeList(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+	   
+	   System.out.println("내 루트 후기 리스트");
+	   System.out.println("로그인된 아이디 : " + principal.getName());
+	   List<RoutePostscript> routePostscriptList = routePostscriptservice.listMyRoutePostscript(principal.getName(), sqlsession);
+	   
+	   System.out.println("routePostscriptList : " + routePostscriptList);
+	   model.addAttribute("routePostscriptList", routePostscriptList); 
+	   
+	   return "MyPage.PostScript.Route.listBoard";
    }
+   
+   /*
+    * @date : 2017. 6. 23
+    * @description : Mypage 나의 후기 상세보기
+    * @return : String (view page) 
+    */
+    @RequestMapping("PostScript/Route/Detail.do")
+    public String root(){
+ 	   
+       return "MyPage.PostScript.Route.detail";
+    }
    
    /*
    * @date : 2017. 6. 16

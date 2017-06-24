@@ -50,18 +50,32 @@ public class RoutePostscriptService {
 	
 	/*
 	* @date : 2017. 6. 20
-	* @description : 루트 후기 게시판 리스트
+	* @description : 루트 후기 리스트
 	* @parameter : 
 	* @return : 
 	*/
 	public List<RoutePostscript> listRoutePostscript(String username, SqlSession sqlsession) throws ClassNotFoundException, SQLException {
-		System.out.println("루트 후기게시판 리스트 서비스 들어옴");
+		System.out.println("루트 후기 리스트 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		System.out.println("username : " + username);
 		List<RoutePostscript> routePostscriptList = routePostscriptDao.getList(username);
 		
 		return routePostscriptList;
-
+	}
+	
+	/*
+	* @date : 2017. 6. 23
+	* @description : 내 루트 후기 리스트
+	* @parameter : 
+	* @return : 
+	*/
+	public List<RoutePostscript> listMyRoutePostscript(String username, SqlSession sqlsession) throws ClassNotFoundException, SQLException {
+		System.out.println("내 루트 후기 리스트 서비스 들어옴");
+		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
+		System.out.println("username : " + username);
+		List<RoutePostscript> routePostscriptList = routePostscriptDao.getMyList(username);
+		
+		return routePostscriptList;
 	}
 	
 	/*
@@ -167,6 +181,7 @@ public class RoutePostscriptService {
 		if(check > 0){
 			System.out.println("루트 후기 작성 완료");
 			routePostscript2 = routePostscriptDao.getLastRoutePost();
+			System.out.println("방금 쓴 후기 : " + routePostscript2);
 		}else{
 			System.out.println("루트 후기 작성 오류남");
 		}
@@ -198,6 +213,7 @@ public class RoutePostscriptService {
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		
 		String comment = routePostscript.getComment();
+		System.out.println("comment : " + comment);
 		
 		RoutePostscriptTag routePostscriptTag = new RoutePostscriptTag();
 		routePostscriptTag.setRoute_postscript_rownum(routePostscript.getRoute_postscript_rownum());
@@ -208,14 +224,44 @@ public class RoutePostscriptService {
 		String extracHashTag = null;
 		
 		while(m.find()){
-			extracHashTag = StringUtils.replace(extracHashTag, "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~) ", "");
+			extracHashTag = StringUtils.replace(m.group(), "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~) ", "");
 			
 			if(extracHashTag != null){
-				System.out.println("최종 추출 해시태그 : " + extracHashTag);
+				System.out.println("추출 해시태그 : " + extracHashTag);
+				routePostscriptTag.setTag("'" + extracHashTag + "'");
+				System.out.println("routePostscriptTag : " + routePostscriptTag);
+				routePostscriptDao.insertTag(routePostscriptTag);
 			}
-			routePostscriptTag.setTag(extracHashTag);
-			routePostscriptDao.insertTag(routePostscript);
 		}
+	}
+	
+	
+	/*
+	* @date : 2017. 6. 24
+	* @description : 루트 후기 태그 검색
+	* @parameter : 
+	* @return :  
+	*/
+	public List<RoutePostscript> getRoutePostListByTag(String searchWord, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+		System.out.println("루트 후기 태그로 찾기");
+		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
+		List<RoutePostscript> routePostscriptList = routePostscriptDao.getRoutePostListByTag(searchWord);
+		System.out.println("routePostscriptList : " + routePostscriptList);
+		return routePostscriptList;
+	}
+	
+	/*
+	* @date : 2017. 6. 24
+	* @description : 검색된 루트 후기 개수
+	* @parameter : 
+	* @return :  
+	*/
+	public int getCountRoutePostByTag(String searchWord, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+		System.out.println("검색된 루트 후기 개수");
+		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
+		int countSearchedPost = routePostscriptDao.getCountRoutePostByTag(searchWord);
+		System.out.println("검색된 루트 후기 개수 : " + countSearchedPost);
+		return countSearchedPost;
 	}
 	
 }
