@@ -45,9 +45,13 @@
 						<div class = "nickck" id="nickck"></div>
 					</div>
 				</div>
-				<div class="col-xxs-12 col-xs-4 mt" style="clear: both">
+				<div class="col-xxs-12 col-xs-4 mt" style="clear: both; position: relative; right: 90px;">
 					<div class="input-field">
 						<input type="button" class="btn btn-primary btn-block" onclick = "editMemForm()" style="width: 150px; margin: auto" value="수정">
+					</div>
+				</div>
+				<div class="col-xxs-12 col-xs-4 mt" style="clear: both; position: relative; left: 90px; bottom:65px;">
+					<div class="input-field">
 						<input type="button" class="btn btn-primary btn-block" onclick = "editMemForm()" style="width: 150px; margin: auto" value="돌아가기">
 					</div>
 				</div>

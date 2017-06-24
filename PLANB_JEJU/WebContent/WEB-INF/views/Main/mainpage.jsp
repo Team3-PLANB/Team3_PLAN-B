@@ -27,33 +27,19 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
 	rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/icomoon.css">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/superfish.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" href="css/cs-select.css">
-<link rel="stylesheet" href="css/cs-skin-border.css">
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/main/mainCss.css">
-<script src="js/modernizr-2.6.2.min.js"></script>
-
-
-
-<%-- <!-- 로그인 스크립터  -->
-<script
-	src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
-<script src="${pageContext.request.contextPath}/js/email.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/loginjoin/facebook.js"></script>
-<script src="${pageContext.request.contextPath}/js/loginjoin/login.js"></script>
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/LoginJoin/join.css"> --%>
-
+<script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
 
 
 <!-- slider를 위한 css  -->
@@ -65,15 +51,46 @@
 
 
 
-<header class="cont-slider">
-    <section class="slider">
-      <article class="slide one"><span>One <h3 style="color:white">&nbsp; : 깨끗하고 푸르른 바다</h3></span></article><!--
-      --><article class="slide two"><span> Two <h3 style="color:white">&nbsp;: 청량한 유채꽃이 가득한 광경</h3></span></article><!--
-      --><article class="slide three"><span> Three <h3 style="color:white">&nbsp;: 편히 쉴 수 있는 숙박</h3></span></article><!--
-      --><article class="slide four"><span>Four <h3 style="color:white">&nbsp;: 볼 것 많은 관광지</h3></span></article><!--
-      --><article class="slide five"><span>Five <h3 style="color:white">&nbsp;: 함께 하는 사람들과 즐거운 산책로</h3></span></article>
-    </section>
-</header>
+	<header class="cont-slider">
+		<section class="slider">
+			<article class="slide one">
+				<span>One
+					<h3 style="color: white">
+						<strong>&nbsp; : 눈부신 바다</strong>
+					</h3>
+				</span>
+			</article>
+			<article class="slide two">
+				<span> Two
+					<h3 style="color: white">
+						<strong>&nbsp;: 아름다운 자연</strong>
+					</h3>
+				</span>
+			</article>
+
+			<article class="slide three">
+				<span> Three
+					<h3 style="color: white">
+						<strong>&nbsp;: 편안한 숙박 시설</strong>
+					</h3>
+				</span>
+			</article>
+			<article class="slide four">
+				<span>Four
+					<h3 style="color: white">
+						<strong>&nbsp;: 볼 것 많은 관광지</strong>
+					</h3>
+				</span>
+			</article>
+			<article class="slide five">
+				<span>five
+					<h3 style="color: white">
+						<strong>&nbsp;: '함께'라는 행복</strong>
+					</h3>
+				</span>
+			</article>
+		</section>
+	</header>
 
 
 
@@ -81,192 +98,6 @@
 
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
-			<%-- <div class="fh5co-hero">
-				<div class="fh5co-overlay"></div>
-				<div class="fh5co-cover" data-stellar-background-ratio="0.5"
-					style="background-image: url(images/cover_bg_1.jpg);">
-					<div class="desc">
-						<div class="container">
-							<div class="row">
-								<div class="col-sm-5 col-md-5">
-									<div class="tabulation animate-box fadeInUp animated">
-
-										<!-- 네비게이션 Tab : join/login -->
-										<ul class="nav nav-tabs" role="tablist">
-											<li role="presentation" id="join_tab"><a
-												href="#joinform" aria-controls="join" role="tab"
-												data-toggle="tab">JOIN</a></li>
-											<li role="presentation" class="active" id="login_tab"><a
-												href="#loginform" aria-controls="login" role="tab"
-												data-toggle="tab">LOGIN</a></li>
-										</ul>
-
-										<!-- Tab JOIN -->
-										<div class="tab-content">
-											<div role="tabpanel" class="tab-pane" id="joinform">
-												<form action="joinok.do" class="row" id="joinfrm"
-													method="POST">
-													<div class="col-xxs-12 col-xs-6 mt"
-														style="margin-left: 10%; width: 100%;">
-														<div class="input-field">
-															<label for="email">이메일</label>
-															<div>
-																<input type="text" class="form-control"
-																	style="width: 250px; float: left;" name="username"
-																	id="username" placeholder="이메일을 입력해주세요"
-																	keypress="revText()">
-																<!-- onblur="emailCheck()" -->
-																<input type="button" onclick="emailCheck()"
-																	id="overlabCheck" class="btn btn-primary btn-block"
-																	style="float: left; width: 80px; height: 40px; float: left; font-size: 10px; padding: 3px; margin-left: 15px;"
-																	value="메일중복확인"> <input type="button"
-																	onclick="authCheck()" id="authNumSend"
-																	class="btn btn-primary btn-block"
-																	style="float: left; width: 80px; height: 40px; float: left; font-size: 10px; padding: 3px; margin-left: 15px;"
-																	value="인증번호받기"> <input type="hidden"
-																	id="saveAuthNum">
-															</div>
-
-															<div class="email-msg" id="email-msg"
-																style="clear: both;"></div>
-														</div>
-													</div>
-													<div class="col-xxs-12 col-xs-6 mt"
-														style="clear: both; margin-left: 10%;">
-														<div class="input-field">
-															<label for="password">비밀번호</label> <input type="password"
-																class="form-control" name="password" id="password"
-																placeholder="비밀번호를 입력해주세요">
-														</div>
-													</div>
-													<div class="col-xxs-12 col-xs-6 mt"
-														style="clear: both; margin-left: 10%;">
-														<div class="input-field">
-															<label for="passwordck">비밀번호 확인</label> <input
-																type="password" class="form-control" id="passwordck"
-																placeholder="비밀번호를 입력해주세요" onkeyup="passwordCheck()">
-															<div class="pwdck" id="pwdck"></div>
-														</div>
-													</div>
-													<div class="col-xxs-12 col-xs-6 mt"
-														style="clear: both; margin-left: 10%;">
-														<div class="input-field">
-															<label for="nickname">닉네임</label> <input type="text"
-																class="form-control" name="nickname" id="nickname"
-																placeholder="닉네임을 입력해주세요" onclick="nickCheck()">
-															<div class="nick-msg" id="nick-msg"></div>
-														</div>
-													</div>
-												</form>
-											</div>
-											<!-- Tab LOGIN -->
-											<div role="tabpanel" class="tab-pane active" id="loginform">
-												<form action="" class="row" method="POST">
-													<div class="col-xxs-12 col-xs-6 mt"
-														style="margin-left: 10%">
-														<div class="input-field">
-															<label for="email">이메일</label> <input type="text"
-																class="form-control" id="username" name="username"
-																placeholder="이메일을 입력해주세요">
-															<div class="emailCheck"></div>
-														</div>
-													</div>
-													<div class="col-xxs-12 col-xs-6 mt"
-														style="clear: both; margin-left: 10%">
-														<div class="input-field">
-															<label for="password">비밀번호</label> <input type="password"
-																class="form-control" id="password"
-																placeholder="비밀번호를 입력해주세요">
-															<div class="pwdCheck"></div>
-														</div>
-													</div>
-													<div class="col-xs-12">
-														<input type="submit" class="btn btn-primary btn-block"
-															value="Login" onclick="loginCheck()">
-													</div>
-												</form>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- 이메일 인증 -->
-								<div class="col-sm-5 col-md-5" style="margin-left: 180px;"
-									id="social_join">
-									<div class="tabulation animate-box fadeInUp animated">
-										<div class="tab-content">
-											<div role="tabpanel" class="tab-pane active" id="social_jo">
-												<div class="row">
-													<div class="col-xxs-12 col-xs-6 mt">
-														<div class="input-field">
-															<input type="text" class="form-control" id="authnum"
-																name="authnum" placeholder="인증 번호 7자리를 입력해주세요"
-																style="margin-left: 30%;"> <input type="submit"
-																onclick="authNumCheck()"
-																class="btn btn-primary btn-block"
-																style="margin-top: 20px; width: 220%; height: 60px;"
-																id="authNumCheck" value="이메일 인증하기">
-
-														</div>
-													</div>
-													<div class="col-xxs-12 col-xs-6 mt"
-														style="clear: both; margin-top: 20px; margin-left: 28%;">
-														<div class="input-field">
-															<label for="password">소셜 계정으로 회원가입</label> <a
-																onclick="login()"> <img
-																src="<%=request.getContextPath()%>/images/logo/001-facebook-2.png">
-															</a> <a href=""> <img
-																src="<%=request.getContextPath()%>/images/logo/005-google-plus.png">
-															</a> <a href=""> <img
-																src="<%=request.getContextPath()%>/images/logo/naver.png">
-															</a>
-														</div>
-													</div>
-													<div class="col-xs-12">
-														<input type="button" class="btn btn-primary btn-block"
-															value="Join" onclick="frm_submit()">
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<!-- 소셜계정 로그인 -->
-								<div class="col-sm-5 col-md-5" style="margin-left: 180px;"
-									id="social_login">
-									<div class="tabulation animate-box fadeInUp animated">
-										<div class="tab-content">
-											<div role="tabpanel" class="tab-pane active" id="social_log">
-												<div class="row">
-
-													<div class="col-xxs-12 col-xs-6 mt"
-														style="clear: both; margin-top: 20px; margin-left: 28%;">
-														<div class="input-field">
-															<label for="password">소셜 계정으로 로그인</label> <a
-																onclick="login()"> <img
-																src="<%=request.getContextPath()%>/images/logo/001-facebook-2.png">
-															</a> <a href=""> <img
-																src="<%=request.getContextPath()%>/images/logo/005-google-plus.png">
-															</a> <img
-																src="<%=request.getContextPath()%>/images/logo/naver.png">
-															</a>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div> --%>
-
-
 			<div id="fh5co-features">
 				<div class="container">
 					<div class="row">
@@ -377,26 +208,26 @@
 									style="background-image: url(../images/main/ANNA.PNG);"><a
 									href="https://www.instagram.com/annagang1105/">
 										<div class="case-studies-summary">
-											<h2>Nayeong Kang</h2>
+											<h2>NaYeong Kang</h2>
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/place-9.jpg);">
+									style="background-image: url(../images/main/wa1.png);">
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/place-9.jpg);">
+									style="background-image: url(../images/main/wa2.jpg);">
 								<li class="one-forth text-center"
 									style="background-image: url(../images/main/jy.jpg);"><a
 									href="https://www.instagram.com/lim_c_1118/">
 										<div class="case-studies-summary">
-											<h2>Jeongyeon Lim</h2>
+											<h2>JeongYeon Lim</h2>
 										</div>
 								</a></li>
 
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/place-9.jpg);"><a
+									style="background-image: url(../images/main/yb.png);"><a
 									href="#">
 										<div class="case-studies-summary">
-											<h2>Yebin Lee</h2>
+											<h2>YeBin Lee</h2>
 										</div>
 								</a></li>
 								<li class="one-half text-center">
@@ -411,25 +242,25 @@
 									style="background-image: url(../images/main/HYE.PNG);"><a
 									href="https://www.instagram.com/hye_0216/">
 										<div class="case-studies-summary">
-											<h2>Dahye Jeong</h2>
+											<h2>DaHye Jeong</h2>
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/place-9.jpg);"><a
+									style="background-image: url(../images/main/js.jpg);"><a
 									href="#">
 										<div class="case-studies-summary">
-											<h2>Junseong Lee</h2>
+											<h2>JunSeong Lee</h2>
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/place-9.jpg);">
+									style="background-image: url(../images/main/wa3.jpg);">
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/place-9.jpg);">
+									style="background-image: url(../images/main/wa4.jpg);">
 								<li class="one-forth text-center"
 									style="background-image: url(../images/main/DANBI.png);"><a
-									href="#">
+									href="https://www.instagram.com/_ddaa_n/">
 										<div class="case-studies-summary">
-											<h2>Danbi Hong</h2>
+											<h2>DanBi Hong</h2>
 										</div>
 								</a></li>
 							</ul>
@@ -507,21 +338,21 @@
 	</div>
 
 
-	<script src="js/jquery.min.js"></script>
-	<script src="js/jquery.easing.1.3.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-	<script src="js/jquery.waypoints.min.js"></script>
-	<script src="js/sticky.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/sticky.js"></script>
 
-	<script src="js/jquery.stellar.min.js"></script>
-	<script src="js/hoverIntent.js"></script>
-	<script src="js/superfish.js"></script>
-	<script src="js/jquery.magnific-popup.min.js"></script>
-	<script src="js/magnific-popup-options.js"></script>
-	<script src="js/bootstrap-datepicker.min.js"></script>
-	<script src="js/classie.js"></script>
-	<script src="js/selectFx.js"></script>
-	<script src="js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/hoverIntent.js"></script>
+	<script src="${pageContext.request.contextPath}/js/superfish.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/magnific-popup-options.js"></script>
+	<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/classie.js"></script>
+	<script src="${pageContext.request.contextPath}/js/selectFx.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 
 </body>
 </html>

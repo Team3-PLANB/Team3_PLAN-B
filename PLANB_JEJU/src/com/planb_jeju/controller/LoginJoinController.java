@@ -94,7 +94,6 @@ public class LoginJoinController {
 	 */
 	@RequestMapping("Join/Logout.do")
 	public String logout() {
-		System.out.println("logoutok");
 		return "Main.mainpage";
 	}
 	
@@ -105,7 +104,6 @@ public class LoginJoinController {
 	*/
 	@RequestMapping("Login/loginok.do")
 	public String nLoginOK(Principal principal) throws ClassNotFoundException, SQLException{
-		System.out.println("loginok");	
 		return "Main.mainpage";
 	}
 	
@@ -185,10 +183,8 @@ public class LoginJoinController {
 	public @ResponseBody String fblogin(String username) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		roledao = sqlsession.getMapper(RoleDAO.class);
-		System.out.println("getFBRole >>> "+roledao.getFbRole(username));
 		Role role = roledao.getFbRole(username);
-		System.out.println("getRole_code >>> "+role);
-		String result = memberDao.getFBpassword(username);
+//		String result = memberDao.getFBpassword(username);
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(role.getROLE_NAME()));
 
@@ -237,7 +233,6 @@ public class LoginJoinController {
 		result = memberDao.insert(member);
 		
 		int roleResult = roledao.insertRole(member.getUsername());
-		System.out.println("insert : " + result);
 		if (result > 0 && roleResult > 0) {  
 			viewpage = "LoginJoin.Join.NJoin.joinForm";
 		} else {

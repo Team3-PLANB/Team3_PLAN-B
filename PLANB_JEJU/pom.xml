@@ -59,12 +59,6 @@
 			<artifactId>spring-webmvc</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		<!-- DB 정보 Orcale -->
-		<dependency>
-			<groupId>com.oracle</groupId>
-			<artifactId>ojdbc</artifactId>
-			<version>${db-version}</version>
-		</dependency>
 		<!-- File 처리 -->
 		<dependency>
 			<groupId>commons-fileupload</groupId>
@@ -208,8 +202,15 @@
             <artifactId>spring-messaging</artifactId>
             <version>${org.springframework-version}</version>
         </dependency>
-
 		<!-- WebSocket End-->
+
+		<!--servlet-api-->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
 
 	</dependencies>
 	<build>
@@ -231,5 +232,13 @@
 				</configuration>
 			</plugin>
 		</plugins>
+		<resources>
+			<resource>
+				<directory>src/</directory>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+		</resources>
 	</build>
 </project>
