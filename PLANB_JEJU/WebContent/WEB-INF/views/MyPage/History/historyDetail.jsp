@@ -43,7 +43,7 @@
 				<div class="row animate-box">
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 						<h2>My History</h2>
-						<h3>{route.routename}</h3>
+						<h3>제주도 안간다</h3>
 					</div>
 				</div>
 				<div class="row">

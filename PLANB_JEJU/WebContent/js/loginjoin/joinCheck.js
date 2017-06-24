@@ -33,6 +33,7 @@ function frm_submit() {
 	}else if(authnum != check){
 		swal('인증번호를 확인해주세요.');
 	} else {
+		swal('회원가입 완료! 로그인해주세요');
 		$('#joinfrm').submit();
 	}
 }

@@ -79,6 +79,11 @@ public class MyPageController {
 	   return "MyPage.History.historyMain";
    }
    
+   // 페이지 구현끝나면 삭제!!
+   @RequestMapping(value="History/historyDetial.do")
+   public String historyDetail() throws Exception {
+	   return "MyPage.History.historyDetail";
+   }
    /*
    * @date : 2017. 6. 16
    * @description : Mypage 나의후기 main view
