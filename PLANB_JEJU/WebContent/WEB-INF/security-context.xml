@@ -5,7 +5,7 @@
 						http://www.springframework.org/schema/beans/spring-beans.xsd
 	  					http://www.springframework.org/schema/security 
 	  					http://www.springframework.org/schema/security/spring-security.xsd">
-
+	<!--주석 추가  -->
 	<!-- 시큐리티 적용X -->
 <security:http pattern="/css/**" security="none" />
 <security:http pattern="/js/**" security="none" />

@@ -67,9 +67,12 @@ $( function() {
 	//전역변수
 	routeDetailList = [];
 	
+	// routeDetailList에서 선택 된 경로만 customizedRouteList로 초기화 작업 필요
+	customizedRouteList = [];
+	
 	
 	// 추천 경로 data 배열로 저장
-	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
+	/* <c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
 		<c:forEach var="i" items="${item.value}" varStatus="num">
 			routeDetailList.push({
 										"route_code" : '${i.route_code}',
@@ -84,7 +87,7 @@ $( function() {
 										"etime" : '${i.etime}'
 			});	         	
 		</c:forEach>
-	</c:forEach>
+	</c:forEach> */
 	
 	
 	/* console.log(JSON.stringify(routeDetailList)); */
@@ -94,31 +97,13 @@ $( function() {
 	
 	// route_site_delete_tag 클릭 : 클릭한 객체 sortable 컨테이너에서 삭제
 	$(document).on("click",".route_site_delete_tag", function(event){ 
+		
+		// 클릭 객체 제거
 		$(event.target).parent().parent().parent().remove();
 		
-		 
-		console.log('삭제 클릭시 day div 가져와야해');
-		console.log($(event.target).parent().parent().parent().parent());
-		/* //배열 재배치 작업 필요 $(this).find('.sch_content')
-		new_locations = $(event.target).parent().parent().parent().parent().find('.sch_content').map(function(i, el) {
-			console.log($(el).data('sitedata'));
-	        return $(el).data('sitedata')
-	      }).get()
-      
-	     console.log(JSON.stringify(new_locations));
-	      
-	    // site_order값  재 정렬 
-	    new_locations = jQuery.map( new_locations, function( n, i ) {
-	 	   n.route_order = i ;
-	 	   return ( n );
-	   });
-	      
-		console.log( $(event.target).parent().parent().children('.spot_name'));
-       // 화면 컨텐츠 순서 값 바꾸기
-       $(event.target).parent().parent().children('.spot_name').each(function(index, value){
-    	  $(this).text(new_locations[index].route_order+1);
-       });  */
-      
+		// sortable 수동 함수 호출
+		$('.sortable').trigger('sortupdate');
+		
        
   	});
 	
@@ -290,8 +275,9 @@ $( function() {
     				
     				
     				//JsonArray로 경로의 각 Site 내용 정리
-    				/* routeDetailList = [];
+    				//routeDetailList = [];
     				<c:forEach var="i" items="${item.value}" varStatus="num">
+    					//이전 routeDetailList 내용 싹 정리 필요
     					routeDetailList.push({
     												"route_code" : '${i.route_code}',
     												"username" : '${i.username}',
@@ -305,7 +291,7 @@ $( function() {
     												"etime" : '${i.etime}'
     					});	         	
     			    </c:forEach>
-    				  */
+    				 
     				
     				
     				
@@ -475,10 +461,11 @@ $( function() {
            $(".sortable").sortable({
         	   
         	   // drag 한 후 객체 변경 되면 실행
+        	   /* sortable 안에 태그 변동있을때 실행되는 함수 -> 수동으로 붙인 update함수가 삭제 클릭시에만 실행되는게 아니라 계속 실행되서...일단 주석 처리
         	   update: function(event, ui) {
 				      
-        		   console.log('sortable update this는 뭐야??')
-        		   console.log($(this));
+        		   console.log('sortable update 함수')
+        		    //console.log($(this)); 
         		   
 				      new_locations = $(this).find('.sch_content').map(function(i, el) {
 					        return $(el).data('sitedata')
@@ -497,9 +484,9 @@ $( function() {
 				    	  $(this).text(new_locations[index].route_order+1);
 				      });
 				      
-					  /* console.log(JSON.stringify(new_locations));
+					   //console.log(JSON.stringify(new_locations));
 					  
-					  console.log(JSON.stringify(routeDetailList)); */
+					  //console.log(JSON.stringify(routeDetailList));
                    
 					  
 					  // 현재 저장되어 있는 data empty
@@ -526,9 +513,81 @@ $( function() {
 							
 					  
 					  
-                   }
+                   } */
+                   /* , 이건 sortable -> sortable로 객체 droped 실행되고 난 후에 실행되는 함수
+           
+           	remove: function( event, ui ) {
+           		console.log('sort remove function 실행');
+           	} */
          
            
+           });
+           
+           // 수동으로 sortable 트리거 함수 생성, 왜 delete 버튼 클릭할때 뿐만 아니라 drag update 시에도 실행되지? 걸어 두지 않았는데??
+           $('.sortable').on('sortupdate',function(event, ui) {
+        	   	
+        	   console.log('sort에 update 붙인 함수');
+    		   console.log('this 는?');
+    		   console.log($(this));
+    		   console.log('this.parent 는?');
+    		   console.log($(this).parent().parent());
+    		   
+    		   	  // 각 Day 별  Site 배열 정리
+			      new_locations = $(this).find('.sch_content').map(function(i, el) {
+			    	  console.log('제대로 뜨는 ');
+			    	  console.log($(el).data('sitedata'));
+				        return $(el).data('sitedata')
+				      }).get()
+			      
+				      
+				  // site_order값  재 정렬 
+				  new_locations = jQuery.map( new_locations, function( n, i ) {
+					  n.route_order = i ;
+					  return ( n );
+				  });
+				      
+			      // 화면 컨텐츠 순서 값 바꾸기
+			      $(this).find('.spot_name').each(function(index, value){
+			    	  // console.log($(this).text()); 
+			    	  $(this).text(new_locations[index].route_order+1);
+			    	  
+			      });
+			      
+				  /* console.log(JSON.stringify(new_locations));
+				  
+				  console.log(JSON.stringify(routeDetailList)); */
+               
+				  // 재정렬 된 Site Data 만 배열로 정리 해 둘 것
+				  customizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
+					  console.log('모방으로 뜨는 ');
+					  console.log($(el).data('sitedata'));
+				        return $(el).data('sitedata')
+			      }).get()
+			      
+			      console.log(JSON.stringify(customizedRouteList));
+				  
+				  // 현재 저장되어 있는 data empty
+				  $('#route_list_form_innerdiv').empty();
+				  
+				  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
+				  $.each(new_locations, function( index, value ) {
+					
+					    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+value.route_order+">");
+						var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
+						var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
+						var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
+						var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
+						var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
+						var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
+						var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
+						var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
+						var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
+						
+						$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+								
+					});
+				  
+        	   
            });
           
            $(".sortable").selectable();

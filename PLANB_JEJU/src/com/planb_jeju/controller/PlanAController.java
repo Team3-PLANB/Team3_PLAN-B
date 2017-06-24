@@ -9,7 +9,7 @@ package com.planb_jeju.controller;
 * @Author : 강나영 
 * @Desc : 일정 만들기 / 제주도 API 정보   컨트롤러
 */
-
+//주석 추가
 import java.awt.List;
 import java.io.BufferedReader;
 import java.io.IOException;
