@@ -22,6 +22,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.planb_jeju.dao.MemberDao;
@@ -41,6 +42,8 @@ import com.planb_jeju.dto.Member;
 public class MemberService {
 	
 	private static MemberDao memberDao;
+	@Autowired
+	private SqlSession sqlsession;
 	
 	// 7자리 영문+숫자 랜덤코드 만들기
 	public String RandomNum() {
@@ -133,7 +136,7 @@ public class MemberService {
 	}
 	
 	// 로그인 시 
-	public String loginCheck(String username, String password, SqlSession sqlsession) throws Exception {
+	public String loginCheck(String username, String password) throws Exception {
 		String result = "";
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		if(memberDao.checkEmail(username) < 1) {
