@@ -9,7 +9,7 @@
 	<!-- root (공통빈) DB작업 관련(driverManagerDataSource ,JdbcTemplate ) View 작업 
 		(공통 UI) (internalResourceViewResolver) import org.springframework.jdbc.datasource.DriverManagerDataSource; 
 		import org.springframework.jdbc.core.JdbcTemplate; -->
-	
+	<!-- 주석 추가 -->
 
 	<bean id="driverManagerDataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
