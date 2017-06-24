@@ -140,7 +140,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 태그 등록 -->
 	<insert id="insertTag" parameterType="com.planb_jeju.dto.RoutePostscriptTag">
 		INSERT INTO route_postscript_tag (route_postscript_tag_rownum, tag, route_postscript_rownum)
-		VALUES (NULL, ${tag}, ${route_postscript_rownum})
+		VALUES (NULL, #{tag}, #{route_postscript_rownum})
 	</insert>
 	
 	<!-- 태그 삭제 -->
@@ -153,28 +153,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateHitNum" parameterType="Integer">
 		UPDATE route_postscript
 		SET hitnum = hitnum + 1
-		WHERE route_postscript_rownum = ${route_postscript_rownum} 
+		WHERE route_postscript_rownum = #{route_postscript_rownum} 
 	</update>
 	
 	<!-- 좋아요(찜콩수) 증가 -->
 	<update id="upLikeNum" parameterType="com.planb_jeju.dto.RoutePostscriptLike">
 		UPDATE route_postscript
 		SET likenum = likenum + 1
-		WHERE route_postscript_rownum = ${route_postscript_rownum}
+		WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</update>
 	
 	<!-- 좋아요(찜콩수) 감소 -->
 	<update id="downLikeNum" parameterType="com.planb_jeju.dto.RoutePostscriptLike">
 		UPDATE route_postscript
 		SET likenum = likenum - 1
-		WHERE route_postscript_rownum = ${route_postscript_rownum}
+		WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</update>
 	
 	<!-- 태그 가져오기 -->
 	<select id="getRoutePostTagList" parameterType="com.planb_jeju.dto.RoutePostscript" resultType="com.planb_jeju.dto.RoutePostscriptTag">
 		SELECT *
 		FROM route_postscript_tag
-		WHERE route_postscript_rownum = ${route_postscript_rownum}
+		WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</select>
 	
 	<!-- 루트 후기 검색 -->
@@ -183,7 +183,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM route_postscript p
 		JOIN route_postscript_tag t
 		ON p.route_postscript_rownum = t.route_postscript_rownum
-		WHERE t.tag like '%'+${param1}+'%'
+		WHERE t.tag like '%'+#{param1}+'%'
 	</select>
 	
 			
@@ -193,7 +193,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM route_postscript p
 		JOIN route_postscript_tag t
 		ON p.route_postscript_rownum = t.route_postscript_rownum
-		WHERE t.tag like '%'+${param1}+'%'
+		WHERE t.tag like %#{param1}%
 	</select>
 	
 	

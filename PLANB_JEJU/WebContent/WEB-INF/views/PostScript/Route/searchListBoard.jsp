@@ -1,10 +1,10 @@
 <%--
 @Project : PLANB_JEJU
-@File name :listBoard.jsp 
-@Author : 임정연 & 정다혜
-@Data : 2017.06.16 & 2017.06.20
-@Last Edit Data : 2017.06.21
-@Desc : 루트 후기 게시판의 리스트 (메인)
+@File name :searchListBoard.jsp 
+@Author : 정다혜
+@Data : 2017.06.24
+@Last Edit Data : 2017.06.24
+@Desc : 검색된 루트 후기 리스트
 --%>
 
 
@@ -80,7 +80,7 @@
 					<%------------------------------리스트 부분 ----------------------------------------%>
 					<div class="container">
 						<div class="row row-bottom-padded-md">
-							<c:forEach var="routePostscript" items="${routePostscriptList}">
+							<c:forEach var="routePostscript" items="${searchRoutePostscriptList}">
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
 										<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.getRoute_postscript_rownum()}">
