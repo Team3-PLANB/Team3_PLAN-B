@@ -1,9 +1,5 @@
 package com.planb_jeju.service;
 
-import java.security.Principal;
-import java.util.HashMap;
-import java.util.Map;
-
 /*
 * @FileName : MemberService.java
 * @Class : MemberService
@@ -24,16 +20,9 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeUtility;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
@@ -52,10 +41,6 @@ import com.planb_jeju.dto.Member;
 public class MemberService {
 	
 	private static MemberDao memberDao;
-	private static Member member;
-	
-	@Autowired
-	private static SqlSession sqlsession;
 	
 	// 7자리 영문+숫자 랜덤코드 만들기
 	public String RandomNum() {

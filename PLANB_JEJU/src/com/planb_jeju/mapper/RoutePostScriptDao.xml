@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		public int deleteLike(RoutePostscriptLike routePostscriptLike);
 		
 		// 태그 등록
-		public int insertTag(RoutePostscript routePostscript);
+		public int insertTag(RoutePostscriptTag routePostscriptTag);
 		
 		// 태그 삭제
 		public int deleteTag(int route_postscript_rownum);
@@ -51,7 +51,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		// 태그 가져오기
 		public List<RoutePostScriptTag> getRoutePostTagList(RoutePostscript routePostscript);
 		
-		// 
+		// 루트 후기 검색
+		public List<RoutePostscript> getRoutePostListByTag(String searchWord);
+			
+		// 검색된 루트 후기 개수
+		public int getCountRoutePostByTag(String searchWord);	
 		
 	-->
 
@@ -64,7 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 루트 후기 등록 -->
 	<insert id="insert" parameterType="com.planb_jeju.dto.RoutePostscript">
 		INSERT INTO route_postscript (route_postscript_rownum, comment, writetime, hitnum, likenum, username, route_code)
-	    VALUES (NULL, #{comment}, to_date(to_char(SYSDATE,'YYYY/MM/DD HH24:MI'),'YYYY/MM/DD HH24:MI'), 0 ,0 , #{username}, #{route_code})
+	    VALUES (NULL, #{comment}, sysdate(), 0 ,0 , #{username}, #{route_code})
 	</insert>
 	
 	<!-- 루트 후기 수정 -->
@@ -91,6 +95,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ON rp.route_code = r.route_code
 	</select>
 	
+	<!-- 내 루트 후기 리스트 -->
+	<select id="getMyList" resultType="com.planb_jeju.dto.RoutePostscript">
+		SELECT *
+		FROM route_postscript rp
+		JOIN route r
+		ON rp.route_code = r.route_code
+		WHERE rp.username = #{param1}
+	</select>
+	
 	<!-- 루트 후기 상세보기 -->
 	<select id="getRoutePost" resultType="com.planb_jeju.dto.RoutePostscript">
 		SELECT *, IF((route_postscript_rownum in (SELECT route_postscript_rownum 
@@ -103,13 +116,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE route_postscript_rownum = #{param1}
 	</select>
 	
-	<!-- 루트 후기 상세보기 -->
+	<!-- 방금 쓴 루트 후기 상세보기 -->
 	<select id="getLastRoutePost" resultType="com.planb_jeju.dto.RoutePostscript">
 		SELECT *
 		FROM route_postscript  rp
 		JOIN route r
 		ON rp.route_code = r.route_code
-		WHERE route_postscript_rownum = MAX(route_postscript_rownum)
+		WHERE route_postscript_rownum = (SELECT MAX(route_postscript_rownum) from route_postscript)
 	</select>
 	
 	<!-- 찜콩하기 -->
@@ -126,8 +139,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 태그 등록 -->
 	<insert id="insertTag" parameterType="com.planb_jeju.dto.RoutePostscriptTag">
-		INSERT route_postscript_tag (route_postscript_tag_rownum, tag, route_postscript_rownum)
-		VALUES (NULL, ${tag}, ${route_postscript_rownum})
+		INSERT INTO route_postscript_tag (route_postscript_tag_rownum, tag, route_postscript_rownum)
+		VALUES (NULL, #{tag}, #{route_postscript_rownum})
 	</insert>
 	
 	<!-- 태그 삭제 -->
@@ -140,28 +153,48 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="updateHitNum" parameterType="Integer">
 		UPDATE route_postscript
 		SET hitnum = hitnum + 1
-		WHERE route_postscript_rownum = ${route_postscript_rownum} 
+		WHERE route_postscript_rownum = #{route_postscript_rownum} 
 	</update>
 	
 	<!-- 좋아요(찜콩수) 증가 -->
 	<update id="upLikeNum" parameterType="com.planb_jeju.dto.RoutePostscriptLike">
 		UPDATE route_postscript
 		SET likenum = likenum + 1
-		WHERE route_postscript_rownum = ${route_postscript_rownum}
+		WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</update>
 	
 	<!-- 좋아요(찜콩수) 감소 -->
 	<update id="downLikeNum" parameterType="com.planb_jeju.dto.RoutePostscriptLike">
 		UPDATE route_postscript
 		SET likenum = likenum - 1
-		WHERE route_postscript_rownum = ${route_postscript_rownum}
+		WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</update>
 	
 	<!-- 태그 가져오기 -->
 	<select id="getRoutePostTagList" parameterType="com.planb_jeju.dto.RoutePostscript" resultType="com.planb_jeju.dto.RoutePostscriptTag">
 		SELECT *
 		FROM route_postscript_tag
-		WHERE route_postscript_rownum = ${route_postscript_rownum}
+		WHERE route_postscript_rownum = #{route_postscript_rownum}
 	</select>
+	
+	<!-- 루트 후기 검색 -->
+	<select id="getRoutePostListByTag" resultType="com.planb_jeju.dto.RoutePostscript">
+		SELECT *
+		FROM route_postscript p
+		JOIN route_postscript_tag t
+		ON p.route_postscript_rownum = t.route_postscript_rownum
+		WHERE t.tag like '%'+#{param1}+'%'
+	</select>
+	
+			
+	<!-- 검색된 루트 후기 개수 -->
+	<select id="getCountRoutePostByTag" resultType="Integer">
+		SELECT COUNT(*)
+		FROM route_postscript p
+		JOIN route_postscript_tag t
+		ON p.route_postscript_rownum = t.route_postscript_rownum
+		WHERE t.tag like %#{param1}%
+	</select>
+	
 	
 </mapper>

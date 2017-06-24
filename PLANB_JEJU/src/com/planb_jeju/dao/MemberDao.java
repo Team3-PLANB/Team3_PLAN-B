@@ -1,7 +1,6 @@
 package com.planb_jeju.dao;
 
 import java.sql.SQLException;
-import java.util.List;
 
 import com.planb_jeju.dto.Member;
 

@@ -10,7 +10,7 @@
                            http://www.springframework.org/schema/mvc 
                            http://www.springframework.org/schema/mvc/spring-mvc.xsd
                           ">
-
+<!-- 주석 추가 -->
 <!-- 객체의 생성과 조립(injection) -->
 <context:annotation-config />
 <mvc:annotation-driven />
