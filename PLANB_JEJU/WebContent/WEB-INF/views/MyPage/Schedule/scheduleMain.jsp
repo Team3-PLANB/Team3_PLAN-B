@@ -39,13 +39,13 @@
 				<div class="row">
 					<c:forEach var="mytRoute" items="${mytRouteList}">
 						<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-							<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="Free HTML5 Website Template by FreeHTML5.co" class="img-responsive">
+							<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="myroute" class="img-responsive">
 								<div class="desc">
 									<span></span>
 									<h3>${mytRoute.getRoutename()}</h3>
 									<span>${mytRoute.getSday()} ~ ${mytRoute.getEday()}</span>
 									<a class="btn btn-primary btn-outline" href="">상세보기<i class="icon-arrow-right22"></i></a>
-									<a class="btn btn-primary btn-outline" href="#">히스토리<i class="icon-arrow-right22"></i></a>
+									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath }/MyPage/History/history.do">히스토리<i class="icon-arrow-right22"></i></a>
 									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PostScript/Route/Write.do?route_code=${mytRoute.getRoute_code()}">후기 작성<i class="icon-arrow-right22"></i></a>
 								</div>
 							</div>
