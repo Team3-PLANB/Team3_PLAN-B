@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 	let WebSocket = (function() {
-    const SERVER_SOCKET_API = "/websockethandler";
+    const SERVER_SOCKET_API = "/websocket";
     const ENTER_KEY = 13;
     let stompClient;
     let textArea = document.getElementById("chatOutput");

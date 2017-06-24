@@ -85,16 +85,16 @@ public class MessageController {
 	
 	
 	/*웹소켓  알림  컨트롤러*/
-	
 	@MessageMapping("/hello")
-	    @SendTo("/topic/roomId") 
-	    public String broadcasting(@RequestParam String message, @RequestParam
-	    							String userId) throws Exception {
-			
-			System.out.println("넘어오니" + message + userId);
-	        return message;
-	    }
+	@SendTo("/topic/roomId")
+	public String broadcasting(@RequestParam String message, @RequestParam
+								String userId) throws Exception {
+
+		System.out.println("넘어오니" + message + userId);
+		return message;
 	}
+
+}
 	
 		
 

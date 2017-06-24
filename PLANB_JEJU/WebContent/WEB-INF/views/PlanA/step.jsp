@@ -16,24 +16,35 @@
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
 	rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/icomoon.css">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/superfish.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" href="css/cs-select.css">
-<link rel="stylesheet" href="css/cs-skin-border.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/superfish.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css"> --%>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/cs-select.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/cs-skin-border.css">
 
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/PlanA/step-radio.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/style.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/PlanA/step-radio.css">
 <!-- 체크박스를 위한 css  -->
-<link rel="stylesheet" href="css/PlanA/checkbox-bootstrap.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/PlanA/checkbox-bootstrap.css">
 
 
 
 
-<script src="js/modernizr-2.6.2.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
 
 
 <script type="text/javascript">
@@ -140,31 +151,31 @@
 				<div class="fh5co-overlay"></div>
 
 				<div class="fh5co-cover" data-stellar-background-ratio="0.5"
-					style="background-image: url(&quot;images/cover_bg_1.jpg&quot;); background-position: 0px -47.7px;">
+					style="background-image: url(&quot;${pageContext.request.contextPath}/images/cover_bg_1.jpg&quot;); background-position: 0px -47.7px;">
 					<div class="desc">
-
-						<div class="container">
+						<h3 align="center">일정 만들기</h3>
+						<div class="container" style="margin-top: 50px;">
 							<div class="row">
 								<div class="tabulation animate-box fadeInUp animated">
 
 									<%----------------------------------tab 나누기 ----------------------------------------%>
 									<ul class="nav nav-tabs" role="tablist">
-									
+
 										<li role="presentation" class="active" id="step1Nav"><a
-											href="#step1" aria-controls="a" role="tab"
-											data-toggle="tab">STEP1 - 여행 일정</a></li>
-											
+											href="#step1" aria-controls="a" role="tab" data-toggle="tab">STEP1
+												- 여행 일정</a></li>
+
 										<li role="presentation" id="step2Nav"><a href="#step2"
-											aria-controls="b" role="tab" data-toggle="tab">STEP2
-												- 여행 파트너</a></li>
-												
+											aria-controls="b" role="tab" data-toggle="tab">STEP2 - 여행
+												파트너</a></li>
+
 										<li role="presentation" id="step3Nav"><a href="#step3"
-											aria-controls="c" role="tab" data-toggle="tab">STEP3
-												- 여행 취향</a></li>
-												
+											aria-controls="c" role="tab" data-toggle="tab">STEP3 - 여행
+												취향</a></li>
+
 										<li role="presentation" id="step4Nav"><a href="#step4"
-											aria-controls="d" role="tab" data-toggle="tab">STEP4
-												- 나의 여행 경로 만들기</a></li>
+											aria-controls="d" role="tab" data-toggle="tab">STEP4 - 나의
+												여행 경로 만들기</a></li>
 									</ul>
 
 									<%----------------------------------STEP1 - 여행 일정 ----------------------------------------%>
@@ -173,17 +184,19 @@
 											<div class="row">
 												<div class="col-xxs-12 col-xs-6 mt alternate">
 													<div class="input-field">
-														<img alt="" src="images/PlanA/calendar.png" width="100"><label
-															for="date-start">출발일 : </label> <input type="text"
-															class="form-control" id="date-start" name="sday"
-															placeholder="mm/dd/yyyy">
+														<img alt=""
+															src="${pageContext.request.contextPath}/images/PlanA/calendar.png"
+															width="100"><label for="date-start">출발일 : </label>
+														<input type="text" class="form-control" id="date-start"
+															name="sday" placeholder="mm/dd/yyyy">
 													</div>
 												</div>
 												<div class="col-xxs-12 col-xs-6 mt alternate">
 													<div class="input-field">
-														<img alt="" src="images/PlanA/calendar.png" width="100"
-															align="center"><label for="date-end">도착일 :
-														</label> <input type="text" class="form-control" id="date-end"
+														<img alt=""
+															src="${pageContext.request.contextPath}/images/PlanA/calendar.png"
+															width="100" align="center"><label for="date-end">도착일
+															: </label> <input type="text" class="form-control" id="date-end"
 															name="eday" placeholder="mm/dd/yyyy">
 													</div>
 												</div>
@@ -216,9 +229,12 @@
 														data-value="P04">
 														<br>
 														<div class="input-field" align="center">
-															<img alt="" src="images/PlanA/alone.png" width="100">
-															<br>
-															<p style="color: #807f7d;"><strong>혼자</strong></p>
+															<img alt=""
+																src="${pageContext.request.contextPath}/images/PlanA/alone.png"
+																width="100"> <br>
+															<p style="color: #807f7d;">
+																<strong>혼자</strong>
+															</p>
 														</div>
 													</div>
 
@@ -226,9 +242,12 @@
 														data-value="P02">
 														<br>
 														<div class="input-field" align="center">
-															<img alt="" src="images/PlanA/friend.png" width="100">
-															<br>
-															<p style="color: #807f7d;"><strong>친구와</strong></p>
+															<img alt=""
+																src="${pageContext.request.contextPath}/images/PlanA/friend.png"
+																width="100"> <br>
+															<p style="color: #807f7d;">
+																<strong>친구와</strong>
+															</p>
 														</div>
 													</div>
 
@@ -236,9 +255,12 @@
 														data-value="P03">
 														<br>
 														<div class="input-field" align="center">
-															<img alt="" src="images/PlanA/couple.png" width="100">
-															<br>
-															<p style="color: #807f7d;"><strong>연인과</strong></p>
+															<img alt=""
+																src="${pageContext.request.contextPath}/images/PlanA/couple.png"
+																width="100"> <br>
+															<p style="color: #807f7d;">
+																<strong>연인과</strong>
+															</p>
 														</div>
 													</div>
 
@@ -246,9 +268,12 @@
 														data-value="P01">
 														<br>
 														<div class="input-field" align="center">
-															<img alt="" src="images/PlanA/family.png" width="100">
-															<br>
-															<p style="color: #807f7d;"><strong>가족과</strong></p>
+															<img alt=""
+																src="${pageContext.request.contextPath}/images/PlanA/family.png"
+																width="100"> <br>
+															<p style="color: #807f7d;">
+																<strong>가족과</strong>
+															</p>
 														</div>
 													</div>
 
@@ -296,7 +321,8 @@
 												<div class="col-xxs-12 col-xs-12 mt alternate"
 													style="left: 300px">
 													<div class="checkbox">
-														<img alt="" src="images/PlanA/shopping&food.png"
+														<img alt=""
+															src="${pageContext.request.contextPath}/images/PlanA/shopping&food.png"
 															width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
 															type="checkbox" name="personal" id="checkbox-1"
@@ -311,7 +337,9 @@
 													</div>
 													<br>
 													<div class="checkbox">
-														<img alt="" src="images/PlanA/mountains.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<img alt=""
+															src="${pageContext.request.contextPath}/images/PlanA/mountains.png"
+															width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
 															type="checkbox" name="personal" id="checkbox-7"
 															value="A0101"> <span class="checkbox-placeholder"></span>
@@ -340,7 +368,9 @@
 													</div>
 													<br>
 													<div class="checkbox">
-														<img alt="" src="images/PlanA/building.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<img alt=""
+															src="${pageContext.request.contextPath}/images/PlanA/building.png"
+															width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
 															type="checkbox" name="personal" id="checkbox-12"
 															value="A0205"> <span class="checkbox-placeholder"></span>
@@ -354,7 +384,9 @@
 													</div>
 													<br>
 													<div class="checkbox">
-														<img alt="" src="images/PlanA/festival.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<img alt=""
+															src="${pageContext.request.contextPath}/images/PlanA/festival.png"
+															width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
 															type="checkbox" name="personal" id="checkbox-14"
 															value="A0207"> <span class="checkbox-placeholder"></span>
@@ -368,7 +400,9 @@
 													</div>
 													<br>
 													<div class="checkbox">
-														<img alt="" src="images/PlanA/sports.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+														<img alt=""
+															src="${pageContext.request.contextPath}/images/PlanA/sports.png"
+															width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 														<label class="checkbox-bootstrap checkbox-lg"> <input
 															type="checkbox" name="personal" id="checkbox-4"
 															value="A0302"> <span class="checkbox-placeholder"></span>
@@ -398,8 +432,8 @@
 													data-toggle="tab" aria-controls="b">PREV</div>
 												<div class="col-xxs-12 col-xs-4 mt partner-radio"></div>
 												<div class="col-xxs-12 col-xs-4 btn btn-primary"
-													href="#step4" id="stepThreeNextBtn" role="tab" aria-controls="d"
-													data-toggle="tab">NEXT</div>
+													href="#step4" id="stepThreeNextBtn" role="tab"
+													aria-controls="d" data-toggle="tab">NEXT</div>
 											</div>
 										</div>
 
@@ -440,28 +474,31 @@
 
 
 
-<script src="js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <!-- jQuery Easing -->
-<script src="js/jquery.easing.1.3.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
 <!-- Bootstrap -->
-<script src="js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 <!-- Waypoints -->
-<script src="js/jquery.waypoints.min.js"></script>
-<script src="js/sticky.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/sticky.js"></script>
 
 <!-- Stellar -->
-<script src="js/jquery.stellar.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
 <!-- Superfish -->
-<script src="js/hoverIntent.js"></script>
-<script src="js/superfish.js"></script>
+<script src="${pageContext.request.contextPath}/js/hoverIntent.js"></script>
+<script src="${pageContext.request.contextPath}/js/superfish.js"></script>
 <!-- Magnific Popup -->
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/magnific-popup-options.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/magnific-popup-options.js"></script> --%>
 <!-- Date Picker -->
-<script src="js/bootstrap-datepicker.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
 <!-- CS Select -->
-<script src="js/classie.js"></script>
-<script src="js/selectFx.js"></script>
+<script src="${pageContext.request.contextPath}/js/classie.js"></script>
+<script src="${pageContext.request.contextPath}/js/selectFx.js"></script>
 
 <!-- Main JS -->
 <script src="js/main.js"></script>
