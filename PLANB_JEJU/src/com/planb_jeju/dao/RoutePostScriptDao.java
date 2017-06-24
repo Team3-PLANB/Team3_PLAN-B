@@ -17,7 +17,7 @@ public interface RoutePostScriptDao {
 	 * @return : int 전체 루트 후기 개수
 	 * @param spec : x
 	 */
-	public int getCount() throws ClassNotFoundException, SQLException;
+	public int getCount(String searchWord) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 루트 후기 등록
@@ -38,7 +38,7 @@ public interface RoutePostScriptDao {
 	 * @return : int 성공 여부 ( > 0 : 성공)
 	 * @param spec : int route_postscript_rownum 삭제할 루트 후기 고유 번호
 	 */
-	public int delete(int route_postscript_rownum) throws ClassNotFoundException, SQLException;
+	public int delete(int route_postscript_rownum, String searchWord) throws ClassNotFoundException, SQLException;
 	
 	
 	/*	
@@ -46,7 +46,7 @@ public interface RoutePostScriptDao {
 	 * @return : List<RoutePostscript> 루트 후기 리스트
 	 * @param spec : String username 로그인한 회원 아이디 (찜콩 현황때문에 보내줌)
 	 */
-	public List<RoutePostscript> getList(String username) throws ClassNotFoundException, SQLException;
+	public List<RoutePostscript> getList(String username, String searchWord) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 내 루트 후기 리스트
@@ -130,14 +130,14 @@ public interface RoutePostScriptDao {
 	 * @return : List<RoutePostscript> 검색된 루트 후기 리스트
 	 * @param spec : String searchWord 검색어
 	 */
-	public List<RoutePostscript> getRoutePostListByTag(String searchWord) throws ClassNotFoundException, SQLException;
+//	public List<RoutePostscript> getRoutePostListByTag(String searchWord) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 검색된 루트 후기 개수
 	 * @return : int 검색된 루트 후기 개수
 	 * @param spec : String searchWord 검색어
 	 */
-	public int getCountRoutePostByTag(String searchWord) throws ClassNotFoundException, SQLException;
+//	public int getCountRoutePostByTag(String searchWord) throws ClassNotFoundException, SQLException;
 
 	
 	

@@ -28,6 +28,7 @@ import java.util.regex.Pattern;
 */
 
 import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -42,6 +43,9 @@ public class RoutePostscriptService {
 	
 	private static RoutePostScriptDao routePostscriptDao;
 	
+	@Autowired
+	SqlSession sqlsession; 
+	
 	
 	public RoutePostscriptService(){
 		
@@ -54,11 +58,11 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return : 
 	*/
-	public List<RoutePostscript> listRoutePostscript(String username, SqlSession sqlsession) throws ClassNotFoundException, SQLException {
+	public List<RoutePostscript> listRoutePostscript(String username, String searchWord) throws ClassNotFoundException, SQLException {
 		System.out.println("루트 후기 리스트 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		System.out.println("username : " + username);
-		List<RoutePostscript> routePostscriptList = routePostscriptDao.getList(username);
+		List<RoutePostscript> routePostscriptList = routePostscriptDao.getList(username, searchWord);
 		
 		return routePostscriptList;
 	}
@@ -69,7 +73,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return : 
 	*/
-	public List<RoutePostscript> listMyRoutePostscript(String username, SqlSession sqlsession) throws ClassNotFoundException, SQLException {
+	public List<RoutePostscript> listMyRoutePostscript(String username) throws ClassNotFoundException, SQLException {
 		System.out.println("내 루트 후기 리스트 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		System.out.println("username : " + username);
@@ -242,13 +246,13 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public List<RoutePostscript> getRoutePostListByTag(String searchWord, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	/*public List<RoutePostscript> getRoutePostListByTag(String searchWord) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 태그로 찾기");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		List<RoutePostscript> routePostscriptList = routePostscriptDao.getRoutePostListByTag(searchWord);
 		System.out.println("routePostscriptList : " + routePostscriptList);
 		return routePostscriptList;
-	}
+	}*/
 	
 	/*
 	* @date : 2017. 6. 24
@@ -256,12 +260,12 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public int getCountRoutePostByTag(String searchWord, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	/*public int getCountRoutePostByTag(String searchWord) throws ClassNotFoundException, SQLException{
 		System.out.println("검색된 루트 후기 개수");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		int countSearchedPost = routePostscriptDao.getCountRoutePostByTag(searchWord);
 		System.out.println("검색된 루트 후기 개수 : " + countSearchedPost);
 		return countSearchedPost;
-	}
+	}*/
 	
 }

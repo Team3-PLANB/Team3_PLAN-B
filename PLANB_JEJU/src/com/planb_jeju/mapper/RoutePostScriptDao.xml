@@ -19,7 +19,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		public int delete(int route_postscript_rownum);
 		
 		// 루트 후기 리스트
-		public HashMap<String, RoutePostscript> getList(String username);
+		public HashMap<String, RoutePostscript> getList(String username, String searchWord);
 		
 		// 루트 후기 상세보기
 		public RoutePostscript getRoutePost(int route_postscript_rownum);
@@ -61,8 +61,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
 	<!-- 루트 후기 전체 수 -->
 	<select id="getCount" resultType="Integer">
-		SELECT COUNT(*)
-		FROM route_postscript
+		SELECT *
+		FROM route_postscript rp
+		JOIN route_postscript_tag t
+		ON rp.route_postscript_rownum = t.route_postscript_rownum
+		<where>
+			<if test="t.tag != null"> t.tag like '%' #{param1} '%' </if>
+		</where>
 	</select>
 	
 	<!-- 루트 후기 등록 -->
@@ -86,13 +91,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 루트 후기 리스트 -->
 	<select id="getList" resultType="com.planb_jeju.dto.RoutePostscript">
-		SELECT *, IF((route_postscript_rownum in (SELECT route_postscript_rownum 
+		SELECT *, IF((rp.route_postscript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
 												 WHERE username = #{param1})
 					 ),'true','false') as 'route_like'
 		FROM route_postscript rp
-		JOIN route r
+		LEFT OUTER JOIN route r
 		ON rp.route_code = r.route_code
+		LEFT OUTER JOIN route_postscript_tag t
+		ON rp.route_postscript_rownum = t.route_postscript_rownum
+		<where>
+			<if test="param2 != null"> t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
+		</where>
 	</select>
 	
 	<!-- 내 루트 후기 리스트 -->
@@ -178,23 +188,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 루트 후기 검색 -->
-	<select id="getRoutePostListByTag" resultType="com.planb_jeju.dto.RoutePostscript">
+	<!-- <select id="getRoutePostListByTag" resultType="com.planb_jeju.dto.RoutePostscript">
 		SELECT *
 		FROM route_postscript p
 		JOIN route_postscript_tag t
 		ON p.route_postscript_rownum = t.route_postscript_rownum
-		WHERE t.tag like '%'+#{param1}+'%'
-	</select>
+		WHERE t.tag like '%' #{param1} '%'
+	</select> -->
 	
 			
-	<!-- 검색된 루트 후기 개수 -->
+	<!-- 검색된 루트 후기 개수
 	<select id="getCountRoutePostByTag" resultType="Integer">
 		SELECT COUNT(*)
 		FROM route_postscript p
 		JOIN route_postscript_tag t
 		ON p.route_postscript_rownum = t.route_postscript_rownum
-		WHERE t.tag like %#{param1}%
-	</select>
+		WHERE t.tag like '%' #{param1} '%'
+	</select> -->
 	
 	
 </mapper>
