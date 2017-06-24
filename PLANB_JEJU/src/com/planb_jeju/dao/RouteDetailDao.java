@@ -11,6 +11,10 @@ import com.planb_jeju.dto.RouteDetail;
 //CRUD
 public interface RouteDetailDao {
 	
+	
+	//route_personal 입력
+	public int insert(Map<String, Object> map) throws ClassNotFoundException, SQLException;
+	
 	/*	
 	 * @description : 전체 수
 	 * @return : int

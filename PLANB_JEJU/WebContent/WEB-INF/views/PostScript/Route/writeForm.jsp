@@ -427,9 +427,8 @@ div.over {
 						<div class="table-responsive">
 							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.getRoute_code()}" method="POST">
 								<div role="tabpanel" class="tab-pane active" id="route">
-									<input type="text" class="form-control" value="${route.getRoutename()}" readonly><br>
-									<textarea name="" class="form-control" id="comment" cols="30" rows="7"
-										placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
+									<input type="text" class="form-control" value="${route.getRoutename()}" name="routename" readonly><br>
+									<textarea class="form-control" id="comment" name="comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
 									<br>
 									<div align="center">
 										<input type="submit" value="작성 완료" class="btn btn-primary">
