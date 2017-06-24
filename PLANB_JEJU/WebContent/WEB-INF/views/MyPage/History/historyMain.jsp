@@ -36,7 +36,7 @@
 				<div class="row">
 				<c:forEach var="myroutelist" items="${myroutelist}">
 					<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-						<div href="${pageContext.request.contextPath}/History/historyDetial.do?routecode=${myroutelist.routecode}"><img src="${pageContext.request.contextPath}/images/historyMain.PNG" alt="${myroutelist.routename }" class="img-responsive">
+						<div href="${pageContext.request.contextPath}/History/historyDetial.do?routecode=${myroutelist.route_code}"><img src="${pageContext.request.contextPath}/images/historyMain.PNG" alt="${myroutelist.routename }" class="img-responsive">
 							<div class="desc">
 								<span></span>
 								<h3>${myroutelist.routename }</h3>

@@ -76,7 +76,6 @@ public class MyPageController {
    public String history(Principal principal, Model model) throws Exception {
 	   System.out.println("history list controller");
 	   System.out.println("user : " + principal.getName());
-	   System.out.println("controller sqlsession"+sqlsession);
 	   List<Route> myroutelist = RouteService.getMyRouteList(principal.getName(), sqlsession);
 	   System.out.println("myroutelist : " + myroutelist);
 	   model.addAttribute("myroutelist", myroutelist);
