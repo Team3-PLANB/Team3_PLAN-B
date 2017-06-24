@@ -60,7 +60,7 @@ public class MyPageController {
    */
    @RequestMapping("Schedule/schedule.do")
    public String schedule(Principal principal, Model model) throws ClassNotFoundException, SQLException{
-		List<Route> mytRouteList = routeservice.getMyRouteList(principal.getName());
+		List<Route> mytRouteList = routeservice.getMyRouteList(principal.getName(), sqlsession);
 		model.addAttribute("mytRouteList", mytRouteList);
 		return "MyPage.Schedule.scheduleMain";
 	}
@@ -77,7 +77,7 @@ public class MyPageController {
 	   System.out.println("history list controller");
 	   System.out.println("user : " + principal.getName());
 	   System.out.println("controller sqlsession"+sqlsession);
-	   List<Route> myroutelist = RouteService.getMyRouteList(principal.getName());
+	   List<Route> myroutelist = RouteService.getMyRouteList(principal.getName(), sqlsession);
 	   System.out.println("myroutelist : " + myroutelist);
 	   model.addAttribute("myroutelist", myroutelist);
 	   return "MyPage.History.historyMain";

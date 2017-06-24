@@ -77,10 +77,10 @@ public class RouteService {
 
 	}
 	
-	public static List<Route> getMyRouteList(String username) throws ClassNotFoundException, SQLException {
+	public static List<Route> getMyRouteList(String username, SqlSession mysqlsession) throws ClassNotFoundException, SQLException {
 		System.out.println("service username >> " + username);
 		System.out.println(sqlsession);
-		routeDao = sqlsession.getMapper(RouteDao.class);
+		routeDao = mysqlsession.getMapper(RouteDao.class);
 		System.out.println(routeDao);
 		List<Route> routeList = routeDao.getMyRouteList(username);
 
