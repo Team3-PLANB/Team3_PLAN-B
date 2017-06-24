@@ -148,7 +148,7 @@ style="display: block; height: 458px;" */
          header : "> div > h3",
          autoHeight: false,
          navigation: true,
-         heightStyle: "content" /* 이걸 추가하기 위해 염병을 했다 */
+         heightStyle: "content"
       })
       .sortable({
          axis : "y",
