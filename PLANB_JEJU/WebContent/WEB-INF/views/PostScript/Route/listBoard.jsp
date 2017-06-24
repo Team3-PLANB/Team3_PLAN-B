@@ -68,10 +68,10 @@
 					
 					
 					<%-----------------------------검색 부분 ----------------------------------------%>
-					<form action="${pageContext.request.contextPath}/PostScript/Route/Search.do" method="post">
+					<form action="${pageContext.request.contextPath}/PostScript/Route/List.do">
 						<div class="row animate-box" align="right">
 							<input type="submit" style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary">
-							<input type="text" style="width:300px;float:right;" class="form-control" name="searchWord" placeholder="검색할 태그를 입력해주세요.">
+							<input type="text" style="width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">
 						</div>
 					</form>
 					<br>

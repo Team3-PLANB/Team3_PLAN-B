@@ -102,7 +102,7 @@ public class MyPageController {
 	   
 	   System.out.println("내 루트 후기 리스트");
 	   System.out.println("로그인된 아이디 : " + principal.getName());
-	   List<RoutePostscript> routePostscriptList = routePostscriptservice.listMyRoutePostscript(principal.getName(), sqlsession);
+	   List<RoutePostscript> routePostscriptList = routePostscriptservice.listMyRoutePostscript(principal.getName());
 	   
 	   System.out.println("routePostscriptList : " + routePostscriptList);
 	   model.addAttribute("routePostscriptList", routePostscriptList); 

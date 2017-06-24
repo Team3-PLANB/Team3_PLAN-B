@@ -73,15 +73,18 @@ public class PostScriptController {
 	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/
-	@RequestMapping(value="Route/List.do", method=RequestMethod.GET)
-	public String listRoutePostscript(Principal principal, Model model) throws Exception {
+	@RequestMapping(value="Route/List.do")
+	public String listRoutePostscript(Principal principal, Model model, HttpServletRequest request) throws Exception {
 		System.out.println("루트 후기 게시판 리스트");
 		System.out.println("로그인된 아이디 : " + principal.getName());
-		List<RoutePostscript> routePostscriptList = routePostscriptservice.listRoutePostscript(principal.getName(), sqlsession);
+		String searchWord = request.getParameter("searchWord");
+		System.out.println("searchWord : " + searchWord);
+		List<RoutePostscript> routePostscriptList = routePostscriptservice.listRoutePostscript(principal.getName(), searchWord);
 		
 		
 		System.out.println("routePostscriptList : " + routePostscriptList);
 		model.addAttribute("routePostscriptList", routePostscriptList);
+		model.addAttribute("searchWord", searchWord);
 		return "PostScript.Route.listBoard";	
 	}
 	
@@ -144,16 +147,17 @@ public class PostScriptController {
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
 	* @return : String(View 페이지) 
 	*/
-	@RequestMapping(value="Route/Search.do", method=RequestMethod.POST)
-	public @ResponseBody String searchRoutePostscriptByTag(String searchWord, Model model) throws ClassNotFoundException, SQLException {
-		int searchCount = routePostscriptservice.getCountRoutePostByTag(searchWord, sqlsession);
-		List<RoutePostscript> searchRoutePostscriptList = routePostscriptservice.getRoutePostListByTag(searchWord, sqlsession);
+	/*@RequestMapping(value="Route/Search.do", method=RequestMethod.POST)
+	public String searchRoutePostscriptByTag(String searchWord, Model model) throws ClassNotFoundException, SQLException {
+		System.out.println("검색어 : " + searchWord);
+		int searchCount = routePostscriptservice.getCountRoutePostByTag(searchWord);
+		List<RoutePostscript> routePostscriptList = routePostscriptservice.getRoutePostListByTag(searchWord);
 		
 		model.addAttribute("searchCount", searchCount);
-		model.addAttribute("searchRoutePostscriptList", searchRoutePostscriptList);
+		model.addAttribute("routePostscriptList", routePostscriptList);
 		
-		return "PostScript.Route.searchListBoard";
-	}
+		return "PostScript.Route.listBoard";
+	}*/
 	
 		
 	/*
