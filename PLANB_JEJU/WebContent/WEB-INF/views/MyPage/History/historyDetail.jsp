@@ -1,107 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%--
 @Project : PLANB_JEJU
 @File name : historyDetail.jsp 
-@Author : 임정연
- @Data : 2017.06.22
+@Author : 임정연, 홍단비
+@Data : 2017.06.23
 @Desc : 히스토리 상세보기
 --%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>Profile &mdash; Free Website Template, Free HTML5
-	Template by freehtml5.co</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description"
-	content="Free HTML5 Website Template by freehtml5.co" />
-<meta name="keywords"
-	content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
-<meta name="author" content="freehtml5.co" />
-
-<link href="https://fonts.googleapis.com/css?family=Space+Mono"
-	rel="stylesheet">
-<link href="https://fonts.googleapis.com/css?family=Kaushan+Script"
-	rel="stylesheet">
-
+<!-- <meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
+<meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
+<meta name="author" content="freehtml5.co" /> -->
+<link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
 
 <!-- Animate.css -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/MyPage/history/animate.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyPage/history/animate.css">
 <!-- Icomoon Icon Fonts-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <!-- Bootstrap  -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/MyPage/history/bootstrap.css">
-
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyPage/history/bootstrap.css">
 <!-- Theme style  -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/MyPage/history/style.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyPage/history/style.css">
+<!-- Plan A 수정내역 보여주기 -->
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyPage/history/revision.css">
+<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 
 <!-- Modernizr JS -->
-<script
-	src="${pageContext.request.contextPath}/js/mypage/history/modernizr-2.6.2.min.js"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<%----------------------------------수정 내역 보여주기 스타일&스크립트 ----------------------------------------%>
-<style>
-body {
-	font-family: arial, helvetica;
-}
-
-.accordion {
-	width: 650px;
-	border-radius: 5px;
-	overflow: hidden;
-	margin: auto;
-}
-
-.accordion .item .heading {
-	height: 50px;
-	line-height: 50px;
-	font-size: 17px;
-	cursor: pointer;
-	color: #fff;
-	padding-left: 15px;
-	background: #008962 url('arrow.png') no-repeat;
-	background-position: right 20px top -95px;
-	border-bottom: 1px solid #008962;
-	box-sizing: border-box;
-}
-
-.accordion .item.open .heading, .accordion .item:last-child .heading {
-	border: 0;
-}
-
-.accordion .item.open .heading {
-	background-position: right 20px top -5px;
-}
-
-.accordion .item .content {
-	display: none;
-	padding: 15px;
-	background: #fff;
-	font-size: 14px;
-}
-</style>
-<link href="http://www.jqueryscript.net/css/jquerysctipttop.css"
-	rel="stylesheet" type="text/css">
+<script src="${pageContext.request.contextPath}/js/mypage/history/modernizr-2.6.2.min.js"></script>
 
 </head>
 <body>
@@ -112,7 +43,7 @@ body {
 				<div class="row animate-box">
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 						<h2>My History</h2>
-						<h3>6월의 제주도</h3>
+						<h3>{route.routename}</h3>
 					</div>
 				</div>
 				<div class="row">
@@ -159,8 +90,7 @@ body {
 														<h2 align="center">PLAN'A</h2>
 														<img
 															src="${pageContext.request.contextPath}/images/MyPage/history.jpg"
-															align="center" /><br>
-														<br>
+															align="center" /><br> <br>
 														<p align="center">협재해변</p>
 													</div>
 													<div
@@ -174,81 +104,15 @@ body {
 													<div
 														style="width: 200px; position: relative; left: 400px; bottom: 515px;">
 														<h2 align="center">PLAN'B</h2>
-														<img
-															src="${pageContext.request.contextPath}/images/MyPage/history.jpg"
-															align="center" /><br>
-														<br>
+														<img src="${pageContext.request.contextPath}/images/MyPage/history.jpg" align="center" /><br> <br>
 														<p align="center">테디베어 뮤지엄</p>
 													</div>
 												</div>
 											</div>
 										</div>
 
-										<script
-											src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-										<script>
-											$('.accordion .item .heading')
-													.click(
-															function() {
-
-																var a = $(this)
-																		.closest(
-																				'.item');
-																var b = $(a)
-																		.hasClass(
-																				'open');
-																var c = $(a)
-																		.closest(
-																				'.accordion')
-																		.find(
-																				'.open');
-
-																if (b != true) {
-																	$(c)
-																			.find(
-																					'.content')
-																			.slideUp(
-																					200);
-																	$(c)
-																			.removeClass(
-																					'open');
-																}
-
-																$(a)
-																		.toggleClass(
-																				'open');
-																$(a)
-																		.find(
-																				'.content')
-																		.slideToggle(
-																				200);
-
-															});
-										</script>
-										<script type="text/javascript">
-											var _gaq = _gaq || [];
-											_gaq.push([ '_setAccount',
-													'UA-36251023-1' ]);
-											_gaq.push([ '_setDomainName',
-													'jqueryscript.net' ]);
-											_gaq.push([ '_trackPageview' ]);
-
-											(function() {
-												var ga = document
-														.createElement('script');
-												ga.type = 'text/javascript';
-												ga.async = true;
-												ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-														: 'http://www')
-														+ '.google-analytics.com/ga.js';
-												var s = document
-														.getElementsByTagName('script')[0];
-												s.parentNode
-														.insertBefore(ga, s);
-											})();
-										</script>
-
-
+										<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+										<script src="${pageContext.request.contextPath}/js/mypage/history/revision.js"></script>
 									</div>
 									<br>
 									<div class="timeline-body">
@@ -345,43 +209,52 @@ body {
 				</div>
 			</div>
 		</div>
-
-
 	</div>
-
-
-
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
 	</div>
 
 	<!-- jQuery -->
-	<script
-		src="${pageContext.request.contextPath}/js/mypage/history/jquery.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.min.js"></script>
 	<!-- jQuery Easing -->
-	<script
-		src="${pageContext.request.contextPath}/js/mypage/history/jquery.easing.1.3.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
-	<script
-		src="${pageContext.request.contextPath}/js/mypage/history/bootstrap.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/bootstrap.min.js"></script>
 	<!-- Waypoints -->
-	<script
-		src="${pageContext.request.contextPath}/js/mypage/history/jquery.waypoints.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.waypoints.min.js"></script>
 	<!-- Stellar Parallax -->
-	<script
-		src="${pageContext.request.contextPath}/js/mypage/history/jquery.stellar.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.stellar.min.js"></script>
 	<!-- Easy PieChart -->
-	<script
-		src="${pageContext.request.contextPath}/js/mypage/history/jquery.easypiechart.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.easypiechart.min.js"></script>
 	<!-- Google Map -->
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-	<script
-		src="${pageContext.request.contextPath}/js/mypage/history/google_map.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/google_map.js"></script>
 
 	<!-- Main -->
-	<script
-		src="${pageContext.request.contextPath}/js/mypage/history/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/main.js"></script>
+										<!-- 이거 뭔지 물어보기 -->
+										<script type="text/javascript">
+											var _gaq = _gaq || [];
+											_gaq.push([ '_setAccount',
+													'UA-36251023-1' ]);
+											_gaq.push([ '_setDomainName',
+													'jqueryscript.net' ]);
+											_gaq.push([ '_trackPageview' ]);
+
+											(function() {
+												var ga = document
+														.createElement('script');
+												ga.type = 'text/javascript';
+												ga.async = true;
+												ga.src = ('https:' == document.location.protocol ? 'https://ssl'
+														: 'http://www')
+														+ '.google-analytics.com/ga.js';
+												var s = document
+														.getElementsByTagName('script')[0];
+												s.parentNode
+														.insertBefore(ga, s);
+											})();
+										</script>
 </body>
 </html>
 

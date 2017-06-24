@@ -75,7 +75,7 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Route/List.do", method=RequestMethod.GET)
 	public String listRoutePostscript(Principal principal, Model model) throws Exception {
-		System.out.println("루트 후기 게시판 들어옴");
+		System.out.println("루트 후기 게시판 리스트");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 		List<RoutePostscript> routePostscriptList = routePostscriptservice.listRoutePostscript(principal.getName(), sqlsession);
 		
@@ -136,6 +136,23 @@ public class PostScriptController {
 		}
 		
 		return change;
+	}
+	
+	/*
+	* @date : 2017. 6. 24
+	* @description : 루트 후기 태그 검색
+	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Route/Search.do", method=RequestMethod.POST)
+	public @ResponseBody String searchRoutePostscriptByTag(String searchWord, Model model) throws ClassNotFoundException, SQLException {
+		int searchCount = routePostscriptservice.getCountRoutePostByTag(searchWord, sqlsession);
+		List<RoutePostscript> searchRoutePostscriptList = routePostscriptservice.getRoutePostListByTag(searchWord, sqlsession);
+		
+		model.addAttribute("searchCount", searchCount);
+		model.addAttribute("searchRoutePostscriptList", searchRoutePostscriptList);
+		
+		return "PostScript.Route.searchListBoard";
 	}
 	
 		
@@ -240,6 +257,7 @@ public class PostScriptController {
 	public String writeRoutePostscriptOk(HttpServletRequest request, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
 		System.out.println("루트 후기 작성 ok");
 		System.out.println("로그인된 아이디 : " + principal.getName());
+		System.out.println("넘어온 객체 : " + routePostscript);
 		routePostscript.setUsername(principal.getName());
 		routePostscript.setRoute_code(Integer.parseInt(request.getParameter("route_code")));
 		
@@ -247,7 +265,6 @@ public class PostScriptController {
 		
 		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
 		
-		System.out.println("방금 쓴 루트 후기 : " + routePostscript);
 		model.addAttribute("routePostscript", myRoutePostscript);
 		
 		return "PostScript.Route.detail";	

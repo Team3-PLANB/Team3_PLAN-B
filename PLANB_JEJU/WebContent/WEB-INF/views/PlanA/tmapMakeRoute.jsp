@@ -64,12 +64,68 @@ $( function() {
 	var lonlat; 
 	var markerLayer;
 	
+	//전역변수
+	routeDetailList = [];
 	
 	
+	// 추천 경로 data 배열로 저장
+	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
+		<c:forEach var="i" items="${item.value}" varStatus="num">
+			routeDetailList.push({
+										"route_code" : '${i.route_code}',
+										"username" : '${i.username}',
+										"route_order" : '${i.route_order}',
+										"route_date" : '${i.route_date}',
+										"site" : '${i.site}',
+										"lon" : '${i.lon}',
+										"lat" : '${i.lat}',
+										"category" : '${i.category}',
+										"stime" : '${i.stime}',
+										"etime" : '${i.etime}'
+			});	         	
+		</c:forEach>
+	</c:forEach>
+	
+	
+	/* console.log(JSON.stringify(routeDetailList)); */
+
+	//초기화 함수 호출
 	init();
 	
+	// route_site_delete_tag 클릭 : 클릭한 객체 sortable 컨테이너에서 삭제
+	$(document).on("click",".route_site_delete_tag", function(event){ 
+		$(event.target).parent().parent().parent().remove();
+		
+		 
+		console.log('삭제 클릭시 day div 가져와야해');
+		console.log($(event.target).parent().parent().parent().parent());
+		/* //배열 재배치 작업 필요 $(this).find('.sch_content')
+		new_locations = $(event.target).parent().parent().parent().parent().find('.sch_content').map(function(i, el) {
+			console.log($(el).data('sitedata'));
+	        return $(el).data('sitedata')
+	      }).get()
+      
+	     console.log(JSON.stringify(new_locations));
+	      
+	    // site_order값  재 정렬 
+	    new_locations = jQuery.map( new_locations, function( n, i ) {
+	 	   n.route_order = i ;
+	 	   return ( n );
+	   });
+	      
+		console.log( $(event.target).parent().parent().children('.spot_name'));
+       // 화면 컨텐츠 순서 값 바꾸기
+       $(event.target).parent().parent().children('.spot_name').each(function(index, value){
+    	  $(this).text(new_locations[index].route_order+1);
+       });  */
+      
+       
+  	});
+	
+	
+	
  } );
-      //초기화 함수
+        //초기화 함수
         function init(){
         	//pr_3857 인스탄스 생성. (Google Mercator)
 			var pr_3857 = new Tmap.Projection("EPSG:3857");
@@ -116,7 +172,7 @@ $( function() {
 				    
 						//경로 이름 버튼 생성
 						/* console.log('${item.key}'); */
-						 $('#accordion1').prepend("<input type='button' value='${item.key}' class='routeButton' onclick='routeButtonClick(this)'><br>"); 
+						 $('#accordion1').prepend("<input type='button' value='${item.key}' class='routeSelectButton' onclick='routeButtonClick(this)'><br>"); 
 						
 						
 						
@@ -156,19 +212,7 @@ $( function() {
 						vector_layer.addFeatures([mLineFeature]);
 						
 						
-						 //Feature Select 추가
-						 /* select = new Tmap.Control.SelectFeature(vector_layer, {hover: false, onSelect: onFeatureSelect() });
-				         map.addControl(select);
-				         select.activate();
-				         vector_layer.events.on({
-				             "featureselected": onFeatureSelect()
-				         }); */
-				         
-				         
-				         
-				         
-				         
-				         
+					
 				         
 				         
 					</c:forEach>
@@ -183,10 +227,10 @@ $( function() {
         	 
         };
         
+        
+        
         // 루트 선택 버튼 클릭 함수
         function routeButtonClick(btn){
-        	/* console.log(btn.value); */
-        	
         	// map위 Layers 제거
         	deleteLayers();
         	
@@ -199,157 +243,218 @@ $( function() {
         	//pr_4326 인스탄스 생성. (WGS84 GEO)
         	var pr_4326 = new Tmap.Projection("EPSG:4326");
         	
-        	// 해당 경로 경로 출력
+        	// Map위에 해당 경로 출력
         	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
-		    
-				/* console.log('${item.key}'); */
-				
-				
-				
-				
-				
-				/* <c:if test="${requestScope.pageCase=='routeRecommendPage'}">
-	            	            	
-				</c:if> */
-				
-				if(btn.value == '${item.key}'){
-					//벡터레이어 생성
-					var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
-					map.addLayers([vector_layer]); 
-					
-					
-					
-					//polyline 좌표 배열.
-					var pointList = [];
-				
-					<c:forEach var="i" items="${item.value}" varStatus="num">
-						
-						/* console.log('${i.site}');
-						console.log('${i.lon}');
-						console.log('${i.lat}'); */
-						 var pointlonlat = new Tmap.LonLat(${i.lon}, ${i.lat}).transform(pr_4326, pr_3857);
-						pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
-						/* addSiteMarkers(${i.lon}, ${i.lat}, '${i.site}'); */
-					</c:forEach>
-					
-					//좌표 배열 객체화
-					var lineString = new Tmap.Geometry.LineString(pointList);
-					
-					var style_bold = {fillColor:"#FE9A2E",
-						     fillOpacity:0.2,
-						     strokeColor: "#FE9A2E",
-						     strokeWidth: 3,
-						     strokeDashstyle: "solid"};
-				
-					
-					var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
-					 
-					 
-					vector_layer.addFeatures([mLineFeature]);
-					
-					
-					/* Start : 여행지 일정표 정리 */
-		         	
-			         var dayOrder=0;
-			         
-			         var routedate;
-			         
-					 
-			         <c:forEach var="i" items="${item.value}" varStatus="num">
-						
-			         	// 날짜 별 Drag 박스 생성
-			         	if(routedate!='${i.route_date}'){
-			         		routedate = '${i.route_date}';
-			         		++dayOrder;
-			         		
-			         		// Day 드래그 박스 추가
-			         		/*
-			         		<div class='group' style='width: 280px;'>
-								<h3>DAY 1</h3>
-								<div>
-									<div class='sortable'>
-									</div>
-								</div>
-							</div>
-			         		*/
-			         		$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
-			         	
-			         	}
-			         	
-			         
-			         	/* console.log(routedate);
-						console.log('${i.site}');
-						console.log('${i.lon}');
-						console.log('${i.lat}'); */
-						
-						
-						// 각 Day 안에 Site 순서대로 append
-												
-						var $sch_content = $( "<div class='sch_content ' style='width: 250px;'></div>" );
-						var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
-						var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
-						var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
-						var $spot_info = $("<div class='spot_info'></div>");
-						var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
-						var $sinfo_line = $("<div class='sinfo_line'></div>");
-						var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
-						var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
-						
-						var scheduleday = '#'+'ScheduleDay'+dayOrder;
-						<%-- $(scheduleday).append('<div class="sch_content" style="width: 250px;"><img src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg" alt="" class="spot_img" style="cursor: pointer;"> <div class="spot_content_box" style="width: 150px;"><div class="spot_name" style="cursor: pointer;">1번</div> <div class="spot_info"> <div class="tag">유명한거리/지역</div> <div class="sinfo_line"></div> <div class="sinfo_txt" style="padding: 0px"> 	<img src="<%=request.getContextPath()%>/css/history/like.png" style="height: 20px"> 6 / 10 <span>1개의 평가</span> </div> </div> </div> </div>');
-						 --%>
-						 
-						 $sinfo_txt_img.appendTo($sinfo_txt);
-						 
-						 $tag.appendTo($spot_info);
-						 $sinfo_line.appendTo($spot_info);
-						 $sinfo_txt.appendTo($spot_info);
-						 
-						 $spot_name.appendTo($spot_content_box);
-						 $spot_info.appendTo($spot_content_box);
-						 
-						 $content_img.appendTo($sch_content);
-						 $spot_content_box.appendTo($sch_content);
-						 
-						 $(scheduleday).append($sch_content);
-						
-						<%-- 	
-						<div class="sch_content" style="width: 250px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">1번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-					</div> --%>
-						
-						 
-					 </c:forEach>
-				       
-					
-			         
-			         
-					 /* End : 여행지 일정표 정리 */
-					
-				};	
-				
-			</c:forEach>
-			
-			// 일정 Drag 박스 스타일 적용 함수 호출
-			scheduleBoxStyle();
+    	    
+    		
+    			
+    			if(btn.value == '${item.key}'){
+    				//벡터레이어 생성
+    				var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
+    				map.addLayers([vector_layer]); 
+    				
+    				
+    				
+    				//polyline 좌표 배열.
+    				var pointList = [];
+    			
+    				<c:forEach var="i" items="${item.value}" varStatus="num">
+    					
+    					/* console.log('${i.site}'); */
+    					 var pointlonlat = new Tmap.LonLat(${i.lon}, ${i.lat}).transform(pr_4326, pr_3857);
+    					pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
+    					/* 마커작업 필요
+    					addSiteMarkers(${i.lon}, ${i.lat}, '${i.site}'); */
+    				</c:forEach>
+    				
+    				//좌표 배열 객체화
+    				var lineString = new Tmap.Geometry.LineString(pointList);
+    				
+    				var style_bold = {fillColor:"#FE9A2E",
+    					     fillOpacity:0.2,
+    					     strokeColor: "#FE9A2E",
+    					     strokeWidth: 3,
+    					     strokeDashstyle: "solid"};
+    			
+    				
+    				var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
+    				 
+    				 
+    				vector_layer.addFeatures([mLineFeature]);
+    				
+    				
+    				
+    				
+    				
+    				
+    				
+    				
+    				//JsonArray로 경로의 각 Site 내용 정리
+    				/* routeDetailList = [];
+    				<c:forEach var="i" items="${item.value}" varStatus="num">
+    					routeDetailList.push({
+    												"route_code" : '${i.route_code}',
+    												"username" : '${i.username}',
+    												"route_order" : '${i.route_order}',
+    												"route_date" : '${i.route_date}',
+    												"site" : '${i.site}',
+    												"lon" : '${i.lon}',
+    												"lat" : '${i.lat}',
+    												"category" : '${i.category}',
+    												"stime" : '${i.stime}',
+    												"etime" : '${i.etime}'
+    					});	         	
+    			    </c:forEach>
+    				  */
+    				
+    				
+    				
+    				
+    				
+    				
+    				/* Start : 여행지 일정표 정리 */
+    	         	
+    		         var dayOrder=0;
+    		         
+    		         var routedate;
+    		         
+    				 
+    		         <c:forEach var="i" items="${item.value}" varStatus="num">
+    					
+    		         	// 날짜 별 Drag 박스 생성
+    		         	if(routedate!='${i.route_date}'){
+    		         		routedate = '${i.route_date}';
+    		         		++dayOrder;
+    		         		
+    		         		// Day 드래그 박스 추가
+    		         		/*
+    		         		<div class='group' style='width: 280px;'>
+    							<h3>DAY 1</h3>
+    							<div>
+    								<div class='sortable'>
+    								</div>
+    							</div>
+    						</div>
+    		         		*/
+    		         		
+    		         		//$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
+    		         	
+    		         		
+    		         		var $group = $("<div class='group' style='width: 280px;'></div>");
+    		         		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons'>Day"+dayOrder+"</h3>");
+    		         		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
+    		         		var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
+    		         		
+    		         		$sortablediv.appendTo($div);
+    		         		$group.append($h3).append($div);
+    		         		$('#accordion2').append($group);
+    		         		
+    		         		/* <div class="group" style="width: 280px;">
+    		         			<h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3>
+    		         				<div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active">
+    		         					<div class="sortable" id="ScheduleDay'+dayOrder+'">
+    		         					</div>	
+    		         				</div>
+    		         			</div> */
+    		         	}
+    					
+    					// 각 Day 안에 Site 순서대로 append
+    					var contentId= routedate+'${i.route_order}';
+    					
+    					
+    					
+    					var $sch_content = $( "<div class='sch_content' id='"+contentId+"' style='width: 250px;'></div>" );
+    					var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
+    					var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
+    					var $spot_info = $("<div class='spot_info'></div>");
+    					var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
+    					var $sinfo_line = $("<div class='sinfo_line'></div>");
+    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
+    					var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
+    					var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
+    					
+    					// 각 Day div id 변수로 선언
+    					var scheduleday = '#'+'ScheduleDay'+dayOrder;
+    					
+    					// div에 data값 삽입
+    					$sch_content.data('sitedata', routeDetailList[${num.index}]);
+    					
+    					//li.data('d', locations[i])
+    					
+    					 $sinfo_txt_img.appendTo($sinfo_txt);
+    					 
+    					 
+    					 $tag.appendTo($spot_info);
+    					 $sinfo_line.appendTo($spot_info);
+    					 $sinfo_txt.appendTo($spot_info);
+    					 $delete_tag.appendTo($spot_info);
+    					 
+    					 $spot_name.appendTo($spot_content_box);
+    					 $spot_info.appendTo($spot_content_box);
+    					 
+    					 $content_img.appendTo($sch_content);
+    					 $spot_content_box.appendTo($sch_content);
+    					 /* $sch_content.appendTo($li); */
+    					 
+    					 //
+    					 
+    					 $(scheduleday).append($sch_content);
+    					
+    					<%-- 	
+    					<div class="sch_content" style="width: 250px;">
+    					<img
+    						src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
+    						alt="" class="spot_img"
+    						onerror="this.src='/res/img/common/no_img/sight55.png';"
+    						onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+    						style="cursor: pointer;">
+    					<div class="spot_content_box" style="width: 150px;">
+    						<div class="spot_name"
+    							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
+    							style="cursor: pointer;">1번</div>
+    						<div class="spot_info">
+    							<div class="tag">유명한거리/지역</div>
+    							<div class="sinfo_line"></div>
+    							<div class="sinfo_txt" style="padding: 0px">
+    								<img src="<%=request.getContextPath()%>/css/history/like.png"
+    									style="height: 20px"> 6 / 10 <span>1개의 평가</span>
+    							</div>
+    						</div>
+    					</div>
+    				</div> --%>
+    				
+    				
+    			    //정보 저장을 위해 form 태그 안에 값으로 추가       routeDetailList[num] : RouteDetail에 멤버필드 ArrayList
+    				$('#route_list_form_innerdiv').empty();
+    				var $route_order = $("<input type='hidden' name='routeDetailList[${num.index}].route_order' value=${i.route_order}>");
+    				var $username = $("<input type='hidden' name='routeDetailList[${num.index}].username' value='${i.username}'>");
+    				var $route_code = $("<input type='hidden' name='routeDetailList[${num.index}].route_code' value=${i.route_code}>");
+    				var $route_date = $("<input type='hidden' name='routeDetailList[${num.index}].route_date' value='${i.route_date}'>");
+    				var $site = $("<input type='hidden' name='routeDetailList[${num.index}].site' value='${i.site}'>");
+    				var $lon = $("<input type='hidden' name='routeDetailList[${num.index}].lon' value='${i.lon}'>");
+    				var $lat = $("<input type='hidden' name='routeDetailList[${num.index}].lat' value='${i.lat}'>");
+    				var $category = $("<input type='hidden' name='routeDetailList[${num.index}].category' value='${i.category}'>");
+    				var $stime = $("<input type='hidden' name='routeDetailList[${num.index}].stime' value=${i.stime}>");
+    				var $etime = $("<input type='hidden' name='routeDetailList[${num.index}].etime' value=${i.etime}>");
+    				
+    				
+    				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+    					
+    					 
+    				 </c:forEach>
+    			       
+    				
+    		         
+    		         
+    				 /* End : 여행지 일정표 정리 */
+    				
+    			};	
+    			
+    		</c:forEach>
+    		
+    		// 일정 Drag 박스 스타일 적용 함수 호출
+    		scheduleBoxStyle();
         };
         
         // 일정 Drag 박스 스타일 적용 함수
@@ -366,42 +471,69 @@ $( function() {
               step : 15,
               start : 0
            });
+           
            $(".sortable").sortable({
         	   
-        
+        	   // drag 한 후 객체 변경 되면 실행
         	   update: function(event, ui) {
-                   /* var result = $(this).sortable('toArray'); */
-                   var result = $(this).sortable('toArray', {attribute: 'value'});
-                   alert(result);
+				      
+        		   console.log('sortable update this는 뭐야??')
+        		   console.log($(this));
+        		   
+				      new_locations = $(this).find('.sch_content').map(function(i, el) {
+					        return $(el).data('sitedata')
+					      }).get()
+				      
+					      
+					  // site_order값  재 정렬 
+					  new_locations = jQuery.map( new_locations, function( n, i ) {
+						  n.route_order = i ;
+						  return ( n );
+					  });
+					      
+				      // 화면 컨텐츠 순서 값 바꾸기
+				      $(this).find('.spot_name').each(function(index, value){
+				    	  console.log($(this).text());
+				    	  $(this).text(new_locations[index].route_order+1);
+				      });
+				      
+					  /* console.log(JSON.stringify(new_locations));
+					  
+					  console.log(JSON.stringify(routeDetailList)); */
+                   
+					  
+					  // 현재 저장되어 있는 data empty
+					  $('#route_list_form_innerdiv').empty();
+					  
+					  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
+					  $.each(new_locations, function( index, value ) {
+						
+						    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+value.route_order+">");
+							var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
+							var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
+							var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
+							var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
+							var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
+							var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
+							var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
+							var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
+							var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
+							
+							$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+									
+						});
+					  
+							
+					  
+					  
                    }
-           /* $('.sortable').each(function(){
-			    result.push($(this).sortable('toArray'));
-			}) */
+         
            
            });
-           /* $(".sortable").disableSelection(); */
+          
            $(".sortable").selectable();
            
-           /* $('.sortable').selectable({
-              cancle: '.sort-handle'
-           }).sortable({
-              items: "> li",
-              handle: '.sort-handle',
-              helper: function(e, item) {
-                 if ( ! item.hasClass('ui-selected') ) {
-                    item.parent().children('.ui-selected').removeClass('ui-selected');
-                    item.addClass('ui-selected');
-                 }
-                 var selected = item.parent().children('.ui-selected').clone();
-                 item.data('multidrag', selected).siblings('.ui-selected').remove();
-                 return $('</li>').append(selected);
-              },
-              stop: function(e, ui) {
-                 var selected = ui.item.data('multidrag');
-                 ui.item.after(selected);
-                 ui.item.remove();
-              }
-           }); */
+          
            $("#accordion")
            .accordion({
               collapsible : true,
@@ -440,6 +572,17 @@ $( function() {
          
          };
         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
         // 맵 위 Layer 제거 함수
         function deleteLayers(){
 			var mapLayers = map.layers;
@@ -1350,4 +1493,34 @@ style="display: block; height: 458px;" */
 		<input type="button" id="btn" value="길찾기"
 			class="btn btn-primary btn-outline btn-lg" onclick="search()" />
 	</div>
-</html>
+
+	
+<%-- ----------------------------------form-------------------------------------------%>
+<form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
+	<div id="route_list_form_innerdiv"></div>
+	<!-- <input type='hidden' name='route_code' value='1'>
+	<input type='hidden' name='username' value='username'>
+	<input type='hidden' name='route_order' value='1'>
+	<input type='hidden' name='route_date' value='2017/06/23'>
+	<input type='hidden' name='site' value='site'>
+	<input type='hidden' name='lon' value='lon'>
+	<input type='hidden' name='lat' value='lat'>
+	<input type='hidden' name='category' value='category'>
+	<input type='hidden' name='stime' value= '2017/06/23 11:00:00'>
+	<input type='hidden' name='etime' value= '2017/06/23'> 
+	
+	<input type='hidden' name='route_order' value='2'>
+	<input type='hidden' name='username' value='2'>
+	<input type='hidden' name='route_code' value='2'>
+	<input type='hidden' name='route_date' value='2017/06/23'>
+	<input type='hidden' name='site' value='2'>
+	<input type='hidden' name='lon' value='2'>
+	<input type='hidden' name='lat' value='2'>
+	<input type='hidden' name='category' value='2'>
+	<input type='hidden' name='stime' value='2'>
+	<input type='hidden' name='etime' value='2'>
+	 -->
+	
+	
+	<input type="submit" value="저장" id="submit_route_detail">
+</form>

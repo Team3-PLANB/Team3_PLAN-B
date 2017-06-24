@@ -10,13 +10,13 @@ public class RouteDetail {
 	private int route_code;
 	private String username;
 	private int route_order;
-	private Date route_date;
+	private String route_date;
 	private String site;
 	private String lon;
 	private String lat;
 	private String category;
-	private Time stime;
-	private Time etime;
+	private String stime;
+	private String etime;
 	
 	// 히스토리
 //	private int route_code;
@@ -39,9 +39,9 @@ public class RouteDetail {
 	public RouteDetail(){}
 
 
-	public RouteDetail(String routename, int route_code, String username, int route_order, Date route_date, String site,
-			String lon, String lat, String category, Time stime, Time etime, int update_rownum, String update_reason,
-			List<RouteDetail> routeDetailList) {
+	public RouteDetail(String routename, int route_code, String username, int route_order, String route_date,
+			String site, String lon, String lat, String category, String stime, String etime, int update_rownum,
+			String update_reason, List<RouteDetail> routeDetailList) {
 		super();
 		this.routename = routename;
 		this.route_code = route_code;
@@ -100,12 +100,12 @@ public class RouteDetail {
 	}
 
 
-	public Date getRoute_date() {
+	public String getRoute_date() {
 		return route_date;
 	}
 
 
-	public void setRoute_date(Date route_date) {
+	public void setRoute_date(String route_date) {
 		this.route_date = route_date;
 	}
 
@@ -150,22 +150,22 @@ public class RouteDetail {
 	}
 
 
-	public Time getStime() {
+	public String getStime() {
 		return stime;
 	}
 
 
-	public void setStime(Time stime) {
+	public void setStime(String stime) {
 		this.stime = stime;
 	}
 
 
-	public Time getEtime() {
+	public String getEtime() {
 		return etime;
 	}
 
 
-	public void setEtime(Time etime) {
+	public void setEtime(String etime) {
 		this.etime = etime;
 	}
 
@@ -208,6 +208,9 @@ public class RouteDetail {
 				+ ", update_rownum=" + update_rownum + ", update_reason=" + update_reason + ", routeDetailList="
 				+ routeDetailList + "]";
 	}
+
+
+	
 
 
 	

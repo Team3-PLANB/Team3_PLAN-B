@@ -46,9 +46,10 @@
 						alt="Free HTML5 Website Template by FreeHTML5.co"
 						class="img-responsive">
 					<div class="desc">
-						<span class="price">나의 루트 후기</span> <a
-							class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/PostScript/Root/root.do">나의 루트 후기 보기<i
-							class="icon-arrow-right22"></i></a>
+						<span class="price">나의 루트 후기</span>
+						<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/PostScript/Route/List.do">나의 루트 후기 보기
+							<i class="icon-arrow-right22"></i>
+						</a>
 					</div>
 				</div>
 			</div>
@@ -60,9 +61,10 @@
 						alt="Free HTML5 Website Template by FreeHTML5.co"
 						class="img-responsive">
 					<div class="desc">
-						<span class="price">나의 여행지 후기</span> <a
-							class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/PostScript/Site/site.do">나의 여행지 후기 보기<i
-							class="icon-arrow-right22"></i></a>
+						<span class="price">나의 여행지 후기</span> 
+						<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/MyPage/PostScript/Site/List.do">나의 여행지 후기 보기
+							<i class="icon-arrow-right22"></i>
+						</a>
 					</div>
 				</div>
 			</div>
