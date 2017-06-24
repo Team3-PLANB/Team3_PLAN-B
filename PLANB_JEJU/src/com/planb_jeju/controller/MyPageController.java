@@ -50,6 +50,8 @@ public class MyPageController {
    @Autowired
 	private RouteService routeservice;
    
+   @Autowired
+   private RoutePostscriptService routePostscriptservice;
    
    /*
    * @date : 2017. 6. 16
