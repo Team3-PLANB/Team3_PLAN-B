@@ -30,6 +30,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
@@ -37,13 +38,16 @@ import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Route;
+import com.planb_jeju.dto.RouteDetail;
 import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
 import com.planb_jeju.dto.SitePostscriptTag;
+import com.planb_jeju.service.HistoryService;
 import com.planb_jeju.service.MemberService;
+import com.planb_jeju.service.RouteDetailService;
 import com.planb_jeju.service.RoutePostscriptService;
 import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.SitePostscriptService;
@@ -67,6 +71,12 @@ public class PostScriptController {
 	@Autowired
 	RouteService routeservice;
 	
+	@Autowired
+	RouteDetailService routeDetailservice;
+	
+	@Autowired
+	HistoryService historyservice;
+	
 	/*
 	* @date : 2017. 6. 20
 	* @description : 루트 후기 게시판 리스트
@@ -74,14 +84,15 @@ public class PostScriptController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Route/List.do")
-	public String listRoutePostscript(Principal principal, Model model, HttpServletRequest request) throws Exception {
+	public String listRoutePostscript(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
 		System.out.println("루트 후기 게시판 리스트");
-		System.out.println("로그인된 아이디 : " + principal.getName());
-		String searchWord = request.getParameter("searchWord");
+		String username = null;
+		if(principal != null){
+			username = principal.getName();
+			System.out.println("로그인된 아이디 : " + username);
+		}
 		System.out.println("searchWord : " + searchWord);
-		List<RoutePostscript> routePostscriptList = routePostscriptservice.listRoutePostscript(principal.getName(), searchWord);
-		
-		
+		List<RoutePostscript> routePostscriptList = routePostscriptservice.listRoutePostscript(username, searchWord);
 		System.out.println("routePostscriptList : " + routePostscriptList);
 		model.addAttribute("routePostscriptList", routePostscriptList);
 		model.addAttribute("searchWord", searchWord);
@@ -95,13 +106,14 @@ public class PostScriptController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Route/Detail.do", method=RequestMethod.GET)
-	public String detailRoutePostscript(HttpServletRequest request, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+	public String detailRoutePostscript(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
 		System.out.println("루트 후기 게시판 상세보기");
-		System.out.println("로그인된 아이디 : " + principal.getName());
-		
-		int route_postscript_rownum = Integer.parseInt(request.getParameter("route_postscript_rownum"));
-		
-		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, principal.getName(), sqlsession);
+		String username = null;
+		if(principal != null){
+			username = principal.getName();
+			System.out.println("로그인된 아이디 : " + username);
+		}
+		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, username, sqlsession);
 	//	List<RoutePostscriptTag> routePostscriptTagList = postscriptservice.getRoutePostTagList(routePostscript, sqlsession);
 		System.out.println("routePostscript : " + routePostscript);
 		model.addAttribute("routePostscript", routePostscript);
@@ -117,9 +129,7 @@ public class PostScriptController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Route/Like.do", method=RequestMethod.GET)
-	public @ResponseBody String changLikeRoutePostscript(HttpServletRequest request, Principal principal) throws ClassNotFoundException, SQLException {
-		int route_postscript_rownum = Integer.parseInt(request.getParameter("route_postscript_rownum"));
-		String route_like = request.getParameter("route_like").trim();
+	public @ResponseBody String changLikeRoutePostscript(@RequestParam int route_postscript_rownum, @RequestParam String route_like, Principal principal) throws ClassNotFoundException, SQLException {
 		RoutePostscriptLike routePostscriptLike = new RoutePostscriptLike(0, route_postscript_rownum, principal.getName());
 		
 		String change = "";
@@ -159,6 +169,94 @@ public class PostScriptController {
 		return "PostScript.Route.listBoard";
 	}*/
 	
+	/*
+	* @date : 2017. 6. 23
+	* @description : 후기 작성
+	* @parameter : 
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Route/Write.do", method=RequestMethod.GET)
+	public String writeRoutePostscript(@RequestParam int route_code, Principal principal, Model model) throws Exception {
+		System.out.println("후기 작성");
+		String username = null;
+		if(principal != null){
+			username = principal.getName();
+			System.out.println("로그인된 아이디 : " + username);
+		}
+		Route route = routeservice.getRouteInfo(route_code, principal.getName());
+		List<RouteDetail> routeDetailList = routeDetailservice.getRouteDetailListForPost(route_code, username);
+		
+		System.out.println("route : " + route);
+		System.out.println("routeDetailList : " + routeDetailList);
+		model.addAttribute("route", route);
+		model.addAttribute("routeDetailList", routeDetailList);
+		return "PostScript.Route.writeForm";	
+	}
+
+	
+	/*
+	* @date : 2017. 6. 22
+	* @description : 루트 후기 작성 OK
+	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Route/WriteOk.do", method=RequestMethod.POST)
+	public String writeRoutePostscriptOk(@RequestParam int route_code, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
+		System.out.println("루트 후기 작성 ok");
+		System.out.println("로그인된 아이디 : " + principal.getName());
+		System.out.println("넘어온 객체 : " + routePostscript);
+		routePostscript.setUsername(principal.getName());
+		
+		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
+		
+		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
+		
+		model.addAttribute("routePostscript", myRoutePostscript);
+		
+		return "PostScript.Route.detail";	
+	}
+	
+	
+	/*
+	* @date : 2017. 6. 23
+	* @description : 루트 후기 작성
+	* @parameter : 
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Site/Write.do", method=RequestMethod.GET)
+	public String writeSitePostscript(@RequestParam int route_code, Principal principal, Model model) throws Exception {
+		System.out.println("루트 후기 작성");
+		
+		Route route = routeservice.getRouteInfo(route_code, principal.getName());
+		
+		System.out.println("route : " + route);
+		model.addAttribute("route", route);
+		return "PostScript.Route.writeForm";	
+	}
+
+	
+	/*
+	* @date : 2017. 6. 22
+	* @description : 루트 후기 작성 OK
+	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
+	public String writeSitePostscriptOk(@RequestParam int route_code, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
+		System.out.println("루트 후기 작성 ok");
+		System.out.println("로그인된 아이디 : " + principal.getName());
+		System.out.println("넘어온 객체 : " + routePostscript);
+		routePostscript.setUsername(principal.getName());
+		
+		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
+		
+		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
+		
+		model.addAttribute("routePostscript", myRoutePostscript);
+		
+		return "PostScript.Route.detail";	
+	}
+	
 		
 	/*
 	* @date : 2017. 6. 22
@@ -185,11 +283,10 @@ public class PostScriptController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping("Site/Detail.do")
-	public String detailSitePostscript(HttpServletRequest request, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+	public String detailSitePostscript(@RequestParam int site_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
 		System.out.println("사이트 후기 게시판 상세보기");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 		
-		int site_postscript_rownum = Integer.parseInt(request.getParameter("site_postscript_rownum"));
 		
 		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName(), sqlsession);
 		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript, sqlsession);
@@ -208,9 +305,7 @@ public class PostScriptController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Site/Like.do", method=RequestMethod.GET)
-	public @ResponseBody String changLikeSitePostscript(HttpServletRequest request, Principal principal) throws ClassNotFoundException, SQLException {
-		int site_postscript_rownum = Integer.parseInt(request.getParameter("site_postscript_rownum"));
-		String site_like = request.getParameter("site_like").trim();
+	public @ResponseBody String changLikeSitePostscript(@RequestParam int site_postscript_rownum, @RequestParam String site_like, Principal principal) throws ClassNotFoundException, SQLException {
 		SitePostscriptLike sitePostscriptLike = new SitePostscriptLike(0, site_postscript_rownum, principal.getName());
 		
 		String change = "";
@@ -232,48 +327,24 @@ public class PostScriptController {
 		return change;
 	}
 	
+	
 	/*
-	* @date : 2017. 6. 23
-	* @description : 루트 후기 작성
-	* @parameter : 
-	* @return : String(View 페이지) 
+	* @date : 2017. 6. 24
+	* @description : 히스토리 상세보기
+	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
+	* @return : String(View 페이지)
 	*/
-	@RequestMapping(value="Route/Write.do", method=RequestMethod.GET)
-	public String writeRoutePostscript(HttpServletRequest request, Principal principal, Model model) throws Exception {
-		System.out.println("루트 후기 작성");
-		int route_code = Integer.parseInt(request.getParameter("route_code"));
-		
-		Route route = routeservice.getRouteInfo(route_code, principal.getName());
-		
-		System.out.println("route : " + route);
-		model.addAttribute("route", route);
-		return "PostScript.Route.writeForm";	
-	}
-
-
-	/*
-	* @date : 2017. 6. 22
-	* @description : 루트 후기 작성 OK
-	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
-	* @return : String(View 페이지) 
-	*/
-	@RequestMapping(value="Route/WriteOk.do", method=RequestMethod.POST)
-	public String writeRoutePostscriptOk(HttpServletRequest request, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
-		System.out.println("루트 후기 작성 ok");
+	@RequestMapping(value="/History/history.do", method=RequestMethod.GET)
+	public String detailHistory(HttpServletRequest request, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+		System.out.println("히스토리 상세보기");
 		System.out.println("로그인된 아이디 : " + principal.getName());
-		System.out.println("넘어온 객체 : " + routePostscript);
-		routePostscript.setUsername(principal.getName());
-		routePostscript.setRoute_code(Integer.parseInt(request.getParameter("route_code")));
-		
-		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
-		
-		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
-		
-		model.addAttribute("routePostscript", myRoutePostscript);
-		
-		return "PostScript.Route.detail";	
+
+		int route_code = Integer.parseInt(request.getParameter("route_code"));
+		Route myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		System.out.println(myroutehistory);
+		model.addAttribute("myroutehistory", myroutehistory);
+		return "MyPage.History.myHistory";	
+
 	}
-
-
 
 }

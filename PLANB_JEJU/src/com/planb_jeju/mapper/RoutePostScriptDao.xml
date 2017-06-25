@@ -68,6 +68,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<where>
 			<if test="t.tag != null"> t.tag like '%' #{param1} '%' </if>
 		</where>
+		GROUP BY rp.route_postscript_rownum
 	</select>
 	
 	<!-- 루트 후기 등록 -->
@@ -94,7 +95,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *, IF((rp.route_postscript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
 												 WHERE username = #{param1})
-					 ),'true','false') as 'route_like'
+					 ) AND #{param1} IS NOT NULL,'true','false') as 'route_like'
 		FROM route_postscript rp
 		LEFT OUTER JOIN route r
 		ON rp.route_code = r.route_code
@@ -103,6 +104,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<where>
 			<if test="param2 != null"> t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
 		</where>
+		GROUP BY rp.route_postscript_rownum
 	</select>
 	
 	<!-- 내 루트 후기 리스트 -->
@@ -115,11 +117,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 루트 후기 상세보기 -->
-	<select id="getRoutePost" resultType="com.planb_jeju.dto.RoutePostscript">
+	<select id="getRoutePost" resultType="com.planb_jeju.dto.RoutePostscript">	
 		SELECT *, IF((route_postscript_rownum in (SELECT route_postscript_rownum 
 												 FROM route_postscript_like
 												 WHERE username = #{param2})
-					 ),'true','false') as 'route_like'
+					 ) AND #{param2} IS NOT NULL,'true','false') as 'route_like'
 		FROM route_postscript  rp
 		JOIN route r
 		ON rp.route_code = r.route_code

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
 @Project : PLANB_JEJU
 @File name : historyDetail.jsp 
@@ -41,10 +42,13 @@
 		<div id="fh5co-resume" class="fh5co-bg-color">
 			<div class="container">
 				<div class="row animate-box">
+				<c:forEach var="myroute" items="${myroutehistory}">
+				
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 						<h2>My History</h2>
-						<h3>제주도 안간다</h3>
+						<h3>${myroute.routename }</h3>
 					</div>
+				</c:forEach>
 				</div>
 				<div class="row">
 					<div class="col-md-12 col-md-offset-0">
