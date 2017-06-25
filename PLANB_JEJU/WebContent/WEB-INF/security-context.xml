@@ -25,7 +25,7 @@
 	<!-- 로그인/가입 페이지 접근 허용 -->
 	<security:intercept-url pattern="/LoginJoin/**" access="permitAll" />
 	<security:intercept-url pattern="/PLANA.make.do" access="hasRole('ROLE_USER')"/>
-	<security:intercept-url pattern="/PostScript/**" access="hasRole('ROLE_USER')"/>
+<!-- 	<security:intercept-url pattern="/PostScript/**" access="hasRole('ROLE_USER')"/> -->
 </security:http>
 
 <!-- password 인코딩 -->
