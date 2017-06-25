@@ -189,114 +189,20 @@ div.over {
 				$(this).accordion("refresh");
 			}
 		});
-
-	});
-</script>
-
-
-<script>
-	/* 첫번째 체크박스 중복체크 X  */
-	function doOpenCheck(chk) {
-		var obj = document.getElementsByName("aaa");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-	/* 두번째 체크박스 중복체크 X  */
-	function doOpenCheck2(chk) {
-		var obj = document.getElementsByName("bbb");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-	/* 세번째 체크박스 중복체크 X  */
-	function doOpenCheck3(chk) {
-		var obj = document.getElementsByName("ccc");
-		for (var i = 0; i < obj.length; i++) {
-			if (obj[i] != chk) {
-				obj[i].checked = false;
-			}
-		}
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	// 루트 선택 버튼 클릭 함수
-    function routeButtonClick(btn){
-    	// map위 Layers 제거
-    	deleteLayers();
-    	
-    	// 일정 Drag 박스 empty 적용
+		
+		
+		
+		
+		
+		
+		
+		// 일정 Drag 박스 empty 적용
     	$('#accordion2').empty();
     	
-    	//pr_3857 인스탄스 생성. (Google Mercator)
-    	var pr_3857 = new Tmap.Projection("EPSG:3857");
-    	 
-    	//pr_4326 인스탄스 생성. (WGS84 GEO)
-    	var pr_4326 = new Tmap.Projection("EPSG:4326");
     	
     	// Map위에 해당 경로 출력
     	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
-	    
-		
-			
-			if(btn.value == '${item.key}'){
-				//벡터레이어 생성
-				var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
-				map.addLayers([vector_layer]); 
-				
-				
-				
-				//polyline 좌표 배열.
-				var pointList = [];
-			
-				<c:forEach var="i" items="${item.value}" varStatus="num">
-					
-					/* console.log('${i.site}'); */
-					 var pointlonlat = new Tmap.LonLat(${i.lon}, ${i.lat}).transform(pr_4326, pr_3857);
-					pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
-					/* 마커작업 필요
-					addSiteMarkers(${i.lon}, ${i.lat}, '${i.site}'); */
-				</c:forEach>
-				
-				//좌표 배열 객체화
-				var lineString = new Tmap.Geometry.LineString(pointList);
-				
-				var style_bold = {fillColor:"#FE9A2E",
-					     fillOpacity:0.2,
-					     strokeColor: "#FE9A2E",
-					     strokeWidth: 3,
-					     strokeDashstyle: "solid"};
-			
-				
-				var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
-				 
-				 
-				vector_layer.addFeatures([mLineFeature]);
-				
-				
-				
-				
-				
-				
-				
-				
-				//JsonArray로 경로의 각 Site 내용 정리
+	    		//JsonArray로 경로의 각 Site 내용 정리
 				//이전 routeDetailList 내용 비우기
 				routeDetailList = [];
 				<c:forEach var="i" items="${item.value}" varStatus="num">
@@ -335,20 +241,6 @@ div.over {
 		         		routedate = '${i.route_date}';
 		         		++dayOrder;
 		         		
-		         		// Day 드래그 박스 추가
-		         		/*
-		         		<div class='group' style='width: 280px;'>
-							<h3>DAY 1</h3>
-							<div>
-								<div class='sortable'>
-								</div>
-							</div>
-						</div>
-		         		*/
-		         		
-		         		//$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
-		         	
-		         		
 		         		var $group = $("<div class='group' style='width: 280px;'></div>");
 		         		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons'>Day"+dayOrder+"</h3>");
 		         		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
@@ -357,14 +249,7 @@ div.over {
 		         		$sortablediv.appendTo($div);
 		         		$group.append($h3).append($div);
 		         		$('#accordion2').append($group);
-		         		
-		         		/* <div class="group" style="width: 280px;">
-		         			<h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3>
-		         				<div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active">
-		         					<div class="sortable" id="ScheduleDay'+dayOrder+'">
-		         					</div>	
-		         				</div>
-		         			</div> */
+		         	
 		         	}
 					
 					// 각 Day 안에 Site 순서대로 append
@@ -439,21 +324,37 @@ div.over {
 			};	
 			
 		</c:forEach>
-		
-		// 일정 Drag 박스 스타일 적용 함수 호출
-		scheduleBoxStyle();
-    }
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+	});
+
+	/* 첫번째 체크박스 중복체크 X  */
+	function doOpenCheck(chk) {
+		var obj = document.getElementsByName("aaa");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+	/* 두번째 체크박스 중복체크 X  */
+	function doOpenCheck2(chk) {
+		var obj = document.getElementsByName("bbb");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+	/* 세번째 체크박스 중복체크 X  */
+	function doOpenCheck3(chk) {
+		var obj = document.getElementsByName("ccc");
+		for (var i = 0; i < obj.length; i++) {
+			if (obj[i] != chk) {
+				obj[i].checked = false;
+			}
+		}
+	}
+
 	</script>
 
 
