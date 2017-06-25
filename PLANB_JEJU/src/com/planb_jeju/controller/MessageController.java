@@ -90,7 +90,7 @@ public class MessageController {
 	public String broadcasting(@RequestParam String message, @RequestParam
 								String userId) throws Exception {
 
-		System.out.println("넘어오니" + message + userId);
+		System.out.println("넘어오네" + message + userId);
 		return message;
 	}
 
