@@ -1,53 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:mybatis="http://mybatis.org/schema/mybatis-spring"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
                            http://www.springframework.org/schema/beans/spring-beans.xsd
-                           http://www.springframework.org/schema/context 
-                           http://www.springframework.org/schema/context/spring-context.xsd">
-	<!-- root (공통빈) DB작업 관련(driverManagerDataSource ,JdbcTemplate ) View 작업 
-		(공통 UI) (internalResourceViewResolver) import org.springframework.jdbc.datasource.DriverManagerDataSource; 
-		import org.springframework.jdbc.core.JdbcTemplate; -->
-	<!-- 주석 추가 -->
+						   http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd">
 
 	<bean id="driverManagerDataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-		
+
 		 <!-- <property name="url"
 				   value="jdbc:mysql://192.168.0.170:3306/planb?charcterEncoding=UTF-8"></property>  -->
-				   
+
         <!-- value="jdbc:mysql://localhost:3306/kostatest?charcterEncoding=UTF-8"></property>  -->
-	
+
 	   <property name="url"
-			value="jdbc:mysql://localhost:3306/test?charcterEncoding=UTF-8"></property> 
-	
+			value="jdbc:mysql://localhost:3306/test?charcterEncoding=UTF-8"></property>
+
 		<!-- <property name="url"
 				value="jdbc:mysql://192.168.0.101:3306/planb?charcterEncoding=UTF-8"></property> --><!-- 10강의실 -->
 		<property name="username" value="root"></property>
 		<property name="password" value="1004"></property>
 	</bean>
 
-	<bean id="" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="driverManagerDataSource"></property>
-	</bean>
-
-	<bean id="multipartResolver"
-		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10485760" />
 	</bean>
 
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactoryBean">
 		<property name="dataSource" ref="driverManagerDataSource" />
-		<!-- <property value="classpath*:com.planb_jeju.mapper/*xml" name="mapperLocations" /> 
-		오류 : HTTP Status 500 - Request processing failed; nested exception is org.apache.ibatis.binding.BindingException: Type interface com.planb_jeju.dao.ExDao is not known to the MapperRegistry.-->
 		<property value="classpath*:com/planb_jeju/mapper/*xml" name="mapperLocations" />
 	</bean>
+
 	<bean class="org.mybatis.spring.SqlSessionTemplate" id="sqlSession">
 		<constructor-arg ref="sqlSessionFactoryBean" index="0" />
 	</bean>
-	
+
+	<mybatis:scan base-package="com.planb_jeju.dao"/>
+
 	<bean id="bCryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 	<!-- <constructor-arg name="strength" value="20"></constructor-arg> -->
 	</bean>

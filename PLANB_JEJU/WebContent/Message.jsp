@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         let socket = new SockJS(SERVER_SOCKET_API);
         stompClient = Stomp.over(socket);
         stompClient.connect({}, function () {
-            stompClient.subscribe('/topic/roomId', function (msg) {
+            stompClient.subscribe('/topic/all', function (msg) {
                 printMessage(JSON.parse(msg.body).content);
             });
         });
@@ -51,7 +51,16 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function sendMessage(text) {
-        stompClient.send("/app/hello", {}, JSON.stringify({'content': text}));
+
+
+
+        let message = {
+            comment : text
+        };
+
+        console.log(message);
+
+        stompClient.send("/stomp/sendTo", {}, JSON.stringify(message));
     }
 
     function init() {
