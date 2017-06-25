@@ -8,47 +8,51 @@
 @Data : 2017.06.23
 @Desc : 히스토리 상세보기
 --%>
-<!DOCTYPE HTML>
+<!-- <!DOCTYPE HTML>
 <html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1"> -->
 <!-- <meta name="description" content="Free HTML5 Website Template by freehtml5.co" />
 <meta name="keywords" content="free website templates, free html5, free template, free bootstrap, free website template, html5, css3, mobile first, responsive" />
 <meta name="author" content="freehtml5.co" /> -->
-<link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Kaushan+Script" rel="stylesheet">
-
+ -->
 <!-- Animate.css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyPage/history/animate.css">
 <!-- Icomoon Icon Fonts-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css"> --%>
 <!-- Bootstrap  -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyPage/history/bootstrap.css">
 <!-- Theme style  -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyPage/history/style.css">
 <!-- Plan A 수정내역 보여주기 -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyPage/history/revision.css">
-<link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+<!-- <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css"> -->
 
 <!-- Modernizr JS -->
 <script src="${pageContext.request.contextPath}/js/mypage/history/modernizr-2.6.2.min.js"></script>
 
-</head>
+<!-- </head> -->
+<%-- <%
+	String myroute = (String)request.getAttribute("myroutehistory");
+%> --%>
+<c:set var="myroute" value="${myroutehistory }" />
 <body>
 	<div class="fh5co-loader"></div>
 	<div id="page">
 		<div id="fh5co-resume" class="fh5co-bg-color">
 			<div class="container">
 				<div class="row animate-box">
-				<c:forEach var="myroute" items="${myroutehistory}">
+<%-- 				<c:forEach var="myroute" items="${myroutehistory}"> --%>
 				
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 						<h2>My History</h2>
 						<h3>${myroute.routename }</h3>
 					</div>
-				</c:forEach>
+<%-- 				</c:forEach> --%>
 				</div>
 				<div class="row">
 					<div class="col-md-12 col-md-offset-0">
