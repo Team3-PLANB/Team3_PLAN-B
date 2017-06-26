@@ -27,7 +27,7 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-    	registry.addEndpoint("PLANB_JEJU/websocket").withSockJS();
+    	registry.addEndpoint("/websocket").withSockJS();
     }
 
     @Override

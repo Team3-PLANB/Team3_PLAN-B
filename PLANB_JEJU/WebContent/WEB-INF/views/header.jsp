@@ -5,7 +5,7 @@
 <header>
 <nav class="navbar navbar-default" style="margin:0px;">
 	<div class="container">
-    	<div class="nav-header">
+		<div class="nav-header">
 					<a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle dark">
 						<i></i>
 					</a>
@@ -44,93 +44,12 @@
 								<li><a href="${pageContext.request.contextPath}/logout">${loginUser }로그아웃</a></li>
 			            	</security:authorize>
 			           </ul>
-					</nav>
+			        </nav>
 				</div>
-		</div>
+			</div>	
+
 	</nav>
 </header>
 
-<textarea id="chatOutput" name="" class="chatting_history" rows="10" cols="30"></textarea>
-<div class="chatting_input">
-	<input id="chatInput" type="text" class="chat">
-</div>
 
-<!--메세지를 위한 웹소켓 구현-->
-<script src="${pageContext.request.contextPath}/js/sockjs.min.js"></script>
-<script src="${pageContext.request.contextPath}/js/stomp.min.js"></script>
-<script>
-	document.addEventListener("DOMContentLoaded", function () {
-		WebSocket.init();
-	});
-
-	let WebSocket = (function () {
-		const SERVER_SOCKET_API = "${pageContext.request.contextPath}/websocket";
-		const ENTER_KEY = 13;
-		let stompClient;
-		let textArea = document.getElementById("chatOutput");
-		let inputElm = document.getElementById("chatInput");
-
-		function connect() {
-			let socket = new SockJS(SERVER_SOCKET_API);
-			stompClient = Stomp.over(socket);
-			stompClient.connect({}, function () {
-				stompClient.subscribe('/topic/user', function (msg) {
-					printMessage(msg.body);
-				});
-			});
-		}
-
-		function printMessage(message) {
-			textArea.value += message + "\n - ";
-		}
-
-		function chatKeyDownHandler(e) {
-			if (e.which === ENTER_KEY && inputElm.value.trim() !== "") {
-				sendMessage(inputElm.value);
-				clear(inputElm);
-			}
-		}
-
-		function clear(input) {
-			input.value = "";
-		}
-
-		function sendMessage(text) {
-
-			let sender = '${loginUser }';
-			let receiver = 'b@naver.com';
-
-			if (sender == '') {
-				alert('로그인 후 사용하세요.');
-				return;
-			}
-
-			if (receiver == '') {
-				alert('받는 회원을 입력하세요.');
-				return;
-			}
-
-			let message = {
-				comment: text,
-				sender: sender,
-				receiver: receiver
-			};
-
-			console.log(message);
-
-			stompClient.send("/stomp/sendToUser", {}, JSON.stringify(message));
-		}
-
-		function init() {
-			connect();
-			inputElm.addEventListener("keydown", chatKeyDownHandler);
-		}
-
-		return {
-			init: init
-		}
-	})();
-
-</script>
- 
 
