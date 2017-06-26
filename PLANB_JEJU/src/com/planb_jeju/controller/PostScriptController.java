@@ -38,6 +38,7 @@ import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RouteDetail;
+import com.planb_jeju.dto.RouteHistory;
 import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
@@ -291,7 +292,7 @@ public class PostScriptController {
 		System.out.println("로그인된 아이디 : " + principal.getName());
 
 		int route_code = Integer.parseInt(request.getParameter("route_code"));
-		RouteDetail myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		RouteHistory myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
 		System.out.println(myroutehistory);
 		model.addAttribute("myroutehistory", myroutehistory);
 		return "MyPage.History.myHistory";	

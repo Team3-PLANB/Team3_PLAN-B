@@ -3,6 +3,7 @@ package com.planb_jeju.dto;
 public class RouteHistory {
 	private int route_order;
 	private int route_code;
+	private String route_name;
 	private String username;
 	private String route_date;
 	private int update_rownum;
@@ -27,6 +28,14 @@ public class RouteHistory {
 
 	public void setRoute_code(int route_code) {
 		this.route_code = route_code;
+	}
+	
+	public String getRoute_name() {
+		return route_name;
+	}
+
+	public void setRoute_name(String route_name) {
+		this.route_name = route_name;
 	}
 
 	public String getUsername() {

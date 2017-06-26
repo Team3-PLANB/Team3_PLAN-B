@@ -62,22 +62,24 @@
 									<h3>1 DAY</h3>
 								</div>
 							</li>
-							<li class="animate-box timeline-unverted">
-								<div class="timeline-badge">
-									<i class="icon-map-pin"></i>
-								</div>
-								<div class="timeline-panel">
-									<div class="timeline-heading">
-										<h3 class="timeline-title">한라산</h3>
-										<span class="company">2017.06.22</span>
+							<ul>
+								<li class="animate-box timeline-unverted">
+									<div class="timeline-badge">
+										<i class="icon-map-pin"></i>
 									</div>
-
-									<div class="timeline-body">
-										<p>제주도 한라산 일원의 천연보호구역. 천연기념물 제182호. 제주도의 중앙에 있는 산. 높이
-											1,950m.</p>
+									<div class="timeline-panel">
+										<div class="timeline-heading">
+											<h3 class="timeline-title">한라산</h3>
+											<span class="company">2017.06.22</span>
+										</div>
+	
+										<div class="timeline-body">
+											<p>제주도 한라산 일원의 천연보호구역. 천연기념물 제182호. 제주도의 중앙에 있는 산. 높이
+												1,950m.</p>
+										</div>
 									</div>
-								</div>
-							</li>
+								</li>
+							</ul>
 							<li class="timeline-inverted animate-box">
 
 								<div class="timeline-badge-ch">
