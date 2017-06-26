@@ -79,7 +79,7 @@ public class PlanAController {
 
 	@RequestMapping("PLANA.make.tmap.do")
 	public String markerAtoB() {
-		return "PlanA.tmap_make_route";
+		return "PlanA.tmap_make_route2";
 	}
 
 	/*
@@ -131,7 +131,7 @@ public class PlanAController {
 		// 현재 루트 보내기
 		request.setAttribute("route_code", routecode); // route_detail 저장을 위해 값 넘기기
 
-		return "PlanA.tmapMakeRoute";
+		return "PlanA.tmapMakeRoute2";
 
 	}
 
@@ -186,7 +186,7 @@ public class PlanAController {
 			request.setAttribute("myRouteInfo", route);
 		}
 		
-		return "PlanA.tmapMakeRoute";
+		return "PlanA.tmapMakeRoute2";
 
 	}
 
@@ -222,7 +222,7 @@ public class PlanAController {
 		}
 		
 		// 일단  마이 페이지 일정 확인 페이지로 이동 /비동기라면 처리 바꿔야..
-		return "PlanA.tmapMakeRoute";
+		return "PlanA.tmapMakeRoute2";
 
 	}
 	

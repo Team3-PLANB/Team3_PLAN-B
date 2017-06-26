@@ -10,4 +10,15 @@
 		ON m.username = r.username
 		WHERE m.username = #{username}
 	</select>
+
+	<!-- 멤버권한 조회 -->
+	<select id="getMemberRoles" resultType="com.planb_jeju.dto.MemberRole">
+		SELECT a.username
+		,      a.password
+		,      a.nickname
+		,      b.role_code roleCode
+		FROM   member a
+		JOIN   member_role b ON a.username = b.username
+		WHERE  a.username = #{username}
+	</select>
 </mapper>

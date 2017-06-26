@@ -13,6 +13,7 @@ public class Message {
 	private String receiver;
 	private String sender_delete;
 	private String receiver_delete;
+	private int unread_count;
 	
 	public Message(){}
 
@@ -102,12 +103,20 @@ public class Message {
 		this.receiver_delete = receiver_delete;
 	}
 
+	public int getUnread_count() {
+		return unread_count;
+	}
+
+	public void setUnread_count(int unread_count) {
+		this.unread_count = unread_count;
+	}
+
 	@Override
 	public String toString() {
 		return "message [message_rownum=" + message_rownum + ", first_message_rownum=" + first_message_rownum
 				+ ", sendtime=" + sendtime + ", read_status=" + read_status + ", comment=" + comment + ", sender="
 				+ sender + ", receiver=" + receiver + ", sender_delete=" + sender_delete + ", receiver_delete="
-				+ receiver_delete + "]";
+				+ receiver_delete + ", unread_count=" + unread_count + "]";
 	}
 
 	
