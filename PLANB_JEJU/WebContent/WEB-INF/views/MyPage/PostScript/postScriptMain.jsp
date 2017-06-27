@@ -43,7 +43,7 @@
 				data-animate-effect="fadeIn">
 				<div href="#">
 					<img src="${pageContext.request.contextPath}/images/MyPage/mypostscript1.jpg"
-						alt="Free HTML5 Website Template by FreeHTML5.co"
+						alt="MyRoutePostscript"
 						class="img-responsive">
 					<div class="desc">
 						<span class="price">나의 루트 후기</span>
@@ -58,7 +58,7 @@
 				data-animate-effect="fadeIn">
 				<div href="#">
 					<img src="${pageContext.request.contextPath}/images/MyPage/mypostscript2.jpg"
-						alt="Free HTML5 Website Template by FreeHTML5.co"
+						alt="MySitePostScript"
 						class="img-responsive">
 					<div class="desc">
 						<span class="price">나의 여행지 후기</span> 
