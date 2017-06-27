@@ -226,7 +226,7 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Site/Write.do", method=RequestMethod.GET)
 	public String writeSitePostscript(@RequestParam int route_code, Principal principal, Model model) throws Exception {
-		System.out.println("루트 후기 작성");
+		System.out.println("후기 작성");
 		
 		Route route = routeservice.getRouteInfo(route_code, principal.getName());
 		
@@ -244,7 +244,7 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
 	public String writeSitePostscriptOk(@RequestParam int route_code, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
-		System.out.println("루트 후기 작성 ok");
+		System.out.println("후기 작성 ok");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 		System.out.println("넘어온 객체 : " + routePostscript);
 		routePostscript.setUsername(principal.getName());
