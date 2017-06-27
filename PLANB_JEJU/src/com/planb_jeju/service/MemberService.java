@@ -141,7 +141,7 @@ public class MemberService {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		if(memberDao.checkEmail(username) < 1) {
 			result = "efalse";	// 해당 email 존재 x
-		} else {			
+		} else {
 			if(password.equals(memberDao.loginCheck(username).trim())) {
 				result = "true";
 			} else {

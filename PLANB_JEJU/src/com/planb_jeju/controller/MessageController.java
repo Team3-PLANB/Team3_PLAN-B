@@ -9,58 +9,32 @@ package com.planb_jeju.controller;
 * @Desc : 회원가입  / 로그인   컨트롤러
 */
 
-import com.planb_jeju.dao.MemberDao;
-import com.planb_jeju.dto.Member;
+import com.planb_jeju.dao.SocketDao;
+import com.planb_jeju.dto.SessionUser;
+import com.planb_jeju.utils.SessionUtil;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-
-import java.sql.SQLException;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
+@RequestMapping("/message")
 public class MessageController {
 
-    private static MemberDao memberDao;
 
     @Autowired
     private SqlSession sqlsession;
 
-	/*public MemberController(){
-		if(memberDao == null){
-			// Mybatis 적용
-			memberDao = sqlsession.getMapper(MemberDao.class);
-		}
-	}*/
+	@RequestMapping(value = "/unread/count", method=RequestMethod.GET)
+    @ResponseBody
+	public int unreadCount(){
+        SessionUser user = SessionUtil.getUser();
+        if (user == null) throw new RuntimeException("로그인 후에 이용하세요.");
 
-    /*//글 상세 보기
-    @RequestMapping("Member/insert.do")*/
-    public void memberDetail() throws ClassNotFoundException, SQLException {
-
-        //Notice notice = noticeDao.getNotice(seq);
-        //model.addAttribute("notice",notice );
-
-        // Mybatis 적용
-        memberDao = sqlsession.getMapper(MemberDao.class);
-
-
-        Member member = memberDao.getMember("a@naver.com");
-        System.out.println("확인 : " + member.toString());
-
-		/*int i = memberDao.getCount();
-		System.out.println("확인용"+i);*/
-
+        return sqlsession.getMapper(SocketDao.class).selectMessageUnreadCount(user.getUsername());
     }
-
-	/*
-	 * //글삭제하기
-	 *
-	 * @RequestMapping("noticeDel.htm") public String noticeDel(String seq)
-	 * throws ClassNotFoundException, SQLException{
-	 *
-	 * //noticeDao.delete(seq); //Mybatis 적용 NoticeDao noticeDao =
-	 * sqlsession.getMapper(NoticeDao.class); noticeDao.delete(seq); return
-	 * "redirect:notice.htm"; //location.href 동일 }
-	 */
 
 }
 	

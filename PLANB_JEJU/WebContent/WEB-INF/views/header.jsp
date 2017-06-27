@@ -48,33 +48,36 @@
 									<span class="badge" id="messageBadge" style="background-color: red; padding: 3px; position: absolute; right: 2px; top: 4px;">0</span>
 								</a>
 							</li>
+							<li>
+								<div class="form-group form-group-sm form-inline col-lg-2" style="margin-top: 8px;">
+									<input id="chatInput" type="text" class="form-control">
+									<button type="button" class="btn btn-warning" id="chatButton" onclick="sendMessage()">전송</button>
+								</div>
+							</li>
 						</security:authorize>
 				   </ul>
+
 				</nav>
 			</div>
 		</div>
 	</nav>
 </header>
 
-<%--<textarea id="chatOutput" name="" class="chatting_history" rows="10" cols="30"></textarea>--%>
-<div class="chatting_input">
-	<input id="chatInput" type="text" class="chat">
-	<button type="button" class="btn btn-default" onclick="sendMessage()"></button>
-</div>
-
 <!--메세지를 위한 웹소켓 구현-->
 <script src="${pageContext.request.contextPath}/js/sockjs.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/stomp.min.js"></script>
 <script>
-	document.addEventListener("DOMContentLoaded", function () {
-		WebSocket.init();
+	$(document).ready(() => {
+		if ('${loginUser}' != '') WebSocket.init();
 	});
 
-	let WebSocket = (function () {
+	let WebSocket = (() => {
 		const SERVER_SOCKET_API = "${pageContext.request.contextPath}/websocket";
 		let stompClient;
 		let inputElm = document.getElementById("chatInput");
-		//let textArea = document.getElementById("chatOutput");
+
+		// send button onclick event
+		$('#chatButton').click(() => sendMessage());
 
 		function connect() {
 			let socket = new SockJS(SERVER_SOCKET_API);
@@ -84,15 +87,19 @@
 					printMessage(msg.body);
 				});
 			});
+
 		}
 
 		function printMessage(message) {
 			//textArea.value += message + "\n - ";
+			let obj = JSON.parse(message);
+			$('#messageBadge').text(obj.unread_count);
+			alert("메세지가 도착했습니다. \n 내용 : "+message);
 		}
 
 		function sendMessage(text) {
 
-			let comment = "";
+			let comment = $('#chatInput').val();
 			let sender = '${loginUser }';
 			let receiver = 'b@naver.com';
 
@@ -118,10 +125,13 @@
 		}
 
 		function init() {
+
+			// socket connect
 			connect();
 
 			// 안읽은 쪽지를 조회하여 뱃지 API
-			$.get('${pageContext.request.contextPath}/websocket')
+			$.get('${pageContext.request.contextPath}/message/unread/count', (body) => $('#messageBadge').text(body));
+			// 참고 (body) => $('#messageBadge').text(body) == function(body) {$('#messageBadge').text(body)}
 		}
 
 		return {
