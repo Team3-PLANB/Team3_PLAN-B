@@ -31,7 +31,7 @@ public class HistoryController {
 	* @return : String(View 페이지)
 	*/
 	@RequestMapping(value="History/history.do", method=RequestMethod.GET)
-	public String detailHistory(@RequestParam String route_code, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+	public String detailHistory(@RequestParam int route_code, Principal principal, Model model) throws ClassNotFoundException, SQLException {
 		System.out.println("히스토리 상세보기");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 
