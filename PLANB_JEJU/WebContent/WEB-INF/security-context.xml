@@ -1,44 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
-	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
 						http://www.springframework.org/schema/beans/spring-beans.xsd
 	  					http://www.springframework.org/schema/security 
 	  					http://www.springframework.org/schema/security/spring-security.xsd">
-	<!--주석 추가  -->
-	<!-- 시큐리티 적용X -->
-<security:http pattern="/css/**" security="none" />
-<security:http pattern="/js/**" security="none" />
-<security:http pattern="/websocket/**" security="none" /> <!-- 알림관련 핸들러 -->
+    <!--주석 추가  -->
+    <!-- 시큐리티 적용X -->
+    <security:http pattern="/css/**" security="none"/>
+    <security:http pattern="/js/**" security="none"/>
+    <security:http pattern="/websocket/**" security="none"/> <!-- 알림관련 핸들러 -->
 
-<security:http use-expressions="true">
-	<security:csrf disabled="true"/>
- 	
- 	<!-- 로그인 -->
- 	<security:form-login login-page="/LoginJoin/Join/NJoin.do"
-		    			 authentication-failure-url="/LoginJoin/Join/NJoin.do?error"	 
- 						 login-processing-url="/login"
- 						 default-target-url="/LoginJoin/Login/loginok.do"/>
-	<!-- 로그아웃 -->
-	<security:logout logout-success-url="/LoginJoin/Join/Logout.do"/>
+    <security:http use-expressions="true">
+        <security:csrf disabled="true"/>
 
-	<!-- 로그인/가입 페이지 접근 허용 -->
-	<security:intercept-url pattern="/LoginJoin/**" access="permitAll" />
-	<security:intercept-url pattern="/PLANA.make.do" access="hasRole('ROLE_USER')"/>
+        <!-- 로그인 -->
+        <security:form-login login-page="/LoginJoin/Join/NJoin.do"
+                             authentication-failure-url="/LoginJoin/Join/NJoin.do?error"
+                             login-processing-url="/login"
+                             default-target-url="/LoginJoin/Login/loginok.do"/>
+        <!-- 로그아웃 -->
+        <security:logout logout-success-url="/LoginJoin/Join/Logout.do"/>
+
+	    <!-- 로그인/가입 페이지 접근 허용 -->
+	    <security:intercept-url pattern="/LoginJoin/**" access="permitAll" />
+	    <security:intercept-url pattern="/PLANA.make.do" access="hasRole('ROLE_USER')"/>
 <!-- 	<security:intercept-url pattern="/PostScript/**" access="hasRole('ROLE_USER')"/> -->
-</security:http>
+        <security:intercept-url pattern="/stomp/**" access="hasRole('ROLE_USER')"/>
+    </security:http>
 
-<!-- password 인코딩 -->
- <security:authentication-manager>
-	<security:authentication-provider>
-		<security:jdbc-user-service
-				data-source-ref="driverManagerDataSource"
-				users-by-username-query="select username as userid, password, 1 enabled from member where username = ?"
-				authorities-by-username-query="select trim(m.username) as userid, trim(r.ROLE_CODE) as role_name
-											   from member m join member_role r on m.username = r.username
-											   where m.username = ?"
-		/>
-	</security:authentication-provider>
-</security:authentication-manager>
-<security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled" />
+    <!-- password 인코딩 -->
+    <security:authentication-manager>
+        <security:authentication-provider user-service-ref="loginService">
+        </security:authentication-provider>
+    </security:authentication-manager>
+    <security:global-method-security pre-post-annotations="enabled" secured-annotations="enabled"/>
+
+    <bean id="loginService" class="com.planb_jeju.service.SecurityUserDetailsService"/>
 </beans>

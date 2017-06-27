@@ -34,7 +34,7 @@ public interface MessageDao {
 	 * @return : int
 	 * @param spec : Message message 메시지 DTO
 	 */
-	public int insert(Message message) throws ClassNotFoundException, SQLException;
+	public int insert(Message message);
 	
 	/*	
 	 * @description : 쪽지 상세보기 (메시지 형식)

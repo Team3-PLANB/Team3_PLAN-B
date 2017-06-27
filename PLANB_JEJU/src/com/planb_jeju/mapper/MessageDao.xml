@@ -62,9 +62,29 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 입력 -->
-	<insert id="insert">
-		INSERT INTO member(username, password, nickname)
-	    VALUES( #{username}, #{password}, #{nickname})
+	<insert id="insert" parameterType="com.planb_jeju.dto.Message">
+		INSERT INTO message
+		(
+		  first_message_rownum
+		  , sendtime
+		  , read_status
+		  , comment
+		  , sender
+		  , receiver
+		  , sender_delete
+		  , receiver_delete
+		)
+	    VALUES
+	    (
+	      0
+		  , now()
+		  , 0
+		  , #{comment}
+		  , #{sender}
+		  , #{receiver}
+		  , 0
+		  , 0
+		)
 	</insert>
 	
 </mapper>
