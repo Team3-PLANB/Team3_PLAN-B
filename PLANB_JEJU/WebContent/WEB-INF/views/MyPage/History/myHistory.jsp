@@ -50,7 +50,7 @@
 				
 					<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
 						<h2>My History</h2>
-						<h3>${myroute.routename }</h3>
+						<h3>${myroute }</h3>
 					</div>
 <%-- 				</c:forEach> --%>
 				</div>
@@ -62,7 +62,6 @@
 									<h3>1 DAY</h3>
 								</div>
 							</li>
-							<ul>
 								<li class="animate-box timeline-unverted">
 									<div class="timeline-badge">
 										<i class="icon-map-pin"></i>
@@ -79,7 +78,6 @@
 										</div>
 									</div>
 								</li>
-							</ul>
 							<li class="timeline-inverted animate-box">
 
 								<div class="timeline-badge-ch">
