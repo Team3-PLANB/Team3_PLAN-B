@@ -40,12 +40,37 @@
 
 
 
+
+
+<!-- messageWrite.jsp -->
+<script src="message/bootstrap/js/bootstrap.min.js"></script>
+<script src="message/js/jquery.backstretch.min.js"></script>
+<script src="message/js/scripts.js"></script>
+
+<link rel="shortcut icon" href="message/ico/favicon.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="message/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="message/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="message/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="message/ico/apple-touch-icon-57-precomposed.png">
+	
+
+<link rel="stylesheet" href="message/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="message/css/form-elements.css">
+<link rel="stylesheet" href="message/css/style.css">
+
+
+
+
 <!-- 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
 	rel='stylesheet' type='text/css'> -->
 
 <!-- Icomoon Icon Fonts-->
 <link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/icomoon.css">
+   	href="<%=request.getContextPath()%>/css/icomoon.css">
 <!-- Bootstrap  -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/bootstrap.css">
@@ -59,6 +84,30 @@
 <!-- End : 일정부분 적용 링크 -->
 
 <%----------------------------------지도 부분 스크립트----------------------------------------%>
+<style type = "text/css">
+.routeSelectButton {
+	
+	padding: 7px 30px 7px 30px;
+	font-size: 15px;
+	
+	color: #000000;
+	text-align: center;
+	border: solid 1px ;
+	
+		to(#2e8ce3));
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-bottom-color: #f78536;
+	
+	background: -moz-radial-gradient(50% 50%, #ff7f00, #fff);
+	background: -webkit-radial-gradient(50% 50%, #ff7f00, #fff);
+	background: -o-radial-gradient(50% 50%, #ff7f00, #fff);
+	background: -ms-radial-gradient(50% 50%, #ff7f00, #fff);
+	background: radial-gradient(50% 50%, #ff7f00, #fff)"
+}
+</style>
+
 
 <script type="text/javascript">
 $( function() {
@@ -173,7 +222,8 @@ $( function() {
 				    
 						//경로 이름 버튼 생성
 						/* console.log('${item.key}'); */
-						 $('#accordion1').prepend("<input type='button' value='${item.key}' class='routeSelectButton' onclick='routeButtonClick(this)'><br>"); 
+						 $('#accordion1').prepend
+("<input type='button'value='${item.key}' class='routeSelectButton' onclick='routeButtonClick(this)'><br>"); 
 						
 						
 						
@@ -326,14 +376,14 @@ $( function() {
     		         		//$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
     		         	
     		         		
-    		         		var $group = $("<div class='group' style='width: 280px;'></div>");
-    		         		var $h3 = $("<h3>Day"+dayOrder+"</h3>");
-    		         		var $div = $("<div></div>");
-    		         		var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
+    	var $group = $("<div class='group' style='width: 280px;'></div>");
+    	var $h3 = $("<h3>Day"+dayOrder+"</h3>");
+    	var $div = $("<div></div>");
+    	var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
     		         		
-    		         		$sortablediv.appendTo($div);
-    		         		$group.append($h3).append($div);
-    		         		$('#accordion2').append($group);
+    	$sortablediv.appendTo($div);
+    	$group.append($h3).append($div);
+    	$('#accordion2').append($group);
     		         		
     		         		
 
@@ -408,13 +458,13 @@ $( function() {
     			};	
     		</c:forEach>
     		
-    		//ㅅㅄㅄㅄㅄㅄㅄㅄㅄㅄㅄㅄㅄㅂ 아호
+    		//추가추가추가
      	    $("#accordion2").accordion("refresh");
     		
     		//솔트 했을때 
     		
     		// 일정 Drag 박스 스타일 적용 함수 호출
-    		scheduleBoxStyle();
+    		 scheduleBoxStyle();
     		
 
         };
@@ -824,10 +874,15 @@ $( function() {
 	    };
         
         /* End : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
-     
+  
+        		
 </script>
 
+ 
+</head>
+<body>
 
+ 
 
 <!-- append clone 해서 사용할 div 생성해두기 -->
 <!-- style="display:none;" -->
@@ -862,33 +917,6 @@ $( function() {
 
 <%----------------------------------왼쪽 일정 짜기 부분 스크립트 ----------------------------------------%>
 
-<%-- <link rel="stylesheet"
-	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-<link rel="shortcut icon" href="favicon.ico">
-
-<link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
-	rel='stylesheet' type='text/css'>
-
-<!-- Icomoon Icon Fonts-->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/icomoon.css">
-<!-- Bootstrap  -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/bootstrap.css">
-<!-- Superfish -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/superfish.css">
-<!-- histroy css -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/history.css"> --%>
-
-
-
-
-
 
 <!-- 상세보기 일정 -->
 
@@ -900,38 +928,17 @@ div.over {
 	cursor: pointer; /* 마우스 손모양 */
 }
 
-/* class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"
-
-id="ui-id-2"
-
-aria-labelledby="ui-id-1"
-
-role="tabpanel"
-
-aria-hidden="false"
-
-style="display: block; height: 458px;" */
-
-/* .sortable .sort-handle {
-      display: none;
-   }
-   .sortable .ui-selected .sort-handle {
-      display: inline;
-      padding: 0 0.5em;
-      cursor: pointer;
-   } */
-/* li.ui-selecting { background: #FECA40; }
-     li.ui-selected { background: #F39814; color: white; } */
 .spinner {
 	padding: 10px;
 	width: 30px;
 	height: 15px;
 }
 
+
 .group {
 	width: 80%;
 	margin: 15px;
-}
+}	
 .ui
 </style>
 
@@ -979,21 +986,45 @@ style="display: block; height: 458px;" */
   
   
 </script>
+<br>
+<a class="btn btn-link-1 launch-modal" href="#"
+		data-modal-id="modal-register">PLAN`B가 추천하는 경로 보기</a>
+		
+	<!-- MODAL -->
+	<div class="modal fade" id="modal-register" tabindex="-1" role="dialog"
+		aria-labelledby="modal-register-label" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<!-- 경로선택 버튼 넣기 -->
+				<div id="accordion1"> 
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+					
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<br>
+					</div>
+			</div>
+				<div class="modal-body">
 
+
+				</div>
+
+			</div>
+		</div>
+	</div>
 <%----------------------------------일정 짜기 부분 ----------------------------------------%>
 
-<div style="background-color: white; width: 450px;" id="schedulebox2">
+
 	<!-- 이놈은 아님 -->
-	<div id="accordion1" style="overflow: auto; width: 450px;" />
-	<div id="accordion2"
-		style="overflow: auto; width: 450px; height: 650px;">
-		
+	<div id="accordion1">
+	<div id="accordion2" style="overflow: auto; width: 450px; height: 650px;">
 		<div class="group" style="width: 280px;">
 			<h3>DAY 1</h3>
 			<!--min-height   -->
 			<div>
 				<div class="sortable">
-					<div class="sch_content" style="width: 250px;">
+					<div class="" style="width: 250px;">
 						<img
 							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
 							alt="" class="spot_img"

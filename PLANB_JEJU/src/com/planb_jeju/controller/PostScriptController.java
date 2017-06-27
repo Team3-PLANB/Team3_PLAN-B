@@ -336,16 +336,19 @@ public class PostScriptController {
 	* @return : String(View 페이지)
 	*/
 	@RequestMapping(value="/History/history.do", method=RequestMethod.GET)
-	public String detailHistory(HttpServletRequest request, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+	public String detailHistory(@RequestParam int route_code, Principal principal, Model model) throws ClassNotFoundException, SQLException {
 		System.out.println("히스토리 상세보기");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 
-		int route_code = Integer.parseInt(request.getParameter("route_code"));
-		RouteHistory myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		List<RouteHistory> myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		Route routename = routeservice.getRouteInfo(route_code, principal.getName());
+		
 		System.out.println(myroutehistory);
-		model.addAttribute("myroutehistory", myroutehistory);
-		return "MyPage.History.myHistory";	
+		System.out.println(routename.getRoutename());
 
+		model.addAttribute("myroutehistory", myroutehistory);
+		model.addAttribute("routename", routename);
+		return "MyPage.History.myHistory";	
 	}
 
 }

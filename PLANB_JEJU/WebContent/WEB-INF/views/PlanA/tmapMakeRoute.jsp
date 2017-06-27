@@ -11,10 +11,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>simpleMap</title>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
@@ -33,14 +30,7 @@
 <link rel="shortcut icon" href="favicon.ico">
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
 
-
-
-
-<!-- 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
-	rel='stylesheet' type='text/css'> -->
 
 <!-- Icomoon Icon Fonts-->
 <link rel="stylesheet"
@@ -62,37 +52,41 @@
 <script type="text/javascript">
 $( function() {
 	var lonlat; 
+	//Tmap 마커 레이어 변수
 	var markerLayer;
 	
-	//넘어온 User의 여행 설정 정보
+	var vector_layer;
+
+	//서버에서 넘어온 User의 여행 설정 정보
 	route_code = ${requestScope.myRouteInfo.route_code};
 	username = '${requestScope.myRouteInfo.username}';
 	routename = '${requestScope.myRouteInfo.routename}';
 	partner_code = '${requestScope.myRouteInfo.partner_code}';
-	//var dt = new Date('8/24/2009');
-	sday = new Date('${requestScope.myRouteInfo.sday}');
-	eday = new Date('${requestScope.myRouteInfo.eday}');
-	//formatedDate = (date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate());
-	formatedSday = (sday.getFullYear() + '-' + sday.getMonth() + '-' + sday.getDate());
-	formatedEday = (eday.getFullYear() + '-' + eday.getMonth() + '-' + eday.getDate());
 	
-	console.log(route_code);
-	console.log(username);
-	console.log(routename);
-	console.log(partner_code);
-	console.log(sday);
-	console.log(eday);
+	//여행 이름 표시
+	$('#routename').val(routename);
+		
+	//서버에서 넘어온 날짜 담을 배열  
+	dayList = [];
 	
-	console.log(formatedSday);
-	console.log(formatedSday);
+	//서버에서 넘어온 날짜List 배열로 저장
+	<c:forEach var="item" items="${requestScope.datesList}" varStatus="num"> 
+		console.log('num값?');
+		console.log(${num.index})
+		dayList.push('${item}');
+	</c:forEach>
+
+	
+	//여행지 담을 날짜별 div태그 생성 함수 호출
+	initSortableDiv();
+	
+	
 	
 	//전역변수 루트 선택 시 초기화
 	routeDetailList = [];
 	
 	// routeDetailList에서 선택 된 경로만 customizedRouteList로 초기화 작업 필요
 	customizedRouteList = [];
-	
-	
 	
 	
 	/* console.log(JSON.stringify(routeDetailList)); */
@@ -112,9 +106,166 @@ $( function() {
        
   	});
 	
+	// 여행지 검색 버튼 클릭
+	$("#searchSiteBtn").on("click", function() {
+    	//현재 POI marker 삭제
+    	
+		
+		/* PlanA 컨트롤러 타는 로직
+		$.ajax({
+			type : 'post',
+			url : '${pageContext.request.contextPath}'+'/PLANA.make.do',
+			 headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST" 
+			}, 
+			dataType : 'text',
+			data : { 'searchWord' : $("#searchWord").val() },
+			success : function(result) {
+
+				if (result == 'SUCCESS') {
+
+					alert("등록 되었습니다.");
+					console.log(result);
+				}
+			}
+		}); */
+		
+		//Tmap POI 호출 로직
+    	searchPOI();
+		
+	});
+
 	
+	/* $('#accordion2').accordion('refresh'); */
 	
  } );
+ 
+ 
+ 	//Tmap POI
+ 	function addMarker(options){
+ 		
+	    var size = new Tmap.Size(12,19);
+	    var offset = new Tmap.Pixel(-(size.w/2), -size.h);
+	    var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png",size,offset);
+	    var marker = new Tmap.Markers(options.lonlat,icon,options.label);
+	    markerLayer.addMarker(marker);
+	    marker.events.register("mouseover", marker, onOverMouse);
+	    marker.events.register("mouseout", marker, onOutMouse);
+	    marker.idString = options.id;
+	    marker.events.register("click", marker, onClickMouse);
+	}
+	function onOverMouse(e){
+	    this.popup.show();
+	}
+	function onOutMouse(e){
+	    this.popup.hide();
+	}
+	function onClickMouse(e){
+		console.log("클릭클릭클릭클릭클릭클릭");
+		//
+		/* $( "div[style='aira-hidden:false']" ).append('제발제발제방'); */
+		//$( "div:visible div.sortable" ).append('제발제발제방');
+		//input:not(:checked)
+		//$( "div:not(:hidden) div.sortable" ).append('제발제발제방');
+		$( "div[style='display:block'] div.sortable" ).append('제발제발제방');
+		//$('#ui-id-2').append('제발제발제방');
+	    getDataFromId(this.idString);
+	}
+	function searchPOI(){
+	    tdata = new Tmap.TData();
+	    tdata.events.register("onComplete", tdata, onCompleteTData);
+	    var center = map.getCenter();
+	    tdata.getPOIDataFromSearch(encodeURIComponent($("#searchWord").val()), {centerLon:center.lon, centerLat:center.lat});
+	}
+	function onCompleteTData(e){
+		//이전 검색결과 마커 삭제
+		markerLayer.clearMarkers();
+		
+	    if(jQuery(this.responseXML).find("searchPoiInfo pois poi").text() != ''){
+	        jQuery(this.responseXML).find("searchPoiInfo pois poi").each(function(){
+	            var name = jQuery(this).find("name").text();
+	            var id = jQuery(this).find("id").text();
+	            var lon = jQuery(this).find("frontLon").text();
+	            var lat = jQuery(this).find("frontLat").text();
+	            var options = {
+	                label:new Tmap.Label(name),
+	                lonlat:new Tmap.LonLat(lon, lat),
+	                id:id
+	            };
+	            addMarker(options);
+	        });
+	    }else {
+	        alert('검색결과가 없습니다.');
+	    }
+	    map.zoomToExtent(markerLayer.getDataExtent());
+	    tdata.events.unregister("onComplete", tdata, onCompleteTData);
+	}
+	function getDataFromId(id){
+		
+	    tdata = new Tmap.TData();
+	    tdata.events.register("onComplete", tdata, onCompleteTDataID);
+	    tdata.getPOIDataFromId(id);
+	}
+	function onCompleteTDataID(e){
+	    if(jQuery(this.responseXML).find("poiDetailInfo").text() != ''){
+	        jQuery(this.responseXML).find("poiDetailInfo").each(function(){
+	            var name = jQuery(this).text();
+	            alert(name);
+	        });
+	    }else {
+	        alert('검색결과가 없습니다.');
+	    }
+	    tdata.events.unregister("onComplete", tdata, onCompleteTDataID);
+	}
+	
+	
+	//여행지 담을 날짜별 div태그 생성 함수
+ 	function initSortableDiv(){
+		var routedate;
+		var dayOrder=0;
+	
+  		// 서버에서 리턴된 날짜 배열 객채 -> 날짜 별 박스 하나씩 만들기
+		$( dayList ).each(function( index, element ) {
+			
+	 		if(routedate!=element){
+	     		routedate = element;
+	     		++dayOrder;
+	     		
+	     		// Day 드래그 박스 추가
+	     		/*
+	     		<div class='group' style='width: 280px;'>
+					<h3>DAY 1</h3>
+					<div>
+						<div class='sortable'>
+						</div>
+					</div>
+				</div>
+	     		*/
+	     		
+	     		//$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
+	     	
+	     		
+	     		var $group = $("<div class='group' style='width: 280px;'></div>");
+	     		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons'>Day"+dayOrder+"  :  "+element+"</h3>");
+	     		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
+	     		var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
+	     		
+	     		$sortablediv.appendTo($div);
+	     		$group.append($h3).append($div);
+	     		$('#accordion2').append($group);
+	     		
+	     		/* <div class="group" style="width: 280px;">
+	     			<h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3>
+	     				<div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active">
+	     					<div class="sortable" id="ScheduleDay'+dayOrder+'">
+	     					</div>	
+	     				</div>
+	     			</div> */
+	     	}
+		});
+ 		
+ 	}
         //초기화 함수
         function init(){
         	//pr_3857 인스탄스 생성. (Google Mercator)
@@ -140,77 +291,43 @@ $( function() {
             
             map.addControl(new Tmap.Control.MousePosition());/* 마우스 오버에 좌표값 표시 */
             
-            map.events.register("click", map, onClickMap)
+            //map.events.register("click", map, onClickMap)//813줄 함수 제거할 것
+            
+            
+            vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
+    		map.addLayers([vector_layer]); 
             
             markerLayer = new Tmap.Layer.Markers();
+            
             map.addLayer(markerLayer);
             /* searchRoute(); */
             
             
             <c:choose>
-				<c:when test="${requestScope.pageCase=='siteRecommendPage'}">
-					<c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> 
-					    
-						//추천 여행지 마커 추가하기 
-		            	addSiteMarkers(${item.lon}, ${item.lat}, '${item.site}');
-			      	
-					</c:forEach>
+				<c:when test="${requestScope.pageCase=='routeDetailPage'}">
+					
 				</c:when>
 				
 				<c:when test="${requestScope.pageCase=='routeRecommendPage'}">
+				 	// sortable div 하나 생성
+					
+					var $group = $("<div class='group' style='width: 280px;'></div>");
+		     		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons'>추천여행지</h3>");
+		     		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
+		     		var $sortablediv = $("<div id='recommendSortableDiv'></div>");
+		     		
+		     		$sortablediv.appendTo($div);
+		     		$group.append($h3).append($div);
+		     		$('#accordion2').prepend($group);
+		     		
 					<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
 				    
 						//경로 이름 버튼 생성
 						/* console.log('${item.key}'); */
-						 $('#accordion1').prepend("<input type='button' value='${item.key}' class='routeSelectButton' onclick='routeButtonClick(this)'><br>"); 
+						 $('#recommendSortableDiv').prepend("<input type='button' value='${item.key}' class='routeSelectButton' onclick='routeButtonClick(this)'><br>"); 
 						
-						
-						
-					
-						//벡터레이어 생성
-						var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
-						map.addLayers([vector_layer]); 
-						
-						
-						
-						//polyline 좌표 배열.
-						var pointList = [];
-					
-						<c:forEach var="i" items="${item.value}" varStatus="num">
-							
-							/* console.log('${i.site}');
-							console.log('${i.lon}');
-							console.log('${i.lat}'); */
-							 var pointlonlat = new Tmap.LonLat(${i.lon}, ${i.lat}).transform(pr_4326, pr_3857);
-							pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
-							addSiteMarkers(${i.lon}, ${i.lat}, '${i.site}');
-						</c:forEach>
-						
-						//좌표 배열 객체화
-						var lineString = new Tmap.Geometry.LineString(pointList);
-						
-						var style_bold = {fillColor:"#FE9A2E",
-							     fillOpacity:0.2,
-							     strokeColor: "#FE9A2E",
-							     strokeWidth: 3,
-							     strokeDashstyle: "solid"};
-					
-						
-						var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
-						 
-						 
-						vector_layer.addFeatures([mLineFeature]);
-						
-						
-					
-				         
-				         
 					</c:forEach>
 				
-					
-						 
-						
-						
 				</c:when>
 			</c:choose>
            
@@ -222,10 +339,15 @@ $( function() {
         // 루트 선택 버튼 클릭 함수
         function routeButtonClick(btn){
         	// map위 Layers 제거
-        	deleteLayers();
+        	//deleteLayers();
         	
+        	// 이전에 선택한 루트 경로 선 삭제
+        	vector_layer.removeAllFeatures();
+        	
+        	//markerLayer 마커들 제거
+        	markerLayer.clearMarkers();
         	// 일정 Drag 박스 empty 적용
-        	$('#accordion2').empty();
+        	$('.sortable').empty();
         	
         	//pr_3857 인스탄스 생성. (Google Mercator)
         	var pr_3857 = new Tmap.Projection("EPSG:3857");
@@ -237,11 +359,13 @@ $( function() {
         	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
     	    
     		
-    			
+    			// 클릭한 버튼의 값이 routeMap의 값과 같으면
     			if(btn.value == '${item.key}'){
+    				
+    				// 1. 지도 작업
     				//벡터레이어 생성
-    				var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
-    				map.addLayers([vector_layer]); 
+    				/* var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
+    				map.addLayers([vector_layer]);  */
     				
     				
     				
@@ -274,19 +398,14 @@ $( function() {
     				
     				
     				
-    				
-    				
-    				
-    				
-    				
     				//JsonArray로 경로의 각 Site 내용 정리
     				//이전 routeDetailList 내용 비우기
     				routeDetailList = [];
     				<c:forEach var="i" items="${item.value}" varStatus="num">
     					
     					routeDetailList.push({
-    												"route_code" : '${i.route_code}',
-    												"username" : '${i.username}',
+    												"route_code" : route_code,
+    												"username" : username,
     												"route_order" : '${i.route_order}',
     												"route_date" : '${i.route_date}',
     												"site" : '${i.site}',
@@ -304,52 +423,32 @@ $( function() {
     				
     				
     				
-    				/* Start : 여행지 일정표 정리 */
+    				 // 2. 일정표 작업
     	         	
-    		         var dayOrder=0;
+    		         var dayOrder=-1;
     		         
+    		         //var routedate = routeDetailList[0].route_date;
     		         var routedate;
-    		         
     				 
     		         <c:forEach var="i" items="${item.value}" varStatus="num">
     					
-    		         	// 날짜 별 Drag 박스 생성
+    		      	   
+    		         
     		         	if(routedate!='${i.route_date}'){
     		         		routedate = '${i.route_date}';
     		         		++dayOrder;
     		         		
-    		         		// Day 드래그 박스 추가
-    		         		/*
-    		         		<div class='group' style='width: 280px;'>
-    							<h3>DAY 1</h3>
-    							<div>
-    								<div class='sortable'>
-    								</div>
-    							</div>
-    						</div>
-    		         		*/
-    		         		
-    		         		//$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
-    		         	
-    		         		
-    		         		var $group = $("<div class='group' style='width: 280px;'></div>");
-    		         		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons'>Day"+dayOrder+"</h3>");
-    		         		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
-    		         		var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
-    		         		
-    		         		$sortablediv.appendTo($div);
-    		         		$group.append($h3).append($div);
-    		         		$('#accordion2').append($group);
-    		         		
-    		         		/* <div class="group" style="width: 280px;">
-    		         			<h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3>
-    		         				<div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active">
-    		         					<div class="sortable" id="ScheduleDay'+dayOrder+'">
-    		         					</div>	
-    		         				</div>
-    		         			</div> */
     		         	}
+    		         	
+    		         	
+    		         	 // routeDetailList에 date 정보만 변경
+    		      	    console.log('그럼 dayList값은?');
+    		      	    console.log(dayOrder);
+    		      	    routeDetailList[${num.index}].route_date=dayList[dayOrder];
+    		      	    console.log(routeDetailList[${num.index}].route_date);
     					
+    		      	    
+    		      	    
     					// 각 Day 안에 Site 순서대로 append
     					var contentId= routedate+'${i.route_order}';
     					
@@ -366,13 +465,15 @@ $( function() {
     					var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
     					var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
     					
-    					// 각 Day div id 변수로 선언
-    					var scheduleday = '#'+'ScheduleDay'+dayOrder;
+    					// 각 Day div id 변수로 선언 / dayOrder + 1 해준 이유 : 위에서 
+    					var scheduleday = '#'+'ScheduleDay'+(dayOrder+1);
+    					
+    					
     					
     					// div에 data값 삽입
     					$sch_content.data('sitedata', routeDetailList[${num.index}]);
     					
-    					//li.data('d', locations[i])
+    	
     					
     					 $sinfo_txt_img.appendTo($sinfo_txt);
     					 
@@ -387,69 +488,44 @@ $( function() {
     					 
     					 $content_img.appendTo($sch_content);
     					 $spot_content_box.appendTo($sch_content);
-    					 /* $sch_content.appendTo($li); */
-    					 
-    					 //
+    				
     					 
     					 $(scheduleday).append($sch_content);
-    					
-    					<%-- 	
-    					<div class="sch_content" style="width: 250px;">
-    					<img
-    						src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-    						alt="" class="spot_img"
-    						onerror="this.src='/res/img/common/no_img/sight55.png';"
-    						onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-    						style="cursor: pointer;">
-    					<div class="spot_content_box" style="width: 150px;">
-    						<div class="spot_name"
-    							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-    							style="cursor: pointer;">1번</div>
-    						<div class="spot_info">
-    							<div class="tag">유명한거리/지역</div>
-    							<div class="sinfo_line"></div>
-    							<div class="sinfo_txt" style="padding: 0px">
-    								<img src="<%=request.getContextPath()%>/css/history/like.png"
-    									style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-    							</div>
-    						</div>
-    					</div>
-    				</div> --%>
+    			
     				
     				
-    			    //정보 저장을 위해 form 태그 안에 값으로 추가       routeDetailList[num] : RouteDetail에 멤버필드 ArrayList
-    				$('#route_list_form_innerdiv').empty();
-    				var $route_order = $("<input type='hidden' name='routeDetailList[${num.index}].route_order' value=${i.route_order}>");
-    				var $username = $("<input type='hidden' name='routeDetailList[${num.index}].username' value='${i.username}'>");
-    				var $route_code = $("<input type='hidden' name='routeDetailList[${num.index}].route_code' value=${i.route_code}>");
-    				var $route_date = $("<input type='hidden' name='routeDetailList[${num.index}].route_date' value='${i.route_date}'>");
-    				var $site = $("<input type='hidden' name='routeDetailList[${num.index}].site' value='${i.site}'>");
-    				var $lon = $("<input type='hidden' name='routeDetailList[${num.index}].lon' value='${i.lon}'>");
-    				var $lat = $("<input type='hidden' name='routeDetailList[${num.index}].lat' value='${i.lat}'>");
-    				var $category = $("<input type='hidden' name='routeDetailList[${num.index}].category' value='${i.category}'>");
-    				var $stime = $("<input type='hidden' name='routeDetailList[${num.index}].stime' value=${i.stime}>");
-    				var $etime = $("<input type='hidden' name='routeDetailList[${num.index}].etime' value=${i.etime}>");
-    				
-    				
-    				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
-    					
+	    			    //정보 저장을 위해 form 태그 안에 값으로 추가       routeDetailList[num] : RouteDetail에 멤버필드 ArrayList
+	    				$('#route_list_form_innerdiv').empty();
+	    				var $route_order = $("<input type='hidden' name='routeDetailList[${num.index}].route_order' value=${i.route_order}>");
+	    				var $username = $("<input type='hidden' name='routeDetailList[${num.index}].username' value='${i.username}'>");
+	    				var $route_code = $("<input type='hidden' name='routeDetailList[${num.index}].route_code' value=${i.route_code}>");
+	    				var $route_date = $("<input type='hidden' name='routeDetailList[${num.index}].route_date' value='${i.route_date}'>");
+	    				var $site = $("<input type='hidden' name='routeDetailList[${num.index}].site' value='${i.site}'>");
+	    				var $lon = $("<input type='hidden' name='routeDetailList[${num.index}].lon' value='${i.lon}'>");
+	    				var $lat = $("<input type='hidden' name='routeDetailList[${num.index}].lat' value='${i.lat}'>");
+	    				var $category = $("<input type='hidden' name='routeDetailList[${num.index}].category' value='${i.category}'>");
+	    				var $stime = $("<input type='hidden' name='routeDetailList[${num.index}].stime' value=${i.stime}>");
+	    				var $etime = $("<input type='hidden' name='routeDetailList[${num.index}].etime' value=${i.etime}>");
+	    				
+	    				
+	    				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+	    					
     					 
     				 </c:forEach>
     			       
     				
-    		         
-    		         
-    				 /* End : 여행지 일정표 정리 */
     				
     			};	
     			
     		</c:forEach>
     		
-    		// 일정 Drag 박스 스타일 적용 함수 호출
+    		// 일정 Drag 박스 스타일 적용 함수 호출 -> update manual함수 작성
     		scheduleBoxStyle();
+    		
+    	/*  $('#accordion2').accordion('refresh'); */
         };
         
-        // 일정 Drag 박스 스타일 적용 함수
+        // 일정 Drag 박스 스타일 적용 함수 
         function scheduleBoxStyle(){
         	$('#schedulebox').animate({
                 width: '+=380px'
@@ -651,10 +727,10 @@ $( function() {
 		        	
 		        	var mapLayerCount = mapLayers.length;
 		        	
-		        	for(var i =1; i<mapLayerCount; i++){
-		        		/* console.log("길이"+mapLayerCount);
-		        		console.log("i"+i);
-		        		console.log(mapLayers[i]);  */
+		        	for(var i =3; i<mapLayerCount; i++){
+		        		//console.log("길이"+mapLayerCount);
+		        		//console.log("i"+i);
+		        		//console.log(mapLayers[i]);  
 		        		if(mapLayers[i]!=null){
 		        			map.removeLayer(mapLayers[i]); 
 		        		}else{
@@ -663,9 +739,7 @@ $( function() {
 		                	var mapLayerCount = mapLayers.length;
 		                	
 		                	for(var i =1; i<mapLayerCount; i++){
-		                		/* console.log("길이"+mapLayerCount);
-		                		console.log("i"+i);
-		                		console.log(mapLayers[i]); */ 
+		                		
 		                		if(mapLayers[i]!=null){
 		                			map.removeLayer(mapLayers[i]); 
 		                		}else{
@@ -674,9 +748,7 @@ $( function() {
 		                        	var mapLayerCount = mapLayers.length;
 		                        	
 		                        	for(var i =1; i<mapLayerCount; i++){
-		                        		/* console.log("길이"+mapLayerCount);
-		                        		console.log("i"+i);
-		                        		console.log(mapLayers[i]);  */
+		                        		
 		                        		if(mapLayers[i]!=null){
 		                        			map.removeLayer(mapLayers[i]); 
 		                        		}else{
@@ -685,9 +757,7 @@ $( function() {
 		                                	var mapLayerCount = mapLayers.length;
 		                                	
 		                                	for(var i =1; i<mapLayerCount; i++){
-		                                		/* console.log("길이"+mapLayerCount);
-		                                		console.log("i"+i);
-		                                		console.log(mapLayers[i]);  */
+		                                		
 		                                		if(mapLayers[i]!=null){
 		                                			map.removeLayer(mapLayers[i]); 
 		                                		}
@@ -695,10 +765,11 @@ $( function() {
 		                        		}
 		                        	}
 		                		}
-		                	}
+		                	} 
 		        		}
 		        		
 		        	}
+		       
         };
        
         //추천 여행지 마커 추가하기 
@@ -722,8 +793,8 @@ $( function() {
 		     markerLayer.addMarker(marker); 	
 		     marker.events.register("mouseover", marker, onOverMouse);
 		     marker.events.register("mouseout", marker, onOutMouse);
-		     marker.events.register("click", map, onClickMarker)
-		     
+		     /* marker.events.register("click", map, onClickMarker); */
+		    /*  marker.events.register("click", marker, onClickMarker); */
 		     
 		     
         }
@@ -735,6 +806,7 @@ $( function() {
         }
         
         function onClickMarker(evt){
+        	
 	         console.log(evt);
 	     }
         //맵 클릭시 이벤트 함수 -> 마커 출력
@@ -956,7 +1028,8 @@ $( function() {
         
         /* End : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
      
-</script>
+        		
+        </script>
 
 
 
@@ -1024,61 +1097,12 @@ $( function() {
 <!-- 상세보기 일정 -->
 
 <style>
-/* .sortable {
-	font-size: 10px;
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	width: 60%;
-	height: auto;
-	display: inline;
-} */
-/* .sortable div{
 
- 	height: auto; 
-}
- */
-
-/* .sortable li {
-	margin: 3px;
-	padding: 0.4em;
-	padding-left: 1.5em;
-	font-size: 1.4em;
-	height: 40px;
-} */
-
-/* .sortable li span {
-	position: absolute;
-	margin-left: -1.3em;
-} */
 div.over {
 	background:
 		url("http://cfile1.uf.tistory.com/image/20558E424FEE324E2693F1");
 	cursor: pointer; /* 마우스 손모양 */
 }
-
-/* class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"
-
-id="ui-id-2"
-
-aria-labelledby="ui-id-1"
-
-role="tabpanel"
-
-aria-hidden="false"
-
-style="display: block; height: 458px;" */
-
-/* .sortable .sort-handle {
-      display: none;
-   }
-   .sortable .ui-selected .sort-handle {
-      display: inline;
-      padding: 0 0.5em;
-      cursor: pointer;
-   } */
-/* li.ui-selecting { background: #FECA40; }
-     li.ui-selected { background: #F39814; color: white; } */
 .spinner {
 	padding: 10px;
 	width: 30px;
@@ -1109,26 +1133,7 @@ style="display: block; height: 458px;" */
       /* $(".sortable").disableSelection(); */
       $(".sortable").selectable();
       
-      /* $('.sortable').selectable({
-         cancle: '.sort-handle'
-      }).sortable({
-         items: "> li",
-         handle: '.sort-handle',
-         helper: function(e, item) {
-            if ( ! item.hasClass('ui-selected') ) {
-               item.parent().children('.ui-selected').removeClass('ui-selected');
-               item.addClass('ui-selected');
-            }
-            var selected = item.parent().children('.ui-selected').clone();
-            item.data('multidrag', selected).siblings('.ui-selected').remove();
-            return $('</li>').append(selected);
-         },
-         stop: function(e, ui) {
-            var selected = ui.item.data('multidrag');
-            ui.item.after(selected);
-            ui.item.remove();
-         }
-      }); */
+    
       $("#accordion")
       .accordion({
          collapsible : true,
@@ -1186,10 +1191,14 @@ style="display: block; height: 458px;" */
 
 
 
+<!-- 여행이름 입력 창 -->
+<input type="text" style="width:300px;" class="btn btn-primary"  id="routename" name="routename" >
 
 
 
-
+<!-- 검색창 -->
+<input type="button" style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary" id="searchSiteBtn">
+<input type="text" style="width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">
 
 
 
@@ -1197,327 +1206,17 @@ style="display: block; height: 458px;" */
 
 
 <%----------------------------------일정 짜기 부분 ----------------------------------------%>
-
+		
 <div style="background-color: white; width: 450px;" id="schedulebox2">
 	<!-- 이놈은 아님 -->
-	<div id="accordion1" style="overflow: auto; width: 450px;" />
+	<div id="accordion1" style="overflow: auto; width: 450px;" >
+	
+	
+	</div>				
 	<div id="accordion2"
 		style="overflow: auto; width: 450px; height: 650px;">
 		
-		<div class="group" style="width: 280px;">
-			<h3>DAY 1</h3>
-			<!--min-height   -->
-			<div>
-				<div class="sortable">
-					<div class="sch_content" style="width: 250px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">1번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="sch_content" style="width: 250px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 130px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">2번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>   
 		
-		
-		<%-- <div class="group" style="width: 280px;">
-			<h3>DAY 2</h3>
-			<div>
-				<div class="sortable">
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">1번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">22</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">333</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">444</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> --%>
-
-		<%-- <div class="group" style="width: 280px;">
-			<h3>DAY 3</h3>
-			<div>
-				<div class="sortable">
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">1번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">22</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-
-
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">333</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">444</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">555</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> --%>
 	</div>
 </div>
 
@@ -1551,10 +1250,12 @@ style="display: block; height: 458px;" */
 	<div id="map_div" style="float: left; position:relative; bottom:635px; left:300px;"></div>
 	
 </div>
+
+
 <div id="route_float">
 		<input type="button" id="btn" value="길찾기"
 			class="btn btn-primary btn-outline btn-lg" onclick="search()" />
-	</div>
+</div>
 
 	
 <%-- ----------------------------------form-------------------------------------------%>
