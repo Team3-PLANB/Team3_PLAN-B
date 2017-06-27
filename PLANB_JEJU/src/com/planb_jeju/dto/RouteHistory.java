@@ -3,16 +3,30 @@ package com.planb_jeju.dto;
 public class RouteHistory {
 	private int route_order;
 	private int route_code;
-	private String route_name;
+	private String routename;
 	private String username;
 	private String route_date;
 	private int update_rownum;
 	private String site;
 	private String update_reason;
-	private String stime;
-	private String etime;
 	
 	private String comment;
+
+	public RouteHistory() {}
+
+	public RouteHistory(int route_order, int route_code, String routename, String username, String route_date,
+			int update_rownum, String site, String update_reason, String comment) {
+		super();
+		this.route_order = route_order;
+		this.route_code = route_code;
+		this.routename = routename;
+		this.username = username;
+		this.route_date = route_date;
+		this.update_rownum = update_rownum;
+		this.site = site;
+		this.update_reason = update_reason;
+		this.comment = comment;
+	}
 
 	public int getRoute_order() {
 		return route_order;
@@ -30,12 +44,12 @@ public class RouteHistory {
 		this.route_code = route_code;
 	}
 	
-	public String getRoute_name() {
-		return route_name;
+	public String getRoutename() {
+		return routename;
 	}
 
-	public void setRoute_name(String route_name) {
-		this.route_name = route_name;
+	public void setRoutename(String routename) {
+		this.routename = routename;
 	}
 
 	public String getUsername() {
@@ -76,22 +90,6 @@ public class RouteHistory {
 
 	public void setUpdate_reason(String update_reason) {
 		this.update_reason = update_reason;
-	}
-
-	public String getStime() {
-		return stime;
-	}
-
-	public void setStime(String stime) {
-		this.stime = stime;
-	}
-
-	public String getEtime() {
-		return etime;
-	}
-
-	public void setEtime(String etime) {
-		this.etime = etime;
 	}
 
 	public String getComment() {
