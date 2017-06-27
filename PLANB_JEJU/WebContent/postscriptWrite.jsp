@@ -318,8 +318,7 @@ div.over {
 
 <div style="background-color: white; width: 450px;" id="schedulebox2">
 	<!-- 이놈은 아님 -->
-	<div id="accordion2"
-		style="overflow: auto; width: 450px; height: 650px;">
+	<div id="accordion2" style="overflow: auto; width: 450px; height: 650px;">
 		<div class="group" style="width: 400px;">
 			<h3>DAY 1</h3>
 			<!--min-height   -->
