@@ -31,6 +31,7 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="shortcut icon" href="favicon.ico">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <link rel="stylesheet" href="/resources/demos/style.css">
@@ -282,13 +283,6 @@ $( function() {
     				 
     				vector_layer.addFeatures([mLineFeature]);
     				
-    				
-    				
-    				
-    				
-    				
-    				
-    				
     				//JsonArray로 경로의 각 Site 내용 정리
     				/* routeDetailList = [];
     				<c:forEach var="i" items="${item.value}" varStatus="num">
@@ -306,19 +300,11 @@ $( function() {
     					});	         	
     			    </c:forEach>
     				  */
-    				
-    				
-    				
-    				
-    				
-    				
     				/* Start : 여행지 일정표 정리 */
     	         	
     		         var dayOrder=0;
-    		         
     		         var routedate;
     		         
-    				 
     		         <c:forEach var="i" items="${item.value}" varStatus="num">
     					
     		         	// 날짜 별 Drag 박스 생성
@@ -341,13 +327,16 @@ $( function() {
     		         	
     		         		
     		         		var $group = $("<div class='group' style='width: 280px;'></div>");
-    		         		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons'>Day"+dayOrder+"</h3>");
-    		         		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
+    		         		var $h3 = $("<h3>Day"+dayOrder+"</h3>");
+    		         		var $div = $("<div></div>");
     		         		var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
     		         		
     		         		$sortablediv.appendTo($div);
     		         		$group.append($h3).append($div);
     		         		$('#accordion2').append($group);
+    		         		
+    		         		
+
     		         		
     		         		/* <div class="group" style="width: 280px;">
     		         			<h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3>
@@ -363,69 +352,43 @@ $( function() {
     					
     					
     					
-    					var $sch_content = $( "<div class='sch_content' id='"+contentId+"' style='width: 250px;'></div>" );
-    					var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
-    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
-    					var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
-    					var $spot_info = $("<div class='spot_info'></div>");
-    					var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
-    					var $sinfo_line = $("<div class='sinfo_line'></div>");
-    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
-    					var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
-    					var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
+    		var $sch_content = $( "<div class='sch_content' id='"+contentId+"' style='width: 250px;'></div>" );
+   			var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+    		var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
+    		var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
+    		var $spot_info = $("<div class='spot_info'></div>");
+    		var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
+    		var $sinfo_line = $("<div class='sinfo_line'></div>");
+    		var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
+    		var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
+    		var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
     					
-    					// 각 Day div id 변수로 선언
-    					var scheduleday = '#'+'ScheduleDay'+dayOrder;
-    					
-    					// div에 data값 삽입
-    					$sch_content.data('sitedata', routeDetailList[${num.index}]);
-    					
-    					//li.data('d', locations[i])
-    					
-    					 $sinfo_txt_img.appendTo($sinfo_txt);
-    					 
-    					 
-    					 $tag.appendTo($spot_info);
-    					 $sinfo_line.appendTo($spot_info);
-    					 $sinfo_txt.appendTo($spot_info);
-    					 $delete_tag.appendTo($spot_info);
-    					 
-    					 $spot_name.appendTo($spot_content_box);
-    					 $spot_info.appendTo($spot_content_box);
-    					 
-    					 $content_img.appendTo($sch_content);
-    					 $spot_content_box.appendTo($sch_content);
-    					 /* $sch_content.appendTo($li); */
-    					 
-    					 //
-    					 
-    					 $(scheduleday).append($sch_content);
-    					
-    					<%-- 	
-    					<div class="sch_content" style="width: 250px;">
-    					<img
-    						src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-    						alt="" class="spot_img"
-    						onerror="this.src='/res/img/common/no_img/sight55.png';"
-    						onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-    						style="cursor: pointer;">
-    					<div class="spot_content_box" style="width: 150px;">
-    						<div class="spot_name"
-    							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-    							style="cursor: pointer;">1번</div>
-    						<div class="spot_info">
-    							<div class="tag">유명한거리/지역</div>
-    							<div class="sinfo_line"></div>
-    							<div class="sinfo_txt" style="padding: 0px">
-    								<img src="<%=request.getContextPath()%>/css/history/like.png"
-    									style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-    							</div>
-    						</div>
-    					</div>
-    				</div> --%>
+    				// 각 Day div id 변수로 선언
+    				var scheduleday = '#'+'ScheduleDay'+dayOrder;
     				
+    				// div에 data값 삽입
+    		  		$sch_content.data('sitedata', routeDetailList[${num.index}]);
     				
-    			    //정보 저장을 위해 form 태그 안에 값으로 추가       routeDetailList[num] : RouteDetail에 멤버필드 ArrayList
+    				//li.data('d', locations[i])
+    				
+    				 $sinfo_txt_img.appendTo($sinfo_txt);
+    				 
+    				 
+    				 $tag.appendTo($spot_info);
+    				 $sinfo_line.appendTo($spot_info);
+    				 $sinfo_txt.appendTo($spot_info);
+    				 $delete_tag.appendTo($spot_info);
+    				 
+    				 $spot_name.appendTo($spot_content_box);
+    				 $spot_info.appendTo($spot_content_box);
+    				 
+    				 $content_img.appendTo($sch_content);
+    				 $spot_content_box.appendTo($sch_content);
+    				 /* $sch_content.appendTo($li); */
+    				 
+    				 $(scheduleday).append($sch_content);
+    				
+    				//정보 저장을 위해 form 태그 안에 값으로 추가       routeDetailList[num] : RouteDetail에 멤버필드 ArrayList
     				$('#route_list_form_innerdiv').empty();
     				var $route_order = $("<input type='hidden' name='routeDetailList[${num.index}].route_order' value=${i.route_order}>");
     				var $username = $("<input type='hidden' name='routeDetailList[${num.index}].username' value='${i.username}'>");
@@ -439,27 +402,21 @@ $( function() {
     				var $etime = $("<input type='hidden' name='routeDetailList[${num.index}].etime' value=${i.etime}>");
     				
     				
-    				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
-    					
-    					 
-    				 </c:forEach>
-    			       
-    				
-    		         
-    		         
+    					$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+    				</c:forEach>
     				 /* End : 여행지 일정표 정리 */
-    				
     			};	
-    			
     		</c:forEach>
-    		//
-    		$('#accordion2').accordion('refresh');
     		
+    		//ㅅㅄㅄㅄㅄㅄㅄㅄㅄㅄㅄㅄㅄㅂ 아호
+     	    $("#accordion2").accordion("refresh");
+    		
+    		//솔트 했을때 
     		
     		// 일정 Drag 박스 스타일 적용 함수 호출
     		scheduleBoxStyle();
     		
-    		
+
         };
         
         // 일정 Drag 박스 스타일 적용 함수
@@ -527,34 +484,13 @@ $( function() {
 							$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
 									
 						});
-					  
-							
-					  
-					  
-                   }
-         
-           
-           });
+					 }
+         		});
           
+           $(".sortable").sortable();
            $(".sortable").selectable();
            
-          
-           $("#accordion")
-           .accordion({
-              collapsible : true,
-              header : ".day_info_box"
-           })
-           .sortable({
-              axis : "y",
-              handle : ".day_info_box",
-              stop : function(event, ui) {
-                 // IE doesn't register the blur when sorting
-                 // so trigger focusout handlers to remove .ui-state-focus
-                 ui.item.children(".day_info_box").triggerHandler("focusout");
-                 // Refresh accordion to handle new order
-                 $(this).accordion("refresh");
-              }
-           });
+           
            $("#accordion2")
            .accordion({
               collapsible : true,
@@ -574,19 +510,9 @@ $( function() {
                  $(this).accordion("refresh");
               }
            });
-         
-         };
+           
+         }
         
-         
-         
-         
-         
-         
-         
-         
-         
-         
-         
          
         // 맵 위 Layer 제거 함수
         function deleteLayers(){
@@ -967,33 +893,7 @@ $( function() {
 <!-- 상세보기 일정 -->
 
 <style>
-/* .sortable {
-	font-size: 10px;
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
-	width: 60%;
-	height: auto;
-	display: inline;
-} */
-/* .sortable div{
 
- 	height: auto; 
-}
- */
-
-/* .sortable li {
-	margin: 3px;
-	padding: 0.4em;
-	padding-left: 1.5em;
-	font-size: 1.4em;
-	height: 40px;
-} */
-
-/* .sortable li span {
-	position: absolute;
-	margin-left: -1.3em;
-} */
 div.over {
 	background:
 		url("http://cfile1.uf.tistory.com/image/20558E424FEE324E2693F1");
@@ -1032,10 +932,11 @@ style="display: block; height: 458px;" */
 	width: 80%;
 	margin: 15px;
 }
+.ui
 </style>
 
 <script>
-  $(document).ready(function() {
+   $(document).ready(function() {
       $('#schedulebox').animate({
            width: '+=380px'
       });
@@ -1052,42 +953,6 @@ style="display: block; height: 458px;" */
       /* $(".sortable").disableSelection(); */
       $(".sortable").selectable();
       
-      /* $('.sortable').selectable({
-         cancle: '.sort-handle'
-      }).sortable({
-         items: "> li",
-         handle: '.sort-handle',
-         helper: function(e, item) {
-            if ( ! item.hasClass('ui-selected') ) {
-               item.parent().children('.ui-selected').removeClass('ui-selected');
-               item.addClass('ui-selected');
-            }
-            var selected = item.parent().children('.ui-selected').clone();
-            item.data('multidrag', selected).siblings('.ui-selected').remove();
-            return $('</li>').append(selected);
-         },
-         stop: function(e, ui) {
-            var selected = ui.item.data('multidrag');
-            ui.item.after(selected);
-            ui.item.remove();
-         }
-      }); */
-      $("#accordion")
-      .accordion({
-         collapsible : true,
-         header : ".day_info_box"
-      })
-      .sortable({
-         axis : "y",
-         handle : ".day_info_box",
-         stop : function(event, ui) {
-            // IE doesn't register the blur when sorting
-            // so trigger focusout handlers to remove .ui-state-focus
-            ui.item.children(".day_info_box").triggerHandler("focusout");
-            // Refresh accordion to handle new order
-            $(this).accordion("refresh");
-         }
-      });
       $("#accordion2")
       .accordion({
          collapsible : true,
@@ -1114,30 +979,6 @@ style="display: block; height: 458px;" */
   
   
 </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 <%----------------------------------일정 짜기 부분 ----------------------------------------%>
 
@@ -1198,269 +1039,6 @@ style="display: block; height: 458px;" */
 				</div>
 			</div>
 		</div>   
-		
-		
-		<%-- <div class="group" style="width: 280px;">
-			<h3>DAY 2</h3>
-			<div>
-				<div class="sortable">
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">1번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">22</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">333</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">444</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> --%>
-
-		<%-- <div class="group" style="width: 280px;">
-			<h3>DAY 3</h3>
-			<div>
-				<div class="sortable">
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">1번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">22</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-
-
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">333</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">444</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-					<div class="sch_content" style="width: 280px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">555</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-						<div class="spot_btn_box">
-							<img
-								src="<%=request.getContextPath()%>/css/history/map_ico.png"
-								alt="" class="spot_btn map_view"
-								onclick="set_center(33.51010100,126.48125500)">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div> --%>
 	</div>
 </div>
 

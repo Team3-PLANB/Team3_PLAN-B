@@ -6,31 +6,24 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.planb_jeju.dto.Route;
-import com.planb_jeju.dto.RoutePostscript;
-import com.planb_jeju.dto.SitePostscript;
+import com.planb_jeju.dto.RouteHistory;
 import com.planb_jeju.service.HistoryService;
-import com.planb_jeju.service.RouteDetailService;
-import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.SitePostscriptService;
 
 public class HistoryController {
-
-	@Autowired
-	private SqlSession sqlsession;
 	
 	@Autowired
 	HistoryService historyservice;
 
 	@Autowired
 	SitePostscriptService sitePostscruotService;
-
+	
 	/*
 	* @date : 2017. 6. 24
 	* @description : 히스토리 상세보기
@@ -38,16 +31,15 @@ public class HistoryController {
 	* @return : String(View 페이지)
 	*/
 	@RequestMapping(value="History/history.do", method=RequestMethod.GET)
-	public String detailHistory(HttpServletRequest request, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+	public String detailHistory(@RequestParam String route_code, Principal principal, Model model) throws ClassNotFoundException, SQLException {
 		System.out.println("히스토리 상세보기");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 
-		int route_code = Integer.parseInt(request.getParameter("route_code"));
-		Route route = historyservice.getRouteDetail(route_code, principal.getName());
-		System.out.println(route);
-
-		return "MyPage.History.historyDetail";	
-
+	//	int route_code = Integer.parseInt(request.getParameter("route_code"));
+		List<RouteHistory> myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		
+		System.out.println(myroutehistory);
+		model.addAttribute("myroutehistory", myroutehistory);
+		return "MyPage.History.myHistory";	
 	}
-
 }

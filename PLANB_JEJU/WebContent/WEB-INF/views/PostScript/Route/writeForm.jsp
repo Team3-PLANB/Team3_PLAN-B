@@ -3,11 +3,9 @@
 @File name : postscriptWrite.jsp 
 @Author : 임정연 & 정다혜
 @Data : 2017.06.17 & 2017.06.22
-@ Last Edit : 2017.06.22
+@ Last Edit : 2017.06.25
 @Desc : 후기 작성 페이지
 --%>
-
-
 
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -46,9 +44,6 @@
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
  
- 
- 
- 
 <!-- 갤러리 등록을 위한 css  -->
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/dist/styles.imageuploader.css" rel="stylesheet" type="text/css">
@@ -83,20 +78,16 @@
 
 <!-- <link rel="shortcut icon" href="favicon.ico"> -->
 
- <link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
-	rel='stylesheet' type='text/css'>
+ <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'	rel='stylesheet' type='text/css'>
 
 
 
 <!-- Icomoon Icon Fonts-->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/icomoon.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 	
 	
 <!-- Bootstrap  -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 	
 	
 <!-- Superfish -->
@@ -140,54 +131,15 @@ div.over {
 </style>
 
 <script>
-	$(document).ready(function() {
-		$('#schedulebox').animate({
-			width : '+=380px'
-		});
-		$('#schedulebox2').animate({
-			width : '+=30%'
-		});
-		$('.spinner').spinner({
-			min : 0,
-			max : 300,
-			step : 15,
-			start : 0
-		});
-		$(".sortable").sortable();
-		/* $(".sortable").disableSelection(); */
+	$(document).ready(function() {		
 		$(".sortable").selectable();
 
-		
-		$("#accordion").accordion({
-			collapsible : true,
-			header : ".day_info_box"
-		}).sortable({
-			axis : "y",
-			handle : ".day_info_box",
-			stop : function(event, ui) {
-				// IE doesn't register the blur when sorting
-				// so trigger focusout handlers to remove .ui-state-focus
-				ui.item.children(".day_info_box").triggerHandler("focusout");
-				// Refresh accordion to handle new order
-				$(this).accordion("refresh");
-			}
-		});
 		$("#accordion2").accordion({
 			collapsible : true,
 			header : "> div > h3",
 			autoHeight : false,
 			navigation : true,
 			heightStyle : "content" 
-		}).sortable({
-			axis : "y",
-			handle : "h3",
-			stop : function(event, ui) {
-				// IE doesn't register the blur when sorting
-				// so trigger focusout handlers to remove .ui-state-focus
-				ui.item.children("div").triggerHandler("focusout");
-				// Refresh accordion to handle new order
-				$(this).accordion("refresh");
-			}
 		});
 
 	});
@@ -236,8 +188,10 @@ div.over {
 
 <div style="background-color: white; width: 450px;" id="schedulebox2">
 	<!-- 이놈은 아님 -->
-	<div id="accordion2"
-		style="overflow: auto; width: 450px; height: 650px;">
+	<div id="accordion2" style="overflow: auto; width: 450px; height: 650px;">
+	<c:forEach var="routeDetail" items="${routeDetailList}">
+	
+	</c:forEach>
 		<div class="group" style="width: 400px;">
 			<h3>DAY 1</h3>
 			<!--min-height   -->

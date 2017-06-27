@@ -32,7 +32,7 @@ public class RouteDetailService {
 	}
 	
 	
-	public HashMap<String, Object> getRouteDetailList(java.util.List<Route> routeList) throws ClassNotFoundException, SQLException {
+	public HashMap<String, Object> getRouteDetailList(List<Route> routeList) throws ClassNotFoundException, SQLException {
 
 		HashMap<String,Object> routeDetailMap = new HashMap<>();
 		
@@ -41,7 +41,7 @@ public class RouteDetailService {
 			// Mybatis 적용
 			RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
 			// routeDetail key값을 routeList에 넣고 각 경로의 모든 site값 가져오기
-			java.util.List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i));
+			List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i));
 			
 			
 			// 경로의 Name값을 key값으로 설정, value는 해당 경로의 각 Site List
@@ -50,5 +50,15 @@ public class RouteDetailService {
 		
 		return routeDetailMap;
 
+	}
+	
+	public List<RouteDetail> getRouteDetailListForPost(int route_code, String username) throws ClassNotFoundException, SQLException {
+		RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
+		
+		Route route = new Route();
+		route.setRoute_code(route_code);
+		route.setUsername(username);
+		List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(route);
+		return routeDetailList;
 	}
 }
