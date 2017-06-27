@@ -34,13 +34,14 @@ public class SocketController {
     }
 
     /**
-     * (소켓) 전체 메세지 전송
+     * (소켓) 개인 메세지 전송
      * @param message
      * @return Message
      * @throws Exception
      */
     @MessageMapping("/sendToUser")
     @SendTo("/topic/user")
+    //@SendToUser("/topic/user")
     public ModelMap broadcastToUser(Message message) {
         return socketService.broadcastToUser(message);
     }

@@ -16,11 +16,11 @@ public class HistoryService {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	public List<RouteHistory> getRouteDetail(String route_code, String username) throws ClassNotFoundException, SQLException {
+	public List<RouteHistory> getRouteDetail(int route_code, String username) throws ClassNotFoundException, SQLException {
 		RouteHistoryDao routeHistoryDao = sqlsession.getMapper(RouteHistoryDao.class);
-		System.out.println("routecode>>" + Integer.parseInt(route_code) +" / username>>"+ username);
-		List<RouteHistory> history = routeHistoryDao.getMyHistory(Integer.parseInt(route_code), username);
-		System.out.println(">>>>>>"+history);
+		System.out.println("routecode>>" + route_code +" / username>>"+ username);
+		List<RouteHistory> history = routeHistoryDao.getMyHistory(route_code, username);
+		System.out.println(">>>>>>"+history.toString());
 		return history;
 		
 	}

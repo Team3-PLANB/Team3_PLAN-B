@@ -99,6 +99,14 @@ public class RouteHistory {
 	public void setComment(String comment) {
 		this.comment = comment;
 	}
+
+	@Override
+	public String toString() {
+		return "RouteHistory [route_order=" + route_order + ", route_code=" + route_code + ", routename=" + routename
+				+ ", username=" + username + ", route_date=" + route_date + ", update_rownum=" + update_rownum
+				+ ", site=" + site + ", update_reason=" + update_reason + ", comment=" + comment + "]";
+	}
+	
 	
 	
 }

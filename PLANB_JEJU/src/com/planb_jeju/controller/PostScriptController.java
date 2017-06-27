@@ -52,6 +52,7 @@ import com.planb_jeju.service.RouteDetailService;
 import com.planb_jeju.service.RoutePostscriptService;
 import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.SitePostscriptService;
+import com.planb_jeju.utils.PersonalParse;
 
 
 @Controller
@@ -187,6 +188,10 @@ public class PostScriptController {
 		Route route = routeservice.getRouteInfo(route_code, principal.getName());
 		List<RouteDetail> routeDetailList = routeDetailservice.getRouteDetailListForPost(route_code, username);
 		
+		for(RouteDetail routeDetail : routeDetailList){
+			routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
+		}
+		
 		System.out.println("route : " + route);
 		System.out.println("routeDetailList : " + routeDetailList);
 		model.addAttribute("route", route);
@@ -226,7 +231,7 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Site/Write.do", method=RequestMethod.GET)
 	public String writeSitePostscript(@RequestParam int route_code, Principal principal, Model model) throws Exception {
-		System.out.println("루트 후기 작성");
+		System.out.println("후기 작성");
 		
 		Route route = routeservice.getRouteInfo(route_code, principal.getName());
 		
@@ -244,7 +249,7 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
 	public String writeSitePostscriptOk(@RequestParam int route_code, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
-		System.out.println("루트 후기 작성 ok");
+		System.out.println("후기 작성 ok");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 		System.out.println("넘어온 객체 : " + routePostscript);
 		routePostscript.setUsername(principal.getName());
@@ -334,18 +339,21 @@ public class PostScriptController {
 	* @description : 히스토리 상세보기
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
 	* @return : String(View 페이지)
-
+	*/
 	@RequestMapping(value="/History/history.do", method=RequestMethod.GET)
-	public String detailHistory(HttpServletRequest request, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+	public String detailHistory(@RequestParam int route_code, Principal principal, Model model) throws ClassNotFoundException, SQLException {
 		System.out.println("히스토리 상세보기");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 
-		int route_code = Integer.parseInt(request.getParameter("route_code"));
-		RouteHistory myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		List<RouteHistory> myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		Route routename = routeservice.getRouteInfo(route_code, principal.getName());
+		
 		System.out.println(myroutehistory);
-		model.addAttribute("myroutehistory", myroutehistory);
-		return "MyPage.History.myHistory";	
+		System.out.println(routename.getRoutename());
 
+		model.addAttribute("myroutehistory", myroutehistory);
+		model.addAttribute("routename", routename);
+		return "MyPage.History.myHistory";	
 	}
-*/
+
 }
