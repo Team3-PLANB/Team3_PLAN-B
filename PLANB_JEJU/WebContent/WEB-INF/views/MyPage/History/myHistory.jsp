@@ -32,13 +32,29 @@
 						<h3>${routename.routename }</h3>
 					</div>
 				</div>
- 				<c:forEach var="myroute" items="${myroutehistory}">	
+				<script type="text/javascript">
+	 				<c:forEach var="myroute" items="${myroutehistory}" varStatus = "num">	
+	 					var historyList = [];
+						<c:forEach var="i" items="${myroute.value}" varStatus="num">
+							historyList.push({
+								"route_date" : '${i.route_date}',
+								"route_order" : '${i.route_order}',
+								"site" : '${i.site}',
+								"comment" : '${i.comment}'
+							});
+						</c:forEach>
+						var dayOrder = 0;
+						var routedate;
+						<c:forEach var="i" items="${myroute.value}"
+	 					
+	 				</c:forEach>
+ 				</script>
 					<div class="row">
 						<div class="col-md-12 col-md-offset-0">
 							<ul class="timeline">
 								<li class="timeline-heading text-center animate-box">
 									<div>
-										<h3>1 DAY</h3>
+										<h3 id = routedate value = "1 DAY"></h3>
 									</div>
 								</li>
 									<li class="animate-box timeline-unverted">
@@ -195,7 +211,7 @@
 							</ul>
 						</div>
 					</div>
-				</c:forEach>
+
 			</div>
 		</div>
 	</div>
