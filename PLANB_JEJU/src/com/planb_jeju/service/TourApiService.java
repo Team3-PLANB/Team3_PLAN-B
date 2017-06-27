@@ -28,26 +28,26 @@ import java.io.IOException;
 
 public class TourApiService {
     public static List<RouteDetail> getListOfSite(StringBuilder baseUrl, StringBuilder urlParam) throws IOException, SAXException, ParserConfigurationException {
-        StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList"); /*URL*/ 
-        //http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList : 지역 기반 관광지 목록 조회 url
         
-        //http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?
-        //ServiceKey=sINbtYMpCw1C2%2BFZOiN%2FbJjqUn42vfFvg0%2BkN1NbFHjDt3JfU4U7gLkSOf16L07YIBDBLElP%2FLCJYIiqNBH5dQ%3D%3D&
-        //contentTypeid=12&
-        //areaCode=39&
-        //cat2=A0101&
-        //MobileOS=ETC&
-        //MobileApp=AppTesting
+    	//키워드 기반 검색 api 주소
+    	StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword"); /*URL*/ 
+    	/*StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList");*/
+    	
         urlBuilder.append("?" + URLEncoder.encode("ServiceKey","UTF-8") + "=sINbtYMpCw1C2%2BFZOiN%2FbJjqUn42vfFvg0%2BkN1NbFHjDt3JfU4U7gLkSOf16L07YIBDBLElP%2FLCJYIiqNBH5dQ%3D%3D"); /*Service Key*/
-        urlBuilder.append("&" + URLEncoder.encode("contentTypeid","UTF-8") + "=" + URLEncoder.encode("12", "UTF-8")); /*관광지 코드 : 12*/
+        //urlBuilder.append("&" + URLEncoder.encode("contentTypeid","UTF-8") + "=" + URLEncoder.encode("12", "UTF-8")); /*관광지 코드 : 12*/
         urlBuilder.append("&" + URLEncoder.encode("areaCode","UTF-8") + "=" + URLEncoder.encode("39", "UTF-8")); /*관광지 지역 제주도 코드 : 39*/
         /*urlBuilder.append("&" + URLEncoder.encode("cat2","UTF-8") + "=" + URLEncoder.encode("A0101", "UTF-8")); *//*중분류 : 자연*/
-        urlBuilder.append("&" + URLEncoder.encode("cat2","UTF-8") + "=" + urlParam); 
+        /*urlBuilder.append("&" + URLEncoder.encode("cat2","UTF-8") + "=" + urlParam); */
+        
+        
+        
+        urlBuilder.append("&" + URLEncoder.encode("keyword","UTF-8") + "=" + urlParam);
         urlBuilder.append("&" + URLEncoder.encode("MobileOS","UTF-8") + "=" + URLEncoder.encode("ETC", "UTF-8")); /*기본 required 코드 */
         urlBuilder.append("&" + URLEncoder.encode("MobileApp","UTF-8") + "=" + URLEncoder.encode("AppTesting", "UTF-8")); /*기본 required 코드 */
         
         //contentTypeid=12&areaCode=39&cat2=A0101&MobileOS=ETC&MobileApp=AppTesting
         URL url = new URL(urlBuilder.toString());
+        System.out.println("url:"+url);
         HttpURLConnection conn = (HttpURLConnection) url.openConnection();
         conn.setRequestMethod("GET");
         conn.setRequestProperty("Content-type", "application/json");

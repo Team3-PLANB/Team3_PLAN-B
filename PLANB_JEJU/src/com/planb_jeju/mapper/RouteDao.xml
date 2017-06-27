@@ -27,8 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE route_code = #{param1} AND username = #{param2}
 	</select>
 	
-	<!-- // 추천 대상 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함
-	public List<Route> getRouteList(Map<String, Object> map) throws ClassNotFoundException, SQLException; -->
+	<!-- 추천 대상 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함 -->
 	<select id="getRouteList" resultType="com.planb_jeju.dto.Route" parameterType="java.util.Map">
 		
 		<!--
@@ -47,7 +46,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 						FROM route r join route_personal rp 
 							on r.username = rp.username 
 					  		and r.route_code = rp.route_code
-					  	WHERE partner_code = #{partner_code} 
+					  	WHERE partner_code = #{partner_code} AND r.username != #{username}
 					  	
 				            	and rp.personal_code in
 				                <foreach collection="personal_code" item="item" index="index" separator="," open="(" close=")">
@@ -86,7 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert">
 	
 		<selectKey order="BEFORE" keyProperty="route_code" resultType="Int">
-			Select MAX(route_code)+1 from route where username='a@naver.com' group by username
+			select ifnull((select count(route_code)+1 from route where username=#{username} group by username), 1)
 		</selectKey>
 		
 		INSERT INTO route(route_code, username, routename, partner_code, sday, eday)
