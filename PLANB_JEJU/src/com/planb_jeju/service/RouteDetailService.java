@@ -61,4 +61,9 @@ public class RouteDetailService {
 		List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(route);
 		return routeDetailList;
 	}
+	
+	public RouteDetail getRouteDetail(int route_code, String username, String site) throws ClassNotFoundException, SQLException {
+		RouteDetail routeDetail = new RouteDetail();
+		return routeDetail;
+	}
 }

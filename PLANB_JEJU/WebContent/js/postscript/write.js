@@ -1,12 +1,12 @@
 $(document).ready(function(){
 	$(".sortable").selectable();
 
-	$("#accordion2").accordion({
-		collapsible : true,
-		header : "> div > h3",
-		autoHeight : false,
-		navigation : true,
-		heightStyle : "content" 
+	$("#accordion").accordion({
+        collapsible : true,
+        header : "> div > h3",
+        autoHeight: false,
+        navigation: true,
+        heightStyle: "content"
 	});
 	
 	(function() {
@@ -34,3 +34,4 @@ $(document).ready(function(){
 	
     
 });
+

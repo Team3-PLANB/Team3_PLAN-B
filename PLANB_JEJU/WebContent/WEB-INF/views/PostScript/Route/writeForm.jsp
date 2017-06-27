@@ -3,7 +3,7 @@
 @File name : postscriptWrite.jsp 
 @Author : 임정연 & 정다혜
 @Data : 2017.06.17 & 2017.06.22
-@ Last Edit : 2017.06.25
+@ Last Edit : 2017.06.27
 @Desc : 후기 작성 페이지
 --%>
 
@@ -39,7 +39,6 @@
 <link rel="stylesheet" href="css/style.css">
  -->
  
- 
 <!-- 여행후기작성  -->
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
@@ -49,8 +48,6 @@
 <link href="${pageContext.request.contextPath}/dist/styles.imageuploader.css" rel="stylesheet" type="text/css">
 
 <script src="${pageContext.request.contextPath}/js/postscript/write.js"></script>
-
-
 
 <!-- 
 계속 죽일지는 차후 확인
@@ -80,21 +77,16 @@
 
 <!-- <link rel="shortcut icon" href="favicon.ico"> -->
 
- <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'	rel='stylesheet' type='text/css'>
-
-
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'	rel='stylesheet' type='text/css'>
 
 <!-- Icomoon Icon Fonts-->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 	
-	
 <!-- Bootstrap  -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 	
-	
 <!-- Superfish -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
-	
 	
 <!-- histroy css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/history.css">
@@ -102,7 +94,6 @@
 <!-- 체크박스 css -->	
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PlanA/checkbox-bootstrap.css">
 
-<!-- 상세보기 일정 -->
 
 <style>
 .sortable {
@@ -135,6 +126,8 @@ div.over {
 
 	<script>
 		$(document).ready(function(){
+			
+			
 			var routeOrder = 0;
 			var dayOrder = 0;
 			var $group;
@@ -157,23 +150,22 @@ div.over {
 				if(routeOrder != ${routeDetail.route_order}){
 					dayOrder++;
 					$group = $("<div class='group' style='width:400px;'></div>");
-		     		$h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons'>Day " + dayOrder + " : ${routeDetail.getRoute_date()}</h3>");
+		     		$h3 = $("<h3>Day " + dayOrder + " : ${routeDetail.getRoute_date()}</h3>");
 		     		$div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
 		     		$sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
 		     		
 		     		$sortablediv.appendTo($div);
 		     		$group.append($h3).append($div);
-		     		$('#accordion2').append($group);
+		     		$('#accordion').append($group);
 		     		routeOrder=1;
 		     		
 		     		console.log(routeOrder);
 				}
 				
 				// 각 Day 안에 Site 순서대로 append
-				console.log("으악");
-				$sch_content = $("<div class='sch_content' style='width: 280px;'></div>" );
+				$sch_content = $("<div class='sch_content' value=${routeDetail.site} onclick='siteInfo(this)' style='width: 350px;'></div>" );
 				$content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
-				$spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
+				$spot_content_box = $("<div class='spot_content_box' style='width: 250px;'></div>");
 				$spot_name = $("<div class='spot_name' style='cursor: pointer;'> ${routeDetail.site} </div>");
 				$spot_info = $("<div class='spot_info'></div>");
 				$tag = $("<div class='tag'> ${routeDetail.category} </div>");
@@ -197,8 +189,26 @@ div.over {
 				routeOrder ++;
 				console.log(routeOrder);
 			</c:forEach>
-		
+			$("#accordion").accordion("refresh");
+			
+			
+			
 		});
+		
+
+		function siteInfo(site){
+			console.log("눌러짐");
+			console.log(site.getAttribute("value"));
+			$('#routePostNav').removeClass('active');
+			$('#sitePostNav').addClass('active');
+			$('#routePost').removeClass('active');
+			$('#sitePost').addClass('active');
+			$('#site').empty();
+			$('#site').val(site.getAttribute("value"));
+			$.ajax(function(){
+				
+			});
+		}
 				
 	</script>
 
@@ -210,7 +220,7 @@ div.over {
 <%----------------------------------일정 짜기 부분 ----------------------------------------%>
 
 <div style="background-color: white; width: 450px;" id="schedulebox2">
-	<div id="accordion2" style="overflow: auto; width: 450px; height: 650px;">
+	<div id="accordion" style="overflow: auto; width: 450px; height: 650px;">
 		
 	</div>
 </div>
@@ -224,10 +234,10 @@ div.over {
 
 				<!-- Nav tabs -->
 				<ul class="nav nav-tabs" role="tablist">
-					<li role="presentation" class="active">
+					<li role="presentation" class="active" id="routePostNav">
 						<a href="#routePost" aria-controls="route" role="tab" data-toggle="tab">루트 후기 작성</a>
 					</li>
-					<li role="presentation">
+					<li role="presentation" id="sitePostNav">
 						<a href="#sitePost" aria-controls="site" role="tab" data-toggle="tab">여행지 후기 작성</a>
 					</li>
 				</ul>
@@ -251,98 +261,67 @@ div.over {
 
 
 					<div role="tabpanel" class="tab-pane" id="sitePost">
+						<form action="" method="POST">
 						<div class="table-responsive">
 							<section role="main" class="l-main">
 								<div class="uploader__box js-uploader__box l-center-box">
-									<form action="your/nonjs/fallback/" method="POST">
+									
 										<div class="uploader__contents">
 											<label class="button button--secondary" for="fileinput">ImageFiles</label> 
 											<input id="fileinput" class="uploader__file-input" type="file" multiple value="Select Files">
 										</div>
 										<input class="button button--big-bottom" type="submit" value="Upload Selected Files">
-							  	  </form>
+							  	  	
 							    </div>
 							</section>
 		
-		
-		
-							<!--
-							 이새끼 충돌
-							 <script src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
-							 -->
 							 
 							<script src="${pageContext.request.contextPath}/dist/jquery.imageuploader.js"></script>
-							<script>
-								(function() {
-									var options = {};
-									$('.js-uploader__box').uploader(options);
-								}());
-							</script>
-							<script>
-								var _gaq = _gaq || [];
-								_gaq.push([ '_setAccount', 'UA-36251023-1' ]);
-								_gaq.push([ '_setDomainName',
-										'jqueryscript.net' ]);
-								_gaq.push([ '_trackPageview' ]);
-
-								(function() {
-									var ga = document.createElement('script');
-								
-									ga.async = true;
-									ga.src = ('https:' == document.location.protocol ? 'https://ssl'
-											: 'http://www')
-											+ '.google-analytics.com/ga.js';
-									var s = document.getElementsByTagName('script')[0];
-									s.parentNode.insertBefore(ga, s);
-								})();
-							</script>
-
-
-							<br> 
-							<input type="text" class="form-control" value=""><br>
+							
+							<input type="text" class="form-control" id="site" value="" readonly><br>
 							<textarea name="" class="form-control" id="" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
 							<br>
 							<div align="center">
 								<div class="checkbox">
 									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="aaa" type="checkbox" value="1" onclick="doOpenCheck(this);"> 
-										<span class="checkbox-placeholder"></span> 맑음
+										<input name="inoutside" type="checkbox" value="실내" onclick="doOpenCheck(this);"> 
+										<span class="checkbox-placeholder"></span> 실내활동
 									</label>&nbsp;&nbsp;&nbsp; 
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="aaa" type="checkbox" value="2" onclick="doOpenCheck(this);"> 
-										<span class="checkbox-placeholder"></span> 흐림
+										<input name="inoutside" type="checkbox" value="야외" onclick="doOpenCheck(this);"> 
+										<span class="checkbox-placeholder"></span> 야외활동
 									</label>&nbsp;&nbsp;&nbsp;
 								</div>
 								<br>
-								<div class="checkbox">
+								<div class="checkbox" name="cost">
 									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/002-money.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="bbb" type="checkbox" value="1" onclick="doOpenCheck2(this);"> 
+										<input name="cost" type="checkbox" value="부족" onclick="doOpenCheck2(this);"> 
 											<span class="checkbox-placeholder"></span> 부족
 									</label>&nbsp;&nbsp;&nbsp; 
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="bbb" type="checkbox" value="2" onclick="doOpenCheck2(this);"> 
+										<input name="cost" type="checkbox" value="적당" onclick="doOpenCheck2(this);"> 
 										<span class="checkbox-placeholder"></span> 적당
 									</label>&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg">
-										<input name="bbb" type="checkbox" value="3" onclick="doOpenCheck2(this);"> 
+										<input name="cost" type="checkbox" value="풍족" onclick="doOpenCheck2(this);"> 
 										<span class="checkbox-placeholder"></span> 풍족
 									</label>
 								</div>
 								<br>
-								<div class="checkbox">
+								<div class="checkbox" >
 									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/001-hospital.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg"> 
-									<input name="ccc" type="checkbox" value="1" onclick="doOpenCheck3(this);"> 
+									<input name="health" type="checkbox" value="양호" onclick="doOpenCheck3(this);"> 
 										<span class="checkbox-placeholder"></span> 양호
 									</label>&nbsp;&nbsp;&nbsp; 
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="ccc" type="checkbox" value="2" onclick="doOpenCheck3(this);"> 
+										<input name="health" type="checkbox" value="쏘쏘" onclick="doOpenCheck3(this);"> 
 										<span class="checkbox-placeholder"></span> 쏘쏘
 									</label>&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg">
-										<input name="ccc" type="checkbox" value="3" onclick="doOpenCheck3(this);"> 
+										<input name="health" type="checkbox" value="악화" onclick="doOpenCheck3(this);"> 
 										<span class="checkbox-placeholder"></span> 악화
 									</label>
 								</div>
@@ -351,8 +330,9 @@ div.over {
 							<div align="center">
 								<input type="submit" value="작성 완료" class="btn btn-primary btn-block">
 							</div>
-
+							
 						</div>
+						</form>
 					</div>
 				</div>
 			</div>

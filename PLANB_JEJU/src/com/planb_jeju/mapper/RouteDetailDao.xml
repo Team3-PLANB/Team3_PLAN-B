@@ -52,6 +52,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    	route_detail.route_date asc, route_detail.route_order asc;
 	     
 	</select>
+	
 	<select id = "getMyHistory" resultType = "com.planb_jeju.dto.RouteDetail">
 		SELECT r.routename, rd.route_date, rd.site
 		FROM
@@ -63,6 +64,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		AND
 			r.username = rd.username
 		WHERE
-			r.route_code = {#route_code} AND r.username = ${username}
+			r.route_code = #{route_code} AND r.username = #{username}
 	</select>
+	
+	<!-- 여행지 정보 가져오기 -->
+	<select id="getRouteDetail" resultType="com.planb_jeju.dto.RouteDetail">
+		SELECT *
+		FROM route_detail
+		WHERE route_code = #{route_code} AND username = #{username} AND site = #{site}
+	</select>
+	
 </mapper>

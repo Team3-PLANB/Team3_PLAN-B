@@ -52,6 +52,7 @@ import com.planb_jeju.service.RouteDetailService;
 import com.planb_jeju.service.RoutePostscriptService;
 import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.SitePostscriptService;
+import com.planb_jeju.utils.PersonalParse;
 
 
 @Controller
@@ -186,6 +187,10 @@ public class PostScriptController {
 		}
 		Route route = routeservice.getRouteInfo(route_code, principal.getName());
 		List<RouteDetail> routeDetailList = routeDetailservice.getRouteDetailListForPost(route_code, username);
+		
+		for(RouteDetail routeDetail : routeDetailList){
+			routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
+		}
 		
 		System.out.println("route : " + route);
 		System.out.println("routeDetailList : " + routeDetailList);
