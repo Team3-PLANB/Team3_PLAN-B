@@ -41,18 +41,15 @@
 						<!-- 로그아웃 -->
 						<security:authentication property="name" var="loginUser"/>
 						<security:authorize access="isAuthenticated()">
-							<li><a href="${pageContext.request.contextPath}/logout">${loginUser }로그아웃</a></li>
+							<li><a href="${pageContext.request.contextPath}/logout">${loginUser}로그아웃</a></li>
 							<li id="messageBoxIcon">
 								<a href="#">
 									<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
-									<span class="badge" id="messageBadge" style="background-color: red; padding: 3px; position: absolute; right: 2px; top: 4px;">0</span>
+									<span class="badge" id="messageBadge" style="background-color: red; padding: 3px; position: absolute; right: 2px; top: 4px; display: none;">0</span>
 								</a>
 							</li>
 							<li>
-								<div class="form-group form-group-sm form-inline col-lg-2" style="margin-top: 8px;">
-									<input id="chatInput" type="text" class="form-control">
-									<button type="button" class="btn btn-warning" id="chatButton" onclick="sendMessage()">전송</button>
-								</div>
+								<a class="btn btn-link-1 launch-modal" href="#" data-modal-id="modal-message-register">쪽지 보내기</a>
 							</li>
 						</security:authorize>
 				   </ul>
@@ -63,7 +60,44 @@
 	</nav>
 </header>
 
+<!-- Message Modal -->
+<div class="modal fade" id="modal-message-register" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h3 class="modal-title" id="modal-register-label">쪽지 보내기</h3>
+			</div>
+
+			<div class="modal-body">
+
+				<form role="form" action="" method="post" class="registration-form">
+					<div class="form-group">
+						<label class="sr-only" for="form-first-name">받는 사람</label> <input
+							type="text" name="form-first-name"
+							placeholder="wjddus5336@naver.com"
+							class="form-first-name form-control" id="form-first-name">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="form-about-yourself">내용</label>
+						<textarea name="form-about-yourself" placeholder="내용을 입력해주세요."
+								  class="form-about-yourself form-control"
+								  id="form-about-yourself"></textarea>
+					</div>
+					<button type="button" class="btn btn-primary" id="send-message-button">보내기</button>
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
 <!--메세지를 위한 웹소켓 구현-->
+<script src="${pageContext.request.contextPath}/message/js/scripts.js"></script>
 <script src="${pageContext.request.contextPath}/js/sockjs.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/stomp.min.js"></script>
 <script>
@@ -73,11 +107,11 @@
 
 	let WebSocket = (() => {
 		const SERVER_SOCKET_API = "${pageContext.request.contextPath}/websocket";
+
 		let stompClient;
-		let inputElm = document.getElementById("chatInput");
 
 		// send button onclick event
-		$('#chatButton').click(() => sendMessage());
+		$('#send-message-button').click(() => sendMessage());
 
 		function connect() {
 			let socket = new SockJS(SERVER_SOCKET_API);
@@ -93,15 +127,21 @@
 		function printMessage(message) {
 			//textArea.value += message + "\n - ";
 			let obj = JSON.parse(message);
-			$('#messageBadge').text(obj.unread_count);
-			alert("메세지가 도착했습니다. \n 내용 : "+message);
+
+			// 받는 회원만 진행
+			if (obj.receiver == '${loginUser}') {
+				$('#messageBadge').text(obj.unread_count).fadeIn(1000);
+				alert("메세지가 도착했습니다. \n 내용 : "+message);
+			}
+
+			$('#modal-message-register').modal('hide');
 		}
 
 		function sendMessage(text) {
 
-			let comment = $('#chatInput').val();
+			let comment = $('textarea[name=form-about-yourself]').val();
 			let sender = '${loginUser }';
-			let receiver = 'b@naver.com';
+			let receiver = $('input[name=form-first-name]').val();
 
 			if (sender == '') {
 				alert('로그인 후 사용하세요.');
@@ -121,7 +161,6 @@
 
 			stompClient.send("/stomp/sendToUser", {}, JSON.stringify(message));
 
-			inputElm.value = "";
 		}
 
 		function init() {
@@ -130,8 +169,13 @@
 			connect();
 
 			// 안읽은 쪽지를 조회하여 뱃지 API
-			$.get('${pageContext.request.contextPath}/message/unread/count', (body) => $('#messageBadge').text(body));
 			// 참고 (body) => $('#messageBadge').text(body) == function(body) {$('#messageBadge').text(body)}
+			$.get('${pageContext.request.contextPath}/message/unread/count', (body) => {
+				if (Number(body) > 0) {
+					$('#messageBadge').text(body).fadeIn(1000);
+				}
+			});
+
 		}
 
 		return {

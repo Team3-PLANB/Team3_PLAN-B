@@ -1,7 +1,9 @@
 package com.planb_jeju.service;
 
+import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dao.MessageDao;
 import com.planb_jeju.dao.SocketDao;
+import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Message;
 import com.planb_jeju.dto.SessionUser;
 import com.planb_jeju.utils.DateUtil;
@@ -52,13 +54,17 @@ public class SocketService {
         if (message.getReceiver() == null) throw new RuntimeException("받는 회원을 입력하세요.");
         if (message.getComment() == null) throw new RuntimeException("내용을 입력하세요.");
 
+        // 받는 회원 확인
+        logger.info("> 받는 회원 정보를 확인합니다...");
+        SocketDao socketDao = sqlSession.getMapper(SocketDao.class);
+        if (!socketDao.isMember(message.getReceiver())) throw new RuntimeException("회원이 아닙니다.");
+
         // 쪽지 입력
         logger.info("> 보낼 메세지 데이터를 저장합니다...");
         MessageDao messageDao = sqlSession.getMapper(MessageDao.class);
         messageDao.insert(message);
 
         logger.info("> 일주일 동안 안읽은 메세지수를 조회합니다...");
-        SocketDao socketDao = sqlSession.getMapper(SocketDao.class);
         int unreadCount = socketDao.selectMessageUnreadCount(message.getReceiver());
 
         logger.info("> 일주일 동안 안읽은 메세지수 = "+unreadCount);
