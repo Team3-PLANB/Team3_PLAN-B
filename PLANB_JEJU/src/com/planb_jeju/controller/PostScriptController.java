@@ -340,11 +340,14 @@ public class PostScriptController {
 		System.out.println("히스토리 상세보기");
 		System.out.println("로그인된 아이디 : " + principal.getName());
 
-	//	int route_code = Integer.parseInt(request.getParameter("route_code"));
 		List<RouteHistory> myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
+		Route routename = routeservice.getRouteInfo(route_code, principal.getName());
 		
 		System.out.println(myroutehistory);
+		System.out.println(routename.getRoutename());
+
 		model.addAttribute("myroutehistory", myroutehistory);
+		model.addAttribute("routename", routename);
 		return "MyPage.History.myHistory";	
 	}
 

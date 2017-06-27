@@ -20,7 +20,7 @@ public class HistoryService {
 		RouteHistoryDao routeHistoryDao = sqlsession.getMapper(RouteHistoryDao.class);
 		System.out.println("routecode>>" + route_code +" / username>>"+ username);
 		List<RouteHistory> history = routeHistoryDao.getMyHistory(route_code, username);
-		System.out.println(">>>>>>"+history);
+		System.out.println(">>>>>>"+history.toString());
 		return history;
 		
 	}
