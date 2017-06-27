@@ -22,7 +22,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 					AND rh.route_code = sp.route_code
 					AND rh.route_date = sp.route_date
 					AND rh.update_rownum = sp.update_rownum
-				WHERE rh.username = 'a@naver.com' AND rh.route_code = 1
+				WHERE rh.username = #{username} AND rh.route_code = #{route_code}
 			) rh
 		ON r.username = rh.username
 			AND r.route_code = rh.route_code;
