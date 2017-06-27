@@ -31,6 +31,7 @@ public class PersonalParse {
 
 	public static String code2string(String personal_code) {
 		String personal = null;
+		personal_code = personal_code.substring(0, 5);
 		switch(personal_code){
 			case "A0101" : personal = "자연"; break;
 			case "A0201" : personal = "역사관광"; break;
