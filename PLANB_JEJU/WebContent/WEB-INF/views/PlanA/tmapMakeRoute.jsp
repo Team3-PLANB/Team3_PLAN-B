@@ -165,10 +165,11 @@ $( function() {
 		console.log("클릭클릭클릭클릭클릭클릭");
 		//
 		/* $( "div[style='aira-hidden:false']" ).append('제발제발제방'); */
-		//$( "div:visible div.sortable" ).append('제발제발제방');
+		$( "div:visible div.sortable" ).append('제발제발제방');
 		//input:not(:checked)
 		//$( "div:not(:hidden) div.sortable" ).append('제발제발제방');
-		$( "div[style='display:block'] div.sortable" ).append('제발제발제방');
+		
+	/* 	$( "div[style='display:block'] div.sortable" ).append('제발제발제방'); */
 		//$('#ui-id-2').append('제발제발제방');
 	    getDataFromId(this.idString);
 	}
