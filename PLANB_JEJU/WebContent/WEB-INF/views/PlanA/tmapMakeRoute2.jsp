@@ -452,9 +452,14 @@ $( function() {
     			};	
     			
     		</c:forEach>
+    		//
+    		$('#accordion2').accordion('refresh');
+    		
     		
     		// 일정 Drag 박스 스타일 적용 함수 호출
     		scheduleBoxStyle();
+    		
+    		
         };
         
         // 일정 Drag 박스 스타일 적용 함수
