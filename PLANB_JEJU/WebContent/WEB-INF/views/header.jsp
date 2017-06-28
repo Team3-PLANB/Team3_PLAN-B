@@ -170,7 +170,7 @@
 
 			// 안읽은 쪽지를 조회하여 뱃지 API
 			// 참고 (body) => $('#messageBadge').text(body) == function(body) {$('#messageBadge').text(body)}
-			$.get('${pageContext.request.contextPath}/message/unread/count', (body) => {
+		   	$.get('${pageContext.request.contextPath}/message/unread/count', (body) => {
 				if (Number(body) > 0) {
 					$('#messageBadge').text(body).fadeIn(1000);
 				}
