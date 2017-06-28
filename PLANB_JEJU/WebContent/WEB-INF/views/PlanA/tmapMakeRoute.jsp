@@ -50,7 +50,7 @@
 <!-- End : 일정부분 적용 링크 -->
 
 <%----------------------------------지도 부분 스크립트----------------------------------------%>
-
+  
 <script type="text/javascript">
 $( function() {
 	var lonlat; 
@@ -157,6 +157,82 @@ $( function() {
 		/* 마커 선택시 해당 div 찾기 필요
 		$(markerLabel).parent().parent().attr('aria-hidden','false');
 		$(markerLabel).parent().parent().attr('display','block'); */
+		
+		var markerLabelVal = this.labelHtml;
+		var markerLon =  this.lonlat.lon;
+		var markerLat = this.lonlat.lat;
+		console.log(markerLabelVal);
+		console.log(markerLon);
+		console.log(markerLat);
+		//검색 값 넣기
+		$(".ui-accordion-content").each(function(){  //ui-accordion-content 이걸 가지고 있느놈을 포문을 돌리고
+		
+			var id_hidden =$(this).attr("aria-hidden"); // this() .attr(속성)을  
+			if(id_hidden == "false"){ //열려있는 div 이면
+				var id = $(this).attr("id");
+				
+				
+				var sitedataVal;
+				var contentNum=1;
+				$(this).find('.sch_content').each(function(i, el) { // date값, routecode, username, order가져오기 위해서 
+					sitedataVal =  $(el).data('sitedata');
+					contentNum++;
+			      });
+				
+			      console.log(sitedataVal);
+			      
+			      sitedataVal.category='';
+			      sitedataVal.etime='';
+			      sitedataVal.stime='';
+			      sitedataVal.route_order=contentNum;
+				  sitedataVal.site=markerLabelVal;
+				  sitedataVal.lon=markerLon;
+				  sitedataVal.lat=markerLat; 
+			      
+				  console.log(sitedataVal);
+				var $sch_content = $( "<div class='sch_content' id='"+markerLabelVal+"' style='width: 250px;' onclick='sch_contentClick(this)'></div>" );
+				var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+				var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
+				var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+contentNum+"</div>");
+				var $spot_info = $("<div class='spot_info'></div>");
+				var $tag = $("<div class='tag'>"+markerLabelVal+"</div>");
+				var $sinfo_line = $("<div class='sinfo_line'></div>");
+				var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
+				<%-- var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>"); --%>
+				var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
+				
+				
+				
+				
+				// div에 data값 처리
+				$sch_content.data('sitedata', sitedataVal);
+				
+
+				
+				/*  $sinfo_txt_img.appendTo($sinfo_txt); */
+				 
+				 
+				 $tag.appendTo($spot_info);
+				 $sinfo_line.appendTo($spot_info);
+				 $sinfo_txt.appendTo($spot_info);
+				 $delete_tag.appendTo($spot_info);
+				 
+				 $spot_name.appendTo($spot_content_box);
+				 $spot_info.appendTo($spot_content_box);
+				 
+				 $content_img.appendTo($sch_content);
+				 $spot_content_box.appendTo($sch_content);
+			
+				
+				
+				$("#"+id+" .sortable").append($sch_content);
+				
+				// sortable 수동 함수 호출
+				/* $('.sortable').trigger('sortupdate'); */
+			}
+		});
+		
+		
 		console.log();
 	    getDataFromId(this.idString);
 	}
@@ -224,17 +300,25 @@ $( function() {
 	    marker.events.register("click", marker, onClickMouse);
 	}
 	
-	function addMarkers(options, layer){
- 		
-	    var size = new Tmap.Size(12,19);
+	function addSchContentMarkers(options){
+ 		console.log('day별 마커 뿌리기 시작');
+	    /* var size = new Tmap.Size(12,19); */
+	    var size = new Tmap.Size(20,30);
 	    var offset = new Tmap.Pixel(-(size.w/2), -size.h);
-	    var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png",size,offset);
+	    var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png",size,offset); 
+	    /* var icon = new Tmap.IconHtml("<img src= 'https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png'></img>", size, offset);  */
+
 	    var marker = new Tmap.Markers(options.lonlat,icon,options.label);
 	    sch_content_layer.addMarker(marker);
 	    /* marker.events.register("mouseover", marker, onOverMouse);
 	    marker.events.register("mouseout", marker, onOutMouse);
 	    marker.idString = options.id;
 	    marker.events.register("click", marker, onClickMouse); */
+	    
+	    console.log('day별 마커 뿌리기 끝');
+	    
+	    console.log(sch_content_layer.markers);
+	   // map.zoomToExtent(sch_content_layer.getDataExtent());
 	}
 	
 	//여행지 담을 날짜별 div태그 생성 함수
@@ -319,8 +403,11 @@ $( function() {
         	
        		// 여행 루트 마커 레이어
             markerLayer = new Tmap.Layer.Markers('markerLayer');
+       		
+       		// 여행 루트 중 Day별 줌 레이어
+       		sch_content_layer = new Tmap.Layer.Markers('day markerLayer');
         	
-    		map.addLayers([vector_layer, markerLayer,poi_markerLayer]); 
+    		map.addLayers([vector_layer, markerLayer,poi_markerLayer,sch_content_layer]); 
             
     	
             /* searchRoute(); */
@@ -448,7 +535,7 @@ $( function() {
 	    		         	 // routeDetailList에 date 정보만 변경
 	    		      	   
 	    		      	    routeDetailList[${num.index}].route_date=dayList[dayOrder];
-	    		      	    console.log(routeDetailList[${num.index}].route_date);
+	    		      	    
 	    					
 	    		      	    
 	    		      	    
@@ -734,19 +821,24 @@ $( function() {
 			  		return $(el).data('sitedata')
 			  }).get()
 			      
-			  sch_content_layer = new Tmap.Layer.Markers();
-		      map.addLayer(sch_content_layer);
+			  /* sch_content_layer = new Tmap.Layer.Markers();
+		      map.addLayer(sch_content_layer); */
 			      
 			  $.each(schList, function( index, value ) {
 				  //map.zoomToExtent(poi_markerLayer.getDataExtent());
+				  
+				  console.log('each함수 시작');
+				  console.log(index);
+				  console.log(value.site);
 				  var options = {
 				                label:new Tmap.Label(value.site),
 				                lonlat:new Tmap.LonLat(value.lon, value.lat)
 				            };
-				  addMarkers(options, sch_content_layer);
+				  addSchContentMarkers(options);
+				  console.log('each함수 끝');
 			  });
 			  
-			  map.zoomToExtent(sch_content_layer.getDataExtent());
+		      map.zoomToExtent(sch_content_layer.getDataExtent());
 			  
 			  
          }
@@ -950,6 +1042,9 @@ $( function() {
 			 
 			 
 			vector_layer.addFeatures([mLineFeature]);
+			
+			//
+			map.zoomToExtent(vector_layer.getDataExtent());
         }
         
         
