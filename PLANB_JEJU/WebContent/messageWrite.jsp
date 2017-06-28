@@ -33,17 +33,18 @@
 </head>
 
 
-
 <body>
 	<a class="btn btn-link-1 launch-modal" href="#"
-		data-modal-id="modal-register">쪽지 보내기</a>
+		data-modal-id="modal-register" data-target="#backdrop" 
+		data-toggle="modal" data-backdrop="static" data-keyboard="false"style = "background:#00ff0000">쪽지 보내기</a>
 			
 	<!-- MODAL -->
-	<div class="modal fade" id="modal-register" tabindex="-1" role="dialog"
-		aria-labelledby="modal-register-label" aria-hidden="true">
+	<div class="modal fade" id="backdrop" tabindex="1" role="dialog"
+		aria-labelledby="modal-register-label" aria-hidden="true" style = "background:#00ff0000">
+		
 		<div class="modal-dialog" style=float:right>
-			<div class="modal-content">
-
+			
+			<div class="modal-content" >
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal">
 						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
@@ -75,10 +76,7 @@
 		</div>
 	</div>
 	
-	<script type="text/javascript">
 	
-	$('#modal-register').modal({backdrop: 'static', keyboard: false}) ;
-	</script>
 	
 	
 	<!-- Javascript -->

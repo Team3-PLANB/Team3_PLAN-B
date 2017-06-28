@@ -7,6 +7,8 @@
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/WEB-INF/views/Mypage/msg.css">
 
@@ -90,6 +92,7 @@
 						<table id="mytable" class="table table-bordred table-striped">
 							<thead>
 								<th><input type="checkbox" id="checkall1" /></th>
+								<th>New</th>
 								<th>닉네임</th>
 								<th>이메일</th>
 								<th>제목</th>
@@ -97,12 +100,15 @@
 								<th>Delete</th>
 							</thead>
 							<tbody>
+								<c:forEach var="msg" items="${messageList}">
 								<tr>
 									<td><input type="checkbox" class="checkthis" /></td>
-									<td>뚱녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
+									<td><c:if test="${msg.read_status eq 0}"> N </c:if></td>
+									
+									<td>${msg.sender}</td>
+									<td>${msg.sender}</td>
+									<td>${msg.comment}</td>
+									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${msg.sendtime}"/></td>
 
 									<td align="center"><p data-placement="top"
 											data-toggle="tooltip" title="Delete">
@@ -112,81 +118,7 @@
 											</button>
 										</p></td>
 								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
+								</c:forEach>
 
 							</tbody>
 
