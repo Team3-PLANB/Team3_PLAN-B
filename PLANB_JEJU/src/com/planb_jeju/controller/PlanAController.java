@@ -87,7 +87,7 @@ public class PlanAController {
 
 	@RequestMapping("PLANA.make.tmap.do")
 	public String markerAtoB() {
-		return "PlanA.tmap_make_route2";
+		return "PlanA.tmap_make_route";
 	}
 
 	/*
@@ -208,7 +208,7 @@ public class PlanAController {
 		request.setAttribute("myRouteInfo", route);
 		request.setAttribute("datesList", datesList);
 		
-		return "PlanA.tmapMakeRoute2";
+		return "PlanA.tmapMakeRoute";
 
 	}
 
@@ -244,7 +244,7 @@ public class PlanAController {
 		}
 		
 		// 일단  마이 페이지 일정 확인 페이지로 이동 /비동기라면 처리 바꿔야..
-		return "PlanA.tmapMakeRoute2";
+		return "PlanA.tmapMakeRoute";
 
 	}
 	
