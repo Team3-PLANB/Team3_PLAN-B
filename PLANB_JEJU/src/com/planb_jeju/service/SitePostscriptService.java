@@ -80,7 +80,7 @@ public class SitePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public void deleteLike(SitePostscriptLike sitePostscriptLike, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	public void deleteLike(SitePostscriptLike sitePostscriptLike) throws ClassNotFoundException, SQLException{
 		System.out.println("여행지 후기 찜콩 해제");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		int check = sitePostscriptDao.deleteLike(sitePostscriptLike);
@@ -174,7 +174,7 @@ public class SitePostscriptService {
 			System.out.println("여행지 후기 작성 완료");
 			
 			// 방금 작성한 여행지 후기 가져오기
-			sitePostscript2 = sitePostscriptDao.getLastRoutePost();
+			/*sitePostscript2 = sitePostscriptDao.getLastRoutePost();*/
 			System.out.println("방금 쓴 후기 : " + sitePostscript2);
 		}else{
 			System.out.println("여행지 후기 작성 오류남");
