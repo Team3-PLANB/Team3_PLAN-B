@@ -745,8 +745,8 @@ $( function() {
 				        return $(el).data('sitedata')
 			      }).get()
 			      
-			      /* input태그에 들어가는 Site정보 확인용 
-			      console.log(JSON.stringify(customizedRouteList)); */
+			      //input태그에 들어가는 Site정보 확인용 
+			      console.log(JSON.stringify(customizedRouteList)); 
 				  
 				  // 현재 저장되어 있는 data empty
 				  $('#route_list_form_innerdiv').empty();
@@ -754,7 +754,7 @@ $( function() {
 				  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
 				  $.each(customizedRouteList, function( index, value ) {
 					
-					    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+value.route_order+">");
+					    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+(value.route_order+1)+">");
 						var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
 						var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
 						var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");

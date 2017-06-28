@@ -133,7 +133,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT *
 		FROM route_postscript  rp
 		JOIN route r
-		ON rp.route_code = r.route_code
+		ON rp.route_code = r.route_code AND r.username = rp.username
 		WHERE route_postscript_rownum = (SELECT MAX(route_postscript_rownum) from route_postscript)
 	</select>
 	
