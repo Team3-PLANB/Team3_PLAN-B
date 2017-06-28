@@ -238,7 +238,7 @@ public class PostScriptController {
 		sitePostscript.setUsername(principal.getName());
 		
 		
-		// 사이트 후기 등록
+		/*// 사이트 후기 등록
 		sitePostscriptservice.
 		
 		// 태그 등록
@@ -247,11 +247,11 @@ public class PostScriptController {
 		// 사진 등록
 		sitePostscriptservice.
 		
-		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
-		
+		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);*/
+		/*
 		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
 		
-		model.addAttribute("routePostscript", myRoutePostscript);
+		model.addAttribute("routePostscript", myRoutePostscript);*/
 		
 		return "PostScript.Site.detail";
 	}
@@ -287,8 +287,8 @@ public class PostScriptController {
 		System.out.println("로그인된 아이디 : " + principal.getName());
 		
 		
-		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName(), sqlsession);
-		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript, sqlsession);
+		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName());
+		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
 		
 		System.out.println("sitePostscript : " + sitePostscript);
 		model.addAttribute("sitePostscript", sitePostscript);
