@@ -151,18 +151,18 @@
 												
 											</div>
 										</div>
-										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
+										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;">
 											<div class="input-field" >
 												<label for="password">소셜 계정으로 회원가입</label> 
 												<a onclick="login()">
-													<img src="<%=request.getContextPath() %>/images/logo/001-facebook-2.png">
+													<img src="<%=request.getContextPath() %>/images/logo/facebook-login-blue.png">
 												</a>
-												<a href="">
+												<%-- <a href="">
 													<img src="<%=request.getContextPath() %>/images/logo/005-google-plus.png">
 												</a>
 												<a href="">
 													<img src="<%=request.getContextPath() %>/images/logo/naver.png">
-												</a>
+												</a> --%>
 											</div>
 										</div>
 										<div class="col-xs-12">
@@ -183,18 +183,18 @@
 								<div role="tabpanel" class="tab-pane active" id="social_log">
 									<div class="row" >
 										
-										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;margin-left:28%;">
+										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;">
 											<div class="input-field" >
 												<label for="password">소셜 계정으로 로그인</label> 
 												<a onclick="login()">
-													<img src="<%=request.getContextPath() %>/images/logo/001-facebook-2.png">
+													<img src="<%=request.getContextPath() %>/images/logo/facebook-login-blue.png">
 												</a>
-												<a href="">
+												<%-- <a href="">
 													<img src="<%=request.getContextPath() %>/images/logo/005-google-plus.png">
 												</a>
 												<a href="<%=apiURL%>">
 													<img src="<%=request.getContextPath() %>/images/logo/naver.png">
-												</a>
+												</a> --%>
 											</div>
 										</div>
 									</div>

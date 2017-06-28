@@ -63,63 +63,66 @@
 		var $timeline_body;
 		
 		<c:forEach var="myroute" items="${myroutehistory}">
-		console.log(${myroute.route_order});
+		//console.log('${myroute.route_order}');
 		if(routeOrder != ${myroute.route_order}) {
 				dayOrder++;
+				console.log("1 > " + dayOrder);
 				$timeline = $("<ul class='timeline'><ul>");
 				$ltimeline_heading = $("<li class='timeline-heading text-center animate-box fadeInUp animated-fast'></li>");
 				$h3 = $("<div><h3>" + dayOrder + " Day</h3></div>");
+				console.log("2 > " + dayOrder);
+				// 홀수:unverted 짝수:inverted
+				if (dayOrder = 0 || dayOrder%2 == 0) {
+					$timeline_unverted = $("<li class='timeline-inverted animate-box fadeInUp animated-fast' id = 'unverted'></li>");
+				} else {
+					$timeline_unverted = $("<li class='animate-box timeline-unverted fadeInUp animated-fast' id = 'unverted'></li>");
+				}
+				console.log("3 > " + dayOrder);
+				$timeline_badge = $("<div class='timeline-badge'><i class='icon-map-pin'></i></div>");
+				$timeline_badgech = $("<div class='timeline-badge-ch'><i class='icon-map-pin'></i></div>");
+				$timeline_panel = $("<div class='timeline-panel'></div>");
+				$dtimeline_heading = $("<div class='timeline-heading'></div>");
+				$timeline_title = $("<h3 class='timeline-title'>${myroute.site}</h3>");
+				console.log("4" + dayOrder);
+				$timeline_company = $("<span class='company'>${myroute.route_date}</span>");
 				
-				$h3.appendTo($ltimeline_heading);
+				if('${myroute.comment}' !== '0') {
+					$timeline_body = $("<div class='timeline-body'><p>${myroute.comment}</p></div>");			
+				// 후기없으면 <div></div>
+				} else {
+					$timeline_body = $("<div class='timeline-body'></div>");
+				}
+				console.log("5" + dayOrder);
+				
+				/* #start > timeline + heading */				
 				$timeline.append($ltimeline_heading);
 				$('#start').append($timeline);
+				console.log("start append > " + dayOrder);				
 				routeOrder=1;
 				console.log(routeOrder);
-			}
+		}
 			
 		/* 각 Day 별 Site와 Comment 순서대로 append */
-		// 홀수:unverted 짝수:inverted
-		if (routeOrder = 0 || routeOrder%2 == 0) {
-			$timeline_unverted = $("<li class='timeline-inverted animate-box fadeInUp animated-fast'></li>");				
-		} else {
-			$timeline_unverted = $("<li class='animate-box timeline-unverted fadeInUp animated-fast'></li>");
-		}
-		$timeline_badge = $("<div class='timeline-badge'><i class='icon-map-pin'></i></div>");					
-		$timeline_badgech = $("<div class='timeline-badge-ch'><i class='icon-map-pin'></i></div>");
+		/* panel + heading&body */
+		$dtimeline_heading.append($timeline_title).append($timeline_company);
+		console.log("6 > " + dayOrder);
+		$timeline_panel.append($dtimeline_heading).append($timeline_body);
+		console.log("7 > " + dayOrder);
+		/* unverted + badge&panel */				
+		$timeline_unverted.append($timeline_badge).append($timeline_panel);
+		console.log("8 > " + dayOrder);
+		/* heading + h3&div */
+		$h3.appendTo($ltimeline_heading);
+		console.log("9 > " + dayOrder);
 		
-		$timeline_panel = $("<div class='timeline-panel'></div>");
-		$dtimeline_heading = $("<div class='timeline-heading'></div>");
-		$timeline_title = $("<h3 class='timeline-title'></h3>");
-		$timeline_company = $("<span class='company'>" + ${myroute.route_date} + "</span>");
-
-		// 후기있으면 <div><p></p></div>
-		if('${myroute.comment}' !== 0) {
-			$timeline_body = $("<div class='timeline-body'><p>" + ${route.comment} + "</p></div>");			
-		// 후기없으면 <div></div>
-		} else {
-			$timeline_body = $("<div class='timeline-body'></div>");
+		unverted = "#unverted";
+		console.log(unverted);
+		$(unverted).append($timeline_unverted);
+/*		if('${myroute.update_rownum}' == 0) {	
 		}
-
-		// 수정된 것이 없으면 원래대로 append
-		if(${myroute.update_rownum} == 0) {
-			$timeline_body.appendTo($timeline_company);
-			$timeline_company.appendTo($timeline_title);
-			$dtimeline_heading.append($timeline_title);
-			$timeline_panel.append($dtimeline_heading);
-			
-			$timeline_panel.appendTo($timeline_badgech);
-			$timeline_unverted.append($timeline_badgech);			
-		// 수정된 것이 있으면 accordion append추가하기
-		} else if(${myroute.update_rownum} == 1) {
-			$timeline_body.appendTo($timeline_company);
-			$timeline_company.appendTo($timeline_title);
-			$dtimeline_heading.append($timeline_title);
-			$timeline_panel.append($dtimeline_heading);
-			
-			$timeline_panel.appendTo($timeline_badgech);
-			$timeline_unverted.append($timeline_badgech);			
-		}
-		
+		$h3.appendTo($ltimeline_heading);
+		$timeline.append($ltimeline_heading).append($timeline_unverted);
+		$('#start').append($timeline);*/
 		</c:forEach>
 	});
 </script>
@@ -147,12 +150,12 @@
 										<h3></h3>
 									</div>
 								</li>
-									<li class="animate-box timeline-unverted">
-										<div class="timeline-badge">
-											<i class="icon-map-pin"></i>
-										</div>
-										<div class="timeline-panel">
-<!-- 											<div class="timeline-heading">
+								<li class="animate-box timeline-unverted">
+									<div class="timeline-badge">
+										<i class="icon-map-pin"></i>
+									</div>
+									<div class="timeline-panel">
+<!-- 										<div class="timeline-heading">
 												<h3 class="timeline-title">한라산</h3>
 												<span class="company">2017.06.22</span>
 											</div> -->
@@ -161,8 +164,8 @@
 												<p>제주도 한라산 일원의 천연보호구역. 천연기념물 제182호. 제주도의 중앙에 있는 산. 높이
 													1,950m.</p>
 											</div>
-										</div>
-									</li>
+									</div>
+								</li>
 								<li class="timeline-inverted animate-box">
 	
 									<div class="timeline-badge-ch">
