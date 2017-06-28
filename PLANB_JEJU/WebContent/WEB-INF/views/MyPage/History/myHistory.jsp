@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <jsp:include page="../myPageMain.jsp"></jsp:include> --%>
-
+<head>
 <!-- Animate.css -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/MyPage/history/animate.css">
 <!-- Icomoon Icon Fonts-->
@@ -18,9 +18,118 @@
 <!-- Modernizr JS -->
 <script src="${pageContext.request.contextPath}/js/mypage/history/modernizr-2.6.2.min.js"></script>
 
+  	<!-- jQuery -->
+<%-- 	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.min.js"></script> --%>
+<%--  	<!-- jQuery Easing -->
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.easing.1.3.js"></script> --%>
+ 	<!-- Bootstrap -->
+	<script src="${pageContext.request.contextPath}/js/mypage/history/bootstrap.min.js"></script>
+ 	<!-- Waypoints -->
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.waypoints.min.js"></script>
+	<!-- Stellar Parallax -->
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.stellar.min.js"></script>
+	<!-- Magnific Popup -->
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/magnific-popup-options.js"></script>
+<%-- 	<!-- Easy PieChart -->
+	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.easypiechart.min.js"></script>
+ --%><%-- 	<!-- Google Map -->
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
+	<script src="${pageContext.request.contextPath}/js/mypage/history/google_map.js"></script>
+ --%>
+	<!-- Main -->
+	<script src="${pageContext.request.contextPath}/js/mypage/history/main.js"></script>
+
+<script>
+	$(document).ready(function(){
+		console.log('????');
+		var routeOrder = 0;
+		var dayOrder = 0
+		var $li;
+		var $div;
+		var $h3;
+		var scheduleday;
+		var $site_name; /* 여행지-site */
+		var $mycomment; /* 후기-comment */
+		var $timeline;
+		var $ltimeline_heading;
+		var $dtimeline_heading;
+		var $timeline_unverted;
+		var $timeline_badge;
+		var $timeline_badgech;
+		var $timeline_panel;
+		var $timeline_title;
+		var $timeline_company;
+		var $timeline_body;
+		
+		<c:forEach var="myroute" items="${myroutehistory}">
+		//console.log('${myroute.route_order}');
+		if(routeOrder != ${myroute.route_order}) {
+				dayOrder++;
+				console.log("1 > " + dayOrder);
+				$timeline = $("<ul class='timeline'><ul>");
+				$ltimeline_heading = $("<li class='timeline-heading text-center animate-box fadeInUp animated-fast'></li>");
+				$h3 = $("<div><h3>" + dayOrder + " Day</h3></div>");
+				console.log("2 > " + dayOrder);
+				// 홀수:unverted 짝수:inverted
+				if (dayOrder = 0 || dayOrder%2 == 0) {
+					$timeline_unverted = $("<li class='timeline-inverted animate-box fadeInUp animated-fast' id = 'unverted'></li>");
+				} else {
+					$timeline_unverted = $("<li class='animate-box timeline-unverted fadeInUp animated-fast' id = 'unverted'></li>");
+				}
+				console.log("3 > " + dayOrder);
+				$timeline_badge = $("<div class='timeline-badge'><i class='icon-map-pin'></i></div>");
+				$timeline_badgech = $("<div class='timeline-badge-ch'><i class='icon-map-pin'></i></div>");
+				$timeline_panel = $("<div class='timeline-panel'></div>");
+				$dtimeline_heading = $("<div class='timeline-heading'></div>");
+				$timeline_title = $("<h3 class='timeline-title'>${myroute.site}</h3>");
+				console.log("4" + dayOrder);
+				$timeline_company = $("<span class='company'>${myroute.route_date}</span>");
+				
+				if('${myroute.comment}' !== '0') {
+					$timeline_body = $("<div class='timeline-body'><p>${myroute.comment}</p></div>");			
+				// 후기없으면 <div></div>
+				} else {
+					$timeline_body = $("<div class='timeline-body'></div>");
+				}
+				console.log("5" + dayOrder);
+				
+				/* #start > timeline + heading */				
+				$timeline.append($ltimeline_heading);
+				$('#start').append($timeline);
+				console.log("start append > " + dayOrder);				
+				routeOrder=1;
+				console.log(routeOrder);
+		}
+			
+		/* 각 Day 별 Site와 Comment 순서대로 append */
+		/* panel + heading&body */
+		$dtimeline_heading.append($timeline_title).append($timeline_company);
+		console.log("6 > " + dayOrder);
+		$timeline_panel.append($dtimeline_heading).append($timeline_body);
+		console.log("7 > " + dayOrder);
+		/* unverted + badge&panel */				
+		$timeline_unverted.append($timeline_badge).append($timeline_panel);
+		console.log("8 > " + dayOrder);
+		/* heading + h3&div */
+		$h3.appendTo($ltimeline_heading);
+		console.log("9 > " + dayOrder);
+		
+		unverted = "#unverted";
+		console.log(unverted);
+		$(unverted).append($timeline_unverted);
+/*		if('${myroute.update_rownum}' == 0) {	
+		}
+		$h3.appendTo($ltimeline_heading);
+		$timeline.append($ltimeline_heading).append($timeline_unverted);
+		$('#start').append($timeline);*/
+		</c:forEach>
+	});
+</script>
 <!-- </head> -->
-<c:set var="routename" value="${routename }" />
+</head>
 <body>
+<c:set var="routename" value="${routename }" />
 	<div class="fh5co-loader"></div>
 	<div id="page">
 		<div id="fh5co-resume" class="fh5co-bg-color">
@@ -32,31 +141,31 @@
 						<h3>${routename.routename }</h3>
 					</div>
 				</div>
- 				<c:forEach var="myroute" items="${myroutehistory}">	
 					<div class="row">
-						<div class="col-md-12 col-md-offset-0">
-							<ul class="timeline">
+						<div class="col-md-12 col-md-offset-0" id = "start">
+ <%-- 							<ul class="timeline" id = "timeline">
+
 								<li class="timeline-heading text-center animate-box">
 									<div>
-										<h3>1 DAY</h3>
+										<h3></h3>
 									</div>
 								</li>
-									<li class="animate-box timeline-unverted">
-										<div class="timeline-badge">
-											<i class="icon-map-pin"></i>
-										</div>
-										<div class="timeline-panel">
-											<div class="timeline-heading">
+								<li class="animate-box timeline-unverted">
+									<div class="timeline-badge">
+										<i class="icon-map-pin"></i>
+									</div>
+									<div class="timeline-panel">
+<!-- 										<div class="timeline-heading">
 												<h3 class="timeline-title">한라산</h3>
 												<span class="company">2017.06.22</span>
-											</div>
+											</div> -->
 		
 											<div class="timeline-body">
 												<p>제주도 한라산 일원의 천연보호구역. 천연기념물 제182호. 제주도의 중앙에 있는 산. 높이
 													1,950m.</p>
 											</div>
-										</div>
-									</li>
+									</div>
+								</li>
 								<li class="timeline-inverted animate-box">
 	
 									<div class="timeline-badge-ch">
@@ -66,7 +175,7 @@
 									<div class="timeline-panel">
 	
 										<div class="timeline-heading">
-											<%----------------------------------플랜비 받은 부분 ----------------------------------------%>
+											--------------------------------플랜비 받은 부분 --------------------------------------
 											<h3 class="timeline-title">테디베어 뮤지엄</h3>
 											<span class="company">2017.06.22</span>
 											<div class="accordion">
@@ -193,34 +302,13 @@
 									</div>
 								</li>
 							</ul>
-						</div>
+ --%>						</div>
 					</div>
-				</c:forEach>
+
 			</div>
 		</div>
 	</div>
 	<div class="gototop js-top">
 		<a href="#" class="js-gotop"><i class="icon-arrow-up22"></i></a>
 	</div>
-
-	<!-- jQuery -->
-	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.min.js"></script>
-	<!-- jQuery Easing -->
-	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.easing.1.3.js"></script>
-	<!-- Bootstrap -->
-	<script src="${pageContext.request.contextPath}/js/mypage/history/bootstrap.min.js"></script>
-	<!-- Waypoints -->
-	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.waypoints.min.js"></script>
-	<!-- Stellar Parallax -->
-	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.stellar.min.js"></script>
-	<!-- Easy PieChart -->
-	<script src="${pageContext.request.contextPath}/js/mypage/history/jquery.easypiechart.min.js"></script>
-	<!-- Google Map -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-	<script src="${pageContext.request.contextPath}/js/mypage/history/google_map.js"></script>
-
-	<!-- Main -->
-	<script src="${pageContext.request.contextPath}/js/mypage/history/main.js"></script>
 </body>
-</html>
-
