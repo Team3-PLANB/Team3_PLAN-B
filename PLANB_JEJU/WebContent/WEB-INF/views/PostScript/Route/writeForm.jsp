@@ -11,6 +11,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+
 <!DOCTYPE html>
 
 <html>
@@ -205,8 +207,25 @@ div.over {
 			$('#sitePost').addClass('active');
 			$('#site').empty();
 			$('#site').val(site.getAttribute("value"));
-			$.ajax(function(){
-				
+			console.log('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}');
+			console.log('${route_code}');
+
+			$.ajax({
+				type : "get",
+				url : "${pageContext.request.contextPath}/RouteDetail/routeDetail.do",
+				data : {
+						"route_code" : $('#route_code').val(),
+						"site" : $('#site').val()
+						},
+				success : function(result){
+						console.log(result);
+						$("#route_order").val(result.route_order);
+						$("#route_date").val(result.route_date);
+						$("#category").val(result.category);
+				},
+				error : function(xhr) {
+					console.log("에러남 : " + xhr);
+				}
 			});
 		}
 				
@@ -261,7 +280,7 @@ div.over {
 
 
 					<div role="tabpanel" class="tab-pane" id="sitePost">
-						<form action="" method="POST">
+						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST">
 						<div class="table-responsive">
 							<section role="main" class="l-main">
 								<div class="uploader__box js-uploader__box l-center-box">
@@ -278,8 +297,12 @@ div.over {
 							 
 							<script src="${pageContext.request.contextPath}/dist/jquery.imageuploader.js"></script>
 							
-							<input type="text" class="form-control" id="site" value="" readonly><br>
-							<textarea name="" class="form-control" id="" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
+							<input type="text" class="form-control" id="site" name="site" readonly><br>
+							<textarea name="comment" class="form-control" id="" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
+							<input type="hidden" id="route_code" name="route_code" value="${route_code}">
+							<input type="hidden" id="route_order" name="route_order" value="${route_order}">
+							<input type="hidden" id="route_date" name="route_date" value="${route_date}">
+							<input type="hidden" id="category" name="category" value="${category}">
 							<br>
 							<div align="center">
 								<div class="checkbox">

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
+import com.planb_jeju.dto.SitePostscriptPhoto;
 import com.planb_jeju.dto.SitePostscriptTag;
 
 public interface SitePostScriptDao {
@@ -107,4 +108,18 @@ public interface SitePostScriptDao {
 	 * @param spec : SitePostscript sitePostscript 루트 후기 고유 번호를 포함하고 있는 객체
 	 */
 	public List<SitePostscriptTag> getSitePostTagList(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException;
+
+	/*	
+	 * @description : 사진 등록
+	 * @return : int 업데이트된 라인 수
+	 * @param spec : SitePostscriptPhoto sitePostscriptPhoto 사진 객체
+	 */
+	public int insertPhoto(SitePostscriptPhoto sitePostscriptPhoto) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 사진 삭제
+	 * @return : int 업데이트된 라인 수
+	 * @param spec : SitePostscriptPhoto sitePostscriptPhoto 사진 객체
+	 */
+	public int deletePhoto(SitePostscriptPhoto sitePostscriptPhoto) throws ClassNotFoundException, SQLException;
 }
