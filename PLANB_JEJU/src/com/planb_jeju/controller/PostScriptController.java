@@ -194,6 +194,7 @@ public class PostScriptController {
 		
 		System.out.println("route : " + route);
 		System.out.println("routeDetailList : " + routeDetailList);
+		model.addAttribute("route_code", route_code);
 		model.addAttribute("route", route);
 		model.addAttribute("routeDetailList", routeDetailList);
 		return "PostScript.Route.writeForm";	
@@ -203,7 +204,7 @@ public class PostScriptController {
 	/*
 	* @date : 2017. 6. 22
 	* @description : 루트 후기 작성 OK
-	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @parameter : principal 로그인한 회원 정보, model 루트 후기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Route/WriteOk.do", method=RequestMethod.POST)
@@ -221,38 +222,30 @@ public class PostScriptController {
 		
 		return "PostScript.Route.detail";	
 	}
-	
-	
-	/*
-	* @date : 2017. 6. 23
-	* @description : 루트 후기 작성
-	* @parameter : 
-	* @return : String(View 페이지) 
-	*/
-	@RequestMapping(value="Site/Write.do", method=RequestMethod.GET)
-	public String writeSitePostscript(@RequestParam int route_code, Principal principal, Model model) throws Exception {
-		System.out.println("후기 작성");
-		
-		Route route = routeservice.getRouteInfo(route_code, principal.getName());
-		
-		System.out.println("route : " + route);
-		model.addAttribute("route", route);
-		return "PostScript.Route.writeForm";	
-	}
 
 	
 	/*
-	* @date : 2017. 6. 22
-	* @description : 루트 후기 작성 OK
-	* @parameter : principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+	* @date : 2017. 6. 28
+	* @description : 여행지 후기 작성 OK
+	* @parameter : principal 로그인한 회원 정보, model 여행지 후기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
-	public String writeSitePostscriptOk(@RequestParam int route_code, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
-		System.out.println("후기 작성 ok");
+	public String writeSitePostscriptOk(Principal principal, SitePostscript sitePostscript, Model model) throws Exception {
+		System.out.println("여행지 후기 작성 ok");
 		System.out.println("로그인된 아이디 : " + principal.getName());
-		System.out.println("넘어온 객체 : " + routePostscript);
-		routePostscript.setUsername(principal.getName());
+		System.out.println("넘어온 객체 : " + sitePostscript);
+		sitePostscript.setUsername(principal.getName());
+		
+		
+		// 사이트 후기 등록
+		sitePostscriptservice.
+		
+		// 태그 등록
+		sitePostscriptservice.
+		
+		// 사진 등록
+		sitePostscriptservice.
 		
 		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
 		
@@ -260,7 +253,7 @@ public class PostScriptController {
 		
 		model.addAttribute("routePostscript", myRoutePostscript);
 		
-		return "PostScript.Route.detail";	
+		return "PostScript.Site.detail";
 	}
 	
 		

@@ -13,6 +13,7 @@ package com.planb_jeju.controller;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ import com.planb_jeju.service.RouteDetailService;
 ///customer/notice.htm => notice.htm (함수 mapping)
 ///customer/noticeDetail.html  =>noticeDetail.html
 @Controller
+@RequestMapping("/RouteDetail/")
 public class RouteController {
 
 	@Autowired
@@ -55,12 +57,16 @@ public class RouteController {
 	* @description : 여행지 이름으로 여행지 정보 가져오기
 	* @parameter : route_code 루트 코드, username 작성자 이름, site 여행지 이름
 	* @return : void
-	*/
-	@RequestMapping("/routeDetail.do")
-	@ResponseBody
-	public void getRouteDetail(@RequestParam int route_code, @RequestParam String username, @RequestParam String site, Model model) throws ClassNotFoundException, SQLException{
+	*/	
+	@RequestMapping("routeDetail.do")
+	public @ResponseBody RouteDetail getRouteDetail(@RequestParam int route_code, Principal principal, @RequestParam String site, Model model) throws ClassNotFoundException, SQLException{
+		System.out.println("사이트 정보 가져오기");
+		String username = principal.getName();
 		RouteDetail routeDetailInfo = routeDetailservice.getRouteDetail(route_code, username, site);
-		model.addAttribute("routeDetailInfo", routeDetailInfo);
+		
+		System.out.println("routeDetailInfo : " + routeDetailInfo);
+		
+		return routeDetailInfo;
 	}
 	
 }
