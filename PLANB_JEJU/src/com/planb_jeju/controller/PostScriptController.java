@@ -115,7 +115,7 @@ public class PostScriptController {
 			username = principal.getName();
 			System.out.println("로그인된 아이디 : " + username);
 		}
-		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, username, sqlsession);
+		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, username);
 	//	List<RoutePostscriptTag> routePostscriptTagList = postscriptservice.getRoutePostTagList(routePostscript, sqlsession);
 		System.out.println("routePostscript : " + routePostscript);
 		model.addAttribute("routePostscript", routePostscript);
@@ -138,14 +138,14 @@ public class PostScriptController {
 		
 		if(route_like.equals("true")){
 			System.out.println("찜콩 설정되어 있음");
-			routePostscriptservice.deleteLike(routePostscriptLike, sqlsession);
-			routePostscriptservice.downLikeNum(routePostscriptLike, sqlsession);
+			routePostscriptservice.deleteLike(routePostscriptLike);
+			routePostscriptservice.downLikeNum(routePostscriptLike);
 			System.out.println("찜콩 해제 완료");
 			change = "tTf"; //true to false
 		}else{
 			System.out.println("찜콩 해제되어 있음");
-			routePostscriptservice.insertLike(routePostscriptLike, sqlsession);
-			routePostscriptservice.upLikeNum(routePostscriptLike, sqlsession);
+			routePostscriptservice.insertLike(routePostscriptLike);
+			routePostscriptservice.upLikeNum(routePostscriptLike);
 			System.out.println("찜콩 설정 완료");
 			change = "fTt"; //false to true
 		}
@@ -214,9 +214,9 @@ public class PostScriptController {
 		System.out.println("넘어온 객체 : " + routePostscript);
 		routePostscript.setUsername(principal.getName());
 		
-		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);
+		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript);
 		
-		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
+		routePostscriptservice.insertTag(myRoutePostscript);
 		
 		model.addAttribute("routePostscript", myRoutePostscript);
 		
@@ -267,7 +267,7 @@ public class PostScriptController {
 	public String listSitePostscript(Principal principal, Model model) throws Exception {
 		System.out.println("사이트 후기 게시판 들어옴");
 		System.out.println("로그인된 아이디 : " + principal.getName());
-		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listSitePostscript(principal.getName(), sqlsession);
+		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listSitePostscript(principal.getName());
 		
 		System.out.println("sitePostscriptList : " + sitePostscriptList);
 		model.addAttribute("sitePostscriptList", sitePostscriptList);
@@ -311,14 +311,14 @@ public class PostScriptController {
 		
 		if(site_like.equals("true")){
 			System.out.println("찜콩 설정되어 있음");
-			sitePostscriptservice.deleteLike(sitePostscriptLike, sqlsession);
-			sitePostscriptservice.downLikeNum(sitePostscriptLike, sqlsession);
+			sitePostscriptservice.deleteLike(sitePostscriptLike);
+			sitePostscriptservice.downLikeNum(sitePostscriptLike);
 			System.out.println("찜콩 해제 완료");
 			change = "tTf"; //true to false
 		}else{
 			System.out.println("찜콩 해제되어 있음");
-			sitePostscriptservice.insertLike(sitePostscriptLike, sqlsession);
-			sitePostscriptservice.upLikeNum(sitePostscriptLike, sqlsession);
+			sitePostscriptservice.insertLike(sitePostscriptLike);
+			sitePostscriptservice.upLikeNum(sitePostscriptLike);
 			System.out.println("찜콩 설정 완료");
 			change = "fTt"; //false to true
 		}
