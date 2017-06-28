@@ -11,4 +11,10 @@
 		AND    sendtime > adddate(now(), -7) /*일주일이내*/
 	</select>
 
+	<select id="isMember" parameterType="String" resultType="boolean">
+		SELECT count(*) cnt
+		FROM   member
+		WHERE  username = #{username}
+	</select>
+
 </mapper>

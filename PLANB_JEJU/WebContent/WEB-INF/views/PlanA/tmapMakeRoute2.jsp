@@ -11,10 +11,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>simpleMap</title>
+
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"
 	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
 	crossorigin="anonymous"></script>
@@ -31,46 +28,13 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <link rel="shortcut icon" href="favicon.ico">
-<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="/resources/demos/style.css">
-<script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script>
 
-
-
-
-
-
-<!-- messageWrite.jsp -->
-<script src="message/bootstrap/js/bootstrap.min.js"></script>
-<script src="message/js/jquery.backstretch.min.js"></script>
-<script src="message/js/scripts.js"></script>
-
-<link rel="shortcut icon" href="message/ico/favicon.png">
-<link rel="apple-touch-icon-precomposed" sizes="144x144"
-	href="message/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114"
-	href="message/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72"
-	href="message/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed"
-	href="message/ico/apple-touch-icon-57-precomposed.png">
-	
-
-<link rel="stylesheet" href="message/bootstrap/css/bootstrap.min.css">
-<link rel="stylesheet" href="message/css/form-elements.css">
-<link rel="stylesheet" href="message/css/style.css">
-
-
-
-
-<!-- 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
-	rel='stylesheet' type='text/css'> -->
 
 <!-- Icomoon Icon Fonts-->
 <link rel="stylesheet"
-   	href="<%=request.getContextPath()%>/css/icomoon.css">
+	href="<%=request.getContextPath()%>/css/icomoon.css">
 <!-- Bootstrap  -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/bootstrap.css">
@@ -84,57 +48,45 @@
 <!-- End : 일정부분 적용 링크 -->
 
 <%----------------------------------지도 부분 스크립트----------------------------------------%>
-<style type = "text/css">
-.routeSelectButton {
-	
-	padding: 7px 30px 7px 30px;
-	font-size: 15px;
-	
-	color: #000000;
-	text-align: center;
-	border: solid 1px ;
-	
-		to(#2e8ce3));
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	border-bottom-color: #f78536;
-	
-	background: -moz-radial-gradient(50% 50%, #ff7f00, #fff);
-	background: -webkit-radial-gradient(50% 50%, #ff7f00, #fff);
-	background: -o-radial-gradient(50% 50%, #ff7f00, #fff);
-	background: -ms-radial-gradient(50% 50%, #ff7f00, #fff);
-	background: radial-gradient(50% 50%, #ff7f00, #fff)"
-}
-</style>
-
 
 <script type="text/javascript">
 $( function() {
 	var lonlat; 
+	//Tmap 마커 레이어 변수
 	var markerLayer;
 	
-	//전역변수
+	var vector_layer;
+
+	//서버에서 넘어온 User의 여행 설정 정보
+	route_code = ${requestScope.myRouteInfo.route_code};
+	username = '${requestScope.myRouteInfo.username}';
+	routename = '${requestScope.myRouteInfo.routename}';
+	partner_code = '${requestScope.myRouteInfo.partner_code}';
+	
+	//여행 이름 표시
+	$('#routename').val(routename);
+		
+	//서버에서 넘어온 날짜 담을 배열  
+	dayList = [];
+	
+	//서버에서 넘어온 날짜List 배열로 저장
+	<c:forEach var="item" items="${requestScope.datesList}" varStatus="num"> 
+		console.log('num값?');
+		console.log(${num.index})
+		dayList.push('${item}');
+	</c:forEach>
+
+	
+	//여행지 담을 날짜별 div태그 생성 함수 호출
+	initSortableDiv();
+	
+	
+	
+	//전역변수 루트 선택 시 초기화
 	routeDetailList = [];
 	
-	
-	// 추천 경로 data 배열로 저장
-	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
-		<c:forEach var="i" items="${item.value}" varStatus="num">
-			routeDetailList.push({
-										"route_code" : '${i.route_code}',
-										"username" : '${i.username}',
-										"route_order" : '${i.route_order}',
-										"route_date" : '${i.route_date}',
-										"site" : '${i.site}',
-										"lon" : '${i.lon}',
-										"lat" : '${i.lat}',
-										"category" : '${i.category}',
-										"stime" : '${i.stime}',
-										"etime" : '${i.etime}'
-			});	         	
-		</c:forEach>
-	</c:forEach>
+	// routeDetailList에서 선택 된 경로만 customizedRouteList로 초기화 작업 필요
+	customizedRouteList = [];
 	
 	
 	/* console.log(JSON.stringify(routeDetailList)); */
@@ -144,37 +96,166 @@ $( function() {
 	
 	// route_site_delete_tag 클릭 : 클릭한 객체 sortable 컨테이너에서 삭제
 	$(document).on("click",".route_site_delete_tag", function(event){ 
+		
+		// 클릭 객체 제거
 		$(event.target).parent().parent().parent().remove();
 		
-		 
-		console.log('삭제 클릭시 day div 가져와야해');
-		console.log($(event.target).parent().parent().parent().parent());
-		/* //배열 재배치 작업 필요 $(this).find('.sch_content')
-		new_locations = $(event.target).parent().parent().parent().parent().find('.sch_content').map(function(i, el) {
-			console.log($(el).data('sitedata'));
-	        return $(el).data('sitedata')
-	      }).get()
-      
-	     console.log(JSON.stringify(new_locations));
-	      
-	    // site_order값  재 정렬 
-	    new_locations = jQuery.map( new_locations, function( n, i ) {
-	 	   n.route_order = i ;
-	 	   return ( n );
-	   });
-	      
-		console.log( $(event.target).parent().parent().children('.spot_name'));
-       // 화면 컨텐츠 순서 값 바꾸기
-       $(event.target).parent().parent().children('.spot_name').each(function(index, value){
-    	  $(this).text(new_locations[index].route_order+1);
-       });  */
-      
+		// sortable 수동 함수 호출
+		$('.sortable').trigger('sortupdate');
+		
        
   	});
 	
+	// 여행지 검색 버튼 클릭
+	$("#searchSiteBtn").on("click", function() {
+    	//현재 POI marker 삭제
+    	
+		
+		/* PlanA 컨트롤러 타는 로직
+		$.ajax({
+			type : 'post',
+			url : '${pageContext.request.contextPath}'+'/PLANA.make.do',
+			 headers : {
+				"Content-Type" : "application/json",
+				"X-HTTP-Method-Override" : "POST" 
+			}, 
+			dataType : 'text',
+			data : { 'searchWord' : $("#searchWord").val() },
+			success : function(result) {
+
+				if (result == 'SUCCESS') {
+
+					alert("등록 되었습니다.");
+					console.log(result);
+				}
+			}
+		}); */
+		
+		//Tmap POI 호출 로직
+    	searchPOI();
+		
+	});
+
 	
+	/* $('#accordion2').accordion('refresh'); */
 	
  } );
+ 
+ 
+ 	//Tmap POI
+ 	function addMarker(options){
+ 		
+	    var size = new Tmap.Size(12,19);
+	    var offset = new Tmap.Pixel(-(size.w/2), -size.h);
+	    var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png",size,offset);
+	    var marker = new Tmap.Markers(options.lonlat,icon,options.label);
+	    markerLayer.addMarker(marker);
+	    marker.events.register("mouseover", marker, onOverMouse);
+	    marker.events.register("mouseout", marker, onOutMouse);
+	    marker.idString = options.id;
+	    marker.events.register("click", marker, onClickMouse);
+	}
+	function onOverMouse(e){
+	    this.popup.show();
+	}
+	function onOutMouse(e){
+	    this.popup.hide();
+	}
+
+	function searchPOI(){
+	    tdata = new Tmap.TData();
+	    tdata.events.register("onComplete", tdata, onCompleteTData);
+	    var center = map.getCenter();
+	    tdata.getPOIDataFromSearch(encodeURIComponent($("#searchWord").val()), {centerLon:center.lon, centerLat:center.lat});
+	}
+	function onCompleteTData(e){
+		//이전 검색결과 마커 삭제
+		markerLayer.clearMarkers();
+		
+	    if(jQuery(this.responseXML).find("searchPoiInfo pois poi").text() != ''){
+	        jQuery(this.responseXML).find("searchPoiInfo pois poi").each(function(){
+	            var name = jQuery(this).find("name").text();
+	            var id = jQuery(this).find("id").text();
+	            var lon = jQuery(this).find("frontLon").text();
+	            var lat = jQuery(this).find("frontLat").text();
+	            var options = {
+	                label:new Tmap.Label(name),
+	                lonlat:new Tmap.LonLat(lon, lat),
+	                id:id
+	            };
+	            addMarker(options);
+	        });
+	    }else {
+	        alert('검색결과가 없습니다.');
+	    }
+	    map.zoomToExtent(markerLayer.getDataExtent());
+	    tdata.events.unregister("onComplete", tdata, onCompleteTData);
+	}
+	function getDataFromId(id){
+		
+	    tdata = new Tmap.TData();
+	    tdata.events.register("onComplete", tdata, onCompleteTDataID);
+	    tdata.getPOIDataFromId(id);
+	}
+	function onCompleteTDataID(e){
+	    if(jQuery(this.responseXML).find("poiDetailInfo").text() != ''){
+	        jQuery(this.responseXML).find("poiDetailInfo").each(function(){
+	            var name = jQuery(this).text();
+	            alert(name);
+	        });
+	    }else {
+	        alert('검색결과가 없습니다.');
+	    }
+	    tdata.events.unregister("onComplete", tdata, onCompleteTDataID);
+	}
+	
+	
+	//여행지 담을 날짜별 div태그 생성 함수
+ 	function initSortableDiv(){
+		var routedate;
+		var dayOrder=0;
+	
+  		// 서버에서 리턴된 날짜 배열 객채 -> 날짜 별 박스 하나씩 만들기
+		$( dayList ).each(function( index, element ) {
+			
+	 		if(routedate!=element){
+	     		routedate = element;
+	     		++dayOrder;
+	     		
+	     		// Day 드래그 박스 추가
+	     		/*
+	     		<div class='group' style='width: 280px;'>
+					<h3>DAY 1</h3>
+					<div>
+						<div class='sortable'>
+						</div>
+					</div>
+				</div>
+	     		*/
+	     		
+	     		//$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
+	     	
+	     		
+	     		var $group = $("<div class='group' style='width: 280px;'></div>");
+	     		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons'>Day"+dayOrder+"  :  "+element+"</h3>");
+	     		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
+	     		var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
+	     		
+	     		$sortablediv.appendTo($div);
+	     		$group.append($h3).append($div);
+	     		$('#accordion2').append($group);
+	     		
+	     		/* <div class="group" style="width: 280px;">
+	     			<h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3>
+	     				<div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active">
+	     					<div class="sortable" id="ScheduleDay'+dayOrder+'">
+	     					</div>	
+	     				</div>
+	     			</div> */
+	     	}
+		});
+ 		
+ 	}
         //초기화 함수
         function init(){
         	//pr_3857 인스탄스 생성. (Google Mercator)
@@ -200,78 +281,43 @@ $( function() {
             
             map.addControl(new Tmap.Control.MousePosition());/* 마우스 오버에 좌표값 표시 */
             
-            map.events.register("click", map, onClickMap)
+            //map.events.register("click", map, onClickMap)//813줄 함수 제거할 것
+            
+            
+            vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
+    		map.addLayers([vector_layer]); 
             
             markerLayer = new Tmap.Layer.Markers();
+            
             map.addLayer(markerLayer);
             /* searchRoute(); */
             
             
             <c:choose>
-				<c:when test="${requestScope.pageCase=='siteRecommendPage'}">
-					<c:forEach var="item" items="${requestScope.siteList}" varStatus="num"> 
-					    
-						//추천 여행지 마커 추가하기 
-		            	addSiteMarkers(${item.lon}, ${item.lat}, '${item.site}');
-			      	
-					</c:forEach>
+				<c:when test="${requestScope.pageCase=='routeDetailPage'}">
+					
 				</c:when>
 				
 				<c:when test="${requestScope.pageCase=='routeRecommendPage'}">
+				 	// sortable div 하나 생성
+					
+					var $group = $("<div class='group' style='width: 280px;'></div>");
+		     		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons'>추천여행지</h3>");
+		     		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
+		     		var $sortablediv = $("<div id='recommendSortableDiv'></div>");
+		     		
+		     		$sortablediv.appendTo($div);
+		     		$group.append($h3).append($div);
+		     		$('#accordion2').prepend($group);
+		     		
 					<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
 				    
 						//경로 이름 버튼 생성
 						/* console.log('${item.key}'); */
-						 $('#accordion1').prepend
-("<input type='button'value='${item.key}' class='routeSelectButton' onclick='routeButtonClick(this)'><br>"); 
+						 $('#recommendSortableDiv').prepend("<input type='button' value='${item.key}' class='routeSelectButton' onclick='routeButtonClick(this)'><br>"); 
 						
-						
-						
-					
-						//벡터레이어 생성
-						var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
-						map.addLayers([vector_layer]); 
-						
-						
-						
-						//polyline 좌표 배열.
-						var pointList = [];
-					
-						<c:forEach var="i" items="${item.value}" varStatus="num">
-							
-							/* console.log('${i.site}');
-							console.log('${i.lon}');
-							console.log('${i.lat}'); */
-							 var pointlonlat = new Tmap.LonLat(${i.lon}, ${i.lat}).transform(pr_4326, pr_3857);
-							pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
-							addSiteMarkers(${i.lon}, ${i.lat}, '${i.site}');
-						</c:forEach>
-						
-						//좌표 배열 객체화
-						var lineString = new Tmap.Geometry.LineString(pointList);
-						
-						var style_bold = {fillColor:"#FE9A2E",
-							     fillOpacity:0.2,
-							     strokeColor: "#FE9A2E",
-							     strokeWidth: 3,
-							     strokeDashstyle: "solid"};
-					
-						
-						var mLineFeature = new Tmap.Feature.Vector(lineString, null, style_bold);
-						 
-						 
-						vector_layer.addFeatures([mLineFeature]);
-						
-						
-					
-				         
-				         
 					</c:forEach>
 				
-					
-						 
-						
-						
 				</c:when>
 			</c:choose>
            
@@ -283,10 +329,15 @@ $( function() {
         // 루트 선택 버튼 클릭 함수
         function routeButtonClick(btn){
         	// map위 Layers 제거
-        	deleteLayers();
+        	//deleteLayers();
         	
+        	// 이전에 선택한 루트 경로 선 삭제
+        	vector_layer.removeAllFeatures();
+        	
+        	//markerLayer 마커들 제거
+        	markerLayer.clearMarkers();
         	// 일정 Drag 박스 empty 적용
-        	$('#accordion2').empty();
+        	$('.sortable').empty();
         	
         	//pr_3857 인스탄스 생성. (Google Mercator)
         	var pr_3857 = new Tmap.Projection("EPSG:3857");
@@ -298,11 +349,13 @@ $( function() {
         	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
     	    
     		
-    			
+    			// 클릭한 버튼의 값이 routeMap의 값과 같으면
     			if(btn.value == '${item.key}'){
+    				
+    				// 1. 지도 작업
     				//벡터레이어 생성
-    				var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
-    				map.addLayers([vector_layer]); 
+    				/* var vector_layer = new Tmap.Layer.Vector('Tmap Vector Layer');
+    				map.addLayers([vector_layer]);  */
     				
     				
     				
@@ -333,12 +386,16 @@ $( function() {
     				 
     				vector_layer.addFeatures([mLineFeature]);
     				
+    				
+    				
     				//JsonArray로 경로의 각 Site 내용 정리
-    				/* routeDetailList = [];
+    				//이전 routeDetailList 내용 비우기
+    				routeDetailList = [];
     				<c:forEach var="i" items="${item.value}" varStatus="num">
+    					
     					routeDetailList.push({
-    												"route_code" : '${i.route_code}',
-    												"username" : '${i.username}',
+    												"route_code" : route_code,
+    												"username" : username,
     												"route_order" : '${i.route_order}',
     												"route_date" : '${i.route_date}',
     												"site" : '${i.site}',
@@ -349,127 +406,114 @@ $( function() {
     												"etime" : '${i.etime}'
     					});	         	
     			    </c:forEach>
-    				  */
-    				/* Start : 여행지 일정표 정리 */
+    				 
+    				 // 2. 일정표 작업
     	         	
-    		         var dayOrder=0;
-    		         var routedate;
+    		         var dayOrder=-1;
     		         
+    		         //var routedate = routeDetailList[0].route_date;
+    		         var routedate;
+    				 
     		         <c:forEach var="i" items="${item.value}" varStatus="num">
     					
-    		         	// 날짜 별 Drag 박스 생성
+    		      	   
+    		         
     		         	if(routedate!='${i.route_date}'){
     		         		routedate = '${i.route_date}';
     		         		++dayOrder;
     		         		
-    		         		// Day 드래그 박스 추가
-    		         		/*
-    		         		<div class='group' style='width: 280px;'>
-    							<h3>DAY 1</h3>
-    							<div>
-    								<div class='sortable'>
-    								</div>
-    							</div>
-    						</div>
-    		         		*/
-    		         		
-    		         		//$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
-    		         	
-    		         		
-    	var $group = $("<div class='group' style='width: 280px;'></div>");
-    	var $h3 = $("<h3>Day"+dayOrder+"</h3>");
-    	var $div = $("<div></div>");
-    	var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
-    		         		
-    	$sortablediv.appendTo($div);
-    	$group.append($h3).append($div);
-    	$('#accordion2').append($group);
-    		         		
-    		         		
-
-    		         		
-    		         		/* <div class="group" style="width: 280px;">
-    		         			<h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3>
-    		         				<div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active">
-    		         					<div class="sortable" id="ScheduleDay'+dayOrder+'">
-    		         					</div>	
-    		         				</div>
-    		         			</div> */
     		         	}
+    		         	
+    		         	
+    		         	 // routeDetailList에 date 정보만 변경
+    		      	    console.log('그럼 dayList값은?');
+    		      	    console.log(dayOrder);
+    		      	    routeDetailList[${num.index}].route_date=dayList[dayOrder];
+    		      	    console.log(routeDetailList[${num.index}].route_date);
     					
+    		      	    
+    		      	    
     					// 각 Day 안에 Site 순서대로 append
     					var contentId= routedate+'${i.route_order}';
     					
     					
     					
-    		var $sch_content = $( "<div class='sch_content' id='"+contentId+"' style='width: 250px;'></div>" );
-   			var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
-    		var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
-    		var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
-    		var $spot_info = $("<div class='spot_info'></div>");
-    		var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
-    		var $sinfo_line = $("<div class='sinfo_line'></div>");
-    		var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
-    		var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
-    		var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
+    					var $sch_content = $( "<div class='sch_content' id='"+contentId+"' style='width: 250px;'></div>" );
+    					var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
+    					var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
+    					var $spot_info = $("<div class='spot_info'></div>");
+    					var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
+    					var $sinfo_line = $("<div class='sinfo_line'></div>");
+    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
+    					var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
+    					var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
     					
-    				// 각 Day div id 변수로 선언
-    				var scheduleday = '#'+'ScheduleDay'+dayOrder;
+    					// 각 Day div id 변수로 선언 / dayOrder + 1 해준 이유 : 위에서 
+    					var scheduleday = '#'+'ScheduleDay'+(dayOrder+1);
+    					
+    					
+    					
+    					// div에 data값 삽입
+    					$sch_content.data('sitedata', routeDetailList[${num.index}]);
+    					
+    	
+    					
+    					 $sinfo_txt_img.appendTo($sinfo_txt);
+    					 
+    					 
+    					 $tag.appendTo($spot_info);
+    					 $sinfo_line.appendTo($spot_info);
+    					 $sinfo_txt.appendTo($spot_info);
+    					 $delete_tag.appendTo($spot_info);
+    					 
+    					 $spot_name.appendTo($spot_content_box);
+    					 $spot_info.appendTo($spot_content_box);
+    					 
+    					 $content_img.appendTo($sch_content);
+    					 $spot_content_box.appendTo($sch_content);
     				
-    				// div에 data값 삽입
-    		  		$sch_content.data('sitedata', routeDetailList[${num.index}]);
-    				
-    				//li.data('d', locations[i])
-    				
-    				 $sinfo_txt_img.appendTo($sinfo_txt);
-    				 
-    				 
-    				 $tag.appendTo($spot_info);
-    				 $sinfo_line.appendTo($spot_info);
-    				 $sinfo_txt.appendTo($spot_info);
-    				 $delete_tag.appendTo($spot_info);
-    				 
-    				 $spot_name.appendTo($spot_content_box);
-    				 $spot_info.appendTo($spot_content_box);
-    				 
-    				 $content_img.appendTo($sch_content);
-    				 $spot_content_box.appendTo($sch_content);
-    				 /* $sch_content.appendTo($li); */
-    				 
-    				 $(scheduleday).append($sch_content);
-    				
-    				//정보 저장을 위해 form 태그 안에 값으로 추가       routeDetailList[num] : RouteDetail에 멤버필드 ArrayList
-    				$('#route_list_form_innerdiv').empty();
-    				var $route_order = $("<input type='hidden' name='routeDetailList[${num.index}].route_order' value=${i.route_order}>");
-    				var $username = $("<input type='hidden' name='routeDetailList[${num.index}].username' value='${i.username}'>");
-    				var $route_code = $("<input type='hidden' name='routeDetailList[${num.index}].route_code' value=${i.route_code}>");
-    				var $route_date = $("<input type='hidden' name='routeDetailList[${num.index}].route_date' value='${i.route_date}'>");
-    				var $site = $("<input type='hidden' name='routeDetailList[${num.index}].site' value='${i.site}'>");
-    				var $lon = $("<input type='hidden' name='routeDetailList[${num.index}].lon' value='${i.lon}'>");
-    				var $lat = $("<input type='hidden' name='routeDetailList[${num.index}].lat' value='${i.lat}'>");
-    				var $category = $("<input type='hidden' name='routeDetailList[${num.index}].category' value='${i.category}'>");
-    				var $stime = $("<input type='hidden' name='routeDetailList[${num.index}].stime' value=${i.stime}>");
-    				var $etime = $("<input type='hidden' name='routeDetailList[${num.index}].etime' value=${i.etime}>");
+    					 
+    					 $(scheduleday).append($sch_content);
+    			
     				
     				
-    					$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
-    				</c:forEach>
-    				 /* End : 여행지 일정표 정리 */
+	    			    //정보 저장을 위해 form 태그 안에 값으로 추가       routeDetailList[num] : RouteDetail에 멤버필드 ArrayList
+	    				$('#route_list_form_innerdiv').empty();
+	    				var $route_order = $("<input type='hidden' name='routeDetailList[${num.index}].route_order' value=${i.route_order}>");
+	    				var $username = $("<input type='hidden' name='routeDetailList[${num.index}].username' value='${i.username}'>");
+	    				var $route_code = $("<input type='hidden' name='routeDetailList[${num.index}].route_code' value=${i.route_code}>");
+	    				var $route_date = $("<input type='hidden' name='routeDetailList[${num.index}].route_date' value='${i.route_date}'>");
+	    				var $site = $("<input type='hidden' name='routeDetailList[${num.index}].site' value='${i.site}'>");
+	    				var $lon = $("<input type='hidden' name='routeDetailList[${num.index}].lon' value='${i.lon}'>");
+	    				var $lat = $("<input type='hidden' name='routeDetailList[${num.index}].lat' value='${i.lat}'>");
+	    				var $category = $("<input type='hidden' name='routeDetailList[${num.index}].category' value='${i.category}'>");
+	    				var $stime = $("<input type='hidden' name='routeDetailList[${num.index}].stime' value=${i.stime}>");
+	    				var $etime = $("<input type='hidden' name='routeDetailList[${num.index}].etime' value=${i.etime}>");
+	    				
+	    				
+	    				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+	    					
+    					 
+    				 </c:forEach>
+    			       
+    				
+    				
     			};	
+    			
     		</c:forEach>
     		
-    		//추가추가추가
-     	    $("#accordion2").accordion("refresh");
+    		$('#accordion2').accordion('refresh');
     		
-    		//솔트 했을때 
     		
-    		// 일정 Drag 박스 스타일 적용 함수 호출
-    		 scheduleBoxStyle();
     		
-
+    		// 일정 Drag 박스 스타일 적용 함수 호출 -> update manual함수 작성
+    		scheduleBoxStyle();
+    		
+    	  
         };
         
-        // 일정 Drag 박스 스타일 적용 함수
+        // 일정 Drag 박스 스타일 적용 함수 
         function scheduleBoxStyle(){
         	$('#schedulebox').animate({
                 width: '+=380px'
@@ -487,10 +531,11 @@ $( function() {
            $(".sortable").sortable({
         	   
         	   // drag 한 후 객체 변경 되면 실행
+        	   /* sortable 안에 태그 변동있을때 실행되는 함수 -> 수동으로 붙인 update함수가 삭제 클릭시에만 실행되는게 아니라 계속 실행되서...일단 주석 처리
         	   update: function(event, ui) {
 				      
-        		   console.log('sortable update this는 뭐야??')
-        		   console.log($(this));
+        		   console.log('sortable update 함수')
+        		    //console.log($(this)); 
         		   
 				      new_locations = $(this).find('.sch_content').map(function(i, el) {
 					        return $(el).data('sitedata')
@@ -509,9 +554,9 @@ $( function() {
 				    	  $(this).text(new_locations[index].route_order+1);
 				      });
 				      
-					  /* console.log(JSON.stringify(new_locations));
+					   //console.log(JSON.stringify(new_locations));
 					  
-					  console.log(JSON.stringify(routeDetailList)); */
+					  //console.log(JSON.stringify(routeDetailList));
                    
 					  
 					  // 현재 저장되어 있는 data empty
@@ -534,13 +579,103 @@ $( function() {
 							$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
 									
 						});
-					 }
-         		});
+					  
+							
+					  
+					  
+                   } */
+                   /* , 이건 sortable -> sortable로 객체 droped 실행되고 난 후에 실행되는 함수
+           
+           	remove: function( event, ui ) {
+           		console.log('sort remove function 실행');
+           	} */
+         
+           
+           });
+           
+           // 수동으로 sortable 트리거 함수 생성, 왜 delete 버튼 클릭할때 뿐만 아니라 drag update 시에도 실행되지? 걸어 두지 않았는데??
+           $('.sortable').on('sortupdate',function(event, ui) {
+        	   	
+        	   console.log('sort에 update 붙인 함수');
+    		   console.log('this 는?');
+    		   console.log($(this));
+    		   console.log('this.parent 는?');
+    		   console.log($(this).parent().parent());
+    		   
+    		   	  // 각 Day 별  Site 배열 정리
+			      new_locations = $(this).find('.sch_content').map(function(i, el) {
+				        return $(el).data('sitedata')
+				      }).get()
+			      
+				      
+				  // site_order값  재 정렬 
+				  new_locations = jQuery.map( new_locations, function( n, i ) {
+					  n.route_order = i ;
+					  return ( n );
+				  });
+				      
+			      // 화면 컨텐츠 순서 값 바꾸기
+			      $(this).find('.spot_name').each(function(index, value){
+			    	  // console.log($(this).text()); 
+			    	  $(this).text(new_locations[index].route_order+1);
+			    	  
+			      });
+			      
+				  /* console.log(JSON.stringify(new_locations));
+				  
+				  console.log(JSON.stringify(routeDetailList)); */
+               
+				  // 재정렬 된 Site Data 만 배열로 정리 해 둘 것
+				  customizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
+					  /* console.log($(el).data('sitedata')); */
+				        return $(el).data('sitedata')
+			      }).get()
+			      
+			      console.log(JSON.stringify(customizedRouteList));
+				  
+				  // 현재 저장되어 있는 data empty
+				  $('#route_list_form_innerdiv').empty();
+				  
+				  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
+				  $.each(customizedRouteList, function( index, value ) {
+					
+					    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+value.route_order+">");
+						var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
+						var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
+						var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
+						var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
+						var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
+						var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
+						var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
+						var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
+						var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
+						
+						$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+								
+					});
+				  
+        	   
+           });
           
-           $(".sortable").sortable();
            $(".sortable").selectable();
            
-           
+          
+           $("#accordion")
+           .accordion({
+              collapsible : true,
+              header : ".day_info_box"
+           })
+           .sortable({
+              axis : "y",
+              handle : ".day_info_box",
+              stop : function(event, ui) {
+                 // IE doesn't register the blur when sorting
+                 // so trigger focusout handlers to remove .ui-state-focus
+                 ui.item.children(".day_info_box").triggerHandler("focusout");
+                 // Refresh accordion to handle new order
+                 $(this).accordion("refresh");
+              }
+           });
            $("#accordion2")
            .accordion({
               collapsible : true,
@@ -560,9 +695,19 @@ $( function() {
                  $(this).accordion("refresh");
               }
            });
-           
-         }
+         
+         };
         
+         
+         
+         
+         
+         
+         
+         
+         
+         
+         
          
         // 맵 위 Layer 제거 함수
         function deleteLayers(){
@@ -570,10 +715,10 @@ $( function() {
 		        	
 		        	var mapLayerCount = mapLayers.length;
 		        	
-		        	for(var i =1; i<mapLayerCount; i++){
-		        		/* console.log("길이"+mapLayerCount);
-		        		console.log("i"+i);
-		        		console.log(mapLayers[i]);  */
+		        	for(var i =3; i<mapLayerCount; i++){
+		        		//console.log("길이"+mapLayerCount);
+		        		//console.log("i"+i);
+		        		//console.log(mapLayers[i]);  
 		        		if(mapLayers[i]!=null){
 		        			map.removeLayer(mapLayers[i]); 
 		        		}else{
@@ -582,9 +727,7 @@ $( function() {
 		                	var mapLayerCount = mapLayers.length;
 		                	
 		                	for(var i =1; i<mapLayerCount; i++){
-		                		/* console.log("길이"+mapLayerCount);
-		                		console.log("i"+i);
-		                		console.log(mapLayers[i]); */ 
+		                		
 		                		if(mapLayers[i]!=null){
 		                			map.removeLayer(mapLayers[i]); 
 		                		}else{
@@ -593,9 +736,7 @@ $( function() {
 		                        	var mapLayerCount = mapLayers.length;
 		                        	
 		                        	for(var i =1; i<mapLayerCount; i++){
-		                        		/* console.log("길이"+mapLayerCount);
-		                        		console.log("i"+i);
-		                        		console.log(mapLayers[i]);  */
+		                        		
 		                        		if(mapLayers[i]!=null){
 		                        			map.removeLayer(mapLayers[i]); 
 		                        		}else{
@@ -604,9 +745,7 @@ $( function() {
 		                                	var mapLayerCount = mapLayers.length;
 		                                	
 		                                	for(var i =1; i<mapLayerCount; i++){
-		                                		/* console.log("길이"+mapLayerCount);
-		                                		console.log("i"+i);
-		                                		console.log(mapLayers[i]);  */
+		                                		
 		                                		if(mapLayers[i]!=null){
 		                                			map.removeLayer(mapLayers[i]); 
 		                                		}
@@ -614,10 +753,11 @@ $( function() {
 		                        		}
 		                        	}
 		                		}
-		                	}
+		                	} 
 		        		}
 		        		
 		        	}
+		       
         };
        
         //추천 여행지 마커 추가하기 
@@ -641,8 +781,8 @@ $( function() {
 		     markerLayer.addMarker(marker); 	
 		     marker.events.register("mouseover", marker, onOverMouse);
 		     marker.events.register("mouseout", marker, onOutMouse);
-		     marker.events.register("click", map, onClickMarker)
-		     
+		     /* marker.events.register("click", map, onClickMarker); */
+		    /*  marker.events.register("click", marker, onClickMarker); */
 		     
 		     
         }
@@ -654,6 +794,7 @@ $( function() {
         }
         
         function onClickMarker(evt){
+        	
 	         console.log(evt);
 	     }
         //맵 클릭시 이벤트 함수 -> 마커 출력
@@ -874,15 +1015,44 @@ $( function() {
 	    };
         
         /* End : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
-  
+     	function onClickMouse(){
+		console.log("클릭클릭클릭클릭클릭클릭");
+		/*  $( "div[style='aira-hidden:true']" ).append('제발제발얍얍얍얍얍'); */
+		
+
+		
+		/* $( "div:visible div.sortable" ).append('부탁이야 하나만 '); */  
+			
+		/*  $("#accordion1").accordion({ header: "하나만들어가자" }); */
+ 		
+		//input:not(:checked)
+		
+		//$( "div:not(:hidden) div.sortable" ).append('제발제발제방');
+		
+		/* 	$( "div[style='display:block'] div.sortable" ).append('제발제발제방'); */
+	 
+		//$(".ui-accordion-content").append('부탁이야....하나만...');
+		
+		
+		//검색 값 넣기
+		$(".ui-accordion-content").each(function(){  //ui-accordion-content 이걸 가지고 있느놈을 포문을 돌리고
+			console.log("--------");					
+			console.log($(this).attr("aria-hidden")); 
+			var id_hidden =$(this).attr("aria-hidden"); // this() .attr(속성)을  
+			if(id_hidden == "false"){
+				var id = $(this).attr("id");
+				console.log(id);
+				$("#"+id).append("하나만 들어가라........");
+			}
+		});
+		 
+		
+	    getDataFromId(this.idString);
+	}
         		
-</script>
+        </script>
 
- 
-</head>
-<body>
 
- 
 
 <!-- append clone 해서 사용할 div 생성해두기 -->
 <!-- style="display:none;" -->
@@ -917,6 +1087,33 @@ $( function() {
 
 <%----------------------------------왼쪽 일정 짜기 부분 스크립트 ----------------------------------------%>
 
+<%-- <link rel="stylesheet"
+	href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="shortcut icon" href="favicon.ico">
+
+<link
+	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
+	rel='stylesheet' type='text/css'>
+
+<!-- Icomoon Icon Fonts-->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/icomoon.css">
+<!-- Bootstrap  -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/bootstrap.css">
+<!-- Superfish -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/superfish.css">
+<!-- histroy css -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/css/history.css"> --%>
+
+
+
+
+
 
 <!-- 상세보기 일정 -->
 
@@ -927,23 +1124,20 @@ div.over {
 		url("http://cfile1.uf.tistory.com/image/20558E424FEE324E2693F1");
 	cursor: pointer; /* 마우스 손모양 */
 }
-
 .spinner {
 	padding: 10px;
 	width: 30px;
 	height: 15px;
 }
 
-
 .group {
 	width: 80%;
 	margin: 15px;
-}	
-.ui
+}
 </style>
 
 <script>
-   $(document).ready(function() {
+  $(document).ready(function() {
       $('#schedulebox').animate({
            width: '+=380px'
       });
@@ -960,13 +1154,30 @@ div.over {
       /* $(".sortable").disableSelection(); */
       $(".sortable").selectable();
       
+    
+      $("#accordion")
+      .accordion({
+         collapsible : true,
+         header : ".day_info_box"
+      })
+      .sortable({
+         axis : "y",
+         handle : ".day_info_box",
+         stop : function(event, ui) {
+            // IE doesn't register the blur when sorting
+            // so trigger focusout handlers to remove .ui-state-focus
+            ui.item.children(".day_info_box").triggerHandler("focusout");
+            // Refresh accordion to handle new order
+            $(this).accordion("refresh");
+         }
+      });
       $("#accordion2")
       .accordion({
          collapsible : true,
          header : "> div > h3",
          autoHeight: false,
          navigation: true,
-         heightStyle: "content" /* 이걸 추가하기 위해 염병을 했다 */
+         heightStyle: "content"
       })
       .sortable({
          axis : "y",
@@ -979,6 +1190,10 @@ div.over {
             $(this).accordion("refresh");
          }
       });
+      
+      $('#accordion2').find('.group').each(function(div){
+ 		 console.log(this.html()) 
+ 	  });
     
     });
 
@@ -986,90 +1201,47 @@ div.over {
   
   
 </script>
-<br>
-<a class="btn btn-link-1 launch-modal" href="#"
-		data-modal-id="modal-register">PLAN`B가 추천하는 경로 보기</a>
-		
-	<!-- MODAL -->
-	<div class="modal fade" id="modal-register" tabindex="-1" role="dialog"
-		aria-labelledby="modal-register-label" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<!-- 경로선택 버튼 넣기 -->
-				<div id="accordion1"> 
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal">
-					
-						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
-					</button>
-					<br>
-					</div>
-			</div>
-				<div class="modal-body">
 
 
-				</div>
 
-			</div>
-		</div>
-	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 여행이름 입력 창 -->
+<input type="text" style="width:300px;" class="btn btn-primary"  id="routename" name="routename" >
+
+
+
+<!-- 검색창 -->
+<input type="button" style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary" id="searchSiteBtn">
+<input type="text" style="width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">
+
+
+
+
+
+
 <%----------------------------------일정 짜기 부분 ----------------------------------------%>
-
-
+		
+<div style="background-color: white; width: 450px;" id="schedulebox2">
 	<!-- 이놈은 아님 -->
-	<div id="accordion1">
-	<div id="accordion2" style="overflow: auto; width: 450px; height: 650px;">
-		<div class="group" style="width: 280px;">
-			<h3>DAY 1</h3>
-			<!--min-height   -->
-			<div>
-				<div class="sortable">
-					<div class="" style="width: 250px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 150px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">1번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-					</div>
-					
-					<div class="sch_content" style="width: 250px;">
-						<img
-							src="http://img.earthtory.com/img/place_img/312/7505_0_et.jpg"
-							alt="" class="spot_img"
-							onerror="this.src='/res/img/common/no_img/sight55.png';"
-							onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-							style="cursor: pointer;">
-						<div class="spot_content_box" style="width: 130px;">
-							<div class="spot_name"
-								onclick="window.open('/ko/city/jeju_312/attraction/yongdam-ocean-road_7505');"
-								style="cursor: pointer;">2번</div>
-							<div class="spot_info">
-								<div class="tag">유명한거리/지역</div>
-								<div class="sinfo_line"></div>
-								<div class="sinfo_txt" style="padding: 0px">
-									<img src="<%=request.getContextPath()%>/css/history/like.png"
-										style="height: 20px"> 6 / 10 <span>1개의 평가</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>   
+	<div id="accordion1" style="overflow: auto; width: 450px;" >
+	
+	
+	</div>				
+	<div id="accordion2"
+		style="overflow: auto; width: 450px; height: 650px;">
+		
+		
 	</div>
 </div>
 
@@ -1103,10 +1275,12 @@ div.over {
 	<div id="map_div" style="float: left; position:relative; bottom:635px; left:300px;"></div>
 	
 </div>
+
+
 <div id="route_float">
 		<input type="button" id="btn" value="길찾기"
 			class="btn btn-primary btn-outline btn-lg" onclick="search()" />
-	</div>
+</div>
 
 	
 <%-- ----------------------------------form-------------------------------------------%>
