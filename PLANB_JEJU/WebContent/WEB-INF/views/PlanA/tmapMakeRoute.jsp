@@ -159,11 +159,14 @@ $( function() {
 		$(markerLabel).parent().parent().attr('display','block'); */
 		
 		var markerLabelVal = this.labelHtml;
-		var markerLon =  this.lonlat.lon;
-		var markerLat = this.lonlat.lat;
-		console.log(markerLabelVal);
-		console.log(markerLon);
-		console.log(markerLat);
+		var markerLonLat = new Tmap.LonLat(this.lonlat.lon, this.lonlat.lat).transform(pr_3857, pr_4326);
+			
+		
+		console.log(markerLonLat.lon);
+		console.log(markerLonLat.lat);
+		
+		//마커 추가하기
+		
 		//검색 값 넣기
 		$(".ui-accordion-content").each(function(){  //ui-accordion-content 이걸 가지고 있느놈을 포문을 돌리고
 		
@@ -186,8 +189,8 @@ $( function() {
 			      sitedataVal.stime='';
 			      sitedataVal.route_order=contentNum;
 				  sitedataVal.site=markerLabelVal;
-				  sitedataVal.lon=markerLon;
-				  sitedataVal.lat=markerLat; 
+				  sitedataVal.lon=markerLonLat.lon;
+				  sitedataVal.lat=markerLonLat.lat; 
 			      
 				  console.log(sitedataVal);
 				var $sch_content = $( "<div class='sch_content' id='"+markerLabelVal+"' style='width: 250px;' onclick='sch_contentClick(this)'></div>" );
@@ -200,7 +203,6 @@ $( function() {
 				var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
 				<%-- var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>"); --%>
 				var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
-				
 				
 				
 				
@@ -232,8 +234,6 @@ $( function() {
 			}
 		});
 		
-		
-		console.log();
 	    getDataFromId(this.idString);
 	}
 	function searchPOI(){
@@ -301,24 +301,20 @@ $( function() {
 	}
 	
 	function addSchContentMarkers(options){
- 		console.log('day별 마커 뿌리기 시작');
-	    /* var size = new Tmap.Size(12,19); */
-	    var size = new Tmap.Size(20,30);
+		
+	    var size = new Tmap.Size(18,27); 
 	    var offset = new Tmap.Pixel(-(size.w/2), -size.h);
-	    var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png",size,offset); 
-	    /* var icon = new Tmap.IconHtml("<img src= 'https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png'></img>", size, offset);  */
+	    /* var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png",size,offset);  */
+	    var icon = new Tmap.IconHtml("<img src= 'https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png'></img>", size, offset); 
 
 	    var marker = new Tmap.Markers(options.lonlat,icon,options.label);
 	    sch_content_layer.addMarker(marker);
-	    /* marker.events.register("mouseover", marker, onOverMouse);
+	    
+	    marker.popup.show();
+	    
+	    marker.events.register("mouseover", marker, onOverMouse);
 	    marker.events.register("mouseout", marker, onOutMouse);
-	    marker.idString = options.id;
-	    marker.events.register("click", marker, onClickMouse); */
-	    
-	    console.log('day별 마커 뿌리기 끝');
-	    
-	    console.log(sch_content_layer.markers);
-	   // map.zoomToExtent(sch_content_layer.getDataExtent());
+	      	    
 	}
 	
 	//여행지 담을 날짜별 div태그 생성 함수
@@ -370,10 +366,10 @@ $( function() {
         //초기화 함수
         function init(){
         	//pr_3857 인스탄스 생성. (Google Mercator)
-			var pr_3857 = new Tmap.Projection("EPSG:3857");
+			pr_3857 = new Tmap.Projection("EPSG:3857");
 			 
 			//pr_4326 인스탄스 생성. (WGS84 GEO)
-			var pr_4326 = new Tmap.Projection("EPSG:4326");
+			pr_4326 = new Tmap.Projection("EPSG:4326");
 			
             /* centerLL = new Tmap.LonLat(14145677.4, 4511257.6); */
             centerLL = new Tmap.LonLat(14085866.64992, 3963136.5754785);
@@ -644,10 +640,12 @@ $( function() {
            
            $(".sortable").sortable({
         	   
+            						
+        	   
         	   // drag 한 후 객체 변경 되면 실행
-        	   /* sortable 안에 태그 변동있을때 실행되는 함수 -> 수동으로 붙인 update함수가 삭제 클릭시에만 실행되는게 아니라 계속 실행되서...일단 주석 처리
-        	   update: function(event, ui) {
-				      
+        	   //sortable 안에 태그 변동있을때 실행되는 함수 -> 수동으로 붙인 update함수가 삭제 클릭시에만 실행되는게 아니라 계속 실행되서...일단 주석 처리
+        	 /*   update: function(event, ui) {
+        		   console.log('1번!!!!드래그 드롭');		
         		   console.log('sortable update 함수')
         		    //console.log($(this)); 
         		   
@@ -694,15 +692,14 @@ $( function() {
 									
 						});
 					  
-							
+					  deleteRouteLine();
+						
+						// 라인 다시 그리기
+						drawRouteLine();	
 					  
 					  
-                   } */
-                   /* , 이건 sortable -> sortable로 객체 droped 실행되고 난 후에 실행되는 함수
-           
-           	remove: function( event, ui ) {
-           		console.log('sort remove function 실행');
-           	} */
+                   }  */
+                  
          
            
            });
@@ -722,11 +719,16 @@ $( function() {
 				      }).get()
 			      
 				      
+				     
+				   console.log(JSON.stringify(new_locations));
+    		   
 				  // site_order값  재 정렬 
 				  new_locations = jQuery.map( new_locations, function( n, i ) {
 					  n.route_order = i ;
 					  return ( n );
 				  });
+				  
+				  console.log(JSON.stringify(new_locations));
 				      
 			      // 화면 컨텐츠 순서 값 바꾸기
 			      $(this).find('.spot_name').each(function(index, value){
@@ -769,6 +771,11 @@ $( function() {
 								
 					});
 				  
+				  
+				  deleteRouteLine();
+					
+					// 라인 다시 그리기
+					drawRouteLine();	
         	   
            });
           
@@ -814,28 +821,25 @@ $( function() {
          };
         
          
-         
+         // sortable div안에 각 Site div
          function sch_contentClick(sch_content){
+        	 
+        	 sch_content_layer.clearMarkers();
+        	 
         	  // 각 Day 별  Site 배열 정리
 		      var schList = $(sch_content).parent().find('.sch_content').map(function(i, el) {
 			  		return $(el).data('sitedata')
 			  }).get()
-			      
-			  /* sch_content_layer = new Tmap.Layer.Markers();
-		      map.addLayer(sch_content_layer); */
+			   
 			      
 			  $.each(schList, function( index, value ) {
-				  //map.zoomToExtent(poi_markerLayer.getDataExtent());
+				  var lonlat = new Tmap.LonLat(value.lon, value.lat).transform(pr_4326, pr_3857);
 				  
-				  console.log('each함수 시작');
-				  console.log(index);
-				  console.log(value.site);
 				  var options = {
-				                label:new Tmap.Label(value.site),
-				                lonlat:new Tmap.LonLat(value.lon, value.lat)
+				                label:new Tmap.Label(value.route_order+value.site),
+				                lonlat:new Tmap.LonLat(lonlat.lon, lonlat.lat)
 				            };
 				  addSchContentMarkers(options);
-				  console.log('each함수 끝');
 			  });
 			  
 		      map.zoomToExtent(sch_content_layer.getDataExtent());
@@ -1013,20 +1017,71 @@ $( function() {
         
         function deleteRouteLine(){
         	// 현재 라인 삭제
+        	console.log('vector레이어 루트 라인 삭제함수 시작');
     		vector_layer.removeAllFeatures();
         }
         
         // 존재하는 마커 정보로 line 작업
         function drawRouteLine(){
         	
+        	console.log('라인 다시 그리기');
         	//polyline 좌표 배열.
 			var pointList = [];
 		
-			for(var i = 0; i<markerLayer.markers.length; i++){
+			/* for(var i = 0; i<markerLayer.markers.length; i++){
 				 var pointlonlat = new Tmap.LonLat(markerLayer.markers[i].lonlat.lon, markerLayer.markers[i].lonlat.lat);
 				pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
 				
-			}
+			} */
+			
+			/*  customizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
+					 //console.log($(el).data('sitedata')); 
+				        return $(el).data('sitedata')
+			      }).get()
+			      
+			      //input태그에 들어가는 Site정보 확인용 
+			      console.log(JSON.stringify(customizedRouteList)); 
+				  
+				  // 현재 저장되어 있는 data empty
+				  $('#route_list_form_innerdiv').empty();
+				  
+				  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
+				  $.each(customizedRouteList, function( index, value ) {
+					
+					    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+(value.route_order+1)+">");
+						var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
+						var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
+						var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
+						var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
+						var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
+						var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
+						var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
+						var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
+						var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
+						
+						$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+								
+					}); */
+					
+			var schcontentsList = $('.sortable').find('.sch_content').map(function(i, el) {
+				 //console.log($(el).data('sitedata')); 
+				 return $(el).data('sitedata')
+			 }).get()
+			 
+			/* console.log(JSON.stringify(schcontentsList));  */
+			
+			
+			$.each(schcontentsList, function( index, value ) {
+				var lonlat = new Tmap.LonLat(value.lon, value.lat).transform(pr_4326, pr_3857);
+				
+				pointList.push(new Tmap.Geometry.Point(lonlat.lon, lonlat.lat)); 
+			});
+					
+			/* for(var i = 0; i<markerLayer.markers.length; i++){
+				 var pointlonlat = new Tmap.LonLat(markerLayer.markers[i].lonlat.lon, markerLayer.markers[i].lonlat.lat);
+				pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
+				
+			} */
 			
 			//좌표 배열 객체화
 			var lineString = new Tmap.Geometry.LineString(pointList);
