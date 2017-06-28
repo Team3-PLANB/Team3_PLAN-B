@@ -141,7 +141,7 @@ public class LoginJoinController {
 	* @return : String(ResponseBody) 
 	*/
 	@RequestMapping("Join/fbjoin.do")
-	public @ResponseBody void fbjoin(String username, String password, String nickname) throws Exception {
+	public @ResponseBody String fbjoin(String username, String password, String nickname) throws Exception {
 		int result = 0;
 		int roleResult = 0;
 		memberDao = sqlsession.getMapper(MemberDao.class);
@@ -151,6 +151,8 @@ public class LoginJoinController {
 
 		System.out.println("insert : " + result);
 		System.out.println("roleresult: " + roleResult);
+		
+		return "true";
 	}
 
 	/*
