@@ -1,17 +1,18 @@
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
 	
-    /*
-        Fullscreen background
-    */
-    /*$.backstretch("assets/img/backgrounds/1.jpg");*/
-    
     /*
 	    Modals
 	*/
 	$('.launch-modal').on('click', function(e){
-		e.preventDefault();
-		$( '#' + $(this).data('modal-id') ).modal();
+
+		//e.preventDefault();
+
+		$( '#' + $(this).data('modal-id') ).modal({
+			backdrop: false,
+			keyboard: false
+		});
+
 	});
     
     /*
