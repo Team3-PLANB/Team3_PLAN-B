@@ -32,14 +32,16 @@
 
 </head>
 
+
+
 <body>
 	<a class="btn btn-link-1 launch-modal" href="#"
 		data-modal-id="modal-register">쪽지 보내기</a>
-		
+			
 	<!-- MODAL -->
 	<div class="modal fade" id="modal-register" tabindex="-1" role="dialog"
 		aria-labelledby="modal-register-label" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog" style=float:right>
 			<div class="modal-content">
 
 				<div class="modal-header">
@@ -72,8 +74,13 @@
 			</div>
 		</div>
 	</div>
-
-
+	
+	<script type="text/javascript">
+	
+	$('#modal-register').modal({backdrop: 'static', keyboard: false}) ;
+	</script>
+	
+	
 	<!-- Javascript -->
 	<script src="message/js/jquery-1.11.1.min.js"></script>
 	<script src="message/bootstrap/js/bootstrap.min.js"></script>
