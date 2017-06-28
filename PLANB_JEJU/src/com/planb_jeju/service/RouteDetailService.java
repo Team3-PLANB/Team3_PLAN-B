@@ -63,7 +63,8 @@ public class RouteDetailService {
 	}
 	
 	public RouteDetail getRouteDetail(int route_code, String username, String site) throws ClassNotFoundException, SQLException {
-		RouteDetail routeDetail = new RouteDetail();
+		RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
+		RouteDetail routeDetail = routeDetailDao.getRouteDetail(route_code, username, site);
 		return routeDetail;
 	}
 }
