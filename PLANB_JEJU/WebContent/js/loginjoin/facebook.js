@@ -87,13 +87,8 @@ function login() {
 									url : "fblogin.do",
 									data : {"username" : username},
 									success : function(result) {// 로그인성공
-/*										if (result == "true") {
-											console.log("페북로그인 성공");
-											location.href = "../../Index/main.do";
-										}
-*/										if (result == 'true') {
-											console.log("로그인 성공" + result);
-											alert("페북로그인중");
+										if (result == 'true') {
+											swal("반가워요!");
 											location.href="../../Index/main.do";
 //											document.getElementById('username').value = username;
 //											document.getElementById('password').value = result;
