@@ -448,8 +448,7 @@
 													</div>
 												</div>
 												<div class="col-xxs-12 col-xs-6 mt">
-													<input type="submit" class="btn btn-primary btn-block"
-														value="내 경로 만들기" onclick='Submit()'> <input
+													<input
 														type="submit" class="btn btn-primary btn-block"
 														value="경로 추천 받기" onclick='Submit(1)'>
 												</div>
