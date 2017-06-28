@@ -24,4 +24,6 @@ public interface RouteDetailDao {
 	public List<RouteDetail> getRouteDetailList(Route route) throws ClassNotFoundException, SQLException;
 	
 	public List<RouteDetail> getMyHistory(int route_code, String username) throws ClassNotFoundException, SQLException;
+	
+	public RouteDetail getRouteDetail(int route_code, String username, String site) throws ClassNotFoundException, SQLException;
 }	

@@ -206,7 +206,26 @@ div.over {
 			$('#site').empty();
 			$('#site').val(site.getAttribute("value"));
 			$.ajax(function(){
-				
+				type : "get",
+				url : "${pageContext.request.contextPath}/routeDetail.do",
+				data : {
+						"route_code" : $('#route_code').val(),
+						"site" : $('#site').val(),
+						"username" : $('#username').val()
+						},
+				success : function(result){
+						console.log(result);
+						if (!result) { 
+							console.log("잘못된 값");
+						}else{
+							console.log();
+							$('#route_').attr("src", "../../images/PostScript/full_like.png");
+							$('#route_like').val("true");
+						}
+				},
+				error : function(xhr) {
+					console.log("에러남 : " + xhr);
+				}
 			});
 		}
 				
