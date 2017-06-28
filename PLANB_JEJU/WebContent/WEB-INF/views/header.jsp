@@ -41,16 +41,16 @@
 						<!-- 로그아웃 -->
 						<security:authentication property="name" var="loginUser"/>
 						<security:authorize access="isAuthenticated()">
-							<li><a href="${pageContext.request.contextPath}/logout">${loginUser}로그아웃</a></li>
+							<li>
+								<a class="btn-link-1 launch-modal" href="#" data-modal-id="modal-message-register">쪽지 보내기</a>
+							</li>
 							<li id="messageBoxIcon">
 								<a href="#">
 									<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 									<span class="badge" id="messageBadge" style="background-color: red; padding: 3px; position: absolute; right: 2px; top: 4px; display: none;">0</span>
 								</a>
 							</li>
-							<li>
-								<a class="btn btn-link-1 launch-modal" href="#" data-modal-id="modal-message-register">쪽지 보내기</a>
-							</li>
+							<li><a href="${pageContext.request.contextPath}/logout">${loginUser}로그아웃</a></li>
 						</security:authorize>
 				   </ul>
 
