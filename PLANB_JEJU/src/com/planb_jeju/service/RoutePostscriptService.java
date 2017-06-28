@@ -88,7 +88,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public RoutePostscript detailRoutePostscript(int route_postscript_rownum, String username, SqlSession sqlsession) throws ClassNotFoundException, SQLException {
+	public RoutePostscript detailRoutePostscript(int route_postscript_rownum, String username) throws ClassNotFoundException, SQLException {
 		System.out.println("루트 후기게시판 상세보기 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		System.out.println("username : " + username);
@@ -104,7 +104,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public void insertLike(RoutePostscriptLike routePostscriptLike, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	public void insertLike(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 찜콩 설정");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		int check = routePostscriptDao.insertLike(routePostscriptLike);
@@ -122,7 +122,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public void deleteLike(RoutePostscriptLike routePostscriptLike, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	public void deleteLike(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 찜콩 해제");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		int check = routePostscriptDao.deleteLike(routePostscriptLike);
@@ -140,7 +140,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public void upLikeNum(RoutePostscriptLike routePostscriptLike, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	public void upLikeNum(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 찜콩수 증가");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		int check = routePostscriptDao.upLikeNum(routePostscriptLike);
@@ -158,7 +158,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public void downLikeNum(RoutePostscriptLike routePostscriptLike, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	public void downLikeNum(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 찜콩수 감소");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		int check = routePostscriptDao.downLikeNum(routePostscriptLike);
@@ -176,7 +176,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public RoutePostscript writeRoutePostscript(RoutePostscript routePostscript, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	public RoutePostscript writeRoutePostscript(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 작성");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		RoutePostscript routePostscript2 = null;
@@ -198,7 +198,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	/*public List<RoutePostscriptTag> getRoutePostTagList(RoutePostscript routePostscript, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	/*public List<RoutePostscriptTag> getRoutePostTagList(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 태그 가져오기");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptDao.getRoutePostTagList(routePostscript);
@@ -212,7 +212,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public void insertTag(RoutePostscript routePostscript, SqlSession sqlsession) throws ClassNotFoundException, SQLException{
+	public void insertTag(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 태그 만들기");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		
