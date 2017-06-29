@@ -59,6 +59,7 @@ import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.TourApiService;
 import com.planb_jeju.utils.CheckBoxParse;
 import com.planb_jeju.utils.DateParse;
+import com.planb_jeju.utils.PersonalParse;
 
 @Controller
 @SessionAttributes("sessionPersonal")
@@ -98,6 +99,7 @@ public class PlanAController {
 	@RequestMapping(value ="PLANA.make.do", method = RequestMethod.GET)
 	public String routeInsert() {
 		return "PlanA.step";
+		
 	}
 
 	/*
@@ -237,7 +239,16 @@ public class PlanAController {
 		System.out.println(routeDetail.toString());
 		
 		Map<String, Object> map = new HashMap();
-		map.put("list", routeDetail.getRouteDetailList());
+		
+		ArrayList<RouteDetail> routeList = (ArrayList<RouteDetail>) routeDetail.getRouteDetailList();
+		
+		// 취향 한국말 설명 -> 코드성 변경
+		for(RouteDetail routeDetail2 : routeList){
+			routeDetail2.setCategory(PersonalParse.string2code(routeDetail2.getCategory()));
+		}
+		
+		
+		map.put("list", routeList);
 		
 		int result = routeDetailService.insertRouteDetail(map);
 
