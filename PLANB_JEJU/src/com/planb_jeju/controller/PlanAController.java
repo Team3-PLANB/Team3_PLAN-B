@@ -59,6 +59,7 @@ import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.TourApiService;
 import com.planb_jeju.utils.CheckBoxParse;
 import com.planb_jeju.utils.DateParse;
+import com.planb_jeju.utils.PersonalParse;
 
 @Controller
 @SessionAttributes("sessionPersonal")
@@ -72,6 +73,8 @@ public class PlanAController {
 	
 	@Autowired
 	private RouteDetailService routeDetailService;
+	
+	
 
 	/*
 	 * @date : 2017. 6. 16
@@ -96,6 +99,7 @@ public class PlanAController {
 	@RequestMapping(value ="PLANA.make.do", method = RequestMethod.GET)
 	public String routeInsert() {
 		return "PlanA.step";
+		
 	}
 
 	/*
@@ -221,7 +225,7 @@ public class PlanAController {
 	 * @return : ?
 	 */
 	@RequestMapping(value = "PLANA.detail.insert.do", method = RequestMethod.POST)
-	public String makeRouteDetail(@ModelAttribute RouteDetail routeDetail)
+	public String makeRouteDetail(Principal principal, @ModelAttribute RouteDetail routeDetail, Model model)
 			throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
 
 		// 화면 단에서 RouteDetail List 타입으로 정보 다 담아서 넣어서 전달 되어짐
@@ -235,7 +239,16 @@ public class PlanAController {
 		System.out.println(routeDetail.toString());
 		
 		Map<String, Object> map = new HashMap();
-		map.put("list", routeDetail.getRouteDetailList());
+		
+		ArrayList<RouteDetail> routeList = (ArrayList<RouteDetail>) routeDetail.getRouteDetailList();
+		
+		// 취향 한국말 설명 -> 코드성 변경
+		for(RouteDetail routeDetail2 : routeList){
+			routeDetail2.setCategory(PersonalParse.string2code(routeDetail2.getCategory()));
+		}
+		
+		
+		map.put("list", routeList);
 		
 		int result = routeDetailService.insertRouteDetail(map);
 
@@ -243,8 +256,10 @@ public class PlanAController {
 			System.out.println("루트 상세 저장 완료");
 		}
 		
-		// 일단  마이 페이지 일정 확인 페이지로 이동 /비동기라면 처리 바꿔야..
-		return "PlanA.tmapMakeRoute";
+		java.util.List<Route> mytRouteList = routeService.getMyRouteList(principal.getName());
+		model.addAttribute("mytRouteList", mytRouteList);
+
+		return "MyPage.Schedule.scheduleMain";
 
 	}
 	

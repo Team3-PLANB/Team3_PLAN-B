@@ -46,6 +46,27 @@
 <!-- histroy css -->
 <link rel="stylesheet"
 	href="<%=request.getContextPath()%>/css/history.css">
+	
+	
+	
+	
+<!-- 모달 CSS -->
+<!-- <link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
+<link rel="stylesheet" href="message/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="message/css/form-elements.css">
+<link rel="stylesheet" href="message/css/style.css"> -->
+
+<!-- 모달 Favicon and touch icons -->
+<link rel="shortcut icon" href="message/ico/favicon.png">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="message/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="message/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="message/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="message/ico/apple-touch-icon-57-precomposed.png">
 
 <!-- End : 일정부분 적용 링크 -->
 
@@ -159,11 +180,14 @@ $( function() {
 		$(markerLabel).parent().parent().attr('display','block'); */
 		
 		var markerLabelVal = this.labelHtml;
-		var markerLon =  this.lonlat.lon;
-		var markerLat = this.lonlat.lat;
-		console.log(markerLabelVal);
-		console.log(markerLon);
-		console.log(markerLat);
+		var markerLonLat = new Tmap.LonLat(this.lonlat.lon, this.lonlat.lat).transform(pr_3857, pr_4326); // 저장된 좌표 처럼 변경 33. 140처럼
+			
+		
+		//console.log(markerLonLat.lon);
+		//console.log(markerLonLat.lat);
+		
+		//마커 추가하기
+		
 		//검색 값 넣기
 		$(".ui-accordion-content").each(function(){  //ui-accordion-content 이걸 가지고 있느놈을 포문을 돌리고
 		
@@ -173,27 +197,35 @@ $( function() {
 				
 				
 				var sitedataVal;
-				var contentNum=1;
+				var newsitedataVal =[];
+				var contentNum=0;
 				$(this).find('.sch_content').each(function(i, el) { // date값, routecode, username, order가져오기 위해서 
 					sitedataVal =  $(el).data('sitedata');
 					contentNum++;
 			      });
 				
-			      console.log(sitedataVal);
-			      
-			      sitedataVal.category='';
-			      sitedataVal.etime='';
-			      sitedataVal.stime='';
-			      sitedataVal.route_order=contentNum;
-				  sitedataVal.site=markerLabelVal;
-				  sitedataVal.lon=markerLon;
-				  sitedataVal.lat=markerLat; 
-			      
-				  console.log(sitedataVal);
+				
+				newsitedataVal.push({
+					"route_code" : sitedataVal.route_code,
+					"username" : sitedataVal.username,
+					"route_order" : contentNum+1,
+					"route_date" : sitedataVal.route_date,
+					"site" : markerLabelVal,
+					"lon" : markerLonLat.lon,
+					"lat" : markerLonLat.lat,
+					"category" : '',
+					"stime" : '',
+					"etime" : ''
+				});
+				
+				
+				  //console.log('foreach문 돌리고 나서 sitedataVal값');
+			      //console.log(sitedataVal);
+			      			  
 				var $sch_content = $( "<div class='sch_content' id='"+markerLabelVal+"' style='width: 250px;' onclick='sch_contentClick(this)'></div>" );
-				var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+				var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/Z0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
 				var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
-				var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+contentNum+"</div>");
+				var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+(contentNum+1)+"</div>");
 				var $spot_info = $("<div class='spot_info'></div>");
 				var $tag = $("<div class='tag'>"+markerLabelVal+"</div>");
 				var $sinfo_line = $("<div class='sinfo_line'></div>");
@@ -203,11 +235,9 @@ $( function() {
 				
 				
 				
-				
 				// div에 data값 처리
-				$sch_content.data('sitedata', sitedataVal);
+				$sch_content.data('sitedata', newsitedataVal[0]);
 				
-
 				
 				/*  $sinfo_txt_img.appendTo($sinfo_txt); */
 				 
@@ -227,14 +257,37 @@ $( function() {
 				
 				$("#"+id+" .sortable").append($sch_content);
 				
-				// sortable 수동 함수 호출
-				/* $('.sortable').trigger('sortupdate'); */
+				//찍어보기
+				$(this).find('.sch_content').each(function(i, el) { // date값, routecode, username, order가져오기 위해서 
+					console.log($(el).data('sitedata'));
+					sitedataVal =  $(el).data('sitedata');
+					
+			      });
+				
+				//copedsitedataVal = sitedataVal; // 값 넣기
+			      
+			      sitedataVal.category='기타';
+			      sitedataVal.etime='';
+			      sitedataVal.stime='';
+			      sitedataVal.route_order=$(contentNum);
+			      sitedataVal.site=markerLabelVal;
+			      sitedataVal.lon=markerLonLat.lon;
+			      sitedataVal.lat=markerLonLat.lat; 
+			      
+				
 			}
 		});
 		
-		
-		console.log();
 	    getDataFromId(this.idString);
+	    
+	 	// 지도 : 마커 추가
+		var options = {
+            label:new Tmap.Label(markerLabelVal),
+            lonlat:new Tmap.LonLat(markerLonLat.lon,markerLonLat.lat).transform(pr_4326, pr_3857),
+            id:'Route'
+        };
+		 addRouteMarker(options);
+		 drawRouteLine();
 	}
 	function searchPOI(){
 		
@@ -301,24 +354,20 @@ $( function() {
 	}
 	
 	function addSchContentMarkers(options){
- 		console.log('day별 마커 뿌리기 시작');
-	    /* var size = new Tmap.Size(12,19); */
-	    var size = new Tmap.Size(20,30);
+		
+	    var size = new Tmap.Size(18,27); 
 	    var offset = new Tmap.Pixel(-(size.w/2), -size.h);
-	    var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png",size,offset); 
-	    /* var icon = new Tmap.IconHtml("<img src= 'https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png'></img>", size, offset);  */
+	    /* var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png",size,offset);  */
+	    var icon = new Tmap.IconHtml("<img src= 'https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png'></img>", size, offset); 
 
 	    var marker = new Tmap.Markers(options.lonlat,icon,options.label);
 	    sch_content_layer.addMarker(marker);
-	    /* marker.events.register("mouseover", marker, onOverMouse);
+	    
+	    marker.popup.show();
+	    
+	    marker.events.register("mouseover", marker, onOverMouse);
 	    marker.events.register("mouseout", marker, onOutMouse);
-	    marker.idString = options.id;
-	    marker.events.register("click", marker, onClickMouse); */
-	    
-	    console.log('day별 마커 뿌리기 끝');
-	    
-	    console.log(sch_content_layer.markers);
-	   // map.zoomToExtent(sch_content_layer.getDataExtent());
+	      	    
 	}
 	
 	//여행지 담을 날짜별 div태그 생성 함수
@@ -370,10 +419,10 @@ $( function() {
         //초기화 함수
         function init(){
         	//pr_3857 인스탄스 생성. (Google Mercator)
-			var pr_3857 = new Tmap.Projection("EPSG:3857");
+			pr_3857 = new Tmap.Projection("EPSG:3857");
 			 
 			//pr_4326 인스탄스 생성. (WGS84 GEO)
-			var pr_4326 = new Tmap.Projection("EPSG:4326");
+			pr_4326 = new Tmap.Projection("EPSG:4326");
 			
             /* centerLL = new Tmap.LonLat(14145677.4, 4511257.6); */
             centerLL = new Tmap.LonLat(14085866.64992, 3963136.5754785);
@@ -489,7 +538,7 @@ $( function() {
 	    					routeDetailList.push({
 	    												"route_code" : route_code,
 	    												"username" : username,
-	    												"route_order" : '${i.route_order}',
+	    												"route_order" : ${i.route_order},
 	    												"route_date" : '${i.route_date}',
 	    												"site" : '${i.site}',
 	    												"lon" : '${i.lon}',
@@ -498,8 +547,8 @@ $( function() {
 	    												"stime" : '${i.stime}',
 	    												"etime" : '${i.etime}'
 	    					});
-	    					console.log("날짜 길이");
-	    					console.log(dayList.length);
+	    					//console.log("날짜 길이");
+	    					//console.log(dayList.length);
 	    				
     			    </c:forEach>
     				 
@@ -544,8 +593,27 @@ $( function() {
 	    					
 	    					
 	    					
-	    					var $sch_content = $( "<div class='sch_content' id='"+'${i.site}'+"' style='width: 250px;' onclick='sch_contentClick(this)'></div>" );
-	    					var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+	    					var $sch_content = $( "<div class='sch_content' id='"+'${i.site}'+"' style='width: 250px;' ></div>" );
+	    					switch('${i.category}'){
+	    					//var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
+	    					
+		    					case "자연" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "역사관광" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0201.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "힐링" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0202.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "체험" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0203.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "산업관광" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0204.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "건축/조형" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0205.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "문화시설" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0206.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "축제" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0207.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "공연/행사" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0208.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "육상 레포츠" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0302.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "수상 레포츠" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0303.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "항공 레포츠" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0304.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "복합 레포츠" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0305.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "쇼핑" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0401.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "맛집" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0502.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    					case "기타" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/Z0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+		    				}
 	    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
 	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
 	    					var $spot_info = $("<div class='spot_info'></div>");
@@ -644,10 +712,12 @@ $( function() {
            
            $(".sortable").sortable({
         	   
+            						
+        	   
         	   // drag 한 후 객체 변경 되면 실행
-        	   /* sortable 안에 태그 변동있을때 실행되는 함수 -> 수동으로 붙인 update함수가 삭제 클릭시에만 실행되는게 아니라 계속 실행되서...일단 주석 처리
-        	   update: function(event, ui) {
-				      
+        	   //sortable 안에 태그 변동있을때 실행되는 함수 -> 수동으로 붙인 update함수가 삭제 클릭시에만 실행되는게 아니라 계속 실행되서...일단 주석 처리
+        	 /*   update: function(event, ui) {
+        		   console.log('1번!!!!드래그 드롭');		
         		   console.log('sortable update 함수')
         		    //console.log($(this)); 
         		   
@@ -694,15 +764,14 @@ $( function() {
 									
 						});
 					  
-							
+					  deleteRouteLine();
+						
+						// 라인 다시 그리기
+						drawRouteLine();	
 					  
 					  
-                   } */
-                   /* , 이건 sortable -> sortable로 객체 droped 실행되고 난 후에 실행되는 함수
-           
-           	remove: function( event, ui ) {
-           		console.log('sort remove function 실행');
-           	} */
+                   }  */
+                  
          
            
            });
@@ -722,11 +791,16 @@ $( function() {
 				      }).get()
 			      
 				      
+				     
+				   console.log(JSON.stringify(new_locations));
+    		   
 				  // site_order값  재 정렬 
 				  new_locations = jQuery.map( new_locations, function( n, i ) {
 					  n.route_order = i ;
 					  return ( n );
 				  });
+				  
+				  console.log(JSON.stringify(new_locations));
 				      
 			      // 화면 컨텐츠 순서 값 바꾸기
 			      $(this).find('.spot_name').each(function(index, value){
@@ -769,6 +843,11 @@ $( function() {
 								
 					});
 				  
+				  
+				  deleteRouteLine();
+					
+					// 라인 다시 그리기
+					drawRouteLine();	
         	   
            });
           
@@ -814,28 +893,31 @@ $( function() {
          };
         
          
-         
+         // sortable div안에 각 Site div
          function sch_contentClick(sch_content){
+        	 
+        	 sch_content_layer.clearMarkers();
+        	 
+        	 var schId = $(sch_content).parent().attr('id');
+        	 console.log('클릭한 사진의 부모sch id');
+        	 console.log(schId);
+        	 
         	  // 각 Day 별  Site 배열 정리
-		      var schList = $(sch_content).parent().find('.sch_content').map(function(i, el) {
+		      var schList = $(sch_content).parent().parent().find('.sch_content').map(function(i, el) {
 			  		return $(el).data('sitedata')
 			  }).get()
-			      
-			  /* sch_content_layer = new Tmap.Layer.Markers();
-		      map.addLayer(sch_content_layer); */
+			   
 			      
 			  $.each(schList, function( index, value ) {
-				  //map.zoomToExtent(poi_markerLayer.getDataExtent());
-				  
-				  console.log('each함수 시작');
-				  console.log(index);
-				  console.log(value.site);
-				  var options = {
-				                label:new Tmap.Label(value.site),
-				                lonlat:new Tmap.LonLat(value.lon, value.lat)
-				            };
-				  addSchContentMarkers(options);
-				  console.log('each함수 끝');
+				  if(value.site == schId){
+					  var lonlat = new Tmap.LonLat(value.lon, value.lat).transform(pr_4326, pr_3857);
+					  
+					  var options = {
+					                label:new Tmap.Label(value.route_order+'번째 여행지 : '+value.site),
+					                lonlat:new Tmap.LonLat(lonlat.lon, lonlat.lat)
+					            };
+					  addSchContentMarkers(options);
+				  }
 			  });
 			  
 		      map.zoomToExtent(sch_content_layer.getDataExtent());
@@ -1013,20 +1095,71 @@ $( function() {
         
         function deleteRouteLine(){
         	// 현재 라인 삭제
+        	console.log('vector레이어 루트 라인 삭제함수 시작');
     		vector_layer.removeAllFeatures();
         }
         
         // 존재하는 마커 정보로 line 작업
         function drawRouteLine(){
         	
+        	console.log('라인 다시 그리기');
         	//polyline 좌표 배열.
 			var pointList = [];
 		
-			for(var i = 0; i<markerLayer.markers.length; i++){
+			/* for(var i = 0; i<markerLayer.markers.length; i++){
 				 var pointlonlat = new Tmap.LonLat(markerLayer.markers[i].lonlat.lon, markerLayer.markers[i].lonlat.lat);
 				pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
 				
-			}
+			} */
+			
+			/*  customizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
+					 //console.log($(el).data('sitedata')); 
+				        return $(el).data('sitedata')
+			      }).get()
+			      
+			      //input태그에 들어가는 Site정보 확인용 
+			      console.log(JSON.stringify(customizedRouteList)); 
+				  
+				  // 현재 저장되어 있는 data empty
+				  $('#route_list_form_innerdiv').empty();
+				  
+				  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
+				  $.each(customizedRouteList, function( index, value ) {
+					
+					    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+(value.route_order+1)+">");
+						var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
+						var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
+						var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
+						var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
+						var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
+						var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
+						var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
+						var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
+						var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
+						
+						$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+								
+					}); */
+					
+			var schcontentsList = $('.sortable').find('.sch_content').map(function(i, el) {
+				 //console.log($(el).data('sitedata')); 
+				 return $(el).data('sitedata')
+			 }).get()
+			 
+			/* console.log(JSON.stringify(schcontentsList));  */
+			
+			
+			$.each(schcontentsList, function( index, value ) {
+				var lonlat = new Tmap.LonLat(value.lon, value.lat).transform(pr_4326, pr_3857);
+				
+				pointList.push(new Tmap.Geometry.Point(lonlat.lon, lonlat.lat)); 
+			});
+					
+			/* for(var i = 0; i<markerLayer.markers.length; i++){
+				 var pointlonlat = new Tmap.LonLat(markerLayer.markers[i].lonlat.lon, markerLayer.markers[i].lonlat.lat);
+				pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
+				
+			} */
 			
 			//좌표 배열 객체화
 			var lineString = new Tmap.Geometry.LineString(pointList);
@@ -1050,17 +1183,35 @@ $( function() {
         
         //클릭시 경로 정보 로드
         function search(){
+        	
+        	var pointList = [];
+        	var schcontentsList = $('.sortable').find('.sch_content').map(function(i, el) {
+				 //console.log($(el).data('sitedata')); 
+				 return $(el).data('sitedata')
+			 }).get()
+			 
+			/* console.log(JSON.stringify(schcontentsList));  */
+			
+			
+			$.each(schcontentsList, function( index, value ) {
+				//33.좌표 -> Tmap좌표로 변환
+				var lonlat = new Tmap.LonLat(value.lon, value.lat).transform(pr_4326, pr_3857);
+				
+				//pointList.push(new Tmap.Geometry.Point(lonlat.lon, lonlat.lat)); 
+				pointList.push(lonlat); 
+			});
+        
        	
-            var startX = markerLayer.markers[0].lonlat.lon;
-            var startY = markerLayer.markers[0].lonlat.lat;
+           var startX = pointList[0].lon;
+           var startY = pointList[0].lat;
+            
+            
             
             var passList ="";
             
-            console.log('마커 몇개야');
-            console.log(markerLayer.markers.length);
             
-            for(var i = 1; i<markerLayer.markers.length-1; i++){
-            	
+            
+            for(var i = 1; i<pointList.length-1; i++){	
              	/* 
             	경유지1 X 좌표,
             	경유지1 Y 좌표,
@@ -1072,25 +1223,28 @@ $( function() {
             	POIID,
             	RP Flag, 
             	MPP2개수
+            	14180382.309390113,4349064.210998647,1000559889,G,0	
             	
-            	14180382.309390113,4349064.210998647,1000559889,G,0
+            	경유지1 X 좌표,       경유지1 Y 좌표,      경유지1 POI ID,   경유지1 RP Flag,    MPP1개수   _   경유지2 X 좌표,   경유지2 Y 좌표,   POIID  ,RP Flag  ,  MPP2개수    _...
+            	14089665.03407964,   3927849.264224153,    ,            G,                0_,
+            	14121104.786352973,3944786.7447374524,,G,0_,14085758.699564857,3928597.5850073528,,G,0_
             	*/ 
-            	
-            	passList += markerLayer.markers[i].lonlat.lon;
-                 passList += ",";
-                 passList += markerLayer.markers[i].lonlat.lat;
-                 passList += ",,G,0"
-                 
-                 if(i<markerLayer.markers.length-2){
-                	 passList += ",";
-                 }
-            }
-           
-            /* console.log(passList); */
-           
-            var endX = markerLayer.markers[markerLayer.markers.length-1].lonlat.lon;
-            var endY = markerLayer.markers[markerLayer.markers.length-1].lonlat.lat;
          
+              
+            	passList += pointList[i].lon;
+                passList += ",";
+                passList += pointList[i].lat;
+                passList += ",,G,0"
+                passList += "_";
+               
+              
+            }
+          
+           
+           
+           
+           var endX = pointList[pointList.length-1].lon;
+           var endY = pointList[pointList.length-1].lat;
            
            
             /* var routeFormat = new Tmap.Format.GeoJSON({extractStyles:true, extractAttributes:true}); 
@@ -1102,9 +1256,11 @@ $( function() {
             urlStr += "&endX="+endX;
             urlStr += "&endY="+endY;
             urlStr += "&passList="+passList;
-            urlStr += "&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d";
+            urlStr += "&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d"; 
             
+         
             
+            console.log('');
             console.log(urlStr);
             
             var prtcl = new Tmap.Protocol.HTTP({
@@ -1113,7 +1269,7 @@ $( function() {
                                                 }); 
             
             
-            var routeLayer = new Tmap.Layer.Vector("route", {protocol:prtcl, strategies:[new Tmap.Strategy.Fixed()]});
+            routeLayer = new Tmap.Layer.Vector("route", {protocol:prtcl, strategies:[new Tmap.Strategy.Fixed()]});
             routeLayer.events.register("featuresadded", routeLayer, onDrawnFeatures);/* 레이어에 줌 이벤트 함수 등록 */
             map.addLayer(routeLayer);
         }
@@ -1122,7 +1278,10 @@ $( function() {
             map.zoomToExtent(this.getDataExtent());
         }
         
-        
+        // 경로 삭제
+        function searchRouteDelete(){
+        	routeLayer.destroy();
+        }
         
         
         
@@ -1183,7 +1342,7 @@ $( function() {
 	        /* console.log(this.features); */
 	        
 	        for(var i=0, len=this.features.length; i<len; ++i) { 
-	        	console.log(this.features[i].data.description);
+	        	/* console.log(this.features[i].data.description); //각 길찾기 항목*/
 	        	
 	        	var div_route_box = "<div class='btn-primary btn-outline btn-lg'>";
 	        	div_route_box+=this.features[i].data.description;
@@ -1198,7 +1357,7 @@ $( function() {
 	    };
 	    
 	    /* 이하 코드는 해독 필요 어디다 쓰이는건지 이해못함 */
-    	var map, kmlLayer, select;
+    	/* var map, kmlLayer, select;
 		var paging;
 		var markers;
 		
@@ -1224,10 +1383,12 @@ $( function() {
 				}
 				return color;
 	        }
-	    };
+	    }; */
         
         /* End : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
      
+        	/* 모달  */	
+        	$('#modal-register').modal({backdrop: 'static', keyboard: false}) ;
         		
         </script>
 
@@ -1400,6 +1561,11 @@ div.over {
 <input type="button" style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary" id="searchSiteBtn">
 <input type="text" style="width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">
 
+<!-- class="btn btn-link-1 launch-modal" -->
+<input type="button" id="btn" value="길찾기 제거"
+			class="btn btn-primary btn-outline btn-link-1" style="width:100px; float:right; padding:10px 0px;" onclick="searchRouteDelete()"/>
+<input type="button" id="btn" value="길찾기"
+			class="btn btn-primary btn-outline btn-link-1 launch-modal" style="width:100px; float:right; padding:10px 0px;" onclick="search()" data-modal-id="modal-register"/>
 
 
 
@@ -1451,39 +1617,46 @@ div.over {
 	
 </div>
 
+<!-- 경로 상세 정보 : 모달 -->
+<div class="modal fade" id="modal-register" tabindex="-1" role="dialog"
+		aria-labelledby="modal-register-label" aria-hidden="true">
+		<div class="modal-dialog" style=float:right>
+			<div class="modal-content">
 
-<div id="route_float">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+					</button>
+					<h3 class="modal-title" id="modal-register-label">경로 상세 정보</h3>
+				</div>
+
+				<div class="modal-body">
+
+					<div id="route_float"></div>
+
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+<!-- <div id="route_float">
 		<input type="button" id="btn" value="길찾기"
 			class="btn btn-primary btn-outline btn-lg" onclick="search()" />
-</div>
+</div> -->
 
 	
 <%-- ----------------------------------form-------------------------------------------%>
 <form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
 	<div id="route_list_form_innerdiv"></div>
-	<!-- <input type='hidden' name='route_code' value='1'>
-	<input type='hidden' name='username' value='username'>
-	<input type='hidden' name='route_order' value='1'>
-	<input type='hidden' name='route_date' value='2017/06/23'>
-	<input type='hidden' name='site' value='site'>
-	<input type='hidden' name='lon' value='lon'>
-	<input type='hidden' name='lat' value='lat'>
-	<input type='hidden' name='category' value='category'>
-	<input type='hidden' name='stime' value= '2017/06/23 11:00:00'>
-	<input type='hidden' name='etime' value= '2017/06/23'> 
 	
-	<input type='hidden' name='route_order' value='2'>
-	<input type='hidden' name='username' value='2'>
-	<input type='hidden' name='route_code' value='2'>
-	<input type='hidden' name='route_date' value='2017/06/23'>
-	<input type='hidden' name='site' value='2'>
-	<input type='hidden' name='lon' value='2'>
-	<input type='hidden' name='lat' value='2'>
-	<input type='hidden' name='category' value='2'>
-	<input type='hidden' name='stime' value='2'>
-	<input type='hidden' name='etime' value='2'>
-	 -->
 	
 	
 	<input type="submit" value="저장" id="submit_route_detail">
 </form>
+
+<!-- 모달 Javascript -->
+    <!-- <script src="message/js/jquery-1.11.1.min.js"></script> -->
+	<script src="message/bootstrap/js/bootstrap.min.js"></script>
+	<script src="message/js/jquery.backstretch.min.js"></script>
+	<script src="message/js/scripts.js"></script>  

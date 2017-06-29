@@ -26,10 +26,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.planb_jeju.dao.MemberDao;
+import com.planb_jeju.dao.MessageDao;
 import com.planb_jeju.dto.Member;
+import com.planb_jeju.dto.Message;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.service.MemberService;
+import com.planb_jeju.service.MessageService;
 import com.planb_jeju.service.RoutePostscriptService;
 import com.planb_jeju.service.RouteService;
 
@@ -39,6 +42,7 @@ import com.planb_jeju.service.RouteService;
 public class MyPageController {
    
    private static MemberDao memberDao;
+   private static MessageDao messageDao;
    private static Member member;
    
    @Autowired
@@ -46,6 +50,9 @@ public class MyPageController {
    
    @Autowired
    private MemberService memberservice;
+   
+   @Autowired
+   private MessageService messageService;
    
    @Autowired
 	private RouteService routeservice;
@@ -170,9 +177,17 @@ public class MyPageController {
    * @return : String(view) 
    */
    @RequestMapping("Message/msgMain.do")
-   public String msg(){
+   public String msg(Principal principal, Model model) throws Exception{
+	 
+	  messageDao = sqlsession.getMapper(MessageDao.class);
+	  String username = "";
+	  if(principal.getName() != null) username = principal.getName();
+	  
+	  List<Message> messageList = messageService.messageList(username);
+	  model.addAttribute("messageList", messageList);
       return "MyPage.Message.msgMain";
    }
+   
    
    /*
    * @date : 2017. 6. 16
@@ -215,4 +230,6 @@ public class MyPageController {
       return "Main.mainpage";
    
    }
+   
+   
 }

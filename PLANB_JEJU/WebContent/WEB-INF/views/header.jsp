@@ -42,7 +42,7 @@
 						<security:authentication property="name" var="loginUser"/>
 						<security:authorize access="isAuthenticated()">
 							<li>
-								<a class="btn-link-1 launch-modal" href="#" data-modal-id="modal-message-register">쪽지 보내기</a>
+								<a href="#" id="btn-message-modal">쪽지 보내기</a>
 							</li>
 							<li id="messageBoxIcon">
 								<a href="#">
@@ -97,12 +97,19 @@
 </div>
 
 <!--메세지를 위한 웹소켓 구현-->
-<script src="${pageContext.request.contextPath}/message/js/scripts.js"></script>
 <script src="${pageContext.request.contextPath}/js/sockjs.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/stomp.min.js"></script>
 <script>
 	$(document).ready(() => {
+
+	    // websocket init
 		if ('${loginUser}' != '') WebSocket.init();
+
+        // message modal handler
+        $('#btn-message-modal').on('click', function(e){
+            //e.preventDefault();
+            $('#modal-message-register').modal({});
+        });
 	});
 
 	let WebSocket = (() => {

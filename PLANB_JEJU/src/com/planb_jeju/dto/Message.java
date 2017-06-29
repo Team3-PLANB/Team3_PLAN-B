@@ -6,7 +6,7 @@ import java.util.Date;
 public class Message {
 	private int message_rownum;
 	private int first_message_rownum;
-	private Time sendtime;
+	private Date sendtime;
 	private int read_status;
 	private String comment;
 	private String sender;
@@ -17,7 +17,7 @@ public class Message {
 	
 	public Message(){}
 
-	public Message(int message_rownum, int first_message_rownum, Time sendtime, int read_status, String comment,
+	public Message(int message_rownum, int first_message_rownum, Date sendtime, int read_status, String comment,
 			String sender, String receiver, String sender_delete, String receiver_delete) {
 		super();
 		this.message_rownum = message_rownum;
@@ -47,11 +47,11 @@ public class Message {
 		this.first_message_rownum = first_message_rownum;
 	}
 
-	public Time getSendtime() {
+	public Date getSendtime() {
 		return sendtime;
 	}
 
-	public void setSendtime(Time sendtime) {
+	public void setSendtime(Date sendtime) {
 		this.sendtime = sendtime;
 	}
 
