@@ -23,7 +23,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    
 	</insert>
 	
-	 <!-- 루트경로 Detail(하나의 경로안에 Site 정보 전체) 가져오기 -->
+	 <!-- 루트경로 Detail(하나의 경로안에 Site 정보 전체) 가져오기 --><!-- 좋아요 추가 join -->
 	 <select id="getRouteDetailList" resultType="com.planb_jeju.dto.RouteDetail">
 		
 		 SELECT 
