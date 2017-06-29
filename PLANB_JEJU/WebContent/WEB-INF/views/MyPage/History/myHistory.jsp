@@ -93,9 +93,9 @@
 			console.log("제일 위 index : "+index);
 
 			if (OddEven % 2 == 0) { // 짝수:inverted
-				$timeline_unverted = $("<li class='timeline-inverted animate-box fadeInUp animated-fast'></li>");
+				$timeline_unverted = $("<li class='animate-box fadeInUp animated-fast timeline-inverted'></li>");
 			} else {				// 홀수:unverted
-				$timeline_unverted = $("<li class='animate-box timeline-unverted fadeInUp animated-fast'></li>");
+				$timeline_unverted = $("<li class='animate-box fadeInUp animated-fast timeline-unverted'></li>");
 			}
 
 			$timeline_panel = $("<div class='timeline-panel'></div>");
@@ -118,9 +118,9 @@
 				console.log("index1이면 들어와야지");
 				// 아코디언에 append
 				$content = $("<div class = 'content' style='width: 500px; height: 350px;'></div>");
-				$plana = $("<div style = 'width: 200px'><h2 align = 'center'>PLAN-A</h2><img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' /><br> <br><p align='center'>${myroute.site}</p></div>");
-				$reason = $("<div style='width: 150px; position: relative; left: 250px; bottom: 230px;'><img src='${pageContext.request.contextPath}/images/MyPage/arrow.png' align='center' width='50px' height='50px' /><br> <br> <p>&nbsp;&nbsp;&nbsp;&nbsp;${myroutehistory[num.index-1].update_reason}</p> </div>");
-				$planb = $("<div style='width: 200px; position: relative; left: 400px; bottom: 515px;'> <h2 align='center'>PLAN-B</h2> <img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' /><br> <br> <p align='center'>${myroutehistory[num.index-1].site}</p> </div><br>");
+				$plana = $("<div style = 'width: 150px'><h2 align = 'center'>PLAN-A</h2><img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' style='width:150px; height:150px' /><br> <br><p align='center'>${myroute.site}</p></div>");
+				$reason = $("<div style='width: 70px; position: relative; left: 180px; bottom: 200px;'><img src='${pageContext.request.contextPath}/images/MyPage/arrow.png' align='center' width='80px' height='80px' /><br> <br> <p>&nbsp;&nbsp;&nbsp;&nbsp;${myroutehistory[num.index-1].update_reason}</p> </div>");
+				$planb = $("<div style='width: 150px; position: relative; left: 300px; bottom: 446px;'> <h2 align='center'>PLAN-B</h2> <img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' style='width:150px; height:150px'/><br> <br> <p align='center'>${myroutehistory[num.index-1].site}</p> </div><br>");
 						
 				$content.append($plana).append($reason).append($planb);
 				$('#item').append($content);
