@@ -241,7 +241,7 @@ public class PostScriptController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
-	public String writeSitePostscriptOk(HttpServletRequest req, MultipartHttpServletRequest mhsq, Principal principal, SitePostscript sitePostscript) throws Exception {
+	public String writeSitePostscriptOk(HttpServletRequest req, MultipartHttpServletRequest multi, Principal principal, SitePostscript sitePostscript) throws Exception {
 		System.out.println("로그인된 아이디 : " + principal.getName());
 		sitePostscript.setUsername(principal.getName());
 		System.out.println("넘어온 객체 : " + sitePostscript);
@@ -249,7 +249,7 @@ public class PostScriptController {
 		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
         File dir = new File(realFolder);
         
-        // 넘어온 파일을 리스트로 저장
+        /*// 넘어온 파일을 리스트로 저장
         List<MultipartFile> multi = mhsq.getFiles("file");
         System.out.println(multi);
         if(multi.size() == 1 && multi.get(0).getOriginalFilename().equals("")) {
@@ -274,17 +274,17 @@ public class PostScriptController {
                 multi.get(i).transferTo(new File(savePath)); // 파일 저장
  
             }
-        }
+        }*/
 	    
-	    /*Iterator<String> filenames = multi.getFileNames();
+	    Iterator<String> filenames = multi.getFileNames();
 	    
 	    while(filenames.hasNext()){
 	    	String file = filenames.next();
 	    	String filename = multi.getFile(file).getName();
 	    	String orifilename = multi.getFile(file).getOriginalFilename();
-	    	System.out.println("file : " + file + "/ filename : " + filename + "/ oriname : " + orifilename);
+	    	System.out.println("file : " + file + "/ filensame : " + filename + "/ oriname : " + orifilename);
 	    }
-		*/
+		
 		/*
 		 * // 사이트 후기 등록 sitePostscriptservice.
 		 * 
