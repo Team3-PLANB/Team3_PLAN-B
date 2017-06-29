@@ -35,6 +35,8 @@ public class MessageController {
 
         return sqlsession.getMapper(SocketDao.class).selectMessageUnreadCount(user.getUsername());
     }
+	
+	
 
 }
 	

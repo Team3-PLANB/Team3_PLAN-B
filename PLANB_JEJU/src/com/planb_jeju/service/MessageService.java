@@ -20,7 +20,18 @@ public class MessageService {
 	private static MessageDao messageDao;
 	
 	public List<Message> messageList (String username) throws Exception {
+		
 		messageDao = sqlsession.getMapper(MessageDao.class);
+		
 		return (List<Message>)messageDao.getMessageList(username);
 	}
+	
+	public int delete(int message_rownum) throws Exception{
+		
+		messageDao = sqlsession.getMapper(MessageDao.class);
+		
+		return messageDao.delete(message_rownum);
+	}
+	
+	
 }
