@@ -280,14 +280,14 @@ div.over {
 
 
 					<div role="tabpanel" class="tab-pane" id="sitePost">
-						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST">
+						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST" enctype="multipart/form-data">
 						<div class="table-responsive">
 							<section role="main" class="l-main">
 								<div class="uploader__box js-uploader__box l-center-box">
 									
 										<div class="uploader__contents">
 											<label class="button button--secondary" for="fileinput">ImageFiles</label> 
-											<input id="fileinput" class="uploader__file-input" type="file" multiple value="Select Files">
+											<input id="fileinput" class="uploader__file-input" type="file" name="file" multiple value="Select Files">
 										</div>
 										<input class="button button--big-bottom" type="submit" value="Upload Selected Files">
 							  	  	
