@@ -42,7 +42,6 @@
 
 <script>
 	$(document).ready(function(){
-		console.log('????');
 		var routeOrder = 0;
 		var dayOrder = 0;
 		var OddEven =0;
@@ -62,96 +61,117 @@
 		var $timeline_title;
 		var $timeline_company;
 		var $timeline_body;
-		
+		var $accordion;
+		var $item;
+		var $heading;
+		var $content;
+		var $plana;
+		var $reason;
+		var $planb;
+		var numCheckUpdated = -1;
+
 		<c:forEach var="myroute" items="${myroutehistory}" varStatus="num">
 			//각 Site마다 ++ 
 			OddEven++;
-				
-					//console.log('${myroute.route_order}');
-					if(dayOrder != '${myroute.route_date}') {
-							dayOrder = '${myroute.route_date}';
-							console.log("dayOrder > " + dayOrder);
-							
-							$timeline = $("<ul class='timeline' id='"+dayOrder+"'><ul>");
-							$ltimeline_heading = $("<li class='timeline-heading text-center animate-box fadeInUp animated-fast' ></li>");
-							$h3 = $("<div><h3>" + dayOrder + " Day</h3></div>");
-												
-							/* #start > timeline + heading */
-							$h3.appendTo($ltimeline_heading);
-							$timeline.append($ltimeline_heading);
-							$('#start').append($timeline);				
-							
-					}
-				
-					var dayOrderId = "#"+dayOrder;
-							
-					var numCheckUpdated = 0;
-						<c:choose>
-							<when - varStatus가 num인데 ${num.index}값이 numCheckUpdated랑 같으면 수정 전 원본 여행지라는 거니까, 그걸 추가> 
-								// 홀수:unverted 짝수:inverted
-								if (OddEven %2 == 0) {
-									$timeline_unverted = $("<li class='timeline-inverted animate-box fadeInUp animated-fast' id = 'unverted'></li>");
-								} else {
-									$timeline_unverted = $("<li class='animate-box timeline-unverted fadeInUp animated-fast' id = 'unverted'></li>");
-								} 
-								
+			$timeline = $("<ul class='timeline' id='timeline' ><ul>");
+			if(dayOrder != '${myroute.route_date}') {
+
+				dayOrder = '${myroute.route_date}';
+				console.log("dayOrder > " + dayOrder);
+
+				$ltimeline_heading = $("<li class='timeline-heading text-center animate-box fadeInUp animated-fast' ></li>");
+				$h3 = $("<div><h3>" + dayOrder + " Day</h3></div>");
+
+				/* #start > timeline + heading */
+				$h3.appendTo($ltimeline_heading);
+				$timeline.append($ltimeline_heading);
+				$('#start').append($timeline);
+			}
+					
+			var dayOrderId = "#" + dayOrder;
+			var index = ${num.index};
+			console.log("제일 위 index : "+index);
+
+			if (OddEven % 2 == 0) { // 짝수:inverted
+				$timeline_unverted = $("<li class='animate-box fadeInUp animated-fast timeline-inverted'></li>");
+			} else {				// 홀수:unverted
+				$timeline_unverted = $("<li class='animate-box fadeInUp animated-fast timeline-unverted'></li>");
+			}
+
+			$timeline_panel = $("<div class='timeline-panel'></div>");
+			$dtimeline_heading = $("<div class='timeline-heading'></div>");
+			$timeline_title = $("<h3 class='timeline-title'>${myroute.site}</h3>");
+			$timeline_company = $("<span class='company'>${myroute.route_date}</span>");
+			if('${myroute.comment}' !== '0') {
+				$timeline_body = $("<div class='timeline-body'><p>${myroute.comment}</p></div>");
+			} else {	// 후기없으면 <div></div>
+				$timeline_body = $("<div class='timeline-body'></div>");
+			}
+			$accordion = $("<div class = 'accordion' id = 'accordion'></div>");
+			$item = $("<div class='item' id = 'item'></div>");
+			$heading = $("<div class='heading' align='center' id = 'heading' onclick = 'showUpdated()'>수정 내역 보기</div><br>");
+
+			console.log("if문 타기 전 numCheck : " + numCheckUpdated);
+					
+			if(index == numCheckUpdated) {
+				// index값이 numCheckUpdated랑 같으면 수정이력이 있는 원본 여행지
+				console.log("index1이면 들어와야지");
+				// 아코디언에 append
+				$content = $("<div class = 'content' style='width: 500px; height: 350px;'></div>");
+				$plana = $("<div style = 'width: 150px'><h2 align = 'center'>PLAN-A</h2><img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' style='width:150px; height:150px' /><br> <br><p align='center'>${myroute.site}</p></div>");
+				$reason = $("<div style='width: 70px; position: relative; left: 180px; bottom: 200px;'><img src='${pageContext.request.contextPath}/images/MyPage/arrow.png' align='center' width='80px' height='80px' /><br> <br> <p>&nbsp;&nbsp;&nbsp;&nbsp;${myroutehistory[num.index-1].update_reason}</p> </div>");
+				$planb = $("<div style='width: 150px; position: relative; left: 300px; bottom: 446px;'> <h2 align='center'>PLAN-B</h2> <img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' style='width:150px; height:150px'/><br> <br> <p align='center'>${myroutehistory[num.index-1].site}</p> </div><br>");
 						
-								$timeline_badge = $("<div class='timeline-badge'><i class='icon-map-pin'></i></div>");
-								$timeline_badgech = $("<div class='timeline-badge-ch'><i class='icon-map-pin'></i></div>");
-								$timeline_panel = $("<div class='timeline-panel'></div>");
-								$dtimeline_heading = $("<div class='timeline-heading'></div>");
-								$timeline_title = $("<h3 class='timeline-title'>${myroute.site}</h3>");
-								
-								/* $timeline_company = $("<span class='company'>${myroute.route_date}</span>"); */
-								
-								if('${myroute.comment}' !== '0') {
-									$timeline_body = $("<div class='timeline-body'><p>${myroute.comment}</p></div>");			
-								// 후기없으면 <div></div>
-								} else {
-									$timeline_body = $("<div class='timeline-body'></div>");
-								} 
-							
-							
-								
-								$timeline_title.appendTo($dtimeline_heading);
-								$timeline_panel.append($dtimeline_heading).append($timeline_body);
-								$timeline_unverted.append($timeline_badge).append($timeline_panel);
-						
-						
-								$(dayOrderId).append($timeline_unverted);
-						
-						
-						
-									
-								/* 각 Day 별 Site와 Comment 순서대로 append */
-								/* panel + heading&body */
-								/* $dtimeline_heading.append($timeline_title).append($timeline_company);
-								
-								$timeline_panel.append($dtimeline_heading).append($timeline_body); */
-								
-								/* unverted + badge&panel */				
-								//$timeline_unverted.append($timeline_badge).append($timeline_panel);
-								
-								/* heading + h3&div */
-								//$h3.appendTo($ltimeline_heading);
-								
-								
-								/* unverted = "#unverted";
-								console.log(unverted);
-								$(unverted).append($timeline_unverted); */
-						/*		if('${myroute.update_rownum}' == 0) {	
-								}
-								$h3.appendTo($ltimeline_heading);
-								$timeline.append($ltimeline_heading).append($timeline_unverted);
-								$('#start').append($timeline);*/
-								<when 끝나고>
-								<when ${num.index}값이 numCheckUpdated이랑 다르면 그냥 일반 여행지 형식으로 append>
-									<if -> updaterownum이 0이 아니면 numCheckUpdated값을 현재  ${num.index}+1 >
-									</if>
-								<when 끝나>
-						</c:choose>
+				$content.append($plana).append($reason).append($planb);
+				$('#item').append($content);
+				OddEven++;
+			} else if(index != numCheckUpdated) {
+				// index값이 numCheckUpdate와 다르면 그냥 일반 여행지 형식으로 append>');
+				console.log("else if문")
+				// update_rownum이 0이 아니면 accordion div append!
+				if('${myroute.update_rownum}' != 0) {
+					// 수정된 여행지
+					$timeline_badge = $("<div class='timeline-badge-ch'><i class='icon-map-pin'></i></div>");
+					console.log("update_rownum is not zero");
+					console.log("index > " + index);
+					$item.append($heading);
+					$accordion.append($item);
+					$dtimeline_heading.append($timeline_title).append($timeline_company).append($accordion);
+					$timeline_panel.append($dtimeline_heading).append($timeline_body);
+					$timeline_unverted.append($timeline_badge).append($timeline_panel);
+					$($timeline).append($timeline_unverted);
+					numCheckUpdated = index+1;
+					// updaterownum이 0이 아니면 numCheckUpdated값을 현재  ${num.index}+1 >);
+					console.log("elseif > if 끝날때 numCheckUpdated : "+numCheckUpdated);
+				} else {
+					$timeline_badge = $("<div class='timeline-badge'><i class='icon-map-pin'></i></div>");
+					// 수정된 이력없는 여행지
+					$dtimeline_heading.append($timeline_title).append($timeline_company);
+					$timeline_panel.append($dtimeline_heading).append($timeline_body);
+					$timeline_unverted.append($timeline_badge).append($timeline_panel);
+					$('#timeline').append($timeline_unverted);
+					console.log("elseif > else 끝날 때 numCheckUpdated : " + numCheckUpdated);
+				}
+				console.log("index!=numCheck일때 : " + numCheckUpdated);
+			}
+			console.log("if문 다 타고 numCheckUpdated : " + numCheckUpdated);
 		</c:forEach>
 	});
+	
+	
+	function showUpdated() {
+		var a = $('#heading').closest('#item');
+		var b = $(a).hasClass('open');
+		var c = $(a).closest('#accordion').find('.open');
+
+		if (b != true) {
+			$(c).find('.content').slideUp(200);
+			$(c).removeClass('open');
+		}
+		$(a).toggleClass('open');
+		$(a).find('.content').slideToggle(200);
+	}
+
 </script>
 <!-- </head> -->
 </head>

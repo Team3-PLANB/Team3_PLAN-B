@@ -101,17 +101,6 @@ public class LoginJoinController {
 	
 	/*
 	* @date : 2017. 6. 16
-	* @description : 준성오빠 일정만들기 UI 작업 중 > 나중에 경로 옮겨야 함
-	* @return : String(View 페이지) 
-	*/
-	@RequestMapping("Join/SJoin.do")
-	public String detail_JS(){
-		System.out.println("준성 일정만들기 UI 작업 중");
-		return "LoginJoin.Login.SLogin.detail_JS";
-	}
-	
-	/*
-	* @date : 2017. 6. 16
 	* @description : 회원가입시 아이디 체크 (비동기)
 	* @return : String(ResponseBody) 
 	*/

@@ -222,6 +222,16 @@ div.over {
 						$("#route_order").val(result.route_order);
 						$("#route_date").val(result.route_date);
 						$("#category").val(result.category);
+						$("#fileinput").empty();
+						$("#site_comment").val(null);
+						$("#here").parent().children("p").addClass('uploader__hide');
+						$("#here").children("ul").empty();
+						$("#here").children("div").removeClass('uploader__hide');
+						
+						$("input:checkbox").each(function() {
+							$(this).attr("checked", false);
+						});
+						
 				},
 				error : function(xhr) {
 					console.log("에러남 : " + xhr);
@@ -268,7 +278,7 @@ div.over {
 							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.getRoute_code()}" method="POST">
 								<div role="tabpanel" class="tab-pane active" id="route">
 									<input type="text" class="form-control" value="${route.getRoutename()}" name="routename" readonly><br>
-									<textarea class="form-control" id="comment" name="comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
+									<textarea class="form-control" id="route_comment" name="comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
 									<br>
 									<div align="center">
 										<input type="submit" value="작성 완료" class="btn btn-primary">
@@ -280,16 +290,15 @@ div.over {
 
 
 					<div role="tabpanel" class="tab-pane" id="sitePost">
-						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST">
+						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST" enctype="multipart/form-data">
 						<div class="table-responsive">
 							<section role="main" class="l-main">
-								<div class="uploader__box js-uploader__box l-center-box">
-									
-										<div class="uploader__contents">
-											<label class="button button--secondary" for="fileinput">ImageFiles</label> 
-											<input id="fileinput" class="uploader__file-input" type="file" multiple value="Select Files">
-										</div>
-										<input class="button button--big-bottom" type="submit" value="Upload Selected Files">
+								<div class="uploader__box js-uploader__box l-center-box" id="here">
+									<div class="uploader__contents">
+										<label class="button button--secondary" for="fileinput">ImageFiles</label> 
+										<input id="fileinput" class="uploader__file-input" type="file" name="file" multiple value="Select Files">
+									</div>
+									<input class="button button--big-bottom" type="submit" value="Upload Selected Files">
 							  	  	
 							    </div>
 							</section>
@@ -297,8 +306,8 @@ div.over {
 							 
 							<script src="${pageContext.request.contextPath}/dist/jquery.imageuploader.js"></script>
 							
-							<input type="text" class="form-control" id="site" name="site" readonly><br>
-							<textarea name="comment" class="form-control" id="" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
+							<input type="text" class="form-control" id="site" name="site" placeholder="여행지를 선택해주세요" readonly><br>
+							<textarea name="comment" class="form-control" id="site_comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
 							<input type="hidden" id="route_code" name="route_code" value="${route_code}">
 							<input type="hidden" id="route_order" name="route_order" value="${route_order}">
 							<input type="hidden" id="route_date" name="route_date" value="${route_date}">

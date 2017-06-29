@@ -1,5 +1,8 @@
 package com.planb_jeju.controller;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+
 /*
 * @FileName : PostScriptController.java
 * @Class : PostScriptController
@@ -16,8 +19,12 @@ import java.io.IOException;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -28,12 +35,15 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
 import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
@@ -220,7 +230,7 @@ public class PostScriptController {
 		
 		model.addAttribute("routePostscript", myRoutePostscript);
 		
-		return "PostScript.Route.detail";	
+		return "MyPage.PostScript.Route.detail";	
 	}
 
 	
@@ -231,31 +241,69 @@ public class PostScriptController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
-	public String writeSitePostscriptOk(Principal principal, SitePostscript sitePostscript, Model model) throws Exception {
-		System.out.println("여행지 후기 작성 ok");
+	public String writeSitePostscriptOk(HttpServletRequest req, MultipartHttpServletRequest multi, Principal principal, SitePostscript sitePostscript) throws Exception {
 		System.out.println("로그인된 아이디 : " + principal.getName());
-		System.out.println("넘어온 객체 : " + sitePostscript);
 		sitePostscript.setUsername(principal.getName());
+		System.out.println("넘어온 객체 : " + sitePostscript);
 		
+		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
+        File dir = new File(realFolder);
+        
+        /*// 넘어온 파일을 리스트로 저장
+        List<MultipartFile> multi = mhsq.getFiles("file");
+        System.out.println(multi);
+        if(multi.size() == 1 && multi.get(0).getOriginalFilename().equals("")) {
+             System.out.println("여기?");
+        }else{
+        	System.out.println("아님 여기");
+        	for(int i = 0; i < multi.size(); i++) {
+                // 파일 중복명 처리
+                String genId = UUID.randomUUID().toString();
+                // 본래 파일명
+                String originalfileName = multi.get(i).getOriginalFilename();
+                
+                System.out.println(originalfileName);
+                 
+                String saveFileName = genId + "." + originalfileName;
+                // 저장되는 파일 이름
+ 
+                String savePath = realFolder + saveFileName; // 저장 될 파일 경로
+ 
+                long fileSize = multi.get(i).getSize(); // 파일 사이즈
+ 
+                multi.get(i).transferTo(new File(savePath)); // 파일 저장
+ 
+            }
+        }*/
+	    
+	    Iterator<String> filenames = multi.getFileNames();
+	    
+	    while(filenames.hasNext()){
+	    	String file = filenames.next();
+	    	String filename = multi.getFile(file).getName();
+	    	String orifilename = multi.getFile(file).getOriginalFilename();
+	    	System.out.println("file : " + file + "/ filensame : " + filename + "/ oriname : " + orifilename);
+	    }
 		
-		/*// 사이트 후기 등록
-		sitePostscriptservice.
-		
-		// 태그 등록
-		sitePostscriptservice.
-		
-		// 사진 등록
-		sitePostscriptservice.
-		
-		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript, sqlsession);*/
 		/*
-		routePostscriptservice.insertTag(myRoutePostscript, sqlsession);
-		
-		model.addAttribute("routePostscript", myRoutePostscript);*/
-		
-		return "PostScript.Site.detail";
+		 * // 사이트 후기 등록 sitePostscriptservice.
+		 * 
+		 * // 태그 등록 sitePostscriptservice.
+		 * 
+		 * // 사진 등록 sitePostscriptservice.insertSitePostPhoto()
+		 * 
+		 * RoutePostscript myRoutePostscript =
+		 * routePostscriptservice.writeRoutePostscript(routePostscript,
+		 * sqlsession);
+		 */
+		/*
+		 * routePostscriptservice.insertTag(myRoutePostscript);
+		 * 
+		 * model.addAttribute("routePostscript", myRoutePostscript);
+		 */
+
+		return "MyPage.PostScript.Site.detail";
 	}
-	
 		
 	/*
 	* @date : 2017. 6. 22

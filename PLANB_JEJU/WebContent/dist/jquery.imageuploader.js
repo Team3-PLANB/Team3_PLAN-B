@@ -6,7 +6,6 @@
     $.fn.uploader = function (options, testMode) {
         return this.each(function (index) {
             options = $.extend({
-                submitButtonCopy: 'Upload Selected Files',
                 instructionsCopy: 'Drag and Drop, or',
                 furtherInstructionsCopy: 'Your can also drop more Files, or',
                 selectButtonCopy: 'Select Files',
@@ -28,14 +27,13 @@
             // create DOM elements
             var dom = {
                 uploaderBox: $(this),
-                submitButton: $('<button class="js-uploader__submit-button uploader__submit-button uploader__hide">' +
-                    options.submitButtonCopy + '<i class="js-uploader__icon fa fa-upload uploader__icon"></i></button>'),
+                
                 instructions: $('<p class="js-uploader__instructions uploader__instructions">' +
                     options.instructionsCopy + '</p>'),
-                selectButton: $('<input style="height: 0; width: 0;" id="fileinput' + index + '" type="file" multiple class="js-uploader__file-input uploader__file-input">' +
+                selectButton: $('<input style="height: 0; width: 0;" id="fileinput' + index + '" type="file" name="file" multiple class="js-uploader__file-input uploader__file-input">' +
                     '<label for="fileinput' + index + '" style="cursor: pointer;" class="js-uploader__file-label uploader__file-label">' +
                     options.selectButtonCopy + '</label>'),
-                secondarySelectButton: $('<input style="height: 0; width: 0;" id="secondaryfileinput' + index + '" type="file"' +
+                secondarySelectButton: $('<input style="height: 0; width: 0;" id="secondaryfileinput' + index + '" type="file"  name="file"' +
                     ' multiple class="js-uploader__file-input uploader__file-input">' +
                     '<label for="secondaryfileinput' + index + '" style="cursor: pointer;" class="js-uploader__file-label uploader__file-label uploader__file-label--secondary">' +
                     options.secondarySelectButtonCopy + '</label>'),
@@ -62,7 +60,6 @@
                 dom.uploaderBox
                     .append(dom.fileList)
                     .append(dom.contentsContainer)
-                    .append(dom.submitButton)
                     .after(dom.furtherInstructions);
             }
 
@@ -81,9 +78,6 @@
                 dom.secondarySelectButton.on('click', function () { this.value = null; });
                 dom.secondarySelectButton.on('change', selectFilesHandler);
 
-                // handle the submit click
-                dom.submitButton.on('click', uploadSubmitHandler);
-
                 // remove link handler
                 dom.uploaderBox.on('click', '.js-upload-remove-button', removeItemHandler);
 
@@ -93,9 +87,6 @@
                         switch (e.functionName) {
                         case 'selectFilesHandler':
                             selectFilesHandler(e);
-                            break;
-                        case 'uploadSubmitHandler':
-                            uploadSubmitHandler(e);
                             break;
                         default:
                             break;
@@ -175,25 +166,9 @@
 
             function cleanName (name) {
                 name = name.replace(/\s+/gi, '-'); // Replace white space with dash
-                return name.replace(/[^a-zA-Z0-9.\-]/gi, ''); // Strip any special characters
+                return name.replace(/[^a-zA-Z가-힣0-9.\-]/gi, ''); // Strip any special characters
             }
 
-            function uploadSubmitHandler () {
-                if (state.fileBatch.length !== 0) {
-                    var data = new FormData();
-                    for (var i = 0; i < state.fileBatch.length; i++) {
-                        data.append('files[]', state.fileBatch[i].file, state.fileBatch[i].fileName);
-                    }
-                    $.ajax({
-                        type: 'POST',
-                        url: options.ajaxUrl,
-                        data: data,
-                        cache: false,
-                        contentType: false,
-                        processData: false
-                    });
-                }
-            }
 
             function selectFilesHandler (e) {
                 e.preventDefault();
@@ -213,11 +188,9 @@
 
             function renderControls () {
                 if (dom.fileList.children().size() !== 0) {
-                    dom.submitButton.removeClass('uploader__hide');
                     dom.furtherInstructions.removeClass('uploader__hide');
                     dom.contentsContainer.addClass('uploader__hide');
                 } else {
-                    dom.submitButton.addClass('uploader__hide');
                     dom.furtherInstructions.addClass('uploader__hide');
                     dom.contentsContainer.removeClass('uploader__hide');
                 }

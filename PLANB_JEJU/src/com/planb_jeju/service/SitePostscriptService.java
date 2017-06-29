@@ -198,7 +198,11 @@ public class SitePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public List<SitePostscriptTag> insertSitePostPhoto(SitePostscriptPhoto sitePostscriptPhoto) throws ClassNotFoundException, SQLException{
+	public List<SitePostscriptPhoto> insertSitePostPhoto(SitePostscriptPhoto sitePostscriptPhoto) throws ClassNotFoundException, SQLException{
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		
+		
+		
 		return null;
 	}
 	

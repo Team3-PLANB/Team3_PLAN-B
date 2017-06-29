@@ -48,6 +48,7 @@ public class PersonalParse {
 			case "A0305" : personal = "복합 레포츠"; break;
 			case "A0401" : personal = "쇼핑"; break;
 			case "A0502" : personal = "맛집"; break;
+			case "Z0101" : personal = "기타"; break;
 		}
 
 		return personal;
@@ -72,6 +73,7 @@ public class PersonalParse {
 			case "복합 레포츠" : personal_code = "A0305"; break;
 			case "쇼핑" : personal_code = "A0401"; break;
 			case "맛집" : personal_code = "A0502"; break;
+			case "기타" : personal_code = "Z0101"; break;
 		}
 		
 		return personal_code;

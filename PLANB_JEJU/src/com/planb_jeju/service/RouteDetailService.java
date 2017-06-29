@@ -14,6 +14,7 @@ import com.planb_jeju.dao.RouteDao;
 import com.planb_jeju.dao.RouteDetailDao;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RouteDetail;
+import com.planb_jeju.utils.PersonalParse;
 
 @Service
 public class RouteDetailService {
@@ -43,6 +44,9 @@ public class RouteDetailService {
 			// routeDetail key값을 routeList에 넣고 각 경로의 모든 site값 가져오기
 			List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i));
 			
+			for(RouteDetail routeDetail : routeDetailList){
+				routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
+			}
 			
 			// 경로의 Name값을 key값으로 설정, value는 해당 경로의 각 Site List
 			routeDetailMap.put(routeList.get(i).getRoutename(), routeDetailList);
