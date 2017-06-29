@@ -57,4 +57,13 @@ public interface MessageDao {
 	 */
 	public int delete(int message_rownum) throws ClassNotFoundException, SQLException;
 	
+	
+	/*	
+	 * @description : 메시지 리스트 가져오기
+	 * @return : Message
+	 * @param spec : int message_rownum 메시지 고유번호
+	 */
+	public List<Message> getMessageList(String username) throws ClassNotFoundException, SQLException;
+	
+	
 }	
