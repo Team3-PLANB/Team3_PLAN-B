@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -40,10 +41,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
-
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
@@ -241,69 +241,50 @@ public class PostScriptController {
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
-	public String writeSitePostscriptOk(@RequestParam("file") MultipartFile[] files, Principal principal, SitePostscript sitePostscript, Model model) throws Exception {
+	public String writeSitePostscriptOk(HttpServletRequest req, MultipartHttpServletRequest mhsq, Principal principal, SitePostscript sitePostscript) throws Exception {
 		System.out.println("로그인된 아이디 : " + principal.getName());
-		System.out.println("넘어온 객체 : " + sitePostscript);
 		sitePostscript.setUsername(principal.getName());
-
-		String uploadpath = request.getRealPath("upload");
-		System.out.println("uploadpath : " + uploadpath);
-
-		// cos.jar 파일 제공하는 MultipartRequest 사용
-		int size = 10 * 1024 * 1024; // 10M
-		String name = "";
-		String title = "";
-		String filename1 = "";
-		String filename2 = "";
-		String orifilename1 = "";
-		String orifilename2 = "";
-
-		MultipartRequest multi = new MultipartRequest(request, uploadpath, size, "UTF-8", new DefaultFileRenamePolicy());
-
-		Enumeration filenames = multi.getFileNames();
-		// while(filenames.hasMoreElements()){
-		// out.print(filenames.nextElement() + "<br>");
-		// }
-		String file2 = (String) filenames.nextElement();
-		filename2 = multi.getFilesystemName(file2);
-		orifilename2 = multi.getOriginalFileName(file2);
-
-		String file1 = (String) filenames.nextElement();
-		filename1 = multi.getFilesystemName(file1);
-		orifilename1 = multi.getOriginalFileName(file1);
-
-		System.out.println("file2 : " + file2);
-		System.out.println("filename2 : " + filename2); // 저장된 이름
-		System.out.println("orifilename2 : " + orifilename2); // 원본 이름
-		System.out.println("<hr>");
-		System.out.println("file1 : " + file1 + "<br>");
-		System.out.println("filename1 : " + filename1 + "<br>");
-		System.out.println("orifilename1 : " + orifilename1 + "<br>");
-
-		for (int i = 0; i < files.length; i++) {
-			MultipartFile file = files[i];
-			try {
-				byte[] bytes = file.getBytes();
-
-				// Creating the directory to store file
-				String rootPath = System.getProperty("catalina.home");
-				File dir = new File(rootPath + File.separator + "tmpFiles");
-				if (!dir.exists())
-					dir.mkdirs();
-
-				// Create the file on server
-				File serverFile = new File(dir.getAbsolutePath() + File.separator + name);
-				BufferedOutputStream stream = new BufferedOutputStream(
-						new FileOutputStream(serverFile));
-				stream.write(bytes);
-				stream.close();
-
-				System.out.println("You successfully uploaded file=" + name);
-			} catch (Exception e) {
-				System.out.println("You failed to upload " + name + " => " + e.getMessage());
-			}
-		}		
+		System.out.println("넘어온 객체 : " + sitePostscript);
 		
+		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
+        File dir = new File(realFolder);
+        
+        // 넘어온 파일을 리스트로 저장
+        List<MultipartFile> multi = mhsq.getFiles("file");
+        System.out.println(multi);
+        if(multi.size() == 1 && multi.get(0).getOriginalFilename().equals("")) {
+             System.out.println("여기?");
+        }else{
+        	System.out.println("아님 여기");
+        	for(int i = 0; i < multi.size(); i++) {
+                // 파일 중복명 처리
+                String genId = UUID.randomUUID().toString();
+                // 본래 파일명
+                String originalfileName = multi.get(i).getOriginalFilename();
+                
+                System.out.println(originalfileName);
+                 
+                String saveFileName = genId + "." + originalfileName;
+                // 저장되는 파일 이름
+ 
+                String savePath = realFolder + saveFileName; // 저장 될 파일 경로
+ 
+                long fileSize = multi.get(i).getSize(); // 파일 사이즈
+ 
+                multi.get(i).transferTo(new File(savePath)); // 파일 저장
+ 
+            }
+        }
+	    
+	    /*Iterator<String> filenames = multi.getFileNames();
+	    
+	    while(filenames.hasNext()){
+	    	String file = filenames.next();
+	    	String filename = multi.getFile(file).getName();
+	    	String orifilename = multi.getFile(file).getOriginalFilename();
+	    	System.out.println("file : " + file + "/ filename : " + filename + "/ oriname : " + orifilename);
+	    }
+		*/
 		/*
 		 * // 사이트 후기 등록 sitePostscriptservice.
 		 * 
