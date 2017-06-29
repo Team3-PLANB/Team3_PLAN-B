@@ -27,6 +27,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				WHERE rh.route_code = #{param1} AND rh.username = #{param2}
 			) rhsp
 		ON r.username = rhsp.un
-			AND r.route_code = rhsp.rc;
+			AND r.route_code = rhsp.rc
+		ORDER BY route_order asc, update_rownum desc;
 	</select>
 </mapper>
