@@ -44,7 +44,8 @@
 	$(document).ready(function(){
 		console.log('????');
 		var routeOrder = 0;
-		var dayOrder = 0
+		var dayOrder = 0;
+		var OddEven =0;
 		var $li;
 		var $div;
 		var $h3;
@@ -62,67 +63,93 @@
 		var $timeline_company;
 		var $timeline_body;
 		
-		<c:forEach var="myroute" items="${myroutehistory}">
-		//console.log('${myroute.route_order}');
-		if(routeOrder != ${myroute.route_order}) {
-				dayOrder++;
-				console.log("1 > " + dayOrder);
-				$timeline = $("<ul class='timeline'><ul>");
-				$ltimeline_heading = $("<li class='timeline-heading text-center animate-box fadeInUp animated-fast'></li>");
-				$h3 = $("<div><h3>" + dayOrder + " Day</h3></div>");
-				console.log("2 > " + dayOrder);
-				// 홀수:unverted 짝수:inverted
-				if (dayOrder = 0 || dayOrder%2 == 0) {
-					$timeline_unverted = $("<li class='timeline-inverted animate-box fadeInUp animated-fast' id = 'unverted'></li>");
-				} else {
-					$timeline_unverted = $("<li class='animate-box timeline-unverted fadeInUp animated-fast' id = 'unverted'></li>");
-				}
-				console.log("3 > " + dayOrder);
-				$timeline_badge = $("<div class='timeline-badge'><i class='icon-map-pin'></i></div>");
-				$timeline_badgech = $("<div class='timeline-badge-ch'><i class='icon-map-pin'></i></div>");
-				$timeline_panel = $("<div class='timeline-panel'></div>");
-				$dtimeline_heading = $("<div class='timeline-heading'></div>");
-				$timeline_title = $("<h3 class='timeline-title'>${myroute.site}</h3>");
-				console.log("4" + dayOrder);
-				$timeline_company = $("<span class='company'>${myroute.route_date}</span>");
+		<c:forEach var="myroute" items="${myroutehistory}" varStatus="num">
+			//각 Site마다 ++ 
+			OddEven++;
 				
-				if('${myroute.comment}' !== '0') {
-					$timeline_body = $("<div class='timeline-body'><p>${myroute.comment}</p></div>");			
-				// 후기없으면 <div></div>
-				} else {
-					$timeline_body = $("<div class='timeline-body'></div>");
-				}
-				console.log("5" + dayOrder);
+					//console.log('${myroute.route_order}');
+					if(dayOrder != '${myroute.route_date}') {
+							dayOrder = '${myroute.route_date}';
+							console.log("dayOrder > " + dayOrder);
+							
+							$timeline = $("<ul class='timeline' id='"+dayOrder+"'><ul>");
+							$ltimeline_heading = $("<li class='timeline-heading text-center animate-box fadeInUp animated-fast' ></li>");
+							$h3 = $("<div><h3>" + dayOrder + " Day</h3></div>");
+												
+							/* #start > timeline + heading */
+							$h3.appendTo($ltimeline_heading);
+							$timeline.append($ltimeline_heading);
+							$('#start').append($timeline);				
+							
+					}
 				
-				/* #start > timeline + heading */				
-				$timeline.append($ltimeline_heading);
-				$('#start').append($timeline);
-				console.log("start append > " + dayOrder);				
-				routeOrder=1;
-				console.log(routeOrder);
-		}
-			
-		/* 각 Day 별 Site와 Comment 순서대로 append */
-		/* panel + heading&body */
-		$dtimeline_heading.append($timeline_title).append($timeline_company);
-		console.log("6 > " + dayOrder);
-		$timeline_panel.append($dtimeline_heading).append($timeline_body);
-		console.log("7 > " + dayOrder);
-		/* unverted + badge&panel */				
-		$timeline_unverted.append($timeline_badge).append($timeline_panel);
-		console.log("8 > " + dayOrder);
-		/* heading + h3&div */
-		$h3.appendTo($ltimeline_heading);
-		console.log("9 > " + dayOrder);
-		
-		unverted = "#unverted";
-		console.log(unverted);
-		$(unverted).append($timeline_unverted);
-/*		if('${myroute.update_rownum}' == 0) {	
-		}
-		$h3.appendTo($ltimeline_heading);
-		$timeline.append($ltimeline_heading).append($timeline_unverted);
-		$('#start').append($timeline);*/
+					var dayOrderId = "#"+dayOrder;
+							
+					var numCheckUpdated = 0;
+						<c:choose>
+							<when - varStatus가 num인데 ${num.index}값이 numCheckUpdated랑 같으면 수정 전 원본 여행지라는 거니까, 그걸 추가> 
+								// 홀수:unverted 짝수:inverted
+								if (OddEven %2 == 0) {
+									$timeline_unverted = $("<li class='timeline-inverted animate-box fadeInUp animated-fast' id = 'unverted'></li>");
+								} else {
+									$timeline_unverted = $("<li class='animate-box timeline-unverted fadeInUp animated-fast' id = 'unverted'></li>");
+								} 
+								
+						
+								$timeline_badge = $("<div class='timeline-badge'><i class='icon-map-pin'></i></div>");
+								$timeline_badgech = $("<div class='timeline-badge-ch'><i class='icon-map-pin'></i></div>");
+								$timeline_panel = $("<div class='timeline-panel'></div>");
+								$dtimeline_heading = $("<div class='timeline-heading'></div>");
+								$timeline_title = $("<h3 class='timeline-title'>${myroute.site}</h3>");
+								
+								/* $timeline_company = $("<span class='company'>${myroute.route_date}</span>"); */
+								
+								if('${myroute.comment}' !== '0') {
+									$timeline_body = $("<div class='timeline-body'><p>${myroute.comment}</p></div>");			
+								// 후기없으면 <div></div>
+								} else {
+									$timeline_body = $("<div class='timeline-body'></div>");
+								} 
+							
+							
+								
+								$timeline_title.appendTo($dtimeline_heading);
+								$timeline_panel.append($dtimeline_heading).append($timeline_body);
+								$timeline_unverted.append($timeline_badge).append($timeline_panel);
+						
+						
+								$(dayOrderId).append($timeline_unverted);
+						
+						
+						
+									
+								/* 각 Day 별 Site와 Comment 순서대로 append */
+								/* panel + heading&body */
+								/* $dtimeline_heading.append($timeline_title).append($timeline_company);
+								
+								$timeline_panel.append($dtimeline_heading).append($timeline_body); */
+								
+								/* unverted + badge&panel */				
+								//$timeline_unverted.append($timeline_badge).append($timeline_panel);
+								
+								/* heading + h3&div */
+								//$h3.appendTo($ltimeline_heading);
+								
+								
+								/* unverted = "#unverted";
+								console.log(unverted);
+								$(unverted).append($timeline_unverted); */
+						/*		if('${myroute.update_rownum}' == 0) {	
+								}
+								$h3.appendTo($ltimeline_heading);
+								$timeline.append($ltimeline_heading).append($timeline_unverted);
+								$('#start').append($timeline);*/
+								<when 끝나고>
+								<when ${num.index}값이 numCheckUpdated이랑 다르면 그냥 일반 여행지 형식으로 append>
+									<if -> updaterownum이 0이 아니면 numCheckUpdated값을 현재  ${num.index}+1 >
+									</if>
+								<when 끝나>
+						</c:choose>
 		</c:forEach>
 	});
 </script>

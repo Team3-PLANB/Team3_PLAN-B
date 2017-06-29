@@ -72,6 +72,8 @@ public class PlanAController {
 	
 	@Autowired
 	private RouteDetailService routeDetailService;
+	
+	
 
 	/*
 	 * @date : 2017. 6. 16
@@ -221,7 +223,7 @@ public class PlanAController {
 	 * @return : ?
 	 */
 	@RequestMapping(value = "PLANA.detail.insert.do", method = RequestMethod.POST)
-	public String makeRouteDetail(@ModelAttribute RouteDetail routeDetail)
+	public String makeRouteDetail(Principal principal, @ModelAttribute RouteDetail routeDetail, Model model)
 			throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
 
 		// 화면 단에서 RouteDetail List 타입으로 정보 다 담아서 넣어서 전달 되어짐
@@ -243,8 +245,10 @@ public class PlanAController {
 			System.out.println("루트 상세 저장 완료");
 		}
 		
-		// 일단  마이 페이지 일정 확인 페이지로 이동 /비동기라면 처리 바꿔야..
-		return "PlanA.tmapMakeRoute";
+		java.util.List<Route> mytRouteList = routeService.getMyRouteList(principal.getName());
+		model.addAttribute("mytRouteList", mytRouteList);
+
+		return "MyPage.Schedule.scheduleMain";
 
 	}
 	
