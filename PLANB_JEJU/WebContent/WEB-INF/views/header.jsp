@@ -139,7 +139,7 @@
 			// 받는 회원만 진행
 			if (obj.receiver == '${loginUser}') {
 				$('#messageBadge').text(obj.unread_count).fadeIn(1000);
-				swal("[ from ] " + obj.sender + "\n[ 내용 ]\n" + obj.comment);
+				swal("[ from ] " + obj.sender + "\n[ 받은 쪽지 ]\n" + obj.comment);
 			}
 
 			$('#modal-message-register').modal('hide');
