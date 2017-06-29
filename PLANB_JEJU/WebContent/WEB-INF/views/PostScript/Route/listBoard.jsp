@@ -81,12 +81,12 @@
 					<div class="container">
 						<div class="row row-bottom-padded-md">
 							<c:forEach var="routePostscript" items="${routePostscriptList}">
-								<div class="col-lg-4 col-md-4 col-sm-6" style="height:180px;" >
+								<div class="col-lg-4 col-md-4 col-sm-6" >
 									<div class="fh5co-blog animate-box">
 										<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.getRoute_postscript_rownum()}">
 											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Route.jpg" alt="">
 										</a>
-										<div class="blog-text">
+										<div class="blog-text" style="height:400px;">
 											<div class="prod-title">
 												<h3>
 													<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.getRoute_postscript_rownum()}">${routePostscript.getRoutename()}</a>

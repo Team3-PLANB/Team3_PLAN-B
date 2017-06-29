@@ -1,4 +1,4 @@
-package com.journaldev.spring.controller;
+package com.planb_jeju.controller;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -84,12 +84,7 @@ public class FileUploadController {
 				stream.write(bytes);
 				stream.close();
 
-				logger.info("Server File Location="
-						+ serverFile.getAbsolutePath());
-
-				message = message + "You successfully uploaded file=" + name
-						+ "
-";
+				message = message + "You successfully uploaded file=" + name;
 			} catch (Exception e) {
 				return "You failed to upload " + name + " => " + e.getMessage();
 			}
