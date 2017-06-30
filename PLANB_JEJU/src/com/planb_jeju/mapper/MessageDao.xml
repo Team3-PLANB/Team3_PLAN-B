@@ -84,15 +84,28 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		)
 	</insert>
 	
+	<!-- 총 메세지 카운트 조회 -->
+	<select id="totalMessageCount" parameterType="String" resultType="int">
+		SELECT count(*) cnt
+		FROM message
+		WHERE receiver =#{username}
+		AND sender_delete = 0
+		AND receiver_delete = 0
+	</select>
+	
 	<!-- 메시지 가져오기 -->
 	<select id="getMessageList" parameterType="String" resultType="com.planb_jeju.dto.Message">
 		SELECT *
 		FROM message
 		WHERE receiver =#{username}
 		AND sender_delete = 0
+		AND receiver_delete = 0
+		ORDER BY sendtime DESC LIMIT 5,5;
+		
+	
 	</select>
 	
 	<delete id="delete" parameterType="int">
-	 	DELETE message WHERE message_rownum=#{message_rownum}
+	 	DELETE FROM message WHERE message_rownum=#{message_rownum}
 	</delete>
 </mapper>
