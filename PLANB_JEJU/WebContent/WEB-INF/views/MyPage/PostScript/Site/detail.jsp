@@ -71,40 +71,16 @@
 							<!-- Loading Screen -->
 							<div data-u="loading" style="position: absolute; top: 0px; left: 0px; background: url('img/loading.gif') no-repeat 50% 50%; background-color: rgba(0, 0, 0, 0.7);"></div>
 							<div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
-								<div>
-									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_1.jpg" />
-									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
-										</c:forEach>
+								<c:forEach var="photo" items="${sitePostscriptPhotoList}">
+									<div>
+										<img data-u="image" src="${pageContext.request.contextPath}/PostScript/Photo/${photo.site_postscript_photo_rownum}.do" />
+										<div data-u="thumb">
+											<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
+												&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+											</c:forEach>
+										</div>
 									</div>
-								</div>
-								<div>
-									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_2.jpg" />
-									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
-										</c:forEach>
-									</div>
-								</div>
-								<div>
-									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_3.jpg" />
-									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
-										</c:forEach>
-									</div>
-								</div>
-								<div>
-									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_4.png" />
-									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
-										</c:forEach>
-									</div>
-								</div>
-								
-								
+								</c:forEach>							
 								<a data-u="any" href="https://www.jssor.com/wordpress.html"
 									style="display: none">wordpress slider</a>
 							</div>

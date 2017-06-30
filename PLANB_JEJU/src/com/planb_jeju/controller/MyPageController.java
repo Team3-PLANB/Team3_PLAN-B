@@ -127,8 +127,8 @@ public class MyPageController {
     * @return : String (view page) 
     */
     @RequestMapping("PostScript/Route/Detail.do")
-    public String root(){
- 	   
+    public String routeDetail(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
+    	
        return "MyPage.PostScript.Route.detail";
     }
    

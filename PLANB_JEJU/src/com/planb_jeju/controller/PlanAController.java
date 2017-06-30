@@ -54,6 +54,7 @@ import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.RouteDao;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RouteDetail;
+import com.planb_jeju.service.HistoryService;
 import com.planb_jeju.service.RouteDetailService;
 import com.planb_jeju.service.RouteService;
 import com.planb_jeju.service.TourApiService;
@@ -74,7 +75,8 @@ public class PlanAController {
 	@Autowired
 	private RouteDetailService routeDetailService;
 	
-	
+	@Autowired
+	private HistoryService historyService;
 
 	/*
 	 * @date : 2017. 6. 16
@@ -183,13 +185,16 @@ public class PlanAController {
 		
 		System.out.println("확인");
 		System.out.println(route.getPartner_code());
-		System.out.println(personalList[0].toString());
+		System.out.println(personalList.toString());
 		System.out.println(principal.getName());
+		System.out.println(personalList.length);
 		
 		map.put("partner_code", route.getPartner_code());
 		map.put("personal_code", personalList);
 		map.put("username", principal.getName());
 		map.put("personal_code_len", personalList.length);
+		
+		
 		
 		
 		// 조건에 맞는 RouteDto를 List로 받기 (조건 : 파트너 코드, 취향 코드를 map에 저장, 파라메터로 전달)
@@ -220,9 +225,8 @@ public class PlanAController {
 	 * @date : 2017. 6. 19
 	 * 
 	 * @description : PLANA RouteDetail 저장
-	 * 
-	 *           
-	 * @return : ?
+	 *   
+	 * @return : 마이 페이지
 	 */
 	@RequestMapping(value = "PLANA.detail.insert.do", method = RequestMethod.POST)
 	public String makeRouteDetail(Principal principal, @ModelAttribute RouteDetail routeDetail, Model model)
@@ -251,6 +255,15 @@ public class PlanAController {
 		map.put("list", routeList);
 		
 		int result = routeDetailService.insertRouteDetail(map);
+		
+		
+		// history insert용 : update row num 추가
+		for(RouteDetail routeHistory : routeList){
+			routeHistory.setUpdate_rownum(0);
+		}
+		
+		// history insert
+		int historyresult = historyService.insertRouteHistory(map);
 
 		if(result>0){
 			System.out.println("루트 상세 저장 완료");

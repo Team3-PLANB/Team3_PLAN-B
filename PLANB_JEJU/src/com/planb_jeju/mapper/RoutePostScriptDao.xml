@@ -105,6 +105,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="param2 != null"> t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
 		</where>
 		GROUP BY rp.route_postscript_rownum
+		ORDER BY rp.writetime desc
 	</select>
 	
 	<!-- 내 루트 후기 리스트 -->
