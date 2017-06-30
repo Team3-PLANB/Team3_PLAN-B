@@ -99,6 +99,7 @@
 <!--메세지를 위한 웹소켓 구현-->
 <script src="${pageContext.request.contextPath}/js/sockjs.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/stomp.min.js"></script>
+
 <script>
 	$(document).ready(() => {
 
@@ -138,7 +139,7 @@
 			// 받는 회원만 진행
 			if (obj.receiver == '${loginUser}') {
 				$('#messageBadge').text(obj.unread_count).fadeIn(1000);
-				alert("메세지가 도착했습니다. \n 내용 : "+message);
+				swal("[ from ] " + obj.sender + "\n[ 받은 쪽지 ]\n" + obj.comment);
 			}
 
 			$('#modal-message-register').modal('hide');
