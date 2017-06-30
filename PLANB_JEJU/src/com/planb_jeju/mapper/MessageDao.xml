@@ -100,7 +100,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE receiver =#{username}
 		AND sender_delete = 0
 		AND receiver_delete = 0
-		ORDER BY sendtime DESC LIMIT 5,5;
+		ORDER BY sendtime DESC LIMIT 0,5;
 		
 	
 	</select>
