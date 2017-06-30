@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -30,12 +31,15 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.sql.rowset.serial.SerialBlob;
 
 import org.apache.ibatis.session.SqlSession;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -55,6 +59,7 @@ import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
+import com.planb_jeju.dto.SitePostscriptPhoto;
 import com.planb_jeju.dto.SitePostscriptTag;
 import com.planb_jeju.service.HistoryService;
 import com.planb_jeju.service.MemberService;
@@ -235,72 +240,34 @@ public class PostScriptController {
 
 	
 	/*
-	* @date : 2017. 6. 28
+	* @date : 2017. 6. 29
 	* @description : 여행지 후기 작성 OK
 	* @parameter : principal 로그인한 회원 정보, model 여행지 후기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
-	public String writeSitePostscriptOk(HttpServletRequest req, MultipartHttpServletRequest multi, Principal principal, SitePostscript sitePostscript) throws Exception {
+	public String writeSitePostscriptOk(MultipartHttpServletRequest mhsq, Principal principal, SitePostscript sitePostscript, Model model) throws Exception {
 		System.out.println("로그인된 아이디 : " + principal.getName());
 		sitePostscript.setUsername(principal.getName());
 		System.out.println("넘어온 객체 : " + sitePostscript);
 		
-		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
-        File dir = new File(realFolder);
-        
-        /*// 넘어온 파일을 리스트로 저장
-        List<MultipartFile> multi = mhsq.getFiles("file");
-        System.out.println(multi);
-        if(multi.size() == 1 && multi.get(0).getOriginalFilename().equals("")) {
-             System.out.println("여기?");
-        }else{
-        	System.out.println("아님 여기");
-        	for(int i = 0; i < multi.size(); i++) {
-                // 파일 중복명 처리
-                String genId = UUID.randomUUID().toString();
-                // 본래 파일명
-                String originalfileName = multi.get(i).getOriginalFilename();
-                
-                System.out.println(originalfileName);
-                 
-                String saveFileName = genId + "." + originalfileName;
-                // 저장되는 파일 이름
- 
-                String savePath = realFolder + saveFileName; // 저장 될 파일 경로
- 
-                long fileSize = multi.get(i).getSize(); // 파일 사이즈
- 
-                multi.get(i).transferTo(new File(savePath)); // 파일 저장
- 
-            }
-        }*/
-	    
-	    Iterator<String> filenames = multi.getFileNames();
-	    
-	    while(filenames.hasNext()){
-	    	String file = filenames.next();
-	    	String filename = multi.getFile(file).getName();
-	    	String orifilename = multi.getFile(file).getOriginalFilename();
-	    	System.out.println("file : " + file + "/ filensame : " + filename + "/ oriname : " + orifilename);
-	    }
+		// 사이트 후기 등록 
+		SitePostscript lastSitePostscript = sitePostscriptservice.writeSitePostscript(sitePostscript);
 		
-		/*
-		 * // 사이트 후기 등록 sitePostscriptservice.
-		 * 
-		 * // 태그 등록 sitePostscriptservice.
-		 * 
-		 * // 사진 등록 sitePostscriptservice.insertSitePostPhoto()
-		 * 
-		 * RoutePostscript myRoutePostscript =
-		 * routePostscriptservice.writeRoutePostscript(routePostscript,
-		 * sqlsession);
-		 */
-		/*
-		 * routePostscriptservice.insertTag(myRoutePostscript);
-		 * 
-		 * model.addAttribute("routePostscript", myRoutePostscript);
-		 */
+		// 사진 등록
+		List<SitePostscriptPhoto> photoList = sitePostscriptservice.insertSitePostPhoto(mhsq, sitePostscript.getSite_postscript_rownum());
+		
+		// 태그 등록 
+		List<SitePostscriptTag> tagList = sitePostscriptservice.insertSitePostTag(sitePostscript);
+		
+		// 방금 올렸던 후기 넘겨주기
+		model.addAttribute("sitePostscript", lastSitePostscript);
+		
+		// 방금 올렸던 후기 태그 넘겨주기
+		model.addAttribute("sitePostscriptTagList", tagList);
+		
+		// 방금 올렸던 후기 사진 넘겨주기
+		model.addAttribute("sitePostscriptPhotoList", photoList);
 
 		return "MyPage.PostScript.Site.detail";
 	}
@@ -381,7 +348,7 @@ public class PostScriptController {
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
 	* @return : String(View 페이지)
 	*/
-	@RequestMapping(value="/History/history.do", method=RequestMethod.GET)
+	@RequestMapping(value="History/history.do", method=RequestMethod.GET)
 	public String detailHistory(@RequestParam int route_code, Principal principal, Model model) throws ClassNotFoundException, SQLException {
 		System.out.println("히스토리 상세보기");
 		System.out.println("로그인된 아이디 : " + principal.getName());
@@ -396,5 +363,31 @@ public class PostScriptController {
 		model.addAttribute("routename", routename);
 		return "MyPage.History.myHistory";	
 	}
+	
+	/*
+	* @date : 2017. 6. 24
+	* @description : 사진 파일 불러오기
+	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
+	* @return : String(View 페이지)
+	*/
+	/*
+
+	@RequestMapping(value = "Site/Photo/{num}.do", method = RequestMethod.GET)
+	public void showPhoto(@PathVariable("num") String num, HttpServletResponse response) throws IOException, SQLException {
+	
+
+	UploadImageVO board = iuploadImageService.uploadView(num);
+
+	response.setHeader("Content-Disposition", "inline;filename=\"" + board.getContentName() + "\"");
+	OutputStream outputStream = response.getOutputStream();
+	response.setContentType(board.getContentType());
+
+	SerialBlob blob = new SerialBlob(board.getContent());
+
+	IOUtils.copy(blob.getBinaryStream(), outputStream);
+
+	outputStream.flush();
+	outputStream.close();
+	}*/
 
 }

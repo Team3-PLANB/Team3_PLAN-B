@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.planb_jeju.dao.MemberDao;
@@ -126,8 +127,8 @@ public class MyPageController {
     * @return : String (view page) 
     */
     @RequestMapping("PostScript/Route/Detail.do")
-    public String root(){
- 	   
+    public String routeDetail(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
+    	
        return "MyPage.PostScript.Route.detail";
     }
    
