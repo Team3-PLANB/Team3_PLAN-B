@@ -74,7 +74,7 @@
 												</span>												
 											</div>
 											<input type = "button" class="btn btn-primary" value = "수정하기">
- 											<input type = "button" class="btn btn-primary" style="margin-left:85px" onclick = "deleteMySite(${sitePostscript.site_postscript_rownum})" value ="삭제하기" />
+ 											<input type = "button" class="btn btn-primary" style="margin-left:85px" onclick = "deleteMySite(${sitePostscript.site_postscript_rownum})" value ="삭제하기">
  										</div>
 									</div>
 								</div>

@@ -7,7 +7,7 @@ function deleteMyRoute(route_rouwnum) {
 	      return;
 	}
  	$.ajax({
-	      url:"delete.do",
+	      url:"deleteMyRoute.do",
 	      data:{"route_rouwnum":route_rouwnum},
 	      success:function(data){
 	         console.log(data);

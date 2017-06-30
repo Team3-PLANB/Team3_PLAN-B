@@ -72,7 +72,7 @@
 											<span id="contentElement">
 											</span>
 											<input type = "button" class="btn btn-primary" value = "수정하기">
- 											<input type = "button" class="btn btn-primary" style="margin-left:78px" onclick = "deleteMyRoute(${routePostscript.route_postscript_rownum})" value ="삭제하기" />
+ 											<input type = "button" class="btn btn-primary" style="margin-left:78px" onclick = "deleteMyRoute(${routePostscript.route_postscript_rownum})" value ="삭제하기" >
 										</div>
 									</div>
 								</div>

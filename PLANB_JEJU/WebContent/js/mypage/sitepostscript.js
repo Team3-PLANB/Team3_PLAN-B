@@ -8,7 +8,7 @@ function deleteMySite(site_rouwnum) {
 	      return;
 	}
  	$.ajax({
-	      url:"delete.do",
+	      url:"deleteMySite.do",
 	      data:{"site_rouwnum":site_rouwnum},
 	      success:function(data){
 	         console.log(data);
