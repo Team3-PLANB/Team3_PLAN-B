@@ -68,6 +68,24 @@ $(document).ready(function(){
         return false;
     });
     
+    
+    var content = document.getElementById('contentElement').innerHTML;
+	var splitedArray = content.split(' ');
+	var linkedContent = '';
+	for(var word in splitedArray){
+		console.log("splitedArray : " + splitedArray);
+		word = splitedArray[word].trim();
+		if(word.indexOf('#') == 0){
+			word = word.substring(1);
+			word = '<a href="List.do?searchWord=' + word + '">#' + word + '</a>';
+		}
+			linkedContent += word + ' ';
+	}
+	document.getElementById('contentElement').innerHTML = linkedContent;
+    
+    
+    
+    
 
 		var jssor_1_SlideshowTransitions = [ {
 			$Duration : 1200,

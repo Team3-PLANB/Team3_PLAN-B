@@ -318,43 +318,35 @@ div.over {
 									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg"> 
 										<input name="inoutside" type="radio" value="실내" onclick="doOpenCheck(this);"> 
-										<span class="checkbox-placeholder"></span> 실내활동
+										<span class="checkbox-placeholder"></span> 실내
 									</label>&nbsp;&nbsp;&nbsp; 
 									<label class="checkbox-bootstrap checkbox-lg"> 
 										<input name="inoutside" type="radio" value="야외" onclick="doOpenCheck(this);"> 
-										<span class="checkbox-placeholder"></span> 야외활동
-									</label>&nbsp;&nbsp;&nbsp;
+										<span class="checkbox-placeholder"></span> 야외
+									</label>
 								</div>
 								<br>
 								<div class="checkbox" name="cost">
 									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/002-money.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="cost" type="radio" value="부족" onclick="doOpenCheck2(this);"> 
-											<span class="checkbox-placeholder"></span> 부족
+										<input name="cost" type="radio" value="비쌈" onclick="doOpenCheck2(this);"> 
+											<span class="checkbox-placeholder"></span> 비쌈
 									</label>&nbsp;&nbsp;&nbsp; 
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="cost" type="radio" value="적당" onclick="doOpenCheck2(this);"> 
-										<span class="checkbox-placeholder"></span> 적당
-									</label>&nbsp;&nbsp;&nbsp;
-									<label class="checkbox-bootstrap checkbox-lg">
-										<input name="cost" type="radio" value="풍족" onclick="doOpenCheck2(this);"> 
-										<span class="checkbox-placeholder"></span> 풍족
+										<input name="cost" type="radio" value="저렴" onclick="doOpenCheck2(this);"> 
+										<span class="checkbox-placeholder"></span> 저렴
 									</label>
 								</div>
 								<br>
 								<div class="checkbox" >
 									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/001-hospital.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg"> 
-									<input name="health" type="radio" value="양호" onclick="doOpenCheck3(this);"> 
-										<span class="checkbox-placeholder"></span> 양호
+									<input name="health" type="radio" value="완만" onclick="doOpenCheck3(this);"> 
+										<span class="checkbox-placeholder"></span> 완만
 									</label>&nbsp;&nbsp;&nbsp; 
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="health" type="radio" value="쏘쏘" onclick="doOpenCheck3(this);"> 
-										<span class="checkbox-placeholder"></span> 쏘쏘
-									</label>&nbsp;&nbsp;&nbsp;
-									<label class="checkbox-bootstrap checkbox-lg">
-										<input name="health" type="radio" value="악화" onclick="doOpenCheck3(this);"> 
-										<span class="checkbox-placeholder"></span> 악화
+										<input name="health" type="radio" value="힘듦" onclick="doOpenCheck3(this);"> 
+										<span class="checkbox-placeholder"></span> 힘듦
 									</label>
 								</div>
 							</div>

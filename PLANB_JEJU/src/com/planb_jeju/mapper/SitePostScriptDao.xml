@@ -3,54 +3,6 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.planb_jeju.dao.SitePostScriptDao">
-	<!-- 
-	
-		// 여행지 후기 전체 수
-		public int getCount();
-		
-		// 여행지루트 후기 등록
-		public int insert(SitePostscript sitePostscript);
-			
-		// 여행지 후기 수정
-		public int update(SitePostscript sitePostscript);
-			
-		// 여행지 후기 삭제
-		public int delete(int site_postscript_rownum, String username);
-		
-		// 여행지 후기 리스트
-		public List<SitePostscript> getList(String username);
-		
-		// 여행지 후기 상세보기
-		public SitePostscript getSitePost(int site_postscript_rownum, String username);
-		
-		// 찜콩하기
-		public int insertLike(SitePostscriptLike sitePostscriptLike);
-	
-		// 찜콩 해제
-		public int deleteLike(SitePostscriptLike sitePostscriptLike);
-		
-		// 태그 등록
-		public int insertTag(SitePostscript sitePostscript);
-		
-		// 태그 삭제
-		public int deleteTag(int site_postscript_rownum);
-		
-		// 조회수 증가
-		public int updateHitNum(int site_postscript_rownum);
-		
-		// 좋아요(찜콩수) 증가
-		public int updateLikeNum(int site_postscript_rownum);
-		
-		// 태그 가져오기
-		public List<SitePostScriptTag> getSitePostTagList(SitePostscript sitePostscript);
-		
-		// 사진 등록
-		public int insertPhoto(SitePostscriptPhoto sitePostscriptPhoto);
-		
-		// 사진 삭제
-		public int deletePhoto(SitePostscriptPhoto sitePostscriptPhoto);
-		
-	-->
 
 	<!-- 여행지 후기 전체 수 -->
 	<select id="getCount" resultType="Integer">
@@ -62,10 +14,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="com.planb_jeju.dto.SitePostscript">
 		INSERT INTO site_postscript (site_postscript_rownum, username, site, category, comment, health, inoutside, cost, writetime, hitnum, likenum, route_code)
 		VALUES (NULL, #{username}, #{site}, #{category}, #{comment}, #{health}, #{inoutside}, #{cost}, sysdate(), 0, 0, #{route_code}) 
-		<selectKey resultType="int" keyProperty="iq" order="AFTER">
-        	SELECT LAST_INSERT_ID()
-    	</selectKey>
 	</insert>
+	
+	<!-- 방금 쓴 여행지 후기 상세보기 -->
+	<select id="getLastSitePost" resultType="com.planb_jeju.dto.SitePostscript">
+		SELECT *
+		FROM site_postscript
+		WHERE site_postscript_rownum = (SELECT MAX(site_postscript_rownum) FROM site_postscript)
+	</select>
 	
 	<!-- 여행지 후기 수정 -->
 	<update id="update" parameterType="com.planb_jeju.dto.SitePostscript">
@@ -93,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="param2 != null"> t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
 		</where>
 		GROUP BY sp.site_postscript_rownum
-		ORDER BY sp.writetime desc
+		ORDER BY sp.site_postscript_rownum desc
 	</select>
 	
 	<!--  여행지 후기 상세보기 -->
@@ -121,62 +77,66 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 태그 등록 -->
 	<insert id="insertTag" parameterType="com.planb_jeju.dto.SitePostscriptTag">
 		INSERT site_postscript_tag (site_postscript_tag_rownum, tag, site_postscript_rownum)
-		VALUES (NULL, ${tag}, ${site_postscript_rownum})
+		VALUES (NULL, #{tag}, #{site_postscript_rownum})
 	</insert>
 	
 	<!-- 태그 삭제 -->
 	<delete id="deleteTag" parameterType="Integer">
 		DELETE FROM site_postscript_tag
-		WHERE site_postscript_rownum = ${site_postscript_rownum}
+		WHERE site_postscript_rownum = #{site_postscript_rownum}
 	</delete>
 	
 	<!-- 조회수 증가 -->
 	<update id="updateHitNum">
 		UPDATE site_postscript
 		SET hitnum = hitnum + 1
-		WHERE site_postscript_rownum = ${parma1} 
+		WHERE site_postscript_rownum = #{parma1} 
 	</update>
 	
 	<!-- 좋아요(찜콩수) 증가 -->
 	<update id="upLikeNum" parameterType="com.planb_jeju.dto.SitePostscriptLike">
 		UPDATE site_postscript
 		SET likenum = likenum + 1
-		WHERE site_postscript_rownum = ${site_postscript_rownum}
+		WHERE site_postscript_rownum = #{site_postscript_rownum}
 	</update>
 	
 	<!-- 좋아요(찜콩수) 감소 -->
 	<update id="downLikeNum" parameterType="com.planb_jeju.dto.SitePostscriptLike">
 		UPDATE site_postscript
 		SET likenum = likenum - 1
-		WHERE site_postscript_rownum = ${site_postscript_rownum}
+		WHERE site_postscript_rownum = #{site_postscript_rownum}
 	</update>
 	
 	<!-- 태그 가져오기 -->
 	<select id="getSitePostTagList" parameterType="com.planb_jeju.dto.SitePostscript" resultType="com.planb_jeju.dto.SitePostscriptTag">
 		SELECT *
 		FROM site_postscript_tag
-		WHERE site_postscript_rownum = ${site_postscript_rownum}
+		WHERE site_postscript_rownum = #{site_postscript_rownum}
 	</select>
 	
 	<!-- 사진 등록 -->
 	<insert id="insertPhoto" parameterType="com.planb_jeju.dto.SitePostscriptPhoto">
 		INSERT INTO site_postscript_photo (site_postscript_photo_rownum, photo_src, site_postscript_rownum)
-		VALUES (null, ${photo_src}, ${site_postscript_rownum})
-		<selectKey resultType="int" keyProperty="iq" order="AFTER">
-        	SELECT LAST_INSERT_ID()
-    	</selectKey>		
+		VALUES (null, {photo_src}, #{site_postscript_rownum})		
 	</insert>
 	
 	<!-- 사진 가져오기 -->
 	<select id="getPhoto" resultType="com.planb_jeju.dto.SitePostscriptPhoto">
 		SELECT *
 		FROM site_postscript_photo
-		WHERE site_postscript_photo_rownum = ${param1}
+		WHERE site_postscript_photo_rownum = #{param1}
+	</select>
+	
+	<!-- 방금 올린 사진 가져오기 -->
+	<select id="getLastPhoto" resultType="com.planb_jeju.dto.SitePostscriptPhoto">
+		SELECT *
+		FROM site_postscript_photo
+		WHERE site_postscript_photo_rownum = (SELECT MAX(site_postscript_photo_rownum) FROM site_postscript_photo)
 	</select>
 	
 	<!-- 사진 삭제 -->
 	<delete id="deletePhoto" parameterType="Integer">
 		DELETE FROM site_postscript_photo
-		WHERE site_postscript_rownum = ${param1}
+		WHERE site_postscript_rownum = #{param1}
 	</delete>
 </mapper>
