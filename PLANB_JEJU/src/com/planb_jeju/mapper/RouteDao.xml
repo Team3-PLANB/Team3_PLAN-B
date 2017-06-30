@@ -40,7 +40,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			subtable group by rc, n ) 
 		subtable2 where countpc=2; 
 		 -->
-		 SELECT rc as route_code, n as username, routename FROM
+		  <!-- SELECT rc as route_code, n as username, routename FROM
 			(SELECT count(pc) as countpc, rc, n, routename 
 				FROM (SELECT r.route_code as rc, r.username as n, rp.personal_code as pc, r.routename as routename 
 						FROM route r join route_personal rp 
@@ -54,10 +54,84 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 				                </foreach>
 				            
 			)subtable group by rc, n ) 
-		subtable2 WHERE countpc = #{personal_code_len}
-		 <!-- and n != #{username} 추가할 것 -->
-		
-	</select>
+		subtable2 WHERE countpc = #{personal_code_len}  -->
+		 
+		 
+
+<!-- SELECT route_code as route_code, username as username, routename as routename FROM
+	(SELECT <![CDATA[ @rownum:=@rownum+1 as rownum]]>, orderedT.route_code as route_code, orderedT.username as username, orderedT.routename as routename FROM 
+			(SELECT originT.route_code, originT.username, originT.routename, route_postscript.hitnum, route_postscript.likenum FROM 
+					(SELECT rc as route_code, n as username, routename FROM
+								(SELECT count(pc) as countpc, rc, n, routename 
+									FROM 
+			                        (SELECT r.route_code as rc, r.username as n, rp.personal_code as pc, r.routename as routename 
+											FROM route r join route_personal rp 
+												on r.username = rp.username 
+												and r.route_code = rp.route_code
+											WHERE partner_code = #{partner_code} AND r.username != #{username}
+											
+												and rp.personal_code in 
+													<foreach collection="personal_code" item="item" index="index" separator="," open="(" close=")">
+									                    #{item}
+									                </foreach>
+												
+								 )subtable group by rc, n ) 
+						subtable2 WHERE countpc = #{personal_code_len}) originT left join route_postscript on 
+						originT.route_code = route_postscript.route_code and originT.username = route_postscript.username
+				 	
+				order by hitnum desc, likenum desc , originT.route_code asc) orderedT 
+	WHERE <![CDATA[ (@rownum:=0)=0) ]]> rownumedT
+	       
+WHERE rownumedT.rownum =1   -->
+
+
+<!-- select * from
+(SELECT  @rownum:=@rownum +1 as rownum, orderedT.* FROM
+		(SELECT originT.route_code, originT.username, originT.routename, route_postscript.hitnum, route_postscript.likenum FROM 
+					(SELECT rc as route_code, n as username, routename FROM
+								(SELECT count(pc) as countpc, rc, n, routename 
+									FROM 
+			                        (SELECT r.route_code as rc, r.username as n, rp.personal_code as pc, r.routename as routename 
+											FROM route r join route_personal rp 
+												on r.username = rp.username 
+												and r.route_code = rp.route_code
+											WHERE partner_code = 'P01' AND r.username != 'b@naver.com'
+											
+												and rp.personal_code in 
+													('A0101')
+												
+								 )subtable group by rc, n ) 
+						subtable2 WHERE countpc =1) originT left join route_postscript on 
+						originT.route_code = route_postscript.route_code and originT.username = route_postscript.username
+				 	
+				order by hitnum desc, likenum desc , originT.route_code asc)orderedT, (select @rownum:=0) r)lastT
+where lastT.rownum<10; -->
+
+		select * from
+		(SELECT  @rownum:=@rownum +1 as rownum, orderedT.* FROM
+				(SELECT originT.route_code, originT.username, originT.routename, route_postscript.hitnum, route_postscript.likenum FROM 
+							(SELECT rc as route_code, n as username, routename FROM
+										(SELECT count(pc) as countpc, rc, n, routename 
+											FROM 
+					                        (SELECT r.route_code as rc, r.username as n, rp.personal_code as pc, r.routename as routename 
+													FROM route r join route_personal rp 
+														on r.username = rp.username 
+														and r.route_code = rp.route_code
+													WHERE partner_code = #{partner_code} AND r.username != #{username}
+													
+														and rp.personal_code in 
+															<foreach collection="personal_code" item="item" index="index" separator="," open="(" close=")">
+											                    #{item}
+											                </foreach>
+														
+										 )subtable group by rc, n ) 
+								subtable2 WHERE countpc = #{personal_code_len}) originT left join route_postscript on 
+								originT.route_code = route_postscript.route_code and originT.username = route_postscript.username
+						 	
+						order by hitnum desc, likenum desc , originT.route_code asc)orderedT, (select @rownum:=0) r)lastT
+		where lastT.rownum &lt; 10;
+		    
+   </select>
 	
 	<!-- 내 루트 리스트 가져오기 -->
 	<select id="getMyRouteList" resultType="com.planb_jeju.dto.Route">

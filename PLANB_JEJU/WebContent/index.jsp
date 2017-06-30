@@ -20,23 +20,15 @@
 	<link rel="stylesheet" href="css/mainpage/icomoon.css">
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="css/mainpage/bootstrap.css">
-	
 	<!-- Magnific Popup -->
 	<link rel="stylesheet" href="css/mainpage/magnific-popup.css">
-	
 	<!-- Owl Carousel  -->
 	<link rel="stylesheet" href="css/mainpage/owl.carousel.min.css">
 	<link rel="stylesheet" href="css/mainpage/owl.theme.default.min.css">
-	
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="css/mainpage/style.css">
-	
 	<!-- Modernizr JS -->
 	<script src="js//mainpage/modernizr-2.6.2.min.js"></script>
-	<!-- FOR IE9 below -->
-	<!--[if lt IE 9]>
-		<script src="js/respond.min.js"></script>
-		<![endif]-->
 </head>
 <body>
 	<div class="fh5co-loader"></div>

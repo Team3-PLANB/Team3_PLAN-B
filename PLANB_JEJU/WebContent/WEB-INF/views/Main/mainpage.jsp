@@ -36,15 +36,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/main/mainCss.css">
-<script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
-
-
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/message/css/sweetalert.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/mainCss.css">
 <!-- slider를 위한 css  -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/main/mainMain.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/mainMain.css">
+
+<script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
+<script src="${pageContext.request.contextPath}/message/js/sweetalert.min.js" ></script>
+
 
 </head>
 <body>

@@ -86,55 +86,50 @@
 			</ul>
 
 			<!-- Tab panes -->
-			<div class="tab-content">
-				<div role="tabpanel" class="tab-pane active" id="step1">
-					<div class="table-responsive">
-						<table id="mytable" class="table table-bordred table-striped">
-							<thead>
-								<th><input type="checkbox" id="checkall1" /></th>
-								<th>New</th>
-								<th>닉네임</th>
-								<th>이메일</th>
-								<th>제목</th>
-								<th>날짜</th>
-								<th>Delete</th>
-							</thead>
-							<tbody>
-								<c:forEach var="msg" items="${messageList}">
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td><c:if test="${msg.read_status eq 0}"> N </c:if></td>
-									
-									<td>${msg.sender}</td>
-									<td>${msg.sender}</td>
-									<td>${msg.comment}</td>
-									<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${msg.sendtime}"/></td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								</c:forEach>
-
-							</tbody>
-
-						</table>
-
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="step1">
+			<div class="table-responsive">
+				<table id="mytable" class="table table-bordred table-striped">
+					<thead>
+						<th><input type="checkbox" id="checkall1" /></th>
+						<th>New</th>
+						<th>닉네임</th>
+						<th>이메일</th>
+						<th>내용</th>
+						<th>날짜</th>
+						<th>Delete</th>
+					</thead>
+					<tbody>
+						<c:forEach var="msg" items="${messageList}">
+						<tr>
+							<td><input type="checkbox" class="checkthis" /></td>
+							<td><c:if test="${msg.read_status eq 0}"> N </c:if></td>
+							<td>${msg.sender}</td>
+							<td>${msg.sender}</td>
+							<td>${msg.comment}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${msg.sendtime}"/></td>
+								<td align="center"><p data-placement="top"
+									data-toggle="tooltip" title="Delete">
+									<button class="btn btn-danger btn-xs" data-title="Delete"
+										data-toggle="modal" data-target="#delete" value="${msg.message_rownum}">
+										<span class="glyphicon glyphicon-trash"></span>
+									</button>
+								</p></td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
 						<div class="clearfix"></div>
-						<ul class="pagination pull-right">
-							<li class="disabled"><a href="#"><span
-									class="glyphicon glyphicon-chevron-left"></span></a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#"><span
-									class="glyphicon glyphicon-chevron-right"></span></a></li>
+					<ul class="pagination pull-right">
+						<li class="disabled"><a href="#"><span
+								class="glyphicon glyphicon-chevron-left"></span></a></li>
+						<li class="active"><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#"><span
+								class="glyphicon glyphicon-chevron-right"></span></a></li>
 						</ul>
 
 					</div>
