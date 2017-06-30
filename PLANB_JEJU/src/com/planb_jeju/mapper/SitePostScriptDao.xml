@@ -62,6 +62,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<insert id="insert" parameterType="com.planb_jeju.dto.SitePostscript">
 		INSERT INTO site_postscript (site_postscript_rownum, username, site, category, comment, health, inoutside, cost, writetime, hitnum, likenum, route_code)
 		VALUES (NULL, #{username}, #{site}, #{category}, #{comment}, #{health}, #{inoutside}, #{cost}, SYSDATE, 0, 0, #{route_code}) 
+		<selectKey resultType="int" keyProperty="iq" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>
 	</insert>
 	
 	<!-- 여행지 후기 수정 -->
@@ -109,7 +112,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<!-- 태그 등록 -->
-	<insert id="insertTag" parameterType="com.planb_jeju.dto.SitePostscript">
+	<insert id="insertTag" parameterType="com.planb_jeju.dto.SitePostscriptTag">
 		INSERT site_postscript_tag (site_postscript_tag_rownum, tag, site_postscript_rownum)
 		VALUES (NULL, ${tag}, ${site_postscript_rownum})
 	</insert>
@@ -151,8 +154,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사진 등록 -->
 	<insert id="insertPhoto" parameterType="com.planb_jeju.dto.SitePostscriptPhoto">
 		INSERT INTO site_postscript_photo (site_postscript_photo_rownum, photo_src, site_postscript_rownum)
-		VALUES (null, ${photo_src}, ${site_postscript_rownum})		
+		VALUES (null, ${photo_src}, ${site_postscript_rownum})
+		<selectKey resultType="int" keyProperty="iq" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+    	</selectKey>		
 	</insert>
+	
+	<!-- 사진 가져오기 -->
+	<select id="getPhoto" resultType="com.planb_jeju.dto.SitePostscriptPhoto">
+		SELECT *
+		FROM site_postscript_photo
+		WHERE site_postscript_photo_rownum = ${param1}
+	</select>
 	
 	<!-- 사진 삭제 -->
 	<delete id="deletePhoto" parameterType="Integer">

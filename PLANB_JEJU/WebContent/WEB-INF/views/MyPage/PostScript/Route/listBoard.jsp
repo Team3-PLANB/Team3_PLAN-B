@@ -58,10 +58,10 @@
 									<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/Detail.do">
 										<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Route.jpg" alt="">
 									</a>
-									<div class="blog-text">
+									<div class="blog-text"  style="height:400px;">
 										<div class="prod-title">
 											<h3>
-												<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.getRoute_postscript_rownum()}">${routePostscript.getRoutename()}</a>
+												<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}">${routePostscript.routename}</a>
 											</h3>
 											<span class="posted_by">${routePostscript.getUsername()}</span> 
 											<span class="posted_by" style="float:right;">${routePostscript.getWritetime()}</span> 

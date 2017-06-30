@@ -55,7 +55,7 @@
 					<div class="row row-bottom-padded-md">
 						<%------------------------------제목 부분 ----------------------------------------%>
 						<div class="col-md-12 animate-box">
-							<h2 class="heading-title">${routePostscript.getRoutename()}</h2>
+							<h2 class="heading-title">${routePostscript.routename}</h2>
 						</div>
 
 						<%------------------------------이미지와 태그 부분 ----------------------------------------%>
