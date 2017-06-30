@@ -63,20 +63,6 @@
 												<h3>
 													<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.getSite_postscript_rownum()}">${sitePostscript.getSite()}</a>
 												</h3>
-<%-- 												<span class="comment" id="like" style="float:right;">
-													<span id="siteLikeChange">찜콩
-														<c:choose>
-															<c:when test="${sitePostscript.getSite_like()=='true'}">
-																<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
-															</c:when>
-															<c:otherwise>
-																<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
-															</c:otherwise>
-														</c:choose>
-													</span>
-													<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.getSite_postscript_rownum()}">
-													<input type="hidden" id="site_like" value="${sitePostscript.getSite_like()}">
-												</span> --%>
 												<span class="posted_by">${sitePostscript.getUsername()}</span> 
 												<span class="posted_by" style="float:right;">${sitePostscript.getWritetime()}</span> 
 												<span>
@@ -87,7 +73,6 @@
 													</span>
 												</span>
  												<input type = "button" class="btn btn-primary" value = "수정하기" />
-
  												<input type = "button" class="btn btn-primary" style="margin-left:85px" value ="삭제하기" />
 											</div>
 										</div>
