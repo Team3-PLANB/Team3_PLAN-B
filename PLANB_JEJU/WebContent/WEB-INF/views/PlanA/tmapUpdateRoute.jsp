@@ -75,11 +75,12 @@
 <script type="text/javascript">
 $( function() {
 	var lonlat; 
-	//Tmap 마커 레이어 변수
-	//var markerLayer;
-	//var poi_markerLayer;
-	//var vector_layer;
-
+	//pr_3857 인스탄스 생성. (Google Mercator)
+	pr_3857 = new Tmap.Projection("EPSG:3857");
+	 
+	//pr_4326 인스탄스 생성. (WGS84 GEO)
+	pr_4326 = new Tmap.Projection("EPSG:4326");
+	
 	//서버에서 넘어온 User의 여행 설정 정보
 	route_code = ${requestScope.myRouteInfo.route_code};
 	username = '${requestScope.myRouteInfo.username}';
@@ -89,18 +90,11 @@ $( function() {
 	//여행 이름 표시
 	$('#routename').val(routename);
 		
-	//서버에서 넘어온 날짜 담을 배열  
-	dayList = [];
 	
-	//서버에서 넘어온 날짜List 배열로 저장
-	<c:forEach var="item" items="${requestScope.datesList}" varStatus="num"> 
-		
-		dayList.push('${item}');
-	</c:forEach>
+	
 
 	
-	//여행지 담을 날짜별 div태그 생성 함수 호출
-	initSortableDiv();
+	
 	
 	
 	
@@ -407,60 +401,9 @@ $( function() {
 	      	    
 	}
 	
-	//여행지 담을 날짜별 div태그 생성 함수
- 	function initSortableDiv(){
-		var routedate;
-		var dayOrder=0;
 	
-  		// 서버에서 리턴된 날짜 배열 객채 -> 날짜 별 박스 하나씩 만들기
-		$( dayList ).each(function( index, element ) {
-			
-	 		if(routedate!=element){
-	     		routedate = element;
-	     		++dayOrder;
-	     		
-	     		// Day 드래그 박스 추가
-	     		/*
-	     		<div class='group' style='width: 280px;'>
-					<h3>DAY 1</h3>
-					<div>
-						<div class='sortable'>
-						</div>
-					</div>
-				</div>
-	     		*/
-	     		
-	     		//$('#accordion2').append('<div class="group" style="width: 280px;"><h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3><div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active"><div class="sortable" id="ScheduleDay'+dayOrder+'"></div></div></div>');
-	     	
-	     		
-	     		var $group = $("<div class='group' style='width: 280px;'></div>");
-	     		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons' style='background: #F78536; border: 1px solid #F78536;'>Day"+dayOrder+"  :  "+element+"</h3>");
-	     		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
-	     		var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
-	     		
-	     		$sortablediv.appendTo($div);
-	     		$group.append($h3).append($div);
-	     		$('#accordion2').append($group);
-	     		
-	     		/* <div class="group" style="width: 280px;">
-	     			<h3 class="ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons">Day'+dayOrder+'</h3>
-	     				<div class="ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active">
-	     					<div class="sortable" id="ScheduleDay'+dayOrder+'">
-	     					</div>	
-	     				</div>
-	     			</div> */
-	     	}
-		});
- 		
- 	}
         //초기화 함수
         function init(){
-        	//pr_3857 인스탄스 생성. (Google Mercator)
-			pr_3857 = new Tmap.Projection("EPSG:3857");
-			 
-			//pr_4326 인스탄스 생성. (WGS84 GEO)
-			pr_4326 = new Tmap.Projection("EPSG:4326");
-			
             /* centerLL = new Tmap.LonLat(14145677.4, 4511257.6); */
             centerLL = new Tmap.LonLat(14085866.64992, 3963136.5754785);
             map = new Tmap.Map({div:'map_div',
@@ -495,47 +438,19 @@ $( function() {
         	
     		map.addLayers([vector_layer, markerLayer,poi_markerLayer,sch_content_layer]); 
             
-    	
-            /* searchRoute(); */
-            
-            
-            <c:choose>
-				<c:when test="${requestScope.pageCase=='routeDetailPage'}">
-					
-				</c:when>
-				
-				<c:when test="${requestScope.pageCase=='routeRecommendPage'}">
-				 	// sortable div 하나 생성
-					
-					var $group = $("<div class='group' style='width: 280px;'></div>");
-		     		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons' style='background: #ead84a; border: 1px solid #ead84a;'>추천여행지</h3>");
-		     		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active' style='padding: 1em 1em;'></div>");
-		     		var $sortablediv = $("<div id='recommendSortableDiv'></div>");
-		     		
-		     		$sortablediv.appendTo($div);
-		     		$group.append($h3).append($div);
-		     		$('#accordion2').prepend($group);
-		     		
-					<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
-				    
-						//경로 이름 버튼 생성
-						/* console.log('${item.key}'); */
-						 $('#recommendSortableDiv').append("<input type='button' value='${item.key}' class='routeSelectButton btn btn-warning' style='font-size:10px' onclick='routeButtonClick(this)'><br>"); 
-						
-					</c:forEach>
-				
-				</c:when>
-			</c:choose>
+    		loadRoute();
+           
            
         	 
         };
         
         
         
-        // 루트 선택 버튼 클릭 함수
-        function routeButtonClick(btn){
-        	// map위 Layers 제거
-        	//deleteLayers();
+        // 경로 정보 load(초기화)
+        function loadRoute(){
+        	
+        
+        
         	
         	// 이전에 선택한 루트 경로 선 삭제
         	vector_layer.removeAllFeatures();
@@ -547,31 +462,19 @@ $( function() {
         	// 일정 Drag 박스 empty 적용
         	$('.sortable').empty();
         	
-        	//pr_3857 인스탄스 생성. (Google Mercator)
-        	var pr_3857 = new Tmap.Projection("EPSG:3857");
-        	 
-        	//pr_4326 인스탄스 생성. (WGS84 GEO)
-        	var pr_4326 = new Tmap.Projection("EPSG:4326");
         	
         	
         	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
     	    
     		
-    			// 클릭한 버튼의 값이 routeMap의 값과 같으면
-    			if(btn.value == '${item.key}'){
+    			
     				
     				//JsonArray로 경로의 각 Site 내용 정리
     				//이전 routeDetailList 내용 비우기
     				routeDetailList = [];
     				
-    				var dayCount = 0;
-    				
-    				
     				<c:forEach var="i" items="${item.value}" varStatus="num">
     					
-	    					if(routedate!='${i.route_date}'){
-	    		         		++dayCount;
-	    		         	}
 	    					routeDetailList.push({
 	    												"route_code" : route_code,
 	    												"username" : username,
@@ -584,48 +487,33 @@ $( function() {
 	    												"stime" : '${i.stime}',
 	    												"etime" : '${i.etime}'
 	    					});
-	    					//console.log("날짜 길이");
-	    					//console.log(dayList.length);
 	    				
     			    </c:forEach>
     				 
-    				
+    			    var dayCount = 0;
+    				var routedate = 0;
     			    
-    		         var dayOrder=-1;
-    		         
-    		         //var routedate = routeDetailList[0].route_date;
-    		         var routedate;
-    				 
-    		         
-    		         var doneLoop = true;
-    		         <c:forEach var="i" items="${item.value}" varStatus="num">
-	    		        
-    		         if(routedate!='${i.route_date}'){
- 		         		routedate = '${i.route_date}';
- 		         		++dayOrder;
- 		         		
- 		         	}
-    		         	
-    		         	if(dayOrder == dayList.length){
-	 				     	doneLoop=false;
-	 				 	 } 
-	    		         if(doneLoop){
-	    		        	 
-	    		        	 
-	    		        	 
-	    		         
+    			    <c:forEach var="i" items="${item.value}" varStatus="num">
+	    		       
+	    			    
+	    				
+    			    
+	    		        if(routedate!='${i.route_date}'){
+	 		         		routedate = '${i.route_date}';
+	 		         		++dayCount;	
+	 		         		
+	 		         		var $group = $("<div class='group' style='width: 280px;'></div>");
+	 			     		var $h3 = $("<h3 class='ui-accordion-header ui-corner-top ui-state-default ui-accordion-header-active ui-state-active ui-accordion-icons' style='background: #F78536; border: 1px solid #F78536;'>Day"+dayCount+"  :  "+routedate+"</h3>");
+	 			     		var $div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
+	 			     		var $sortablediv = $("<div class='sortable' id='ScheduleDay"+dayCount+"'></div>");
+	 			     		
+	 			     		$sortablediv.appendTo($div);
+	 			     		$group.append($h3).append($div);
+	 			     		$('#accordion2').append($group);
+	 			     	
+	 		         	}
 	    		         	
-	    		         	
-	    		         	
-	    		         	
-	    		         	 // routeDetailList에 date 정보만 변경
-	    		      	   
-	    		      	    routeDetailList[${num.index}].route_date=dayList[dayOrder];
-	    		      	    
-	    					
-	    		      	    
-	    		      	    
-	    					// 각 Day 안에 Site 순서대로 append
+    		  				// 각 Day 안에 Site 순서대로 append
 	    					//var contentId= routedate+'${i.route_order}';
 	    					
 	    					
@@ -664,9 +552,7 @@ $( function() {
 	    					var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
 	    					
 	    					// 각 Day div id 변수로 선언 / dayOrder + 1 해준 이유 : 위에서 
-	    					var scheduleday = '#'+'ScheduleDay'+(dayOrder+1);
-	    					
-	    					
+	    					var scheduleday = '#'+'ScheduleDay'+(dayCount);
 	    					
 	    					// div에 data값 삽입
 	    					$sch_content.data('sitedata', routeDetailList[${num.index}]);
@@ -690,42 +576,20 @@ $( function() {
 	    					 
 	    					 $(scheduleday).append($sch_content);
 	    			
-	    				
-	    				
-		    			    //정보 저장을 위해 form 태그 안에 값으로 추가       routeDetailList[num] : RouteDetail에 멤버필드 ArrayList
-		    				/* $('#route_list_form_innerdiv').empty();
-		    				var $route_order = $("<input type='hidden' name='routeDetailList[${num.index}].route_order' value=${i.route_order}>");
-		    				var $username = $("<input type='hidden' name='routeDetailList[${num.index}].username' value='${i.username}'>");
-		    				var $route_code = $("<input type='hidden' name='routeDetailList[${num.index}].route_code' value=${i.route_code}>");
-		    				var $route_date = $("<input type='hidden' name='routeDetailList[${num.index}].route_date' value='${i.route_date}'>");
-		    				var $site = $("<input type='hidden' name='routeDetailList[${num.index}].site' value='${i.site}'>");
-		    				var $lon = $("<input type='hidden' name='routeDetailList[${num.index}].lon' value='${i.lon}'>");
-		    				var $lat = $("<input type='hidden' name='routeDetailList[${num.index}].lat' value='${i.lat}'>");
-		    				var $category = $("<input type='hidden' name='routeDetailList[${num.index}].category' value='${i.category}'>");
-		    				var $stime = $("<input type='hidden' name='routeDetailList[${num.index}].stime' value=${i.stime}>");
-		    				var $etime = $("<input type='hidden' name='routeDetailList[${num.index}].etime' value=${i.etime}>");
-		    				
-		    				
-		    				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
-		    					 */
-		    				// 지도 : 마커 추가
+	    					// 지도 : 마커 추가
 	    					var options = {
 				                label:new Tmap.Label('${i.site}'),
 				                lonlat:new Tmap.LonLat(${i.lon}, ${i.lat}).transform(pr_4326, pr_3857),
 				                id:'Route'
 				            };
 	    					 addRouteMarker(options);
-	    					 
-	    					 
-	    					 
-	    		         }
+	    			
 	    		         
     				 </c:forEach>
     			       
     				 // 생성된 마커 루트 라인 생성 함수 호출
     				 drawRouteLine();
-    				
-    			};	
+    			
     			
     		</c:forEach>
     		
@@ -753,67 +617,7 @@ $( function() {
            $(".sortable").sortable({
         	   
             						
-        	   
-        	   // drag 한 후 객체 변경 되면 실행
-        	   //sortable 안에 태그 변동있을때 실행되는 함수 -> 수동으로 붙인 update함수가 삭제 클릭시에만 실행되는게 아니라 계속 실행되서...일단 주석 처리
-        	 /*   update: function(event, ui) {
-        		   console.log('1번!!!!드래그 드롭');		
-        		   console.log('sortable update 함수')
-        		    //console.log($(this)); 
-        		   
-				      new_locations = $(this).find('.sch_content').map(function(i, el) {
-					        return $(el).data('sitedata')
-					      }).get()
-				      
-					      
-					  // site_order값  재 정렬 
-					  new_locations = jQuery.map( new_locations, function( n, i ) {
-						  n.route_order = i ;
-						  return ( n );
-					  });
-					      
-				      // 화면 컨텐츠 순서 값 바꾸기
-				      $(this).find('.spot_name').each(function(index, value){
-				    	  console.log($(this).text());
-				    	  $(this).text(new_locations[index].route_order+1);
-				      });
-				      
-					   //console.log(JSON.stringify(new_locations));
-					  
-					  //console.log(JSON.stringify(routeDetailList));
-                   
-					  
-					  // 현재 저장되어 있는 data empty
-					  $('#route_list_form_innerdiv').empty();
-					  
-					  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
-					  $.each(new_locations, function( index, value ) {
-						
-						    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+value.route_order+">");
-							var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
-							var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
-							var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
-							var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
-							var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
-							var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
-							var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
-							var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
-							var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
-							
-							$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
-									
-						});
-					  
-					  deleteRouteLine();
-						
-						// 라인 다시 그리기
-						drawRouteLine();	
-					  
-					  
-                   }  */
-                  
-         
-           
+        	      
            });
            
            // 수동으로 sortable 트리거 함수 생성, 왜 delete 버튼 클릭할때 뿐만 아니라 drag update 시에도 실행되지? 걸어 두지 않았는데??
@@ -939,8 +743,7 @@ $( function() {
         	 sch_content_layer.clearMarkers();
         	 
         	 var schId = $(sch_content).parent().attr('id');
-        	 console.log('클릭한 사진의 부모sch id');
-        	 console.log(schId);
+        	 
         	 
         	  // 각 Day 별  Site 배열 정리
 		      var schList = $(sch_content).parent().parent().find('.sch_content').map(function(i, el) {
@@ -969,143 +772,7 @@ $( function() {
 			  
          }
          
-         
-       
-         
-         
-         
-         
-         
-        // 맵 위 Layer 제거 함수
-        function deleteLayers(){
-			var mapLayers = map.layers;
-		        	
-		        	var mapLayerCount = mapLayers.length;
-		        	
-		        	for(var i =3; i<mapLayerCount; i++){
-		        		//console.log("길이"+mapLayerCount);
-		        		//console.log("i"+i);
-		        		//console.log(mapLayers[i]);  
-		        		if(mapLayers[i]!=null){
-		        			map.removeLayer(mapLayers[i]); 
-		        		}else{
-		        			var mapLayers = map.layers;
-		                	
-		                	var mapLayerCount = mapLayers.length;
-		                	
-		                	for(var i =1; i<mapLayerCount; i++){
-		                		
-		                		if(mapLayers[i]!=null){
-		                			map.removeLayer(mapLayers[i]); 
-		                		}else{
-		                			var mapLayers = map.layers;
-		                        	
-		                        	var mapLayerCount = mapLayers.length;
-		                        	
-		                        	for(var i =1; i<mapLayerCount; i++){
-		                        		
-		                        		if(mapLayers[i]!=null){
-		                        			map.removeLayer(mapLayers[i]); 
-		                        		}else{
-		                        			var mapLayers = map.layers;
-		                                	
-		                                	var mapLayerCount = mapLayers.length;
-		                                	
-		                                	for(var i =1; i<mapLayerCount; i++){
-		                                		
-		                                		if(mapLayers[i]!=null){
-		                                			map.removeLayer(mapLayers[i]); 
-		                                		}
-		                                	}
-		                        		}
-		                        	}
-		                		}
-		                	} 
-		        		}
-		        		
-		        	}
-		       
-        };
-       
-        //추천 여행지 마커 추가하기 
-        /* function addSiteMarkers(lon, lat, site){
-    	  
-     		
-        	//pr_3857 인스탄스 생성. (Google Mercator)
-			var pr_3857 = new Tmap.Projection("EPSG:3857");
-			 
-			//pr_4326 인스탄스 생성. (WGS84 GEO)
-			var pr_4326 = new Tmap.Projection("EPSG:4326");
-			
-			var size = new Tmap.Size(24,38);
-	        var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2)); 
-	  
-	       	var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); //마커 아이콘 
-	     
-	       
-		      	
-		     var marker = new Tmap.Markers(new Tmap.LonLat(lon, lat).transform(pr_4326, pr_3857), icon, new Tmap.Label(site));
-		     markerLayer.addMarker(marker); 	
-		     marker.events.register("mouseover", marker, onOverMouse);
-		     marker.events.register("mouseout", marker, onOutMouse);
-		   //marker.events.register("click", map, onClickMarker); 
-		   // marker.events.register("click", marker, onClickMarker); 
-		     
-		     
-        }
-        function onOverMouse(e){
-            this.popup.show();
-        }
-        function onOutMouse(e){
-            this.popup.hide();
-        }
-        
-        function onClickMarker(evt){
-        	
-	         console.log(evt);
-	     } */
-	     
-        //맵 클릭시 이벤트 함수 -> 마커 출력
-         /* function onClickMap(evt){
-            
-            lonlat =  map.getLonLatFromPixel(new Tmap.Pixel(evt.clientX,(evt.clientY-80)));//header 높이 만큼 처리 
-            
-             
-            //console.log(lonlat);
-            //console.log(lonlat.lat);
-            //console.log(lonlat.lon); 
-            //var markerLayer = new Tmap.Layer.Markers(); //마커 뿌릴 레이어 추가 
-          // map.addLayer(markerLayer); 
-            
-            var size = new Tmap.Size(24,38);
-             var offset = new Tmap.Pixel(-(size.w/2), -(size.h/2)); 
-       
-            var icon = new Tmap.Icon('https://developers.skplanetx.com/upload/tmap/marker/pin_b_m_a.png', size, offset); // 마커 아이콘
-            
-            
-            
-            
-            var label = new Tmap.Label('0');
-            
-            var marker = new Tmap.Markers(lonlat, icon, label);
-            markerLayer.addMarker(marker);
-           
-           //console.log(marker);
-            //console.log(markerLayer.markers);
-            //console.log(markerLayer.markers.length);
-            
-             //markers.markers[0].popup.setContentHTML("수정할 label의 html 문자열");
-           // console.log(markerLayer.markers[0].lonlat); 
-            
-          // if(marker.labelHtml=='0'){
-          // 	 console.log(marker.labelHtml);
-          //  } 
-        }  */
-        
-        /* alert(map.getLonLatFromPixel(
-        new Tmap.Pixel(document.getElementById('x').value,document.getElementById('y').value))) */
-        
-        
+              
         // 마커 중 파라메터의 값과 라벨값이 같은 마커 삭제
         function deleteMarker(SiteId){
         	
@@ -1145,66 +812,18 @@ $( function() {
         
         // 존재하는 마커 정보로 line 작업
         function drawRouteLine(){
-        	
-        	console.log('라인 다시 그리기');
         	//polyline 좌표 배열.
 			var pointList = [];
-		
-			/* for(var i = 0; i<markerLayer.markers.length; i++){
-				 var pointlonlat = new Tmap.LonLat(markerLayer.markers[i].lonlat.lon, markerLayer.markers[i].lonlat.lat);
-				pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
-				
-			} */
-			
-			/*  customizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
-					 //console.log($(el).data('sitedata')); 
-				        return $(el).data('sitedata')
-			      }).get()
-			      
-			      //input태그에 들어가는 Site정보 확인용 
-			      console.log(JSON.stringify(customizedRouteList)); 
-				  
-				  // 현재 저장되어 있는 data empty
-				  $('#route_list_form_innerdiv').empty();
-				  
-				  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
-				  $.each(customizedRouteList, function( index, value ) {
-					
-					    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+(value.route_order+1)+">");
-						var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
-						var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
-						var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
-						var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
-						var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
-						var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
-						var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
-						var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
-						var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
-						
-						$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
-								
-					}); */
 					
 			var schcontentsList = $('.sortable').find('.sch_content').map(function(i, el) {
-				 //console.log($(el).data('sitedata')); 
 				 return $(el).data('sitedata')
 			 }).get()
-			 
-			/* console.log(JSON.stringify(schcontentsList));  */
-			
 			
 			$.each(schcontentsList, function( index, value ) {
 				var lonlat = new Tmap.LonLat(value.lon, value.lat).transform(pr_4326, pr_3857);
-				
 				pointList.push(new Tmap.Geometry.Point(lonlat.lon, lonlat.lat)); 
 			});
 					
-			/* for(var i = 0; i<markerLayer.markers.length; i++){
-				 var pointlonlat = new Tmap.LonLat(markerLayer.markers[i].lonlat.lon, markerLayer.markers[i].lonlat.lat);
-				pointList.push(new Tmap.Geometry.Point(pointlonlat.lon, pointlonlat.lat)); 
-				
-			} */
-			
 			//좌표 배열 객체화
 			var lineString = new Tmap.Geometry.LineString(pointList);
 			
@@ -1230,7 +849,6 @@ $( function() {
         	
         	var pointList = [];
         	var schcontentsList = $('.sortable').find('.sch_content').map(function(i, el) {
-				 //console.log($(el).data('sitedata')); 
 				 return $(el).data('sitedata')
 			 }).get()
 			 
@@ -1241,7 +859,6 @@ $( function() {
 				//33.좌표 -> Tmap좌표로 변환
 				var lonlat = new Tmap.LonLat(value.lon, value.lat).transform(pr_4326, pr_3857);
 				
-				//pointList.push(new Tmap.Geometry.Point(lonlat.lon, lonlat.lat)); 
 				pointList.push(lonlat); 
 			});
         
@@ -1252,29 +869,14 @@ $( function() {
             
             
             var passList ="";
-            
-            
-            
+        
             for(var i = 1; i<pointList.length-1; i++){	
-             	/* 
-            	경유지1 X 좌표,
-            	경유지1 Y 좌표,
-            	경유지1 POI ID,
-            	경유지1 RP Flag,
-            	
-            	MPP1개수_경유지2 X 좌표,
-            	경유지2 Y 좌표,
-            	POIID,
-            	RP Flag, 
-            	MPP2개수
-            	14180382.309390113,4349064.210998647,1000559889,G,0	
-            	
+             	/* 	
             	경유지1 X 좌표,       경유지1 Y 좌표,      경유지1 POI ID,   경유지1 RP Flag,    MPP1개수   _   경유지2 X 좌표,   경유지2 Y 좌표,   POIID  ,RP Flag  ,  MPP2개수    _...
             	14089665.03407964,   3927849.264224153,    ,            G,                0_,
             	14121104.786352973,3944786.7447374524,,G,0_,14085758.699564857,3928597.5850073528,,G,0_
             	*/ 
          
-              
             	passList += pointList[i].lon;
                 passList += ",";
                 passList += pointList[i].lat;
@@ -1283,9 +885,6 @@ $( function() {
                
               
             }
-          
-           
-           
            
            var endX = pointList[pointList.length-1].lon;
            var endY = pointList[pointList.length-1].lat;
@@ -1432,7 +1031,7 @@ $( function() {
         /* End : https://developers.skplanetx.com/community/forum/t-map/view/?ntcStcId=20120822153630 */
      
         	/* 모달  */	
-        	$('#modal-register').modal({backdrop: 'static', keyboard: false}) ;
+        //	$('#modal-register').modal({backdrop: 'static', keyboard: false}) ;
         		
         </script>
 

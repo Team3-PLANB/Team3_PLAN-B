@@ -220,6 +220,56 @@ public class PlanAController {
 		return "PlanA.tmapMakeRoute";
 
 	}
+	
+	/*
+	* @date : 2017. 6. 23
+	* @description : 후기 작성
+	* @parameter : 
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="PLANA.update.do", method=RequestMethod.GET)
+	public String updatePlanA(@RequestParam int route_code, Principal principal, Model model) throws Exception {
+		/*System.out.println("후기 작성");
+		String username = null;
+		if(principal != null){
+			username = principal.getName();
+			System.out.println("로그인된 아이디 : " + username);
+		}
+		Route route = routeService.getRouteInfo(route_code, principal.getName());
+		java.util.List<RouteDetail> routeDetailList = routeDetailService.getRouteDetailListForPost(route_code, username);
+		
+		for(RouteDetail routeDetail : routeDetailList){
+			routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
+		}
+		
+		System.out.println("route : " + route);
+		System.out.println("routeDetailList : " + routeDetailList);
+		model.addAttribute("route_code", route_code);
+		model.addAttribute("route", route);
+		model.addAttribute("routeDetailList", routeDetailList);*/
+		
+		
+		// 나영 코드화
+		// view에 보낼 정보 저장할 Map생성
+		ArrayList<Route> routeList = new ArrayList<>();
+		Route route = routeService.getRouteInfo(route_code, principal.getName());
+		
+		System.out.println(route.toString());
+		routeList.add(route);
+		
+		Map<String, Object> routeDetailMap = new HashMap<>();
+		
+		routeDetailMap = routeDetailService.getRouteDetailList(routeList);
+		//request.setAttribute("routeMap", routeDetailMap);
+		
+		System.out.println(routeDetailMap.toString());
+		
+		model.addAttribute("myRouteInfo", route);
+		model.addAttribute("routeMap", routeDetailMap);
+		
+		
+		return "PlanA.tmapUpdateRoute";	
+	}
 
 	/*
 	 * @date : 2017. 6. 19
