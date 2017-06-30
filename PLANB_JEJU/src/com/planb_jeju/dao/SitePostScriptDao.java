@@ -19,7 +19,7 @@ public interface SitePostScriptDao {
 	
 	/*	
 	 * @description : 여행지 후기 등록
-	 * @return : int 성공 여부 ( > 0 : 성공)
+	 * @return : int 작성된 여행지 후기 번호(site_postscript_rownum)
 	 * @param spec : SitePostscript 등록할 여행지 후기 정보
 	 */
 	public int insert(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException;
@@ -42,9 +42,9 @@ public interface SitePostScriptDao {
 	/*	
 	 * @description : 여행지 후기 리스트
 	 * @return : List<SitePostscript> 여행지 후기 리스트
-	 * @param spec : String username 로그인한 회원 아이디 (찜콩 현황때문에 보내줌)
+	 * @param spec : String username 로그인한 회원 아이디 (찜콩 현황때문에 보내줌), String searchWord 검색 태그
 	 */
-	public List<SitePostscript> getList(String username) throws ClassNotFoundException, SQLException;
+	public List<SitePostscript> getList(String username, String searchWord) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 여행지 후기 상세보기
@@ -72,7 +72,7 @@ public interface SitePostScriptDao {
 	 * @return : int 업데이트된 라인 수
 	 * @param spec : SitePostscript 여행지 후기 정보 중 태그 정보
 	 */
-	public int insertTag(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException;
+	public int insertTag(SitePostscriptTag sitePostscriptTag) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 태그 삭제
@@ -115,6 +115,13 @@ public interface SitePostScriptDao {
 	 * @param spec : SitePostscriptPhoto sitePostscriptPhoto 사진 객체
 	 */
 	public int insertPhoto(SitePostscriptPhoto sitePostscriptPhoto) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 사진 가져오기
+	 * @return : 
+	 * @param spec : SitePostscriptPhoto sitePostscriptPhoto 사진 객체
+	 */
+	public SitePostscriptPhoto getPhoto(int site_postscript_photo_rownum) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 사진 삭제

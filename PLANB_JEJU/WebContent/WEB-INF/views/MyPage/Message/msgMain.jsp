@@ -9,6 +9,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/WEB-INF/views/Mypage/msg.css">
 
@@ -69,8 +71,72 @@
 
 		$("[data-toggle=tooltip]").tooltip();
 	});
+	
+	
+	
+	function msgdelete(message_rownum) {
+		
+	 	if(!confirm("메시지를 삭제 하시겠습니까?")){
+	      return;
+	      
+	   	}
+		  
+	   $.ajax({
+	      url:"msgdelete.do",
+	      data:{"message_rownum":message_rownum},
+	      success:function(data){
+	         console.log(data);
+	         alert("삭제되었습니다.");
+	         
+	         //새로고침
+	         location.reload();
+	      },
+	      error:function(e){
+	         alert(e.responseText);
+	      }
+	   });	
+		
+	}
+	
+	
+	function fnSearchPage(currentPage){
+		var category = $("#category").val();
+		location.href="msgMain.do?cp="+currentPage+"&category="+category;
+	}
 
+	function fnSearchPagebar(cp,ps){	
+		var category = $("#category").val(); 
+		location.href="msgMain.do?cp="+cp+"&ps="+ps+"&category="+category;
+	}
+	function fnSearchGroupPagebar(cp){	
+		var category = $("#category").val(); 
+		location.href="msgMain.do?cp="+cp+"&category="+category;
+	}
 </script>
+<style>
+
+.page_nb {
+    width: 100%;
+    margin: 40px auto 20px;
+    text-align: center;
+    display: inline-block;
+}
+
+.page_nb li {
+    display: inline-block;
+    padding: 5px 10px;
+    border: 1px solid #dadada;
+    color: #333;
+    margin: 0 2px;
+    cursor: pointer;
+}
+
+.page_nb li span {
+    color: #ff5a74;
+    font-weight: bold;
+}
+
+</style>
 <br>
 <br>
 <div class="container" style="margin-bottom: 100px">
@@ -93,8 +159,8 @@
 					<thead>
 						<th><input type="checkbox" id="checkall1" /></th>
 						<th>New</th>
-						<th>닉네임</th>
-						<th>이메일</th>
+						<th>보내는사람</th>
+						<th>받는사람</th>
 						<th>내용</th>
 						<th>날짜</th>
 						<th>Delete</th>
@@ -105,33 +171,59 @@
 							<td><input type="checkbox" class="checkthis" /></td>
 							<td><c:if test="${msg.read_status eq 0}"> N </c:if></td>
 							<td>${msg.sender}</td>
-							<td>${msg.sender}</td>
+							<td>${msg.receiver}</td>
 							<td>${msg.comment}</td>
 							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${msg.sendtime}"/></td>
-								<td align="center"><p data-placement="top"
-									data-toggle="tooltip" title="Delete">
+							<td align="center">
+								<p data-placement="top" data-toggle="tooltip" title="Delete">
 									<button class="btn btn-danger btn-xs" data-title="Delete"
-										data-toggle="modal" data-target="#delete" value="${msg.message_rownum}">
-										<span class="glyphicon glyphicon-trash"></span>
+											onclick="msgdelete(${msg.message_rownum})"
+											data-toggle="modal" data-target="#delete">
+									<span class="glyphicon glyphicon-trash"></span>
 									</button>
-								</p></td>
+								</p>
+							</td>
 						</tr>
 						</c:forEach>
 					</tbody>
 				</table>
 						<div class="clearfix"></div>
-					<ul class="pagination pull-right">
-						<li class="disabled"><a href="#"><span
-								class="glyphicon glyphicon-chevron-left"></span></a></li>
-						<li class="active"><a href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">5</a></li>
-						<li><a href="#"><span
-								class="glyphicon glyphicon-chevron-right"></span></a></li>
-						</ul>
-
+					
+			<div class="page_nb" id="list_page">
+							<ul>
+								<c:if test="${totalMessageCount>0}">
+								    <c:set var="startPage" value="${pageGroupSize*(numPageGroup-1)+1}"/>
+								    <c:set var="endPage" value="${startPage + pageGroupSize-1}"/>
+								
+									<c:if test="${endPage > pagecount}" >
+								     	<c:set var="endPage" value="${pagecount}" />
+								    </c:if>
+									
+									<c:if test="${numPageGroup > 1 }">
+										<li onclick="fnSearchGroupPagebar(${(numPageGroup-2)*pageGroupSize+1})">&lt;&lt;</li>
+									</c:if>
+									<c:if test="${cpage>1}">
+										<li onclick="fnSearchPagebar(${cpage-1},${pagesize})">&lt;</li> 
+									</c:if> 
+									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
+										<c:choose>
+									    	<c:when test="${status.index eq cpage}">
+									        	<li><span>${status.index}</span></li>
+									    	</c:when>
+											<c:otherwise>
+												<li onclick="fnSearchPagebar(${status.index},${pagesize});">${status.index}</li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${cpage<pagecount}">
+										<li onclick="fnSearchPagebar(${cpage+1},${pagesize})">&gt;</li>
+									</c:if>
+									<c:if test="${numPageGroup < pageGroupCount}">
+										<li onclick="fnSearchGroupPagebar(${numPageGroup*pageGroupSize+1})">&gt;&gt;</li>
+									</c:if>	 
+								</c:if>
+							</ul>
+						</div>   
 					</div>
 				</div>
 				<div role="tabpanel" class="tab-pane" id="step2">
@@ -148,114 +240,62 @@
 								<th>Delete</th>
 							</thead>
 							<tbody>
-
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-								<tr>
-									<td><input type="checkbox" class="checkthis" /></td>
-									<td>꿍녀</td>
-									<td>isometric.mohsin@gmail.com</td>
-									<td>루트 중에 어떤 여행지가 가장 좋으셨어요?</td>
-									<td>2017.06.15</td>
-
-									<td align="center"><p data-placement="top"
-											data-toggle="tooltip" title="Delete">
-											<button class="btn btn-danger btn-xs" data-title="Delete"
-												data-toggle="modal" data-target="#delete">
-												<span class="glyphicon glyphicon-trash"></span>
-											</button>
-										</p></td>
-								</tr>
-
-							</tbody>
-
+								<c:forEach var="msg" items="${messageList}">
+						<tr>
+							<td><input type="checkbox" class="checkthis" /></td>
+							<td><c:if test="${msg.read_status eq 0}"> N </c:if></td>
+							<td>${msg.sender}</td>
+							<td>${msg.sender}</td>
+							<td>${msg.comment}</td>
+							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${msg.sendtime}"/></td>
+							<td align="center">
+								<p data-placement="top" data-toggle="tooltip" title="Delete">
+									<button class="btn btn-danger btn-xs" data-title="Delete"
+											data-toggle="modal" data-target="#delete">
+									<span class="glyphicon glyphicon-trash"></span>
+									</button>
+								</p>
+							</td>
+						</tr>
+						</c:forEach>							
+						</tbody>
 						</table>
 
-						<div class="clearfix"></div>
-						<ul class="pagination pull-right">
-							<li class="disabled"><a href="#"><span
-									class="glyphicon glyphicon-chevron-left"></span></a></li>
-							<li class="active"><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
-							<li><a href="#"><span
-									class="glyphicon glyphicon-chevron-right"></span></a></li>
-						</ul>
+						<div class="page_nb" id="list_page">
+							<ul>
+								<c:if test="${totalMessageCount>0}">
+								    <c:set var="startPage" value="${pageGroupSize*(numPageGroup-1)+1}"/>
+								    <c:set var="endPage" value="${startPage + pageGroupSize-1}"/>
+								
+									<c:if test="${endPage > pagecount}" >
+								     	<c:set var="endPage" value="${pagecount}" />
+								    </c:if>
+									
+									<c:if test="${numPageGroup > 1 }">
+										<li onclick="fnSearchGroupPagebar(${(numPageGroup-2)*pageGroupSize+1})">&lt;&lt;</li>
+									</c:if>
+									<c:if test="${cpage>1}">
+										<li onclick="fnSearchPagebar(${cpage-1},${pagesize})">&lt;</li> 
+									</c:if> 
+									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
+										<c:choose>
+									    	<c:when test="${status.index eq cpage}">
+									        	<li><span>${status.index}</span></li>
+									    	</c:when>
+											<c:otherwise>
+												<li onclick="fnSearchPagebar(${status.index},${pagesize});">${status.index}</li>
+											</c:otherwise>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${cpage<pagecount}">
+										<li onclick="fnSearchPagebar(${cpage+1},${pagesize})">&gt;</li>
+									</c:if>
+									<c:if test="${numPageGroup < pageGroupCount}">
+										<li onclick="fnSearchGroupPagebar(${numPageGroup*pageGroupSize+1})">&gt;&gt;</li>
+									</c:if>	 
+								</c:if>
+							</ul>
+						</div>   
 
 					</div>
 				</div>

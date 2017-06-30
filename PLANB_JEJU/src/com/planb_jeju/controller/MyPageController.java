@@ -23,6 +23,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.planb_jeju.dao.MemberDao;
@@ -126,8 +127,8 @@ public class MyPageController {
     * @return : String (view page) 
     */
     @RequestMapping("PostScript/Route/Detail.do")
-    public String root(){
- 	   
+    public String routeDetail(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
+    	
        return "MyPage.PostScript.Route.detail";
     }
    
@@ -177,17 +178,23 @@ public class MyPageController {
    * @return : String(view) 
    */
    @RequestMapping("Message/msgMain.do")
-   public String msg(Principal principal, Model model) throws Exception{
-	 
-	  messageDao = sqlsession.getMapper(MessageDao.class);
-	  String username = "";
-	  if(principal.getName() != null) username = principal.getName();
+   public String msg(Model model, 
+		 @RequestParam(value="cp", defaultValue="1") String cp,
+		 @RequestParam(value="ps", defaultValue="5") String ps,
+		 @RequestParam(value="category", defaultValue="receive") String category) throws Exception{
 	  
-	  List<Message> messageList = messageService.messageList(username);
-	  model.addAttribute("messageList", messageList);
-      return "MyPage.Message.msgMain";
+	  model = messageService.messageList(model, cp, ps, category);
+      
+	  return "MyPage.Message.msgMain";
    }
-   
+ 
+   /**
+    * 
+    */
+   @RequestMapping("Message/msgdelete.do")
+   public @ResponseBody int delete(Principal principal, @RequestParam int message_rownum) throws Exception{
+      return messageService.delete(message_rownum);
+   }
    
    /*
    * @date : 2017. 6. 16

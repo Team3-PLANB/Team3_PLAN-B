@@ -1,5 +1,10 @@
 package com.planb_jeju.service;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.security.Principal;
+
 /*
 * @FileName : PostScriptService.java
 * @Class : PostScriptService
@@ -13,10 +18,16 @@ package com.planb_jeju.service;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.planb_jeju.dao.RoutePostScriptDao;
 import com.planb_jeju.dao.SitePostScriptDao;
@@ -46,11 +57,11 @@ public class SitePostscriptService {
 	* @parameter : 
 	* @return : 
 	*/
-	public List<SitePostscript> listSitePostscript(String username) throws ClassNotFoundException, SQLException {
+	public List<SitePostscript> listSitePostscript(String username, String searchWord) throws ClassNotFoundException, SQLException {
 		System.out.println("여행지 후기게시판 리스트 서비스 들어옴");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		System.out.println("username : " + username);
-		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getList(username);
+		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getList(username, searchWord);
 		
 		return sitePostscriptList;
 
@@ -162,23 +173,19 @@ public class SitePostscriptService {
 	* @date : 2017. 6. 28
 	* @description : 여행지 후기 등록
 	* @parameter : 
-	* @return :  
+	* @return : SitePostscript 방금 쓴 여행지 후기
 	*/
 	public SitePostscript writeSitePostscript(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException{
 		System.out.println("여행지 후기 작성 서비스");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		SitePostscript sitePostscript2 = null;
-		int check = sitePostscriptDao.insert(sitePostscript);
+		int site_postscript_rownum = sitePostscriptDao.insert(sitePostscript);
 		
-		if(check > 0){
-			System.out.println("여행지 후기 작성 완료");
-			
-			// 방금 작성한 여행지 후기 가져오기
-			/*sitePostscript2 = sitePostscriptDao.getLastRoutePost();*/
-			System.out.println("방금 쓴 후기 : " + sitePostscript2);
-		}else{
-			System.out.println("여행지 후기 작성 오류남");
-		}
+		System.out.println("site_postscript_rownum : " + site_postscript_rownum);
+		
+		sitePostscript2 = sitePostscriptDao.getSitePost(site_postscript_rownum, sitePostscript.getUsername());
+		System.out.println("방금 쓴 후기 : " + sitePostscript2);
+		
 		return sitePostscript2;
 	}
 	
@@ -189,7 +196,32 @@ public class SitePostscriptService {
 	* @return :  
 	*/
 	public List<SitePostscriptTag> insertSitePostTag(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException{
-		return null;
+		System.out.println("여행지 후기 태그 만들기");
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		
+		String comment = sitePostscript.getComment();
+		System.out.println("comment : " + comment);
+		
+		SitePostscriptTag sitePostscriptTag = new SitePostscriptTag();
+		sitePostscriptTag.setSite_postscript_rownum(sitePostscript.getSite_postscript_rownum());
+		
+		// 해시 태그 추출
+		Pattern p = Pattern.compile("\\#([0-9a-zA-Z가-힣]*)");
+		Matcher m = p.matcher(comment);
+		String extracHashTag = null;
+		
+		while(m.find()){
+			extracHashTag = StringUtils.replace(m.group(), "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~) ", "");
+			
+			if(extracHashTag != null){
+				System.out.println("추출 해시태그 : " + extracHashTag);
+				sitePostscriptTag.setTag("'" + extracHashTag + "'");
+				System.out.println("sitePostscriptTag : " + sitePostscriptTag);
+				sitePostscriptDao.insertTag(sitePostscriptTag);
+			}
+		}
+		List<SitePostscriptTag> tagList = sitePostscriptDao.getSitePostTagList(sitePostscript);
+		return tagList;
 	}
 	
 	/*
@@ -198,10 +230,82 @@ public class SitePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public List<SitePostscriptPhoto> insertSitePostPhoto(SitePostscriptPhoto sitePostscriptPhoto) throws ClassNotFoundException, SQLException{
+	public List<SitePostscriptPhoto> insertSitePostPhoto(MultipartHttpServletRequest mhsq, int site_postscript_rownum) throws ClassNotFoundException, SQLException, IllegalStateException, IOException{
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		SitePostscriptPhoto sitePostscriptPhoto = null;
+		sitePostscriptPhoto.setSite_postscript_rownum(site_postscript_rownum);
+		
+		SitePostscriptPhoto pohto = null;
+		List<SitePostscriptPhoto> photoList= null;
+		
+		FileOutputStream fos = null;
 		
 		
+		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
+        
+        // 넘어온 파일을 리스트로 저장
+        List<MultipartFile> multi = mhsq.getFiles("file");
+        System.out.println(multi);
+        if(multi.size() == 1 && multi.get(0).getOriginalFilename().equals("")) {
+        	System.out.println("파일 없음");
+        }else{
+        	for(int i = 0; i < multi.size(); i++) {
+        		try{
+        			
+        			// 파일 중복명 처리
+                    String genId = UUID.randomUUID().toString();
+                    // 본래 파일명
+                    String originalfileName = multi.get(i).getOriginalFilename();
+                    
+                    System.out.println(originalfileName);
+                     
+                    String saveFileName = genId + "." + originalfileName; // 저장되는 파일 이름
+     
+                    String savePath = realFolder + saveFileName; // 저장 될 파일 경로
+     
+                    long fileSize = multi.get(i).getSize(); // 파일 사이즈
+     
+                    multi.get(i).transferTo(new File(savePath)); // 파일 저장
+                    
+                    sitePostscriptPhoto.setPhoto_src(saveFileName);
+                    
+                    System.out.println(sitePostscriptPhoto);
+                    
+                    int site_postscript_photo_rownum = sitePostscriptDao.insertPhoto(sitePostscriptPhoto);
+                    
+                    pohto = sitePostscriptDao.getPhoto(site_postscript_photo_rownum);
+                    photoList.add(pohto);
+        			
+        			
+        			byte fileData[] = multi.get(i).getBytes();
+                     
+                    fos = new FileOutputStream(realFolder + "\\" + saveFileName);
+                     
+                    fos.write(fileData);
+                 
+                }catch(Exception e){
+                     
+                    e.printStackTrace();
+                     
+                }finally{
+                    if(fos != null){
+                        try{ fos.close();
+                        }catch(Exception e){}
+                    }
+                }
+                
+            }
+        	return photoList;
+        }
+        
+ /* Iterator<String> filenames = multi.getFileNames();
+	    
+	    while(filenames.hasNext()){
+	    	String file = filenames.next();
+	    	String filename = multi.getFile(file).getName();
+	    	String orifilename = multi.getFile(file).getOriginalFilename();
+	    	System.out.println("file : " + file + "/ filename : " + filename + "/ oriname : " + orifilename);
+	    }*/
 		
 		return null;
 	}

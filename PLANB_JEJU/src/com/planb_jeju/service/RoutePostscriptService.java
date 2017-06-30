@@ -59,7 +59,7 @@ public class RoutePostscriptService {
 	* @return : 
 	*/
 	public List<RoutePostscript> listRoutePostscript(String username, String searchWord) throws ClassNotFoundException, SQLException {
-		System.out.println("루트 후기 리스트 서비스 들어옴");
+		System.out.println("루트 후기게시판 리스트 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		System.out.println("username : " + username);
 		List<RoutePostscript> routePostscriptList = routePostscriptDao.getList(username, searchWord);
@@ -198,13 +198,13 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	/*public List<RoutePostscriptTag> getRoutePostTagList(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException{
+	public List<RoutePostscriptTag> getRoutePostTagList(int route_postscript_rownum) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 태그 가져오기");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
-		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptDao.getRoutePostTagList(routePostscript);
+		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptDao.getRoutePostTagList(route_postscript_rownum);
 		System.out.println("routePostscriptTagList : " + routePostscriptTagList);
 		return routePostscriptTagList;
-	}*/
+	}
 	
 	/*
 	* @date : 2017. 6. 22
@@ -212,7 +212,7 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return :  
 	*/
-	public void insertTag(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException{
+	public void insertRoutePostTag(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException{
 		System.out.println("루트 후기 태그 만들기");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		
@@ -232,7 +232,7 @@ public class RoutePostscriptService {
 			
 			if(extracHashTag != null){
 				System.out.println("추출 해시태그 : " + extracHashTag);
-				routePostscriptTag.setTag("'" + extracHashTag + "'");
+				routePostscriptTag.setTag(extracHashTag.substring(1));
 				System.out.println("routePostscriptTag : " + routePostscriptTag);
 				routePostscriptDao.insertTag(routePostscriptTag);
 			}

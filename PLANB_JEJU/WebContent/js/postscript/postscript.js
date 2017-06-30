@@ -68,34 +68,6 @@ $(document).ready(function(){
         return false;
     });
     
-    var content = document.getElementById('contentElement').innerHTML;
-    var splitedArray = content.split(' ');
-    var linkedContent = '';
-    for(var word in splitedArray){
-    	console.log("splitedArray : " + splitedArray);
-    	word = splitedArray[word].trim();
-    	if(word.indexOf('#') == 0){
-    		word = '<a href=\'링크\'>' + word + '</a>';
-    	}
-    	linkedContent += word + ' ';
-    }
-    document.getElementById('contentElement').innerHTML = linkedContent;
-    
-    var content2 = document.getElementById('tag').innerHTML;
-    var splitedArray2 = content2.split(' ');
-    var linkedContent2 = '';
-    for(var word2 in splitedArray2){
-    	word2 = splitedArray2[word2].trim();
-    	if(word2.indexOf('#') == 0){
-    		word2 = '<a href=\'링크\'>' + word2 + '</a>';
-    		console.log("word2 : " + word2);
-    		linkedContent2 += word2 + '&nbsp;&nbsp;&nbsp;';
-    	}
-    }
-    document.getElementById('tag').innerHTML = linkedContent2;
-    
-    
-    
 
 		var jssor_1_SlideshowTransitions = [ {
 			$Duration : 1200,
