@@ -4,10 +4,10 @@ package com.planb_jeju.service;
 * @FileName : MemberService.java
 * @Class : MemberService
 * @Project : PLANB_JEJU
-* @Date : 2017.06.07
+* @Date : 2017.06.22
 * @LastEditDate : 2017.06.16
-* @Author : 정다혜, 홍단비 
-* @Desc : 회원가입  / 로그인 Service
+* @Author : 홍단비 
+* @Desc : Mypage 컨트롤러
 */
 
 import java.util.Properties;
@@ -28,15 +28,6 @@ import org.springframework.stereotype.Service;
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dto.Member;
 
-/*
-* @FileName : MemberService.java
-* @Class : MemberService
-* @Project : PLANB_JEJU
-* @Date : 2017.06.22
-* @LastEditDate : 2017.06.16
-* @Author : 홍단비 
-* @Desc : Mypage 컨트롤러
-*/
 
 @Service
 public class MemberService {

@@ -32,11 +32,12 @@ import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Message;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RoutePostscript;
-import com.planb_jeju.dto.RoutePostscriptTag;
+import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.MessageService;
 import com.planb_jeju.service.RoutePostscriptService;
 import com.planb_jeju.service.RouteService;
+import com.planb_jeju.service.SitePostscriptService;
 
 
 @Controller
@@ -61,6 +62,8 @@ public class MyPageController {
    
    @Autowired
    private RoutePostscriptService routePostscriptservice;
+   @Autowired
+   private SitePostscriptService sitePostscriptservice;
    
    /*
    * @date : 2017. 6. 16
@@ -106,7 +109,7 @@ public class MyPageController {
    
    /*
    * @date : 2017. 6. 23
-   * @description : Mypage 나의 후기 리스트
+   * @description : Mypage 나의 루트 후기 리스트
    * @return : String (view page) 
    */
    @RequestMapping("PostScript/Route/List.do")
@@ -124,7 +127,7 @@ public class MyPageController {
    
    /*
     * @date : 2017. 6. 23
-    * @description : Mypage 나의 후기 상세보기
+    * @description : Mypage 나의 루트 후기 상세보기
     * @return : String (view page) 
     */
     @RequestMapping("PostScript/Route/Detail.do")
@@ -132,61 +135,62 @@ public class MyPageController {
     	
        return "MyPage.PostScript.Route.detail";
     }
-   
-   /*
-   * @date : 2017. 6. 16
-   * @description : Mypage 나의후기 site view
-   * @return : String(view) 
-   */
-   @RequestMapping("PostScript/Site/site.do")
-   public String site(){
-      return "MyPage.PostScript.Site.siteMain";
-   }   
+
+    /*
+     * @date : 2017. 6. 23
+     * @description : Mypage 나의 여행지 후기 리스트
+     * @return : String (view page) 
+     */
+    @RequestMapping("PostScript/Site/List.do")
+    public String siteList(Principal principal, String searchWord, Model model) throws ClassNotFoundException, SQLException{
+ 	   
+ 	   System.out.println("내 여행지 후기 리스트");
+ 	   System.out.println("로그인된 아이디 : " + principal.getName());
+ 	   List<SitePostscript> sitePostscriptList = sitePostscriptservice.listSitePostscript(principal.getName(), searchWord);
+ 	   
+ 	   System.out.println("sitePostscriptList : " + sitePostscriptList);
+ 	   model.addAttribute("sitePostscriptList", sitePostscriptList); 
+ 	   
+ 	   return "MyPage.PostScript.Site.listBoard";
+    }
+    
+    /*
+     * @date : 2017. 6. 23
+     * @description : Mypage 나의 루트 후기 상세보기
+     * @return : String (view page) 
+     */
+     @RequestMapping("PostScript/Site/Detail.do")
+     public String siteDetail(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
+     	
+        return "MyPage.PostScript.Site.detail";
+     }
 
    /*
    * @date : 2017. 6. 16
    * @description : Mypage 찜한후기 site view
    * @return : String(view) 
    */
-   @RequestMapping("Like/Like.do")
+   @RequestMapping("Like/likeMain.do")
    public String like(){
       return "MyPage.Like.likeMain";
    }
 
    /*
-   * @date : 2017. 6. 30
-   * @description : Mypage 찜한후기 route view
+   * @date : 2017. 6. 16
+   * @description : Mypage 찜한후기 root view
    * @return : String(view) 
    */
-   @RequestMapping("Like/Route/List.do")
-   public String listLikeRoutePost(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws ClassNotFoundException, SQLException{
-	   System.out.println("찜한 루트 후기 리스트");
-		List<RoutePostscriptTag> routePostscriptTagList = null;
-		String username = null;
-		if(principal != null){
-			username = principal.getName();
-			System.out.println("로그인된 아이디 : " + username);
-		}
-		System.out.println("searchWord : " + searchWord);
-		List<RoutePostscript> routePostscriptList = routePostscriptservice.listLikeRoutePost(username, searchWord);
-		
-		for(RoutePostscript post : routePostscriptList){
-			routePostscriptTagList = routePostscriptservice.getRoutePostTagList(post.getRoute_postscript_rownum());
-			post.setRoutePostscriptTag(routePostscriptTagList);
-		}
-		System.out.println("routePostscriptList : " + routePostscriptList);
-		model.addAttribute("routePostscriptList", routePostscriptList);
-		model.addAttribute("searchWord", searchWord);
-	   
-	   return "MyPage.Like.Route.listBoard";
+   @RequestMapping("Like/Route/route.do")
+   public String likeRoot(){
+      return "MyPage.Like.Route.routeMain";
    }
 
    /*
-   * @date : 2017. 6. 30
+   * @date : 2017. 6. 16
    * @description : Mypage 찜한후기 site view
    * @return : String(view) 
    */
-   @RequestMapping("Like/Site/List.do")
+   @RequestMapping("Like/Site/site.do")
    public String likeSite(){
       return "MyPage.Like.Site.siteMain";
    }
