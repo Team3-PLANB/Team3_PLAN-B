@@ -63,6 +63,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			) rhsp
 		ON r.username = rhsp.un
 			AND r.route_code = rhsp.rc
-		ORDER BY route_order asc, update_rownum desc;
+		order by rhsp.rd asc, rhsp.ro asc, rhsp.urow desc;
 	</select>
 </mapper>

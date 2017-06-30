@@ -69,27 +69,29 @@
 		var $reason;
 		var $planb;
 		var numCheckUpdated = -1;
-
+		var index=0;
+		$timeline = $("<ul class='timeline' id='timeline' ><ul>");
 		<c:forEach var="myroute" items="${myroutehistory}" varStatus="num">
 			//각 Site마다 ++ 
 			OddEven++;
-			$timeline = $("<ul class='timeline' id='timeline' ><ul>");
+
+			console.log('${myroute.route_date}');
 			if(dayOrder != '${myroute.route_date}') {
 
 				dayOrder = '${myroute.route_date}';
-				console.log("dayOrder > " + dayOrder + "////route_date > " + ${myroute.route_date});
-
+				//console.log("dayOrder > " + dayOrder + "////route_date > " + ${myroute.route_date});
+				console.log("dayOrder" + dayOrder);
 				$ltimeline_heading = $("<li class='timeline-heading text-center animate-box fadeInUp animated-fast' ></li>");
 				$h3 = $("<div><h3>" + dayOrder + " Day</h3></div>");
-
+				
 				/* #start > timeline + heading */
 				$h3.appendTo($ltimeline_heading);
 				$timeline.append($ltimeline_heading);
 				$('#start').append($timeline);
-
-			}	
+				
+			}
 			var dayOrderId = "#" + dayOrder;
-			var index = ${num.index};
+			index = ${num.index};
 			console.log("제일 위 index : "+index);
 
 			if (OddEven % 2 == 0) { // 짝수:inverted
@@ -107,23 +109,23 @@
 			} else {	// 후기없으면 <div></div>
 				$timeline_body = $("<div class='timeline-body'></div>");
 			}
+			
 			$accordion = $("<div class = 'accordion' id = 'accordion'></div>");
-			$item = $("<div class='item' id = 'item'></div>");
+			$item = $("<div class='item "+index+"' id = 'item'></div>");
 			$heading = $("<div class='heading' align='center' id = 'heading' onclick = 'showUpdated()'>수정 내역 보기</div><br>");
 
 			console.log("if문 타기 전 numCheck : " + numCheckUpdated);
-					
+
 			if(index == numCheckUpdated) {
 				// index값이 numCheckUpdated랑 같으면 수정이력이 있는 원본 여행지
-				//console.log("index1이면 들어와야지");
-				// 아코디언에 append
+				// accordion div에 append
 				$content = $("<div class = 'content' style='width: 500px; height: 350px;'></div>");
 				$plana = $("<div style = 'width: 150px'><h2 align = 'center'>PLAN-A</h2><img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' style='width:150px; height:150px' /><br> <br><p align='center'>${myroute.site}</p></div>");
 				$reason = $("<div style='width: 70px; position: relative; left: 180px; bottom: 200px;'><img src='${pageContext.request.contextPath}/images/MyPage/arrow.png' align='center' width='80px' height='80px' /><br> <br> <p>&nbsp;&nbsp;&nbsp;&nbsp;${myroutehistory[num.index-1].update_reason}</p> </div>");
 				$planb = $("<div style='width: 150px; position: relative; left: 300px; bottom: 446px;'> <h2 align='center'>PLAN-B</h2> <img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' style='width:150px; height:150px'/><br> <br> <p align='center'>${myroutehistory[num.index-1].site}</p> </div><br>");
-						
+				var idx = '.' + (index-1);
 				$content.append($plana).append($reason).append($planb);
-				$('#item').append($content);
+				$(idx).append($content);
 				OddEven++;
 			} else if(index != numCheckUpdated) {
 				// index값이 numCheckUpdate와 다르면 그냥 일반 여행지 형식으로 append>');
@@ -158,12 +160,12 @@
 			console.log("if문 다 타고 numCheckUpdated : " + numCheckUpdated);
 
 		</c:forEach>
+
 		
 	});
-	
-	
+
 	function showUpdated() {
-		var a = $('#heading').closest('#item');
+		var a = $('#heading').closest('.item');
 		var b = $(a).hasClass('open');
 		var c = $(a).closest('#accordion').find('.open');
 
