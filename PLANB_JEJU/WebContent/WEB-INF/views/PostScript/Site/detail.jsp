@@ -74,32 +74,32 @@
 								<div>
 									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_1.jpg" />
 									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 										</c:forEach>
 									</div>
 								</div>
 								<div>
 									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_2.jpg" />
 									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 										</c:forEach>
 									</div>
 								</div>
 								<div>
 									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_3.jpg" />
 									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 										</c:forEach>
 									</div>
 								</div>
 								<div>
 									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_4.png" />
 									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 										</c:forEach>
 									</div>
 								</div>

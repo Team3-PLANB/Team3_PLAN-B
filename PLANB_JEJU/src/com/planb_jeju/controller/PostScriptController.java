@@ -102,7 +102,7 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Route/List.do")
 	public String listRoutePostscript(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
-		System.out.println("루트 후기 게시판 리스트");
+		System.out.println("루트 후기 리스트");
 		List<RoutePostscriptTag> routePostscriptTagList = null;
 		String username = null;
 		if(principal != null){
@@ -137,10 +137,11 @@ public class PostScriptController {
 			System.out.println("로그인된 아이디 : " + username);
 		}
 		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, username);
-	//	List<RoutePostscriptTag> routePostscriptTagList = postscriptservice.getRoutePostTagList(routePostscript, sqlsession);
+		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptservice.getRoutePostTagList(routePostscript.getRoute_postscript_rownum());
+		routePostscript.setRoutePostscriptTag(routePostscriptTagList);
+		
 		System.out.println("routePostscript : " + routePostscript);
 		model.addAttribute("routePostscript", routePostscript);
-	//	model.addAttribute("routePostscriptTagList", routePostscriptTagList);
 		return "PostScript.Route.detail";	
 
 	}
@@ -217,11 +218,11 @@ public class PostScriptController {
 		System.out.println("넘어온 객체 : " + routePostscript);
 		routePostscript.setUsername(principal.getName());
 		
-		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript);
+		RoutePostscript lastRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript);
 		
-		routePostscriptservice.insertRoutePostTag(myRoutePostscript);
+		routePostscriptservice.insertRoutePostTag(lastRoutePostscript);
 		
-		model.addAttribute("routePostscript", myRoutePostscript);
+		model.addAttribute("routePostscript", lastRoutePostscript);
 		
 		return "MyPage.PostScript.Route.detail";	
 	}
@@ -243,19 +244,19 @@ public class PostScriptController {
 		SitePostscript lastSitePostscript = sitePostscriptservice.writeSitePostscript(sitePostscript);
 		
 		// 사진 등록
-		List<SitePostscriptPhoto> photoList = sitePostscriptservice.insertSitePostPhoto(mhsq, sitePostscript.getSite_postscript_rownum());
+		List<SitePostscriptPhoto> photoList = sitePostscriptservice.insertSitePostPhoto(mhsq, lastSitePostscript.getSite_postscript_rownum());
 		
 		// 태그 등록 
-		List<SitePostscriptTag> tagList = sitePostscriptservice.insertSitePostTag(sitePostscript);
+		List<SitePostscriptTag> tagList = sitePostscriptservice.insertSitePostTag(lastSitePostscript);
 		
 		// 방금 올렸던 후기 넘겨주기
 		model.addAttribute("sitePostscript", lastSitePostscript);
 		
-		// 방금 올렸던 후기 태그 넘겨주기
-		model.addAttribute("sitePostscriptTagList", tagList);
-		
 		// 방금 올렸던 후기 사진 넘겨주기
 		model.addAttribute("sitePostscriptPhotoList", photoList);
+		
+		// 방금 올렸던 후기 태그 넘겨주기
+		model.addAttribute("sitePostscriptTagList", tagList);
 
 		return "MyPage.PostScript.Site.detail";
 	}
@@ -304,6 +305,7 @@ public class PostScriptController {
 		
 		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName());
 		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
+		sitePostscript.setSitePostscriptTag(sitePostscriptTagList);
 		
 		System.out.println("sitePostscript : " + sitePostscript);
 		model.addAttribute("sitePostscript", sitePostscript);

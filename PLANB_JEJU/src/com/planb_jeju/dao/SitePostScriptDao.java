@@ -3,6 +3,7 @@ package com.planb_jeju.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
 import com.planb_jeju.dto.SitePostscriptPhoto;
@@ -53,6 +54,13 @@ public interface SitePostScriptDao {
 	 */
 	public SitePostscript getSitePost(int site_postscript_rownum, String username) throws ClassNotFoundException, SQLException;
 	
+	/*	
+	 * @description : 여행지 후기 상세보기 (방금 쓴글 정보 가져오기)
+	 * @return : SitePostscript 여행지 후기
+	 * @param spec : 
+	 */
+	public SitePostscript getLastSitePost() throws ClassNotFoundException, SQLException;
+		
 	/*	
 	 * @description : 찜콩하기
 	 * @return : int 성공 여부 ( > 0 : 성공)
@@ -122,6 +130,13 @@ public interface SitePostScriptDao {
 	 * @param spec : SitePostscriptPhoto sitePostscriptPhoto 사진 객체
 	 */
 	public SitePostscriptPhoto getPhoto(int site_postscript_photo_rownum) throws ClassNotFoundException, SQLException;
+	
+	/*	
+	 * @description : 방금 올린 사진 가져오기
+	 * @return : 
+	 * @param spec : SitePostscriptPhoto sitePostscriptPhoto 사진 객체
+	 */
+	public SitePostscriptPhoto getLastPhoto() throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 사진 삭제

@@ -83,6 +83,22 @@ public class RoutePostscriptService {
 	}
 	
 	/*
+	* @date : 2017.06.30
+	* @description : 찜한 루트 후기 리스트
+	* @parameter : 
+	* @return : 
+	*/
+	public List<RoutePostscript> listLikeRoutePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
+		System.out.println("찜한 루트 후기 리스트 서비스 들어옴");
+		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
+		System.out.println("username : " + username);
+		List<RoutePostscript> routePostscriptList = routePostscriptDao.getLikeList(username, searchWord);
+		
+		return routePostscriptList;
+	}
+	
+	
+	/*
 	* @date : 2017. 6. 21
 	* @description : 루트 후기 게시판 상세보기
 	* @parameter : 
@@ -182,13 +198,15 @@ public class RoutePostscriptService {
 		RoutePostscript routePostscript2 = null;
 		int check = routePostscriptDao.insert(routePostscript);
 		
-		if(check > 0){
-			System.out.println("루트 후기 작성 완료");
-			routePostscript2 = routePostscriptDao.getLastRoutePost();
-			System.out.println("방금 쓴 후기 : " + routePostscript2);
+		if(check>0){
+			System.out.println("루트 후기 작성 성공");
 		}else{
-			System.out.println("루트 후기 작성 오류남");
+			System.out.println("루트 후기 작성 실패");
 		}
+		
+		routePostscript2 = routePostscriptDao.getLastRoutePost();
+		System.out.println("방금 쓴 후기 : " + routePostscript2);
+		
 		return routePostscript2;
 	}
 	

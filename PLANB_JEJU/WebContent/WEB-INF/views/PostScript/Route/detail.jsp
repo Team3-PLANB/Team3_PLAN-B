@@ -39,6 +39,7 @@
 
 
 <script src="${pageContext.request.contextPath}/js/postscript/postscript.js"></script>
+
 </head>
 <body>
 	<div id="fh5co-wrapper">
@@ -62,20 +63,20 @@
 						<div class="col-md-6 animate-box" align="center">
 							<img class="img-responsive"
 								src="../../images/PostScript/detail_Root.jpg" alt="travel">
-							<a href="#" class="flight-book">
+							<div class="flight-book">
 								<div class="plane-name">
 									<span class="p-flight">태그</span>
 								</div>
 								<div class="desc">
 									<div class="left">
 										<span class="price" > <!-- <i class="icon-arrow-down22"></i> -->
-											<span id="tag">
-												${routePostscript.getComment()}
-											</span>
+											<c:forEach var="postTag" items="${routePostscript.routePostscriptTag}">
+												<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+											</c:forEach>	
 										</span>
 									</div>
 								</div>
-							</a>
+							</div>
 						</div>
 						<div class="blog-text">
 							<div class="prod-title">
