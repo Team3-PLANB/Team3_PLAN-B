@@ -34,11 +34,11 @@
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/postscript.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sweetalert.css">
 
-
+<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
 <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
-
-
+<script src="${pageContext.request.contextPath}/js//mypage/sitepostscript.js"></script>
 <script src="${pageContext.request.contextPath}/js/postscript/postscript.js"></script>
 
 
@@ -55,27 +55,27 @@
 						<c:forEach var="sitePostscript" items="${sitePostscriptList}">
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
-										<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.getSite_postscript_rownum()}">
+										<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}">
 											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Site.jpg" alt="">
 										</a>
 										<div class="blog-text">
 											<div class="prod-title">
 												<h3>
-													<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.getSite_postscript_rownum()}">${sitePostscript.getSite()}</a>
+													<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}">${sitePostscript.site}</a>
 												</h3>
-												<span class="posted_by">${sitePostscript.getUsername()}</span> 
-												<span class="posted_by" style="float:right;">${sitePostscript.getWritetime()}</span> 
+												<span class="posted_by">${sitePostscript.username}</span> 
+												<span class="posted_by" style="float:right;">${sitePostscript.writetime}</span> 
 												<span>
 													<span id="tag">
-														${sitePostscript.getComment()}
+														${sitePostscript.comment}
 													</span>
 													<span id="contentElement">
 													</span>
-												</span>
- 												<input type = "button" class="btn btn-primary" value = "수정하기" />
- 												<input type = "button" class="btn btn-primary" style="margin-left:85px" value ="삭제하기" />
+												</span>												
 											</div>
-										</div>
+											<input type = "button" class="btn btn-primary" value = "수정하기">
+ 											<input type = "button" class="btn btn-primary" style="margin-left:85px" onclick = "deleteMySite(${sitePostscript.site_postscript_rownum})" value ="삭제하기">
+ 										</div>
 									</div>
 								</div>
 							</c:forEach>						
