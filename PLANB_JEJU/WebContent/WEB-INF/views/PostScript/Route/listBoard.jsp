@@ -192,18 +192,18 @@
 													<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}">${routePostscript.routename}</a>
 												</h3>
 												<span class="comment" id="like" style="float:right;">
-													<span id="routeLikeChange">찜콩
+													<span>찜콩
 														<c:choose>
 															<c:when test="${routePostscript.route_like=='true'}">
-																<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
+																<img id="heart" onclick="routeLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
 															</c:when>
 															<c:otherwise>
-																<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
+																<img id="heart" onclick="routeLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
 															</c:otherwise>
 														</c:choose>
+														<input type="hidden" id="route_postscript_rownum" value="${routePostscript.route_postscript_rownum}">
+														<input type="hidden" id="route_like" value="${routePostscript.route_like}">
 													</span>
-													<input type="hidden" id="route_postscript_rownum" value="${routePostscript.route_postscript_rownum}">
-													<input type="hidden" id="route_like" value="${routePostscript.route_like}">
 												</span>
 												<span class="posted_by">${routePostscript.username}</span>
 												<input id="writer" type="hidden" value="${routePostscript.username}">

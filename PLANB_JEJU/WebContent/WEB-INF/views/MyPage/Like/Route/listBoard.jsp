@@ -53,7 +53,7 @@
 					
 					
 					<%-----------------------------검색 부분 ----------------------------------------%>
-					<form action="${pageContext.request.contextPath}/MyPage/Like/Route/list.do">
+					<form action="${pageContext.request.contextPath}/MyPage/Like/Route/List.do">
 						<div class="row animate-box" align="right">
 							<img src="${pageContext.request.contextPath}/images/PostScript/hash.png" style="margin-right:10px;">
 							<input type="submit" style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary">

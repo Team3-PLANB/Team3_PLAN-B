@@ -63,19 +63,21 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	
-	<!-- 루트 후기 리스트 -->
+	<!-- 찜한 루트 후기 리스트 -->
 	<select id="getLikeList" resultType="com.planb_jeju.dto.RoutePostscript">
-		SELECT *, IF((rp.route_postscript_rownum in (SELECT route_postscript_rownum 
-												 FROM route_postscript_like
-												 WHERE username = #{param1})
-					 ) AND #{param1} IS NOT NULL,'true','false') as 'route_like'
-		FROM route_postscript rp
+		SELECT *
+		FROM (SELECT *, IF((route_postscript_rownum in (SELECT route_postscript_rownum 
+														 FROM route_postscript_like
+														 WHERE username = #{param1})
+							) AND #{param1} IS NOT NULL,'true','false') as 'route_like'
+			   FROM route_postscript) rp
 		LEFT OUTER JOIN route r
 		ON rp.route_code = r.route_code AND rp.username = r.username
 		LEFT OUTER JOIN route_postscript_tag t
 		ON rp.route_postscript_rownum = t.route_postscript_rownum
+		WHERE rp.route_like = 'true'
 		<where>
-			<if test="param2 != null"> t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
+			<if test="param2 != null">AND t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
 		</where>
 		GROUP BY rp.route_postscript_rownum
 		ORDER BY rp.writetime desc

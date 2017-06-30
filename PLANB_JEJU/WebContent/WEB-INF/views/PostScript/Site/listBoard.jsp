@@ -92,15 +92,17 @@
 													<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.getSite_postscript_rownum()}">${sitePostscript.getSite()}</a>
 												</h3>
 												<span class="comment" id="like" style="float:right;">
-													<span id="siteLikeChange">찜콩
+													<span>찜콩
 														<c:choose>
-															<c:when test="${sitePostscript.getSite_like()=='true'}">
-																<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
+															<c:when test="${sitePostscript.site_like=='true'}">
+																<img id="heart" onclick="siteLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
 															</c:when>
 															<c:otherwise>
-																<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
+																<img id="heart" onclick="siteLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
 															</c:otherwise>
 														</c:choose>
+														<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.site_postscript_rownum}">
+														<input type="hidden" id="site_like" value="${sitePostscript.site_like}">
 													</span>
 													<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.getSite_postscript_rownum()}">
 													<input type="hidden" id="site_like" value="${sitePostscript.getSite_like()}">
