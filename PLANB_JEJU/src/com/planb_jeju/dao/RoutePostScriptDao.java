@@ -123,7 +123,7 @@ public interface RoutePostScriptDao {
 	 * @return : List<RoutePostscriptTag> 태그들
 	 * @param spec : RoutePostscript routePostscript 루트 후기 고유 번호를 포함하고 있는 객체
 	 */
-	public List<RoutePostscriptTag> getRoutePostTagList(RoutePostscript routePostscript) throws ClassNotFoundException, SQLException;
+	public List<RoutePostscriptTag> getRoutePostTagList(int route_postscript_rownum) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 루트 후기 검색

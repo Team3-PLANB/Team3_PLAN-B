@@ -56,7 +56,7 @@
 							<ul class="portfolio-filter" style='align:center'>
 							<!--  -->
 								<li>
-									<a class="btn btn-default default active" href="${pageContext.request.contextPath}/PostScript/Root/List.do" data-filter=".a">루트 후기</a>
+									<a class="btn btn-default default active" href="${pageContext.request.contextPath}/PostScript/Route/List.do" data-filter=".a">루트 후기</a>
 								</li>
 								<li>
 									<a class="btn btn-default" href="${pageContext.request.contextPath}/PostScript/Site/List.do" data-filter=".b">여행지 후기</a>
@@ -70,12 +70,12 @@
 					<%-----------------------------검색 부분 ----------------------------------------%>
 					<form action="${pageContext.request.contextPath}/PostScript/Route/List.do">
 						<div class="row animate-box" align="right">
+							<img src="${pageContext.request.contextPath}/images/PostScript/hash.png" style="margin-right:10px;">
 							<input type="submit" style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary">
-							<input type="text" style="width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">
+							<input type="text" style="width:200px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그">
 						</div>
 					</form>
 					<br>
-
 
 					<%------------------------------리스트 부분 ----------------------------------------%>
 					<div class="container">
@@ -108,11 +108,9 @@
 												<span class="posted_by">${routePostscript.getUsername()}</span> 
 												<span class="posted_by" style="float:right;">${routePostscript.getWritetime()}</span> 
 												<span>
-													<span id="tag">
-														${routePostscript.getComment()}
-													</span>
-													<span id="contentElement">
-													</span>
+													<c:forEach var="postTag" items="${routePostscript.getRoutePostscriptTag()}">
+														<a href="${pageContext.request.contextPath}/PostScript/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+													</c:forEach>
 												</span>
 												<p><a href="#">쪽지 쓰기</a></p>
 											</div>

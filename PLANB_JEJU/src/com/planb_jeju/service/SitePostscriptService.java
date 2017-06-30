@@ -57,11 +57,11 @@ public class SitePostscriptService {
 	* @parameter : 
 	* @return : 
 	*/
-	public List<SitePostscript> listSitePostscript(String username) throws ClassNotFoundException, SQLException {
+	public List<SitePostscript> listSitePostscript(String username, String searchWord) throws ClassNotFoundException, SQLException {
 		System.out.println("여행지 후기게시판 리스트 서비스 들어옴");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		System.out.println("username : " + username);
-		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getList(username);
+		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getList(username, searchWord);
 		
 		return sitePostscriptList;
 

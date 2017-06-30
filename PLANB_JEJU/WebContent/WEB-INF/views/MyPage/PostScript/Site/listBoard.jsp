@@ -3,7 +3,7 @@
 @File name : listBoard.jsp 
 @Author : 임정연  & 정다혜
  @Data : 2017.06.16 & 2017.06.22
-@Desc : 여행지 후기 게시판의 리스트
+@Desc : 나의 여행지 후기 리스트
 --%>
 
 
@@ -16,7 +16,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>PLAN'B JEJU - 후기 게시판</title>
+<title>PLAN'B JEJU - 나의 여행지 후기 게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 <meta name="keywords"
@@ -48,33 +48,6 @@
 		<div id="fh5co-page">
 			<div id="fh5co-tours" class="fh5co-section-gray">
 				<div class="container">
-					<div class="row">
-						<%------------------------------후기 게시판의 header ----------------------------------------%>
-						<div
-							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-							<h3>후기 게시판</h3>
-							<p>여행지 후기 게시판입니다.</p>
-							<ul class="portfolio-filter" align="center">
-								<li>
-									<a class="btn btn-default default" href="${pageContext.request.contextPath}/PostScript/Route/List.do"
-										data-filter=".a">루트 후기</a>
-								</li>
-								<li>
-									<a class="btn btn-default active" href="${pageContext.request.contextPath}/PostScript/Site/List.do"
-										data-filter=".b">여행지 후기</a>
-								</li>
-							</ul>
-						</div>
-					</div>
-
-					<%-----------------------------검색 부분 ----------------------------------------%>
-					<form action="">
-						<div class="row animate-box" align="right">
-							<input type="submit" style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary">
-							<input type="text" style="width:300px;float:right;" class="form-control" placeholder="검색어를 입력해주세요.">
-						</div>
-					</form>
-					<br>
 
 					<%------------------------------리스트 부분 ----------------------------------------%>
 					<div class="container">

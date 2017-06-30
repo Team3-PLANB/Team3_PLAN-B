@@ -103,6 +103,7 @@ public class PostScriptController {
 	@RequestMapping(value="Route/List.do")
 	public String listRoutePostscript(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
 		System.out.println("루트 후기 게시판 리스트");
+		List<RoutePostscriptTag> routePostscriptTagList = null;
 		String username = null;
 		if(principal != null){
 			username = principal.getName();
@@ -110,6 +111,11 @@ public class PostScriptController {
 		}
 		System.out.println("searchWord : " + searchWord);
 		List<RoutePostscript> routePostscriptList = routePostscriptservice.listRoutePostscript(username, searchWord);
+		
+		for(RoutePostscript post : routePostscriptList){
+			routePostscriptTagList = routePostscriptservice.getRoutePostTagList(post.getRoute_postscript_rownum());
+			post.setRoutePostscriptTag(routePostscriptTagList);
+		}
 		System.out.println("routePostscriptList : " + routePostscriptList);
 		model.addAttribute("routePostscriptList", routePostscriptList);
 		model.addAttribute("searchWord", searchWord);
@@ -169,24 +175,6 @@ public class PostScriptController {
 	}
 	
 	/*
-	* @date : 2017. 6. 24
-	* @description : 루트 후기 태그 검색
-	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
-	* @return : String(View 페이지) 
-	*/
-	/*@RequestMapping(value="Route/Search.do", method=RequestMethod.POST)
-	public String searchRoutePostscriptByTag(String searchWord, Model model) throws ClassNotFoundException, SQLException {
-		System.out.println("검색어 : " + searchWord);
-		int searchCount = routePostscriptservice.getCountRoutePostByTag(searchWord);
-		List<RoutePostscript> routePostscriptList = routePostscriptservice.getRoutePostListByTag(searchWord);
-		
-		model.addAttribute("searchCount", searchCount);
-		model.addAttribute("routePostscriptList", routePostscriptList);
-		
-		return "PostScript.Route.listBoard";
-	}*/
-	
-	/*
 	* @date : 2017. 6. 23
 	* @description : 후기 작성
 	* @parameter : 
@@ -231,7 +219,7 @@ public class PostScriptController {
 		
 		RoutePostscript myRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript);
 		
-		routePostscriptservice.insertTag(myRoutePostscript);
+		routePostscriptservice.insertRoutePostTag(myRoutePostscript);
 		
 		model.addAttribute("routePostscript", myRoutePostscript);
 		
@@ -274,25 +262,37 @@ public class PostScriptController {
 		
 	/*
 	* @date : 2017. 6. 22
-	* @description : 사이트 후기 게시판 리스트
+	* @description : 여행지 후기 게시판 리스트
 	* @parameter : principal 로그인한 회원 정보, principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/
 	@RequestMapping(value="Site/List.do", method=RequestMethod.GET)
-	public String listSitePostscript(Principal principal, Model model) throws Exception {
-		System.out.println("사이트 후기 게시판 들어옴");
-		System.out.println("로그인된 아이디 : " + principal.getName());
-		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listSitePostscript(principal.getName());
+	public String listSitePostscript(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
+		System.out.println("여행지 후기 게시판 들어옴");
+		List<SitePostscriptTag> sitePostscriptTagList = null;
+		String username = null;
+		if(principal != null){
+			username = principal.getName();
+			System.out.println("로그인된 아이디 : " + username);
+		}
+		System.out.println("searchWord : " + searchWord);
+		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listSitePostscript(username, searchWord);
+		
+		for(SitePostscript post : sitePostscriptList){
+			sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(post);
+			post.setSitePostscriptTag(sitePostscriptTagList);
+		}
 		
 		System.out.println("sitePostscriptList : " + sitePostscriptList);
 		model.addAttribute("sitePostscriptList", sitePostscriptList);
+		model.addAttribute("searchWord", searchWord);
+		
 		return "PostScript.Site.listBoard";	
 	}
-	
-	
+		
 	/*
 	* @date : 2017. 6. 22
-	* @description : 사이트 후기 게시판 상세보기
+	* @description : 여행지 후기 게시판 상세보기
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/

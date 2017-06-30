@@ -61,7 +61,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 여행지 후기 등록 -->
 	<insert id="insert" parameterType="com.planb_jeju.dto.SitePostscript">
 		INSERT INTO site_postscript (site_postscript_rownum, username, site, category, comment, health, inoutside, cost, writetime, hitnum, likenum, route_code)
-		VALUES (NULL, #{username}, #{site}, #{category}, #{comment}, #{health}, #{inoutside}, #{cost}, SYSDATE, 0, 0, #{route_code}) 
+		VALUES (NULL, #{username}, #{site}, #{category}, #{comment}, #{health}, #{inoutside}, #{cost}, sysdate(), 0, 0, #{route_code}) 
 		<selectKey resultType="int" keyProperty="iq" order="AFTER">
         	SELECT LAST_INSERT_ID()
     	</selectKey>
@@ -82,11 +82,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 여행지 후기 리스트 -->
 	<select id="getList" resultType="com.planb_jeju.dto.SitePostscript">
-		SELECT *, IF((site_postscript_rownum in (SELECT site_postscript_rownum 
+		SELECT *, IF((sp.site_postscript_rownum in (SELECT site_postscript_rownum 
 												 FROM site_postscript_like
 												 WHERE username = #{param1})
-					 ),'true','false') as 'site_like'
-		FROM site_postscript 
+					 ) AND #{param1} IS NOT NULL,'true','false') as 'site_like'
+		FROM site_postscript sp
+		LEFT OUTER JOIN site_postscript_tag t
+		ON sp.site_postscript_rownum = t.site_postscript_rownum
+		<where>
+			<if test="param2 != null"> t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
+		</where>
+		GROUP BY sp.site_postscript_rownum
+		ORDER BY sp.writetime desc
 	</select>
 	
 	<!--  여행지 후기 상세보기 -->

@@ -42,9 +42,9 @@ public interface SitePostScriptDao {
 	/*	
 	 * @description : 여행지 후기 리스트
 	 * @return : List<SitePostscript> 여행지 후기 리스트
-	 * @param spec : String username 로그인한 회원 아이디 (찜콩 현황때문에 보내줌)
+	 * @param spec : String username 로그인한 회원 아이디 (찜콩 현황때문에 보내줌), String searchWord 검색 태그
 	 */
-	public List<SitePostscript> getList(String username) throws ClassNotFoundException, SQLException;
+	public List<SitePostscript> getList(String username, String searchWord) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 여행지 후기 상세보기

@@ -49,7 +49,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		public int downLikeNum(RoutePostscriptLike routePostscriptLike);
 		
 		// 태그 가져오기
-		public List<RoutePostScriptTag> getRoutePostTagList(RoutePostscript routePostscript);
+		public List<RoutePostScriptTag> getRoutePostTagList(int route_postscript_rownum);
 		
 		// 루트 후기 검색
 		public List<RoutePostscript> getRoutePostListByTag(String searchWord);
@@ -184,10 +184,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</update>
 	
 	<!-- 태그 가져오기 -->
-	<select id="getRoutePostTagList" parameterType="com.planb_jeju.dto.RoutePostscript" resultType="com.planb_jeju.dto.RoutePostscriptTag">
+	<select id="getRoutePostTagList" resultType="com.planb_jeju.dto.RoutePostscriptTag">
 		SELECT *
 		FROM route_postscript_tag
-		WHERE route_postscript_rownum = #{route_postscript_rownum}
+		WHERE route_postscript_rownum = #{param1}
 	</select>
 	
 	<!-- 루트 후기 검색 -->

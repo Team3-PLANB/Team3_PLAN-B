@@ -1,10 +1,10 @@
 <%--
 @Project : PLANB_JEJU
-@File name :listBoard.jsp 
+@File name : listBoard.jsp 
 @Author : 임정연 & 정다혜
 @Data : 2017.06.16 & 2017.06.23
 @Last Edit Data : 2017.06.23
-@Desc : 마이페이지 내 루트 후기 리스트
+@Desc : 나의 루트 후기 리스트
 --%>
 
 
