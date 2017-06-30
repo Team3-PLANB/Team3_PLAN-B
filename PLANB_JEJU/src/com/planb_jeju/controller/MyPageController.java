@@ -28,14 +28,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dao.MessageDao;
+import com.planb_jeju.dao.RoutePostScriptDao;
+import com.planb_jeju.dao.SitePostScriptDao;
 import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Message;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RoutePostscript;
+import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.MessageService;
 import com.planb_jeju.service.RoutePostscriptService;
 import com.planb_jeju.service.RouteService;
+import com.planb_jeju.service.SitePostscriptService;
 
 
 @Controller
@@ -60,6 +64,8 @@ public class MyPageController {
    
    @Autowired
    private RoutePostscriptService routePostscriptservice;
+   @Autowired
+   private SitePostscriptService sitePostscriptservice;
    
    /*
    * @date : 2017. 6. 16
@@ -87,12 +93,6 @@ public class MyPageController {
 	   return "MyPage.History.historyMain";
    }
    
-   // 페이지 구현끝나면 삭제!!
-   @RequestMapping(value="History/historyDetial.do")
-   public String historyDetail() throws Exception {
-	   return "MyPage.History.historyDetail";
-   }
-   
    /*
    * @date : 2017. 6. 16
    * @description : Mypage 나의후기 main view
@@ -105,7 +105,7 @@ public class MyPageController {
    
    /*
    * @date : 2017. 6. 23
-   * @description : Mypage 나의 후기 리스트
+   * @description : Mypage 나의 루트 후기 리스트
    * @return : String (view page) 
    */
    @RequestMapping("PostScript/Route/List.do")
@@ -123,7 +123,7 @@ public class MyPageController {
    
    /*
     * @date : 2017. 6. 23
-    * @description : Mypage 나의 후기 상세보기
+    * @description : Mypage 나의 루트 후기 상세보기
     * @return : String (view page) 
     */
     @RequestMapping("PostScript/Route/Detail.do")
@@ -131,17 +131,82 @@ public class MyPageController {
     	
        return "MyPage.PostScript.Route.detail";
     }
-   
-   /*
-   * @date : 2017. 6. 16
-   * @description : Mypage 나의후기 site view
-   * @return : String(view) 
-   */
-   @RequestMapping("PostScript/Site/site.do")
-   public String site(){
-      return "MyPage.PostScript.Site.siteMain";
-   }   
 
+    /*
+     * @date : 2017. 6. 23
+     * @description : Mypage 나의 여행지 후기 리스트
+     * @return : String (view page) 
+     */
+    @RequestMapping("PostScript/Site/List.do")
+    public String siteList(Principal principal, String searchWord, Model model) throws ClassNotFoundException, SQLException{
+ 	   
+ 	   System.out.println("내 여행지 후기 리스트");
+ 	   System.out.println("로그인된 아이디 : " + principal.getName());
+ 	   List<SitePostscript> sitePostscriptList = sitePostscriptservice.listSitePostscript(principal.getName(), searchWord);
+ 	   
+ 	   System.out.println("sitePostscriptList : " + sitePostscriptList);
+ 	   model.addAttribute("sitePostscriptList", sitePostscriptList); 
+ 	   
+ 	   return "MyPage.PostScript.Site.listBoard";
+    }
+    
+    /*
+     * @date : 2017. 6. 23
+     * @description : Mypage 나의 루트 후기 상세보기
+     * @return : String (view page) 
+     */
+     @RequestMapping("PostScript/Site/Detail.do")
+     public String siteDetail(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
+     	
+        return "MyPage.PostScript.Site.detail";
+     }
+
+     /*
+      * @date : 2017. 6. 30
+      * @description : Mypage 나의 루트 후기 삭제하기
+      * @return : String (view page) 
+      */
+      @RequestMapping("PostScript/Site/deleteMyRoute.do")
+      public @ResponseBody int deleteMyRoute(Principal principal, @RequestParam int route_rouwnum) throws ClassNotFoundException, SQLException{
+      	RoutePostScriptDao routepostscriptdao = sqlsession.getMapper(RoutePostScriptDao.class);
+           //return routepostscriptdao.delete(route_rouwnum);
+      	return 0;
+      }
+      
+      /*
+       * @date : 2017. 6. 30
+       * @description : Mypage 나의 루트 후기 수정하기
+       * @return : String (view page) 
+       */
+       @RequestMapping("PostScript/Site/updateMyRoute.do")
+       public String updateMyRoute(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+       	
+          return "MyPage.PostScript.Site.detail";
+       }
+     
+     /*
+      * @date : 2017. 6. 30
+      * @description : Mypage 나의 여행지 후기 삭제하기
+      * @return : String (view page) 
+      */
+      @RequestMapping("PostScript/Site/deleteMySite.do")
+      public @ResponseBody int deleteMySite(Principal principal, @RequestParam int site_rouwnum) throws ClassNotFoundException, SQLException{
+
+      	SitePostScriptDao sitepostscriptdao = sqlsession.getMapper(SitePostScriptDao.class);
+           return sitepostscriptdao.delete(site_rouwnum);
+      }
+      
+      /*
+       * @date : 2017. 6. 30
+       * @description : Mypage 나의 여행지 후기 수정하기
+       * @return : String (view page) 
+       */
+       @RequestMapping("PostScript/Site/update.do")
+       public String updateMySite(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+       	
+          return "MyPage.PostScript.Site.detail";
+       }
+     
    /*
    * @date : 2017. 6. 16
    * @description : Mypage 찜한후기 site view

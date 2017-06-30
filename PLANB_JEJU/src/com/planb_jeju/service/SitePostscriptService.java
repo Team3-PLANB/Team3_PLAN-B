@@ -179,11 +179,15 @@ public class SitePostscriptService {
 		System.out.println("여행지 후기 작성 서비스");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		SitePostscript sitePostscript2 = null;
-		int site_postscript_rownum = sitePostscriptDao.insert(sitePostscript);
+		int check = sitePostscriptDao.insert(sitePostscript);
 		
-		System.out.println("site_postscript_rownum : " + site_postscript_rownum);
+		if(check>0){
+			System.out.println("여행지 후기 작성 성공");
+		}else{
+			System.out.println("여행지 후기 작성 실패");
+		}
 		
-		sitePostscript2 = sitePostscriptDao.getSitePost(site_postscript_rownum, sitePostscript.getUsername());
+		sitePostscript2 = sitePostscriptDao.getLastSitePost();
 		System.out.println("방금 쓴 후기 : " + sitePostscript2);
 		
 		return sitePostscript2;
@@ -215,7 +219,7 @@ public class SitePostscriptService {
 			
 			if(extracHashTag != null){
 				System.out.println("추출 해시태그 : " + extracHashTag);
-				sitePostscriptTag.setTag("'" + extracHashTag + "'");
+				sitePostscriptTag.setTag(extracHashTag.substring(1));
 				System.out.println("sitePostscriptTag : " + sitePostscriptTag);
 				sitePostscriptDao.insertTag(sitePostscriptTag);
 			}
@@ -232,11 +236,11 @@ public class SitePostscriptService {
 	*/
 	public List<SitePostscriptPhoto> insertSitePostPhoto(MultipartHttpServletRequest mhsq, int site_postscript_rownum) throws ClassNotFoundException, SQLException, IllegalStateException, IOException{
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
-		SitePostscriptPhoto sitePostscriptPhoto = null;
+		SitePostscriptPhoto sitePostscriptPhoto = new SitePostscriptPhoto();
 		sitePostscriptPhoto.setSite_postscript_rownum(site_postscript_rownum);
 		
-		SitePostscriptPhoto pohto = null;
-		List<SitePostscriptPhoto> photoList= null;
+		SitePostscriptPhoto pohto = new SitePostscriptPhoto();
+		List<SitePostscriptPhoto> photoList = null;
 		
 		FileOutputStream fos = null;
 		
@@ -271,9 +275,9 @@ public class SitePostscriptService {
                     
                     System.out.println(sitePostscriptPhoto);
                     
-                    int site_postscript_photo_rownum = sitePostscriptDao.insertPhoto(sitePostscriptPhoto);
-                    
-                    pohto = sitePostscriptDao.getPhoto(site_postscript_photo_rownum);
+                    sitePostscriptDao.insertPhoto(sitePostscriptPhoto);
+                                        
+                    pohto = sitePostscriptDao.getLastPhoto();
                     photoList.add(pohto);
         			
         			

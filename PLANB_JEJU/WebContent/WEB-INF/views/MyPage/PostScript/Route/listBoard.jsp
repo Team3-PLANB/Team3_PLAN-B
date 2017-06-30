@@ -31,14 +31,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sweetalert.css">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/postscript.css">
 
-
+<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
+<script src="${pageContext.request.contextPath}/js//mypage/routepostscript.js"></script>
 <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
-
-
 <script src="${pageContext.request.contextPath}/js/postscript/postscript.js"></script>
 
 </head>
@@ -63,15 +63,16 @@
 											<h3>
 												<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}">${routePostscript.routename}</a>
 											</h3>
-											<span class="posted_by">${routePostscript.getUsername()}</span> 
-											<span class="posted_by" style="float:right;">${routePostscript.getWritetime()}</span> 
+											<span class="posted_by">${routePostscript.username}</span> 
+											<span class="posted_by" style="float:right;">${routePostscript.writetime}</span> 
 											
 											<span id="tag">
-												${routePostscript.getComment()}
+												${routePostscript.comment}
 											</span>
 											<span id="contentElement">
 											</span>
-											<p><a href="#">쪽지 쓰기</a></p>
+											<input type = "button" class="btn btn-primary" value = "수정하기">
+ 											<input type = "button" class="btn btn-primary" style="margin-left:78px" onclick = "deleteMyRoute(${routePostscript.route_postscript_rownum})" value ="삭제하기" >
 										</div>
 									</div>
 								</div>

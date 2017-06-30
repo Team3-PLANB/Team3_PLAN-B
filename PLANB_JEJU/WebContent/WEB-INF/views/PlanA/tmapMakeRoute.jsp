@@ -502,7 +502,7 @@ $( function() {
             <c:choose>
 				<c:when test="${requestScope.pageCase=='routeDetailPage'}">
 					
-				</c:when>
+				 </c:when>
 				
 				<c:when test="${requestScope.pageCase=='routeRecommendPage'}">
 				 	// sortable div 하나 생성

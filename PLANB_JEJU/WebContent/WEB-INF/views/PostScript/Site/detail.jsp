@@ -74,32 +74,32 @@
 								<div>
 									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_1.jpg" />
 									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 										</c:forEach>
 									</div>
 								</div>
 								<div>
 									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_2.jpg" />
 									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 										</c:forEach>
 									</div>
 								</div>
 								<div>
 									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_3.jpg" />
 									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 										</c:forEach>
 									</div>
 								</div>
 								<div>
 									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_4.png" />
 									<div data-u="thumb">
-										<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-											&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 										</c:forEach>
 									</div>
 								</div>
@@ -146,23 +146,20 @@
 						<br>
 						<div class="col-md-9 animate-box" align="center">
 							<span class="comment" id="like" style="float: right;"> 
-								<span id="siteLikeChange">찜콩 
+								<span>찜콩
 									<c:choose>
-										<c:when test="${sitePostscript.getSite_like()=='true'}">
-											<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width: 30px; height: 30px;">
+										<c:when test="${sitePostscript.site_like=='true'}">
+											<img id="heart" onclick="siteLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
 										</c:when>
 										<c:otherwise>
-											<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width: 30px; height: 30px;">
+											<img id="heart" onclick="siteLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
 										</c:otherwise>
 									</c:choose>
-								</span> 
-								<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.getSite_postscript_rownum()}"> 
-								<input type="hidden" id="site_like" value="${sitePostscript.getSite_like()}">
+									<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.site_postscript_rownum}">
+									<input type="hidden" id="site_like" value="${sitePostscript.site_like}">
+								</span>
 							</span>
 						</div>
-
-
-
 
 
 

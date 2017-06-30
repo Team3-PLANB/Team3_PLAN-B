@@ -41,6 +41,106 @@
 
 <script src="${pageContext.request.contextPath}/js/postscript/postscript.js"></script>
 
+
+<!--메세지를 위한 웹소켓 구현-->
+<script src="${pageContext.request.contextPath}/js/sockjs.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/stomp.min.js"></script>
+
+<script>
+	$(document).ready(() => {
+		console.log("안녕");
+	    // websocket init
+		if ('${loginUser}' != '') WebSocket.init();
+
+        // message modal handler
+        $('#btn-message-modal').on('click', function(e){
+            //e.preventDefault();
+            $('#modal-message-register').modal({});
+        });
+	});
+
+	let WebSocket = (() => {
+		const SERVER_SOCKET_API = "${pageContext.request.contextPath}/websocket";
+
+		let stompClient;
+
+		// send button onclick event
+		$('#send-message-button').click(() => sendMessage());
+
+		function connect() {
+			let socket = new SockJS(SERVER_SOCKET_API);
+			stompClient = Stomp.over(socket);
+			stompClient.connect({}, function () {
+				stompClient.subscribe('/topic/user', function (msg) {
+					printMessage(msg.body);
+				});
+			});
+
+		}
+
+		function printMessage(message) {
+			//textArea.value += message + "\n - ";
+			let obj = JSON.parse(message);
+
+			// 받는 회원만 진행
+			if (obj.receiver == '${loginUser}') {
+				$('#messageBadge').text(obj.unread_count).fadeIn(1000);
+				swal("[ from ] " + obj.sender + "\n[ 받은 쪽지 ]\n" + obj.comment);
+			}
+
+			$('#modal-message-register').modal('hide');
+		}
+
+		function sendMessage(text) {
+
+			let comment = $('textarea[name=form-about-yourself]').val();
+			let sender = '${loginUser }';
+			let receiver = $('input[name=form-first-name]').val();
+
+			if (sender == '') {
+				alert('로그인 후 사용하세요.');
+				return;
+			}
+
+			if (receiver == '') {
+				alert('받는 회원을 입력하세요.');
+				return;
+			}
+
+			let message = {
+				comment: comment,
+				sender: sender,
+				receiver: receiver
+			};
+
+			stompClient.send("/stomp/sendToUser", {}, JSON.stringify(message));
+
+		}
+
+		function init() {
+
+			// socket connect
+			connect();
+
+			// 안읽은 쪽지를 조회하여 뱃지 API
+			// 참고 (body) => $('#messageBadge').text(body) == function(body) {$('#messageBadge').text(body)}
+		   	$.get('${pageContext.request.contextPath}/message/unread/count', (body) => {
+				if (Number(body) > 0) {
+					$('#messageBadge').text(body).fadeIn(1000);
+				}
+			});
+
+		}
+
+		return {
+			init: init
+		}
+	})();
+
+</script>
+
+
+
 </head>
 
 <body>
@@ -83,36 +183,39 @@
 							<c:forEach var="routePostscript" items="${routePostscriptList}">
 								<div class="col-lg-4 col-md-4 col-sm-6" >
 									<div class="fh5co-blog animate-box">
-										<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.getRoute_postscript_rownum()}">
+										<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}">
 											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Route.jpg" alt="">
 										</a>
 										<div class="blog-text" style="height:400px;">
 											<div class="prod-title">
 												<h3>
-													<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.getRoute_postscript_rownum()}">${routePostscript.getRoutename()}</a>
+													<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}">${routePostscript.routename}</a>
 												</h3>
 												<span class="comment" id="like" style="float:right;">
-													<span id="routeLikeChange">찜콩
+													<span>찜콩
 														<c:choose>
-															<c:when test="${routePostscript.getRoute_like()=='true'}">
-																<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
+															<c:when test="${routePostscript.route_like=='true'}">
+																<img id="heart" onclick="routeLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
 															</c:when>
 															<c:otherwise>
-																<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
+																<img id="heart" onclick="routeLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
 															</c:otherwise>
 														</c:choose>
+														<input type="hidden" id="route_postscript_rownum" value="${routePostscript.route_postscript_rownum}">
+														<input type="hidden" id="route_like" value="${routePostscript.route_like}">
 													</span>
-													<input type="hidden" id="route_postscript_rownum" value="${routePostscript.getRoute_postscript_rownum()}">
-													<input type="hidden" id="route_like" value="${routePostscript.getRoute_like()}">
 												</span>
-												<span class="posted_by">${routePostscript.getUsername()}</span> 
-												<span class="posted_by" style="float:right;">${routePostscript.getWritetime()}</span> 
+												<span class="posted_by">${routePostscript.username}</span>
+												<input id="writer" type="hidden" value="${routePostscript.username}">
+												<span class="posted_by" style="float:right;">${routePostscript.writetime}</span> 
 												<span>
-													<c:forEach var="postTag" items="${routePostscript.getRoutePostscriptTag()}">
+													<c:forEach var="postTag" items="${routePostscript.routePostscriptTag}">
 														<a href="${pageContext.request.contextPath}/PostScript/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 													</c:forEach>
 												</span>
-												<p><a href="#">쪽지 쓰기</a></p>
+												<span id="contentElement">
+												</span>
+												<p><a href="#" id="btn-message-modal">쪽지 쓰기</a></p>
 											</div>
 										</div>
 									</div>
@@ -128,6 +231,45 @@
 
 	</div>
 	
+	
+	
+	<!-- Message Modal -->
+<div class="modal fade" id="modal-message-register" tabindex="-1" role="dialog" aria-labelledby="modal-register-label" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					<span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+				</button>
+				<h3 class="modal-title" id="modal-register-label">쪽지 보내기</h3>
+			</div>
+
+			<div class="modal-body">
+
+				<form role="form" action="" method="post" class="registration-form">
+					<div class="form-group">
+						<label class="sr-only" for="form-first-name">받는 사람</label> <input
+							type="text" name="form-first-name"
+							placeholder="받는이 이메일" value="$('#writer').val()"
+							class="form-first-name form-control" id="form-first-name">
+					</div>
+					<div class="form-group">
+						<label class="sr-only" for="form-about-yourself">내용</label>
+						<textarea name="form-about-yourself" placeholder="내용을 입력해주세요."
+								  class="form-about-yourself form-control"
+								  id="form-about-yourself"></textarea>
+					</div>
+					<button type="button" class="btn btn-primary" id="send-message-button">보내기</button>
+				</form>
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
 	
 	<button id="moveTopBtn">
 		<img src="${pageContext.request.contextPath}/images/PostScript/btn_backtotop.png" style="width:80px;height:80px;" title="위로 가기">
