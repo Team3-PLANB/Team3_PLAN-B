@@ -828,7 +828,7 @@ $( function() {
     		   
 				  // site_order값  재 정렬 
 				  new_locations = jQuery.map( new_locations, function( n, i ) {
-					  n.route_order = i ;
+					  n.route_order = i +1 ;
 					  return ( n );
 				  });
 				  
@@ -952,10 +952,11 @@ $( function() {
 				  }
 			  });
 			  
-        	 //클릭시 해당 여행지로 Zoom
-		     //map.zoomToExtent(sch_content_layer.getDataExtent(), false); 
-			  map.zoomToMinExtent(sch_content_layer.getDataExtent()); // 변동 없음
-			 
+        	 //클릭시 해당 여행지로 Zoom -> 최대 줌
+		     map.zoomToExtent(sch_content_layer.getDataExtent(), false); 
+			  //map.zoomToMinExtent(sch_content_layer.getDataExtent()); // 변동 없음
+			  // 최대 줌 상태에서 13레벨로 reZoom
+			  map.zoomTo(13);
 		     
 			  
          }
