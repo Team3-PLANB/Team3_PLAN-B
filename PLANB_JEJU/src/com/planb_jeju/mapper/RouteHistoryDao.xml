@@ -4,6 +4,41 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.planb_jeju.dao.RouteHistoryDao">
 
+	<!-- 입력 -->
+	<insert id="insert" parameterType="java.util.Map">
+			
+		INSERT INTO route_history
+			( route_order, 
+			  username, 
+			  route_code, 
+			  route_date, 
+			  update_rownum, 
+			  site, 
+			  lon, 
+			  lat, 
+			  update_reason, 
+			  category, 
+			  stime, 
+			  etime)
+			  
+	    VALUES
+	    <foreach collection="list" item="item" separator=",">
+	    	( #{item.route_order}, 
+	    	  #{item.username}, 
+	    	  #{item.route_code}, 
+	    	  #{item.route_date}, 
+	    	  #{item.update_rownum}, 
+	    	  #{item.site}, 
+	    	  #{item.lon}, 
+	    	  #{item.lat}, 
+	    	  #{item.update_reason}, 
+	    	  #{item.category}, 
+	    	  #{item.stime}, 
+	    	  #{item.etime})
+	    </foreach>
+	    
+	</insert>
+
 	<select id = "getMyHistory" parameterType="com.planb_jeju.dto.Route" resultType = "com.planb_jeju.dto.RouteHistory">
 		SELECT r.routename as routename, rhsp.un as username, rhsp.ro as route_order, rhsp.rc as route_code, rhsp.rd as route_date, 
 				rhsp.urow as update_rownum, rhsp.ures as update_reason, rhsp.s as site, rhsp.com as comment

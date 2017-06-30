@@ -144,9 +144,38 @@ $( function() {
 		
 	});
 
-	
-	
-	
+	$(document).on("click","#submit_route_detail", function(event){ 
+		
+		  var lastcustomizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
+			  /* console.log($(el).data('sitedata')); */
+		        return $(el).data('sitedata')
+	      }).get()
+	      
+	      //input태그에 들어가는 Site정보 확인용 
+	      alert(JSON.stringify(lastcustomizedRouteList)); 
+		  
+		  // 현재 저장되어 있는 data empty
+		  $('#route_list_form_innerdiv').empty();
+		  
+		  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
+		  $.each(lastcustomizedRouteList, function( index, value ) {
+			
+			    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+(value.route_order)+">");
+				var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
+				var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
+				var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
+				var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
+				var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
+				var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
+				var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
+				var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
+				var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
+				
+				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
+						
+			});
+       
+  	});
 	/* $('#accordion2').accordion('refresh'); */
 	
  } );
@@ -427,7 +456,7 @@ $( function() {
             /* centerLL = new Tmap.LonLat(14145677.4, 4511257.6); */
             centerLL = new Tmap.LonLat(14085866.64992, 3963136.5754785);
             map = new Tmap.Map({div:'map_div',
-                                width:'77%', 
+                                width:'80%', 
                                 height:'610px',
                                 transitionEffect:"resize",
                                 animation:true
@@ -435,7 +464,7 @@ $( function() {
             
            
             
-            map.setCenter(centerLL,11);/* 센터값, 11 : 지도 표현 범위(10 : 제주도 전체) */
+            map.setCenter(centerLL,10);/* 센터값, 11 : 지도 표현 범위(10 : 제주도 전체) */
                  
             /*  var lonlat = new Tmap.LonLat(14135893.887852, 4518348.1852606); */
             
@@ -613,14 +642,17 @@ $( function() {
 		    					case "쇼핑" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0401.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
 		    					case "맛집" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0502.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
 		    					case "기타" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/Z0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
-		    				}
+		    				
+	    						default : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
+			    				
+	    					}
 	    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
 	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
 	    					var $spot_info = $("<div class='spot_info'></div>");
 	    					var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
 	    					var $sinfo_line = $("<div class='sinfo_line'></div>");
 	    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
-	    					var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
+	    					var $sinfo_txt_img = $("<span>"+'${i.category}'+"</span>");
 	    					var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
 	    					
 	    					// 각 Day div id 변수로 선언 / dayOrder + 1 해준 이유 : 위에서 
@@ -653,7 +685,7 @@ $( function() {
 	    				
 	    				
 		    			    //정보 저장을 위해 form 태그 안에 값으로 추가       routeDetailList[num] : RouteDetail에 멤버필드 ArrayList
-		    				$('#route_list_form_innerdiv').empty();
+		    				/* $('#route_list_form_innerdiv').empty();
 		    				var $route_order = $("<input type='hidden' name='routeDetailList[${num.index}].route_order' value=${i.route_order}>");
 		    				var $username = $("<input type='hidden' name='routeDetailList[${num.index}].username' value='${i.username}'>");
 		    				var $route_code = $("<input type='hidden' name='routeDetailList[${num.index}].route_code' value=${i.route_code}>");
@@ -667,7 +699,7 @@ $( function() {
 		    				
 		    				
 		    				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
-		    					
+		    					 */
 		    				// 지도 : 마커 추가
 	    					var options = {
 				                label:new Tmap.Label('${i.site}'),
@@ -823,7 +855,7 @@ $( function() {
 			      console.log(JSON.stringify(customizedRouteList)); 
 				  
 				  // 현재 저장되어 있는 data empty
-				  $('#route_list_form_innerdiv').empty();
+				 /*  $('#route_list_form_innerdiv').empty();
 				  
 				  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
 				  $.each(customizedRouteList, function( index, value ) {
@@ -841,7 +873,7 @@ $( function() {
 						
 						$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
 								
-					});
+					}); */
 				  
 				  
 				  deleteRouteLine();
@@ -920,8 +952,11 @@ $( function() {
 				  }
 			  });
 			  
-		      map.zoomToExtent(sch_content_layer.getDataExtent());
-			  
+        	 //클릭시 해당 여행지로 Zoom
+		     //map.zoomToExtent(sch_content_layer.getDataExtent(), false); 
+			  map.zoomToMinExtent(sch_content_layer.getDataExtent()); // 변동 없음
+			 
+		     
 			  
          }
          
@@ -1558,16 +1593,35 @@ div.over {
 
 
 <!-- 검색창 -->
-<input type="button" style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary" id="searchSiteBtn">
+<button style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary " id="searchSiteBtn">
+	<span class="glyphicon glyphicon-search"></span>
+</button>
 <input type="text" style="width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">
+	
+	
 
 <!-- class="btn btn-link-1 launch-modal" -->
-<input type="button" id="btn" value="길찾기 제거"
-			class="btn btn-primary btn-outline btn-link-1" style="width:100px; float:right; padding:10px 0px;" onclick="searchRouteDelete()"/>
-<input type="button" id="btn" value="길찾기"
-			class="btn btn-primary btn-outline btn-link-1 launch-modal" style="width:100px; float:right; padding:10px 0px;" onclick="search()" data-modal-id="modal-register"/>
 
 
+<button class="btn btn-warning btn-link-1" style="width:50px; float:right; padding:10px 0px;" onclick="searchRouteDelete()" data-modal-id="modal-register">
+          <span class="glyphicon glyphicon-refresh"></span>
+        </button>
+
+<button class="btn btn-warning  btn-link-1 launch-modal" style="width:50px; float:right; padding:10px 0px;" onclick="search()" data-modal-id="modal-register">
+          <span class="glyphicon glyphicon-road"></span>
+        </button>
+
+<%-- ----------------------------------form-------------------------------------------%>
+<form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
+	<div id="route_list_form_innerdiv"></div>
+	
+	
+	
+	<button class = "btn btn-warning" id="submit_route_detail">
+		<span class="glyphicon glyphicon-plus"></span>
+	</button>
+
+</form>
 
 
 
@@ -1646,14 +1700,7 @@ div.over {
 </div> -->
 
 	
-<%-- ----------------------------------form-------------------------------------------%>
-<form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
-	<div id="route_list_form_innerdiv"></div>
-	
-	
-	
-	<input type="submit" value="저장" id="submit_route_detail">
-</form>
+
 
 <!-- 모달 Javascript -->
     <!-- <script src="message/js/jquery-1.11.1.min.js"></script> -->
