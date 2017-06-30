@@ -3,6 +3,8 @@ package com.planb_jeju.dao;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.planb_jeju.dto.Message;
 
 //CRUD
@@ -63,7 +65,17 @@ public interface MessageDao {
 	 * @return : Message
 	 * @param spec : int message_rownum 메시지 고유번호
 	 */
-	public List<Message> getMessageList(String username) throws ClassNotFoundException, SQLException;
+	public List<Message> getMessageList(
+			@Param("username") String username, 
+			@Param("cpage") int cpage, 
+			@Param("pagesize") int pagesize, 
+			@Param("category") String category);
 	
-	
+	/**
+	 * 조회 총카운트
+	 * @param username
+	 * @param category
+	 * @return
+	 */
+	public int totalMessageCount(@Param("username") String username, @Param("category") String category);
 }	
