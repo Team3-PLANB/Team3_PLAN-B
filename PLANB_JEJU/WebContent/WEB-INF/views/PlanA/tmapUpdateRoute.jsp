@@ -6,24 +6,15 @@
 @Desc : 일정 수정
 --%>
 
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	crossorigin="anonymous"></script>
-<script
-	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d"></script>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d"></script>
 <link rel="stylesheet" href="css/plana_tmap.css">
 
-
-
 <!-- Start : 일정부분 적용 링크 -->
-
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -31,25 +22,15 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-
-<!-- Icomo
-
- Icon Fonts-->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/icomoon.css">
+<!-- Icomo Icon Fonts-->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/icomoon.css">
 <!-- Bootstrap  -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.css">
 <!-- Superfish -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/superfish.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/superfish.css">
 <!-- histroy css -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/history.css">
-	
-	
-	
-	
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/history.css">
+
 <!-- 모달 CSS -->
 <!-- <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
@@ -266,9 +247,9 @@ $( function() {
 				contentType: "application/json; charset=UTF-8",
 				success : function(result){
 					if(result==1){
-						alert('수정 완료');
+						swal('수정 완료');
 					}else{
-						alert('수정 안됨');
+						swal('수정 안됨');
 					}
 					
 				},
