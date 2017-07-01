@@ -3,6 +3,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/message/css/sweetalert.css">
 <script src="${pageContext.request.contextPath}/message/js/sweetalert.min.js" ></script>
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png">
+
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
 <header>
 	<nav class="navbar navbar-default" style="margin:0px;">
