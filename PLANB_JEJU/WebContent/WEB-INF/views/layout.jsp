@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 
- <link rel="shortcut icon" href="favicon.ico">
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/message/ico/favicon.png">
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
@@ -14,7 +14,7 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-	<!-- Superfish -->
+ 	<!-- Superfish -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
 	<!-- Magnific Popup -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
@@ -40,7 +40,7 @@
 
 	<!-- Stellar -->
 	<script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
-	<!-- Superfish -->
+ 	<!-- Superfish -->
 	<script src="${pageContext.request.contextPath}/js/hoverIntent.js"></script>
 	<script src="${pageContext.request.contextPath}/js/superfish.js"></script>
 <%-- 	<!-- Magnific Popup -->

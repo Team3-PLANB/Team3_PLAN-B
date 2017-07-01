@@ -11,7 +11,7 @@
 @Desc : 여행 일정, 파트너, 취향 선택 페이지
 --%>
 
-
+<%-- 
 <link rel="shortcut icon" href="favicon.ico">
 <link
 	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
@@ -24,7 +24,7 @@
 	href="${pageContext.request.contextPath}/css/bootstrap.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/superfish.css">
-<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet"
@@ -33,19 +33,12 @@
 	href="${pageContext.request.contextPath}/css/cs-skin-border.css">
 
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/style.css">
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/PlanA/step-radio.css">
+	href="${pageContext.request.contextPath}/css/style.css"> --%>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PlanA/step-radio.css">
 <!-- 체크박스를 위한 css  -->
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/PlanA/checkbox-bootstrap.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/PlanA/checkbox-bootstrap.css">
 
-
-
-
-<script
-	src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
-
+<script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
 
 <script type="text/javascript">
 	$(document)
@@ -149,8 +142,7 @@
 		<div id="fh5co-page">
 			<div class="fh5co-hero">
 				<div class="fh5co-overlay"></div>
-				<div class="fh5co-cover" data-stellar-background-ratio="0.5"
-					style="background-image: url(&quot;${pageContext.request.contextPath}/images/cover_bg_1.jpg&quot;); background-position: 0px -47.7px;">
+				<div class="fh5co-cover" data-stellar-background-ratio="0.5">
 					<div class="desc">
 						<div class="container" style="margin-top: 90px;">
 							<div class="row">

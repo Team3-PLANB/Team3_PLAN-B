@@ -6,28 +6,20 @@
 @Desc : 메인 페이지
 --%>
 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
-
-
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="security"
-	uri="http://www.springframework.org/security/tags"%>
-<!DOCTYPE html>
-<head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <title>PLAN'B &mdash; JEJU</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 <meta name="keywords"
 	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" />
-<link rel="shortcut icon" href="favicon.ico">
-<link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
-	rel='stylesheet' type='text/css'>
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
+<link rel="shortcut icon" href="favicon.ico"> -->
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
@@ -37,19 +29,14 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/message/css/sweetalert.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/mainCss.css">
+<%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/mainCss.css"> --%>
 <!-- slider를 위한 css  -->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main/mainMain.css">
 
-<script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
+<%-- <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script> --%>
 <script src="${pageContext.request.contextPath}/message/js/sweetalert.min.js" ></script>
-
-
 </head>
 <body>
-
-
-
 	<header class="cont-slider">
 		<section class="slider">
 			<article class="slide one">
@@ -91,17 +78,12 @@
 		</section>
 	</header>
 
-
-
-
-
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
 			<div id="fh5co-features">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-4 animate-box">
-
 							<div class="feature-left">
 								<span class="icon"> <i class="icon-hotairballoon"></i>
 								</span>
@@ -114,9 +96,7 @@
 									</p>
 								</div>
 							</div>
-
 						</div>
-
 						<div class="col-md-4 animate-box">
 							<div class="feature-left">
 								<span class="icon"> <i class="icon-search"></i>
@@ -148,7 +128,6 @@
 					</div>
 					<div class="row">
 						<div class="col-md-4 animate-box">
-
 							<div class="feature-left">
 								<span class="icon"> <i class="icon-wine"></i>
 								</span>
@@ -161,9 +140,7 @@
 									</p>
 								</div>
 							</div>
-
 						</div>
-
 						<div class="col-md-4 animate-box">
 							<div class="feature-left">
 								<span class="icon"> <i class="icon-genius"></i>
@@ -177,7 +154,6 @@
 									</p>
 								</div>
 							</div>
-
 						</div>
 						<div class="col-md-4 animate-box">
 							<div class="feature-left">
@@ -196,7 +172,6 @@
 					</div>
 				</div>
 			</div>
-
 
 			<div id="fh5co-destination">
 				<div class="tour-fluid">
@@ -270,8 +245,7 @@
 
 
 			<!-- fh5co-blog-section -->
-			<div id="fh5co-testimonial"
-				style="background-image: url(images/img_bg_1.jpg);">
+			<div id="fh5co-testimonial">
 				<div class="container">
 					<div class="row animate-box">
 						<div class="col-md-8 col-md-offset-2 text-center fh5co-heading">
@@ -337,7 +311,7 @@
 	</div>
 
 
-	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<%-- 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
 	<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
@@ -351,7 +325,7 @@
 	<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/classie.js"></script>
 	<script src="${pageContext.request.contextPath}/js/selectFx.js"></script>
-	<script src="${pageContext.request.contextPath}/js/main.js"></script>
+	<script src="${pageContext.request.contextPath}/js/main.js"></script> --%>
 
 </body>
 </html>

@@ -36,8 +36,7 @@
 	<script src="${pageContext.request.contextPath}/js/loginjoin/login.js" ></script>
 <div class="fh5co-hero">
 	<div class="fh5co-overlay"></div>
-	<div class="fh5co-cover" data-stellar-background-ratio="0.5"
-		style="background-image: url(&quot;images/cover_bg_1.jpg&quot;); background-position: 0px -47.7px;">
+	<div class="fh5co-cover" data-stellar-background-ratio="0.5">
 		<div class="desc">
 			<div class="container">
 				<div class="row">
