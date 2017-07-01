@@ -4,28 +4,28 @@
 <%@ page import="java.security.SecureRandom" %>
 <%@ page import="java.math.BigInteger" %>
 
-<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <link rel="shortcut icon" href="favicon.ico">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-
+ -->
  
 <title>PLAN'B JEJU 함께하기</title>
-	<!-- Animate.css -->
-	<link rel="stylesheet" href="css/animate.css">
+	<%-- <!-- Animate.css -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 	<!-- Icomoon Icon Fonts-->
-	<link rel="stylesheet" href="css/icomoon.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 	<!-- Bootstrap  -->
-	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
 	<!-- Superfish -->
-	<link rel="stylesheet" href="css/superfish.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
 	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="css/magnific-popup.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
 	<!-- Date Picker -->
-	<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css"> --%>
 	<!-- CS Select -->
-	<link rel="stylesheet" href="css/cs-select.css">
-	<link rel="stylesheet" href="css/cs-skin-border.css">	
-	<link rel="stylesheet" href="css/style.css">
+<%-- 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">	
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"> --%>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/LoginJoin/join.css">
 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sweetalert.css">
 
@@ -34,19 +34,6 @@
 	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
 	<script src="${pageContext.request.contextPath}/js/email.js"></script>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/login.js" ></script>
-	
- <%
-    String clientId = "q6YKhoTAKENem9wjtax9";//애플리케이션 클라이언트 아이디값";
-    String redirectURI = URLEncoder.encode("http://127.0.0.1:8090/PLANB_JEJU/callback.jsp", "UTF-8");
-    SecureRandom random = new SecureRandom();
-    String state = new BigInteger(130, random).toString();
-    String apiURL = "https://nid.naver.com/oauth2.0/authorize?response_type=code";
-    apiURL += "&client_id=" + clientId;
-    apiURL += "&redirect_uri=" + redirectURI;
-    apiURL += "&state=" + state;
-    session.setAttribute("state", state);
- %>
-
 <div class="fh5co-hero">
 	<div class="fh5co-overlay"></div>
 	<div class="fh5co-cover" data-stellar-background-ratio="0.5"
