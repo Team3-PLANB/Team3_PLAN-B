@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 
- <link rel="shortcut icon" href="favicon.ico">
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/message/ico/favicon.png">
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
@@ -14,10 +14,10 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 	<!-- Bootstrap  -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-	<!-- Superfish -->
+ 	<!-- Superfish -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<%-- 	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css"> --%>
 	<!-- Date Picker -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
 	<!-- CS Select -->
@@ -26,13 +26,9 @@
 	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 
-
 	<!-- Modernizr JS -->
 	<script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
-	
 	<!-- jQuery -->
-
-
 	<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 	<!-- jQuery Easing -->
 	<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
@@ -44,10 +40,10 @@
 
 	<!-- Stellar -->
 	<script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
-	<!-- Superfish -->
+ 	<!-- Superfish -->
 	<script src="${pageContext.request.contextPath}/js/hoverIntent.js"></script>
 	<script src="${pageContext.request.contextPath}/js/superfish.js"></script>
-	<!-- Magnific Popup -->
+ 	<!-- Magnific Popup -->
 	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/magnific-popup-options.js"></script>
 	<!-- Date Picker -->
