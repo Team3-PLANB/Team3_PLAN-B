@@ -271,6 +271,51 @@ public class PlanAController {
 		return "PlanA.tmapUpdateRoute";	
 	}
 
+	
+	/*
+	* @date : 2017. 6. 30
+	* @description : 후기 작성
+	* @parameter : 
+	* @return : String(View 페이지) 
+	*/
+	@RequestMapping(value="PLANA.updateOk.do", method=RequestMethod.POST)
+	public @ResponseBody int updatePlanAOk(@RequestBody RouteDetail routedetail) throws Exception {
+		
+		System.out.println(routedetail.toString());
+		//RouteDetail [routename=null, route_code=79, username=b@naver.com, route_order=1, route_date=2017-06-30,
+		//site=테라로사 서귀포점, lon=126.61888443363014, lat=33.24943726067356, category=기타, stime=, etime=, update_rownum=0, update_reason=null, routeDetailList=null]
+
+		//update_reason값 확인
+		
+		//routedetail update_rownum +1 하고 
+		routedetail.setUpdate_rownum(routedetail.getUpdate_rownum()+1);
+		
+		// 취향 한국말 설명 -> 코드성 변경
+		routedetail.setCategory(PersonalParse.string2code(routedetail.getCategory()));
+		
+		//
+		ArrayList<RouteDetail> routeList = new ArrayList<RouteDetail>();
+		
+		routeList.add(routedetail);
+		
+		Map<String, Object> map = new HashMap();
+		
+		
+		map.put("list", routeList);
+		
+		int result = routeDetailService.updateRouteDetail(routedetail);
+		int historyresult = 0;
+		if(result>0){
+			System.out.println("update완료");
+			// history insert
+			historyresult = historyService.insertRouteHistory(map);
+			
+		}
+		
+		return historyresult;	
+	}
+	
+	
 	/*
 	 * @date : 2017. 6. 19
 	 * 

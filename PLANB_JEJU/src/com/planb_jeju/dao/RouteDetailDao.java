@@ -15,6 +15,10 @@ public interface RouteDetailDao {
 	//route_personal 입력
 	public int insert(Map<String, Object> map) throws ClassNotFoundException, SQLException;
 	
+	//route_personal 입력
+	public int update(RouteDetail routedetail) throws ClassNotFoundException, SQLException;
+		
+	
 	/*	
 	 * @description : 전체 수
 	 * @return : int
