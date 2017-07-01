@@ -47,7 +47,7 @@
 								<a href="#" id="btn-message-modal">쪽지 보내기</a>
 							</li>
 							<li id="messageBoxIcon">
-								<a href="#">
+								<a href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do">
 									<span class="glyphicon glyphicon-envelope" aria-hidden="true"></span>
 									<span class="badge" id="messageBadge" style="background-color: red; padding: 3px; position: absolute; right: 2px; top: 4px; display: none;">0</span>
 								</a>
@@ -80,7 +80,7 @@
 					<div class="form-group">
 						<label class="sr-only" for="form-first-name">받는 사람</label> <input
 							type="text" name="form-first-name"
-							placeholder="wjddus5336@naver.com"
+							placeholder="받을사람 이메일 ex:) a@naver.com"
 							class="form-first-name form-control" id="form-first-name">
 					</div>
 					<div class="form-group">

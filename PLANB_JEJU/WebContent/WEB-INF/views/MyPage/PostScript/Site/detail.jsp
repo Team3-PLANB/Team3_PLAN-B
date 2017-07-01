@@ -16,7 +16,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>PLAN'B JEJU - 후기 게시판</title>
+<title>PLAN'B JEJU - 나의 여행지 후기 게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -53,8 +53,7 @@
 					<div class="row">
 						<div
 							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-							<h3>여행지 후기 게시판</h3>
-							<p>여행지 후기 게시판입니다.</p>
+							<h3>나의 여행지 후기 게시판</h3>
 						</div>
 					</div>
 					<div class="row row-bottom-padded-md">
@@ -76,7 +75,7 @@
 										<img data-u="image" src="${pageContext.request.contextPath}/PostScript/Photo/${photo.site_postscript_photo_rownum}.do" />
 										<div data-u="thumb">
 											<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-												&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+												&nbsp;#${sitePostscriptTag.tag()}&nbsp;&nbsp;
 											</c:forEach>
 										</div>
 									</div>

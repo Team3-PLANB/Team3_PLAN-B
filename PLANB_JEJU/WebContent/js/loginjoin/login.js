@@ -1,8 +1,8 @@
 function loginCheck() {
-	console.log("loginCheck.do 타려구");
+
 	var username = $('#loginform').find('#username').val();
 	var password = $('#loginform').find('#password').val();
-	console.log(username);
+
 	$.ajax({
 		url : "loginCheck.do",
 		type : "get",
@@ -12,7 +12,7 @@ function loginCheck() {
 		},
 		success : function(result) {
 			if(result == "efalse") {
-				console.log(result);
+
 				$('.emailCheck').css('display', 'block');
 				$('.emailCheck').text("존재하지 않는 이메일 입니다.");
 			} else { // email은 true

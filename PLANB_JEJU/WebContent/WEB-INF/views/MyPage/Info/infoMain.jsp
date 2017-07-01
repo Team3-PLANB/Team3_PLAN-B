@@ -7,12 +7,7 @@
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sweetalert.css">
 <script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
 <script src="${pageContext.request.contextPath}/js/mypage/updateInfo.js" ></script>
-<%-- <%
-	String nickname = (String)request.getAttribute("nickname");
-	String originpwd = (String)request.getAttribute("originpwd");
-%>
-<c:set var="nickname" value="<%=nickname%>" />
-<c:set var="originpwd" value="<%=originpwd %>" /> --%>
+
 <div class="box-testimony animate-box">
 	<div class="container" style="margin-left:37%">
 		<div class="row">

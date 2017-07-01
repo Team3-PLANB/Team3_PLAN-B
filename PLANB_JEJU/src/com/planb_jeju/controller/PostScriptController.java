@@ -249,11 +249,14 @@ public class PostScriptController {
 		// 태그 등록 
 		List<SitePostscriptTag> tagList = sitePostscriptservice.insertSitePostTag(lastSitePostscript);
 		
+		lastSitePostscript.setSitePostscriptTag(tagList);
+		
 		// 방금 올렸던 후기 넘겨주기
 		model.addAttribute("sitePostscript", lastSitePostscript);
 		
 		// 방금 올렸던 후기 사진 넘겨주기
 		model.addAttribute("sitePostscriptPhotoList", photoList);
+		System.out.println("sitePostscriptPhotoList : " + photoList);
 		
 		// 방금 올렸던 후기 태그 넘겨주기
 		model.addAttribute("sitePostscriptTagList", tagList);
@@ -307,9 +310,13 @@ public class PostScriptController {
 		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
 		sitePostscript.setSitePostscriptTag(sitePostscriptTagList);
 		
+		List<SitePostscriptPhoto> photoList = sitePostscriptservice.getSitePostPhotoList(site_postscript_rownum);
+		
 		System.out.println("sitePostscript : " + sitePostscript);
 		model.addAttribute("sitePostscript", sitePostscript);
 		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
+		model.addAttribute("photoList", photoList);
+		System.out.println("photoList" + photoList);
 		return "PostScript.Site.detail";		
 	}
 	
@@ -372,24 +379,22 @@ public class PostScriptController {
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
 	* @return : String(View 페이지)
 	*/
-	/*
-
-	@RequestMapping(value = "Site/Photo/{num}.do", method = RequestMethod.GET)
-	public void showPhoto(@PathVariable("num") String num, HttpServletResponse response) throws IOException, SQLException {
-	
-
-	UploadImageVO board = iuploadImageService.uploadView(num);
-
-	response.setHeader("Content-Disposition", "inline;filename=\"" + board.getContentName() + "\"");
-	OutputStream outputStream = response.getOutputStream();
-	response.setContentType(board.getContentType());
-
-	SerialBlob blob = new SerialBlob(board.getContent());
-
-	IOUtils.copy(blob.getBinaryStream(), outputStream);
-
-	outputStream.flush();
-	outputStream.close();
-	}*/
+//	@RequestMapping(value = "Site/Photo/{num}.do", method = RequestMethod.GET)
+//	public void showPhoto(@PathVariable("num") String num, HttpServletResponse response) throws IOException, SQLException {
+//	
+//
+//	UploadImageVO board = iuploadImageService.uploadView(num);
+//
+//	response.setHeader("Content-Disposition", "inline;filename=\"" + board.getContentName() + "\"");
+//	OutputStream outputStream = response.getOutputStream();
+//	response.setContentType(board.getContentType());
+//
+//	SerialBlob blob = new SerialBlob(board.getContent());
+//
+//	IOUtils.copy(blob.getBinaryStream(), outputStream);
+//
+//	outputStream.flush();
+//	outputStream.close();
+//	}
 
 }
