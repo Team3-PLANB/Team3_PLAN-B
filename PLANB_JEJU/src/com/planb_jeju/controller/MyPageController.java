@@ -14,10 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 * @Class : MyPageController
 * @Project : PLANB_JEJU
 * @Date : 2017.06.16
-* @LastEditDate : 2017.06.22
+* @LastEditDate : 2017.06.30
 * @Author : 홍단비 & 정다혜 
 * @Desc : Mypage 컨트롤러
 */
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,6 +35,8 @@ import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Message;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RoutePostscript;
+import com.planb_jeju.dto.RoutePostscriptLike;
+import com.planb_jeju.dto.RoutePostscriptTag;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.MessageService;
@@ -152,7 +155,7 @@ public class MyPageController {
     
     /*
      * @date : 2017. 6. 23
-     * @description : Mypage 나의 루트 후기 상세보기
+     * @description : Mypage 나의 여행지 후기 상세보기
      * @return : String (view page) 
      */
      @RequestMapping("PostScript/Site/Detail.do")
@@ -207,35 +210,109 @@ public class MyPageController {
           return "MyPage.PostScript.Site.detail";
        }
      
-   /*
-   * @date : 2017. 6. 16
-   * @description : Mypage 찜한후기 site view
-   * @return : String(view) 
-   */
-   @RequestMapping("Like/likeMain.do")
-   public String like(){
-      return "MyPage.Like.likeMain";
-   }
+       /*
+        * @date : 2017. 6. 16
+        * @description : Mypage 찜한후기 main view
+        * @return : String(view) 
+        */
+        @RequestMapping("Like/Like.do")
+        public String like(){
+           return "MyPage.Like.likeMain";
+        }
 
-   /*
-   * @date : 2017. 6. 16
-   * @description : Mypage 찜한후기 root view
-   * @return : String(view) 
-   */
-   @RequestMapping("Like/Route/route.do")
-   public String likeRoot(){
-      return "MyPage.Like.Route.routeMain";
-   }
+        /*
+        * @date : 2017.06.30
+        * @description : Mypage 찜한 루트 후기 리스트
+        * @return : String(view) 
+        */
+        @RequestMapping("Like/Route/List.do")
+        public String listLikeRoutePost(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws ClassNotFoundException, SQLException{
+     	   System.out.println("찜한 루트 후기 리스트");
+     		List<RoutePostscriptTag> routePostscriptTagList = null;
+     		String username = null;
+     		if(principal != null){
+     			username = principal.getName();
+     			System.out.println("로그인된 아이디 : " + username);
+     		}
+     		System.out.println("searchWord : " + searchWord);
+     		List<RoutePostscript> routePostscriptList = routePostscriptservice.listLikeRoutePost(username, searchWord);
+     		
+     		for(RoutePostscript post : routePostscriptList){
+     			routePostscriptTagList = routePostscriptservice.getRoutePostTagList(post.getRoute_postscript_rownum());
+     			post.setRoutePostscriptTag(routePostscriptTagList);
+     		}
+     		System.out.println("routePostscriptList : " + routePostscriptList);
+     		model.addAttribute("routePostscriptList", routePostscriptList);
+     		model.addAttribute("searchWord", searchWord);
+     	   
+     	   return "MyPage.Like.Route.listBoard";
+        }
+        
+        /*
+    	* @date : 2017.07.01
+    	* @description : 찜한 루트 후기 상세보기
+    	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+    	* @return : String(View 페이지) 
+    	*/
+    	@RequestMapping(value="Like/Route/Detail.do", method=RequestMethod.GET)
+    	public String detailRoutePostscript(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+    		System.out.println("루트 후기 게시판 상세보기");
+    		String username = null;
+    		if(principal != null){
+    			username = principal.getName();
+    			System.out.println("로그인된 아이디 : " + username);
+    		}
+    		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, username);
+    		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptservice.getRoutePostTagList(routePostscript.getRoute_postscript_rownum());
+    		routePostscript.setRoutePostscriptTag(routePostscriptTagList);
+    		
+    		System.out.println("routePostscript : " + routePostscript);
+    		model.addAttribute("routePostscript", routePostscript);
+    		
+    		return "MyPage.Like.Route.detail";
+    	}
+    	
+    	/*
+    	* @date : 2017.07.01
+    	* @description : 찜한 루트 후기 찜콩 설정/해제
+    	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
+    	* @return : String 상태
+    	*/
+    	@RequestMapping(value="Like/Route/Like.do", method=RequestMethod.GET)
+    	public @ResponseBody String changLikeRoutePostscript(@RequestParam int route_postscript_rownum, @RequestParam String route_like, Principal principal) throws ClassNotFoundException, SQLException {
+    		RoutePostscriptLike routePostscriptLike = new RoutePostscriptLike(0, route_postscript_rownum, principal.getName());
+    		
+    		String change = "";
+    		
+    		if(route_like.equals("true")){
+    			System.out.println("찜콩 설정되어 있음");
+    			routePostscriptservice.deleteLike(routePostscriptLike);
+    			routePostscriptservice.downLikeNum(routePostscriptLike);
+    			System.out.println("찜콩 해제 완료");
+    			change = "tTf"; //true to false
+    		}else{
+    			System.out.println("찜콩 해제되어 있음");
+    			routePostscriptservice.insertLike(routePostscriptLike);
+    			routePostscriptservice.upLikeNum(routePostscriptLike);
+    			System.out.println("찜콩 설정 완료");
+    			change = "fTt"; //false to true
+    		}
+    		
+    		return change;
+    	}
+        
+        
 
-   /*
-   * @date : 2017. 6. 16
-   * @description : Mypage 찜한후기 site view
-   * @return : String(view) 
-   */
-   @RequestMapping("Like/Site/site.do")
-   public String likeSite(){
-      return "MyPage.Like.Site.siteMain";
-   }
+        /*
+        * @date : 2017. 6. 30
+        * @description : Mypage 찜한후기 site view
+        * @return : String(view) 
+        */
+        @RequestMapping("Like/Site/List.do")
+        public String likeSite(){
+           return "MyPage.Like.Site.siteMain";
+        }
+
    
    /*
    * @date : 2017. 6. 16

@@ -150,7 +150,7 @@ public class PostScriptController {
 	* @date : 2017. 6. 21
 	* @description : 루트 후기 찜콩 설정/해제
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
-	* @return : String(View 페이지) 
+	* @return : String 상태
 	*/
 	@RequestMapping(value="Route/Like.do", method=RequestMethod.GET)
 	public @ResponseBody String changLikeRoutePostscript(@RequestParam int route_postscript_rownum, @RequestParam String route_like, Principal principal) throws ClassNotFoundException, SQLException {

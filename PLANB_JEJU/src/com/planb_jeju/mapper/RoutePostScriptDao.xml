@@ -76,9 +76,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT OUTER JOIN route_postscript_tag t
 		ON rp.route_postscript_rownum = t.route_postscript_rownum
 		WHERE rp.route_like = 'true'
-		<where>
-			<if test="param2 != null">AND t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
-		</where>
+		<if test="param2 != null">AND t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
 		GROUP BY rp.route_postscript_rownum
 		ORDER BY rp.writetime desc
 	</select>

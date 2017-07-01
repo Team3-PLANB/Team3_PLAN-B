@@ -1,10 +1,10 @@
 <%--
 @Project : PLANB_JEJU
 @File name : detail.jsp 
-@Author : 임정연 & 정다혜
-@Data : 2017.06.16 & 2017.06.21
-@Last Edit Data : 2017.06.22
-@Desc : 루트 후기 게시판의 상세보기
+@Author : 정다혜
+@Data : 2017.07.01
+@Last Edit Data : 2017.07.01
+@Desc : 찜한 루트 후기 상세보기
 --%>
 
 
@@ -15,7 +15,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>PLAN'B JEJU - 후기 게시판</title>
+<title>PLAN'B JEJU - 찜한 루트 후기 게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 <meta name="keywords"
@@ -49,8 +49,7 @@
 					<div class="row">
 						<div
 							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-							<h3>루트 후기 게시판</h3>
-							<p>루트 후기 게시판입니다.</p>
+							<h3>찜한 루트 후기 게시판</h3>
 						</div>
 					</div>
 					<div class="row row-bottom-padded-md">
@@ -62,7 +61,7 @@
 						<%------------------------------이미지와 태그 부분 ----------------------------------------%>
 						<div class="col-md-6 animate-box" align="center">
 							<img class="img-responsive"
-								src="../../images/PostScript/detail_Root.jpg" alt="travel">
+								src="${pageContext.request.contextPath}/images/PostScript/detail_Root.jpg" alt="travel">
 							<div class="flight-book">
 								<div class="plane-name">
 									<span class="p-flight">태그</span>
@@ -71,7 +70,7 @@
 									<div class="left">
 										<span class="price" > <!-- <i class="icon-arrow-down22"></i> -->
 											<c:forEach var="postTag" items="${routePostscript.routePostscriptTag}">
-												<a style="color:white;" href="${pageContext.request.contextPath}/PostScript/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+												<a style="color:white;" href="${pageContext.request.contextPath}/MyPage/Like/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 											</c:forEach>	
 										</span>
 									</div>
@@ -130,7 +129,6 @@
 						</div>
 						<br>
 						
-
 					</div>
 				</div>
 			</div>
