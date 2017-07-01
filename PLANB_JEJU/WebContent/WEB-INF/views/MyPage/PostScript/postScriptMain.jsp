@@ -9,32 +9,6 @@
 	pageEncoding="UTF-8"%>
 <jsp:include page="../myPageMain.jsp"></jsp:include>
 
-<link rel="shortcut icon" href="favicon.ico">
-
-<link
-	href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'
-	rel='stylesheet' type='text/css'>
-
-<!-- Animate.css -->
-<link rel="stylesheet" href="css/animate.css">
-<!-- Icomoon Icon Fonts-->
-<link rel="stylesheet" href="css/icomoon.css">
-<!-- Bootstrap  -->
-<link rel="stylesheet" href="css/bootstrap.css">
-<!-- Superfish -->
-<link rel="stylesheet" href="css/superfish.css">
-<!-- Magnific Popup -->
-<link rel="stylesheet" href="css/magnific-popup.css">
-<!-- Date Picker -->
-<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-<!-- CS Select -->
-<link rel="stylesheet" href="css/cs-select.css">
-<link rel="stylesheet" href="css/cs-skin-border.css">
-
-<link rel="stylesheet" href="css/style.css">
-
-
-
 <div id="fh5co-tours">
 	<div class="container">
 		<div class="row">
