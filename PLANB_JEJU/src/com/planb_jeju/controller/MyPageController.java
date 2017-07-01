@@ -38,6 +38,8 @@ import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
 import com.planb_jeju.dto.SitePostscript;
+import com.planb_jeju.dto.SitePostscriptLike;
+import com.planb_jeju.dto.SitePostscriptTag;
 import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.MessageService;
 import com.planb_jeju.service.RoutePostscriptService;
@@ -181,11 +183,11 @@ public class MyPageController {
        * @description : Mypage 나의 루트 후기 수정하기
        * @return : String (view page) 
        */
-       @RequestMapping("PostScript/Site/updateMyRoute.do")
-       public String updateMyRoute(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+      @RequestMapping("PostScript/Site/updateMyRoute.do")
+      public String updateMyRoute(Principal principal, Model model) throws ClassNotFoundException, SQLException{
        	
-          return "MyPage.PostScript.Site.detail";
-       }
+         return "MyPage.PostScript.Site.detail";
+      }
      
      /*
       * @date : 2017. 6. 30
@@ -250,7 +252,7 @@ public class MyPageController {
         
         /*
     	* @date : 2017.07.01
-    	* @description : 찜한 루트 후기 상세보기
+    	* @description : Mypage 찜한 루트 후기 상세보기
     	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
     	* @return : String(View 페이지) 
     	*/
@@ -274,7 +276,7 @@ public class MyPageController {
     	
     	/*
     	* @date : 2017.07.01
-    	* @description : 찜한 루트 후기 찜콩 설정/해제
+    	* @description : Maypage 찜한 루트 후기 찜콩 설정/해제
     	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
     	* @return : String 상태
     	*/
@@ -303,15 +305,87 @@ public class MyPageController {
         
         
 
-        /*
-        * @date : 2017. 6. 30
-        * @description : Mypage 찜한후기 site view
-        * @return : String(view) 
-        */
-        @RequestMapping("Like/Site/List.do")
-        public String likeSite(){
-           return "MyPage.Like.Site.siteMain";
-        }
+    	/*
+    	* @date : 2017.07.01
+    	* @description : Mypage 찜한 여행지 후기 리스트
+    	* @parameter : principal 로그인한 회원 정보, principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+    	* @return : String(View 페이지) 
+    	*/
+    	@RequestMapping(value="Like/Site/List.do", method=RequestMethod.GET)
+    	public String listSitePostscript(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
+    		System.out.println("여행지 후기 게시판 들어옴");
+    		List<SitePostscriptTag> sitePostscriptTagList = null;
+    		String username = null;
+    		if(principal != null){
+    			username = principal.getName();
+    			System.out.println("로그인된 아이디 : " + username);
+    		}
+    		System.out.println("searchWord : " + searchWord);
+    		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listLikeRoutePost(username, searchWord);
+    		
+    		for(SitePostscript post : sitePostscriptList){
+    			sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(post);
+    			post.setSitePostscriptTag(sitePostscriptTagList);
+    		}
+    		
+    		System.out.println("sitePostscriptList : " + sitePostscriptList);
+    		model.addAttribute("sitePostscriptList", sitePostscriptList);
+    		model.addAttribute("searchWord", searchWord);
+    		
+    		return "MyPage.Like.Site.listBoard";	
+    	}
+    		
+    	/*
+    	* @date : 2017.07.01
+    	* @description : Mypage 찜한 여행지 후기 상세보기
+    	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
+    	* @return : String(View 페이지) 
+    	*/
+    	@RequestMapping("Like/Site/Detail.do")
+    	public String detailSitePostscript(@RequestParam int site_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+    		System.out.println("사이트 후기 게시판 상세보기");
+    		System.out.println("로그인된 아이디 : " + principal.getName());
+    		
+    		
+    		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName());
+    		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
+    		sitePostscript.setSitePostscriptTag(sitePostscriptTagList);
+    		
+    		System.out.println("sitePostscript : " + sitePostscript);
+    		model.addAttribute("sitePostscript", sitePostscript);
+    		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
+    		return "MyPage.Like.Site.detail";		
+    	}
+    	
+    	
+    	/*
+    	* @date : 2017.07.01
+    	* @description : Mypage 찜한 여행지 후기 찜콩 설정/해제
+    	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
+    	* @return : String(View 페이지) 
+    	*/
+    	@RequestMapping(value="Like/Site/Like.do", method=RequestMethod.GET)
+    	public @ResponseBody String changLikeSitePostscript(@RequestParam int site_postscript_rownum, @RequestParam String site_like, Principal principal) throws ClassNotFoundException, SQLException {
+    		SitePostscriptLike sitePostscriptLike = new SitePostscriptLike(0, site_postscript_rownum, principal.getName());
+    		
+    		String change = "";
+    		
+    		if(site_like.equals("true")){
+    			System.out.println("찜콩 설정되어 있음");
+    			sitePostscriptservice.deleteLike(sitePostscriptLike);
+    			sitePostscriptservice.downLikeNum(sitePostscriptLike);
+    			System.out.println("찜콩 해제 완료");
+    			change = "tTf"; //true to false
+    		}else{
+    			System.out.println("찜콩 해제되어 있음");
+    			sitePostscriptservice.insertLike(sitePostscriptLike);
+    			sitePostscriptservice.upLikeNum(sitePostscriptLike);
+    			System.out.println("찜콩 설정 완료");
+    			change = "fTt"; //false to true
+    		}
+    		
+    		return change;
+    	}
 
    
    /*
