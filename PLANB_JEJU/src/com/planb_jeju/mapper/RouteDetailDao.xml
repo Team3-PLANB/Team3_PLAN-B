@@ -39,7 +39,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	 <!-- 루트경로 Detail(하나의 경로안에 Site 정보 전체) 가져오기 --><!-- 좋아요 추가 join -->
-	 <select id="getRouteDetailList" resultType="com.planb_jeju.dto.RouteDetail" parameterType="map">
+	 <select id="getRouteDetailList" resultType="com.planb_jeju.dto.RouteDetail">
 		
 		 SELECT 
 		 	route_detail.route_order as route_order,
@@ -62,7 +62,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		 AND
 		 	route_detail.route_code = route.route_code
 		 WHERE
-	    	route_detail.route_code = #{route_code} and route_detail.username = #{username}
+	    	route_detail.route_code = #{param1} and route.username = #{param2}
 	    ORDER BY
 	    	route_detail.route_date asc, route_detail.route_order asc;
 	     

@@ -117,7 +117,7 @@ div.over {
 				if(routeOrder != ${routeDetail.route_order}){
 					dayOrder++;
 					$group = $("<div class='group' style='width:400px;'></div>");
-		     		$h3 = $("<h3>Day " + dayOrder + " : ${routeDetail.getRoute_date()}</h3>");
+		     		$h3 = $("<h3>Day " + dayOrder + " : ${routeDetail.route_date}</h3>");
 		     		$div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
 		     		$sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
 		     		
@@ -172,7 +172,6 @@ div.over {
 			$('#sitePost').addClass('active');
 			$('#site').empty();
 			$('#site').val(site.getAttribute("value"));
-			/* console.log('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}'); */
 			console.log('${route_code}');
 
 			$.ajax({
