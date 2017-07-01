@@ -57,7 +57,7 @@ public class RouteDetailService {
 			
 			List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i).getRoute_code(), routeList.get(i).getUsername());
 			for(RouteDetail routeDetail : routeDetailList){
-				routeDetail.setCategory(PersonalParse.code2shortcode(routeDetail.getCategory()));
+				routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
 			}
 			
 			// 경로의 Name값을 key값으로 설정, value는 해당 경로의 각 Site List
