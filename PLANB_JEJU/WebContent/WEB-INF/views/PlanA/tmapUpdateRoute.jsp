@@ -1,9 +1,9 @@
 <%--
 @Project : PLANB_JEJU
-@File name : tmapMakeRoute.jsp 
-@Author : 강나영, 이준성, 임정연
- @Data : 2017.06.19
-@Desc : 일정 만들기
+@File name : tmapUpdateRoute.jsp 
+@Author : 강나영
+ @Data : 2017.06.30
+@Desc : 일정 수정
 --%>
 
 
@@ -92,12 +92,6 @@ $( function() {
 		
 	
 	
-
-	
-	
-	
-	
-	
 	//전역변수 루트 선택 시 초기화
 	routeDetailList = [];
 	
@@ -133,9 +127,16 @@ $( function() {
 	
 	// 여행지 검색 버튼 클릭
 	$("#searchSiteBtn").on("click", function() {
+		// 검색어 저장
+		searchWordSave = $("#searchWord").val();
+		
+		
+		
 		//Tmap POI 호출 로직
     	searchPOI();
 		
+    	// input clear
+		$("#searchWord").val('');
 	});
 
 	$(document).on("click","#submit_route_detail", function(event){ 
@@ -178,6 +179,7 @@ $( function() {
  	//Tmap POI
  	function addMarker(options){
  		
+ 		
 	    var size = new Tmap.Size(12,19);
 	    var offset = new Tmap.Pixel(-(size.w/2), -size.h);
 	    var icon = new Tmap.Icon("https://developers.skplanetx.com/upload/tmap/marker/pin_b_s_simple.png",size,offset);
@@ -195,6 +197,14 @@ $( function() {
 	    this.popup.hide();
 	}
 	function onClickMouse(e){
+		
+		
+		//마커 삭제
+		deleteMarker(schId);
+	    //
+	    sch_content_layer.clearMarkers();
+		//poi_markerLayer.clearMarkers();
+		
 		//마커 삭제 this.destroy();
 		// 마커와 일치하는 div찾아서 연결, 마커의 라벨값 -> div의  id값과 같음 
 		var markerLabel = '#'+this.labelHtml;
@@ -206,13 +216,38 @@ $( function() {
 		var markerLonLat = new Tmap.LonLat(this.lonlat.lon, this.lonlat.lat).transform(pr_3857, pr_4326); // 저장된 좌표 처럼 변경 33. 140처럼
 		var markerId = this.idString;	
 		
+		
+		
+		
+		
+		//수정 클릭 대상 div 정보  바꿔치기
+		console.log(schId);
+		
+		
+		$('#'+schId).find('.sitename_tag').html(markerId);
+		$('#'+schId).find('span').html(searchWordSave);
+		///PLANB_JEJU/images/category/A0206.JPG
+		$('#'+schId).find('img').attr('src','${pageContext.request.contextPath}/images/category/Z0101.JPG');
+		
+		//data 정보 수정
+		var fixSitedataVal =  $('#'+schId).data('sitedata');
+		  
+		fixSitedataVal.category='기타';
+		fixSitedataVal.etime='';
+		fixSitedataVal.stime='';
+		fixSitedataVal.site=markerId;
+		fixSitedataVal.lon=markerLonLat.lon;
+		fixSitedataVal.lat=markerLonLat.lat; 
+	      
+	    
+	    
 		//console.log(markerLonLat.lon);
 		//console.log(markerLonLat.lat);
 		
 		//마커 추가하기
 		
 		//검색 값 넣기
-		$(".ui-accordion-content").each(function(){  //ui-accordion-content 이걸 가지고 있느놈을 포문을 돌리고
+		/* $(".ui-accordion-content").each(function(){  //ui-accordion-content 이걸 가지고 있느놈을 포문을 돌리고
 		
 			var id_hidden =$(this).attr("aria-hidden"); // this() .attr(속성)을  
 			if(id_hidden == "false"){ //열려있는 div 이면
@@ -253,7 +288,6 @@ $( function() {
 				var $tag = $("<div class='tag'>"+markerId+"</div>");
 				var $sinfo_line = $("<div class='sinfo_line'></div>");
 				var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
-				<%-- var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>"); --%>
 				var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
 				
 				
@@ -262,7 +296,7 @@ $( function() {
 				$sch_content.data('sitedata', newsitedataVal[0]);
 				
 				
-				/*  $sinfo_txt_img.appendTo($sinfo_txt); */
+				//$sinfo_txt_img.appendTo($sinfo_txt); 
 				 
 				 
 				 $tag.appendTo($spot_info);
@@ -299,7 +333,7 @@ $( function() {
 			      
 				
 			}
-		});
+		}); */
 		
 	    //getDataFromId(this.idString);
 	    
@@ -310,8 +344,45 @@ $( function() {
             id:'Route'
         };
 		 addRouteMarker(options);
+		 vector_layer.removeAllFeatures();
 		 drawRouteLine();
+	
+		
+		 // poi마커 삭제
+		 poi_markerLayer.clearMarkers();
+		 
+		 console.log('json대상 한번 찍어보기');
+		 console.log(JSON.stringify(fixSitedataVal));
+		 //비동기 route_detail update, route_history insert
+		 $.ajax({
+				type : "post",
+				url : '${pageContext.request.contextPath}/PLANA.updateOk.do',
+				
+				dataType : "json",
+				data : JSON.stringify(fixSitedataVal),
+				contentType: "application/json; charset=UTF-8",
+				success : function(result){
+					alert('뭐야뭐야');
+						/* console.log(result);
+						if (!result) { 
+							console.log("잘못된 값");
+						}else if (result=='tTf'){
+							console.log("찜콩 해제");
+							$('#heart').attr("src", "../../images/PostScript/empty_like.png");
+							$('#route_like').val("false");
+						}else if (result=='fTt'){
+							console.log("찜콩 설정");
+							$('#heart').attr("src", "../../images/PostScript/full_like.png");
+							$('#route_like').val("true");
+						} */
+				},
+				error : function(xhr) {
+					console.log("에러남 : " + xhr);
+				}
+			});
+		
 	}
+	
 	function searchPOI(){
 		
 		
@@ -341,7 +412,8 @@ $( function() {
 	                label:new Tmap.Label('<div style="background-color: ivory"><a class="btn btn-defalut">'+name+'</a><br><a class="btn btn-defalut">'+telNo+'</a><br><a class="btn btn-defalut">'+Addr+'</a><br><a class="btn btn-defalut">'+type+'</a></div>'),
 	                lonlat:new Tmap.LonLat(lon, lat),
 	                /* id:id */
-	                id:name
+	                id:name,
+	                category:type
 	            };
 	            addMarker(options);
 	        });
@@ -362,7 +434,7 @@ $( function() {
 	        jQuery(this.responseXML).find("poiDetailInfo").each(function(){
 	            var name = jQuery(this).text();
 	            
-	            alert(name);
+	            //alert(name);
 	        });
 	    }else {
 	        alert('검색결과가 없습니다.');
@@ -394,7 +466,7 @@ $( function() {
 	    var marker = new Tmap.Markers(options.lonlat,icon,options.label);
 	    sch_content_layer.addMarker(marker);
 	    
-	    marker.popup.show();
+	    //marker.popup.show();
 	    
 	    marker.events.register("mouseover", marker, onOverMouse);
 	    marker.events.register("mouseout", marker, onOutMouse);
@@ -545,7 +617,7 @@ $( function() {
 	    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
 	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
 	    					var $spot_info = $("<div class='spot_info'></div>");
-	    					var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
+	    					var $tag = $("<div class='tag sitename_tag'>"+'${i.site}'+"</div>");
 	    					var $sinfo_line = $("<div class='sinfo_line'></div>");
 	    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
 	    					var $sinfo_txt_img = $("<span>"+'${i.category}'+"</span>");
@@ -742,7 +814,21 @@ $( function() {
         	 
         	 sch_content_layer.clearMarkers();
         	 
-        	 var schId = $(sch_content).parent().attr('id');
+        	 schId = $(sch_content).parent().attr('id');
+        	 
+        	 
+        	 //var $sch_content = $( "<div class='sch_content' id='"+markerId+"' style='width: 250px;' onclick='sch_contentClick(this)'></div>" );
+				
+        	 var $searchBtn = $('<button style="margin-left:10px;float:right;" class="btn btn-primary " id="searchSiteBtn"></button>'); 
+        	 var $searchBtnGly = $('<span class="glyphicon glyphicon-search"></span>');	
+        	 
+        	 $searchBtnGly.appendTo($searchBtn);
+        	 
+        	 var $searchInput = $('<input type="text" style="width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">');
+        	
+        	 var $div = $('<div></div');
+        	 
+        	 $div.append($searchInput).append($searchBtn);
         	 
         	 
         	  // 각 Day 별  Site 배열 정리
@@ -755,11 +841,16 @@ $( function() {
 				  if(value.site == schId){
 					  var lonlat = new Tmap.LonLat(value.lon, value.lat).transform(pr_4326, pr_3857);
 					  
-					  var options = {
-					                label:new Tmap.Label(value.route_order+'번째 여행지 : '+value.site),
-					                lonlat:new Tmap.LonLat(lonlat.lon, lonlat.lat)
+					 var options = {
+					                 label:new Tmap.Label(value.route_order+'번째 여행지 : '+value.site),
+					                 lonlat:new Tmap.LonLat(lonlat.lon, lonlat.lat)
 					            };
-					  addSchContentMarkers(options);
+					  addSchContentMarkers(options); 
+					  
+					  //popup 인스턴스 생성. 마지막 인자는 close 버튼의 여부를 나타냄.
+					  /* var popup = new Tmap.Popup("lablePopup",  lonlat,  new Tmap.Size(350,100), "<input type='text' style='width:300px;float:right;' class='form-control' id='searchWord' name='searchWord' value='${searchWord}' placeholder='검색할 태그를 입력해주세요.'>",  false);
+					  
+					  map.addPopup(popup); */
 				  }
 			  });
 			  
@@ -769,6 +860,8 @@ $( function() {
 			  // 최대 줌 상태에서 13레벨로 reZoom
 			  map.zoomTo(13);
 		     
+			  //input box 커서 
+			  $('#searchWord').focus();
 			  
          }
          
@@ -1205,7 +1298,7 @@ div.over {
 	<span class="glyphicon glyphicon-search"></span>
 </button>
 <input type="text" style="width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">
-	
+
 	
 
 <!-- class="btn btn-link-1 launch-modal" -->
