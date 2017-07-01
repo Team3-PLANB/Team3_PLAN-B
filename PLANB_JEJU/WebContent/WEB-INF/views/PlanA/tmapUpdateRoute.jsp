@@ -314,7 +314,7 @@ $( function() {
 	            addMarker(options);
 	        });
 	    }else {
-	        alert('검색결과가 없습니다.');
+	        //alert('검색결과가 없습니다.');
 	    }
 	    map.zoomToExtent(poi_markerLayer.getDataExtent());
 	    tdata.events.unregister("onComplete", tdata, onCompleteTData);
