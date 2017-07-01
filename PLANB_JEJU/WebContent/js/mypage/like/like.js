@@ -113,12 +113,8 @@ function routeLikeChange(img){
 					console.log("잘못된 값");
 				}else if (result=='tTf'){
 					console.log("찜콩 해제");
-					$(img).attr("src", getContextPath() + "/images/PostScript/empty_like.png");
+					$(img).parent().parent().parent().parent().parent().parent().hide(500);
 					$(img).parent().children('#route_like').val("false");
-				}else if (result=='fTt'){
-					console.log("찜콩 설정");
-					$(img).attr("src", getContextPath() + "/images/PostScript/full_like.png");
-					$(img).parent().children('#route_like').val("true");
 				}
 		},
 		error : function(xhr) {
@@ -143,12 +139,8 @@ function siteLikeChange(img){
 					console.log("잘못된 값");
 				}else if (result=='tTf'){
 					console.log("찜콩 해제");
-					$(img).attr("src", getContextPath() + "/images/PostScript/empty_like.png");
+					$(img).parent().parent().parent().parent().parent().parent().hide(500);
 					$(img).parent().children('#site_like').val("false");
-				}else if (result=='fTt'){
-					console.log("찜콩 설정");
-					$(img).attr("src", getContextPath() + "/images/PostScript/full_like.png");
-					$(img).parent().children('#site_like').val("true");
 				}
 		},
 		error : function(xhr) {
