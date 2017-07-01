@@ -17,7 +17,7 @@
 <meta name="keywords"
 	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" /> -->
-<link rel="shortcut icon" href="favicon.ico">
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/message/img/favicon.png">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 <%-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">

@@ -10,7 +10,7 @@
 	<meta name="description" />
 	<meta name="keywords"  />
 	<meta name="author"/>
-
+	<link rel="shortcut icon" href="${pageContext.request.contextPath}/message/img/favicon.png">
 	<link href='https://fonts.googleapis.com/css?family=Work+Sans:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
 	<link href="https://fonts.googleapis.com/css?family=Sacramento" rel="stylesheet">
 
@@ -83,7 +83,7 @@
 	<!-- Bootstrap -->
 	<script src="js/mainpage/bootstrap.min.js"></script>
 	<!-- Waypoints -->
-	<script src="js/mainpage/jquery.waypoints.min.js"></script>
+ 	<script src="js/mainpage/jquery.waypoints.min.js"></script>
 	<!-- Carousel -->
 	<script src="js/mainpage/owl.carousel.min.js"></script>
 	<!-- countTo -->

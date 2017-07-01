@@ -3,9 +3,9 @@
 //load the SDK asynchronously
 window.fbAsyncInit = function() {
 	FB.init({
-	      appId      : '444078732638300',
-	      cookie     : true,
-	      xfbml      : true,
+	      appId      : '444078732638300', // 앱 ID
+	      cookie     : true,			  // 쿠키허용
+	      xfbml      : true,			  // parse XFBML
 	      version    : 'v2.8'
 	    });
 
@@ -52,19 +52,14 @@ function statusChangeCallback(response) {
 	}
 }
 
-// 페이스북 로그인을 눌렀을 때 나오는 루틴
-// 가입도 같은걸 써준다
-// 가입된사람 ->token을 통해 로그인
-// 신규사용자 ->token있는지 확인후 없으면 권한동의 팝업창 뜬다 ->db에 저장하면됨
-
+// facebook 로그인버튼 눌렀을 때 나오는 함수
+//
 function login() {
 	
 	var username; // 이메일 저장할 변수
 	var nickname; // 이름 저장할 변수
 	console.log("FB LOGIN START");
 	FB.login(function(response) { // response 객체를 처리
-		console.log("response STATUS : " + response.status);
-		console.log("accessToken" + response.authResponse.accessToken);
 		if (response.status === 'connected') {
 		// 페이스북과 앱에 같이 로그인되어 있다.
 				FB.api(
@@ -79,28 +74,21 @@ function login() {
 						data : {"username" : username},
 						dataType : "json",
 						success : function(result) {
-							console.log("로그인시도>>>" + result + "<<<");
-							if (result == false) { // 아이디 중복 > 로그인(fblogin.do)
-								console.log("false-username : "+username);
+							if (result == false) { // 아이디 중복됨 > 로그인(fblogin.do)
 								$.ajax({
 									type : "post",
 									url : "fblogin.do",
 									data : {"username" : username},
-									success : function(result) {// 로그인성공
+									success : function(result) { // 로그인성공
 										if (result == 'true') {
-											swal("반가워요!");
 											location.href="../../Index/main.do";
-//											document.getElementById('username').value = username;
-//											document.getElementById('password').value = result;
-//											$('#loginfrm').submit();	
 										}
 									},
-									error : function(error) {// 로그인실패
+									error : function(error) { // 로그인실패
 										alert(error.statusText);
 									}
 								});
-							} else { // 회원가입 한다.
-								console.log("true-username : "+username);
+							} else { // 아이디 없을 경우 > 회원가입(fbjoin.do)
 								console.log(response.authResponse.accessToken);
 								$.ajax({
 									type : "get",
@@ -115,8 +103,24 @@ function login() {
 									},
 									success : function(result) {
 										if (result=='true') {
-											console.log('가입완료!');
-											location.href = "../../Index/main.do";											
+											swal({
+												  title: "회원가입 완료!",
+												  text: "로그인해주세요!",
+												  confirmButtonText: "OK"
+											},
+											function(isConfirm){
+											  if (isConfirm) {
+												  location.href = "../../LoginJoin/NJoin.do";
+											  } else {
+												swal({
+													  title: "회원가입 실패",
+													  text: "다시 회원가입 해주세요",
+													  timer: 2000,
+													  showConfirmButton: false
+												});
+												location.href = "../../LoginJoin/NJoin.do";
+											  }
+											});
 										}
 									},
 									error : function(error) {
@@ -138,11 +142,5 @@ function login() {
 				console.log('else part');
 				// 페이스북에 로그인이 되어있지 않아서, 앱에 로그인 되어있는지 불명확하다.
 			}
-		}, {scope : 'public_profile, email'}); // email 에 대한 권한을 요청한다.
+		}, {scope : 'email'}); // email 에 대한 권한을 요청한다.
 }
-/*
- * // 페이스북 로그아웃 function logout(){ FB.logout(function(response) {// 사용자 로그 아웃 이후
- * 콜백처리 }); //페이스북에서도 로그아웃을 시키게 된다 //앱에 로그인해 있는 동안 페이스북에도 접속했을 수도 있다. //이 때
- * 사용자들은 페이스북과 앱에서 동시에 로그아웃하는 것을 예상하고 있지 못할수도 있지만, //사용자의 혼동을 줄이고 보안을 지키기 위하여
- * 이러한 로그아웃 방식을 채택하고 있다. }
- */
