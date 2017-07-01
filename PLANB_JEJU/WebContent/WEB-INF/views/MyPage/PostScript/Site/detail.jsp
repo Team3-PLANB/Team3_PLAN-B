@@ -76,7 +76,7 @@
 										<img data-u="image" src="${pageContext.request.contextPath}/PostScript/Photo/${photo.site_postscript_photo_rownum}.do" />
 										<div data-u="thumb">
 											<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-												&nbsp;#${sitePostscriptTag.getTag()}&nbsp;&nbsp;
+												&nbsp;#${sitePostscriptTag.tag()}&nbsp;&nbsp;
 											</c:forEach>
 										</div>
 									</div>

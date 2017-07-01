@@ -134,21 +134,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사진 등록 -->
 	<insert id="insertPhoto" parameterType="com.planb_jeju.dto.SitePostscriptPhoto">
 		INSERT INTO site_postscript_photo (site_postscript_photo_rownum, photo_src, site_postscript_rownum)
-		VALUES (null, {photo_src}, #{site_postscript_rownum})		
+		VALUES (null, #{photo_src}, #{site_postscript_rownum})		
 	</insert>
 	
-	<!-- 사진 가져오기 -->
+	<!-- 사진 리스트 가져오기 -->
 	<select id="getPhoto" resultType="com.planb_jeju.dto.SitePostscriptPhoto">
 		SELECT *
 		FROM site_postscript_photo
 		WHERE site_postscript_photo_rownum = #{param1}
-	</select>
-	
-	<!-- 방금 올린 사진 가져오기 -->
-	<select id="getLastPhoto" resultType="com.planb_jeju.dto.SitePostscriptPhoto">
-		SELECT *
-		FROM site_postscript_photo
-		WHERE site_postscript_photo_rownum = (SELECT MAX(site_postscript_photo_rownum) FROM site_postscript_photo)
 	</select>
 	
 	<!-- 사진 삭제 -->
