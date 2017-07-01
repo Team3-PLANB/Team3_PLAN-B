@@ -11,7 +11,10 @@ package com.planb_jeju.controller;
 */
 //주석 추가
 import java.awt.List;
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.StringReader;
@@ -25,7 +28,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.swing.text.Document;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -39,6 +44,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,6 +67,10 @@ import com.planb_jeju.service.TourApiService;
 import com.planb_jeju.utils.CheckBoxParse;
 import com.planb_jeju.utils.DateParse;
 import com.planb_jeju.utils.PersonalParse;
+
+import org.apache.commons.codec.binary.Base64; 
+import org.apache.commons.io.IOUtils;
+
 
 @Controller
 @SessionAttributes("sessionPersonal")
@@ -370,6 +380,42 @@ public class PlanAController {
 		return "MyPage.Schedule.scheduleMain";
 
 	}
+	
+	
+	@RequestMapping(value = "PLANA.routeimage.insert.do", method = RequestMethod.POST)
+    public String download(ModelMap modelMap, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String imgData = request.getParameter("imgData");
+            imgData = imgData.replaceAll("data:image/png;base64,", "");
+ 
+            byte[] file = Base64.decodeBase64(imgData);
+            
+            ByteArrayInputStream inputStream = new ByteArrayInputStream(file);
+            BufferedImage bufferedImage = ImageIO.read(inputStream);
+
+            //File path = new File(".");
+            //System.out.println(path.getAbsolutePath());
+            String path = PlanAController.class.getResource("").getPath(); // 현재 클래스의 절대 경로를 가져온다.
+            System.out.println(path);
+            
+            ImageIO.write(bufferedImage, "png", new File(path+"/upload/routeImage")); //저장하고자 하는 파일 경로를 입력합니다.
+
+        
+            
+            /*response.setContentType("image/png");
+            response.setHeader("Content-Disposition", "attachment; filename=report.png");
+ 
+            IOUtils.copy(is, response.getOutputStream());
+            response.flushBuffer();
+ */       } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        
+        return "";
+ 
+    }
+
 	
 	
 		

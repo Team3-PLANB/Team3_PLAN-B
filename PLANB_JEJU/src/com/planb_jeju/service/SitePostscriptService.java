@@ -256,11 +256,9 @@ public class SitePostscriptService {
 		SitePostscriptPhoto sitePostscriptPhoto = new SitePostscriptPhoto();
 		sitePostscriptPhoto.setSite_postscript_rownum(site_postscript_rownum);
 		
-		SitePostscriptPhoto pohto = new SitePostscriptPhoto();
 		List<SitePostscriptPhoto> photoList = null;
-		
+				
 		FileOutputStream fos = null;
-		
 		
 		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
         
@@ -275,12 +273,15 @@ public class SitePostscriptService {
         			
         			// 파일 중복명 처리
                     String genId = UUID.randomUUID().toString();
+                    System.out.println("파일명 중복 방지 코드 : " + genId);
+                    
                     // 본래 파일명
                     String originalfileName = multi.get(i).getOriginalFilename();
+                    System.out.println("원래 파일 이름 : " + originalfileName);
                     
-                    System.out.println(originalfileName);
-                     
-                    String saveFileName = genId + "." + originalfileName; // 저장되는 파일 이름
+                    // 저장되는 파일 이름
+                    String saveFileName = genId + "_" + originalfileName; 
+                    System.out.println("저장되는 파일 이름 : " + saveFileName);
      
                     String savePath = realFolder + saveFileName; // 저장 될 파일 경로
      
@@ -292,44 +293,23 @@ public class SitePostscriptService {
                     
                     System.out.println(sitePostscriptPhoto);
                     
-                    sitePostscriptDao.insertPhoto(sitePostscriptPhoto);
-                                        
-                    pohto = sitePostscriptDao.getLastPhoto();
-                    photoList.add(pohto);
-        			
+                    sitePostscriptDao.insertPhoto(sitePostscriptPhoto);        			
         			
         			byte fileData[] = multi.get(i).getBytes();
                      
-                    fos = new FileOutputStream(realFolder + "\\" + saveFileName);
+                    fos = new FileOutputStream(realFolder + saveFileName);
                      
                     fos.write(fileData);
                  
                 }catch(Exception e){
-                     
-                    e.printStackTrace();
-                     
+                    e.printStackTrace();    
                 }finally{
-                    if(fos != null){
-                        try{ fos.close();
-                        }catch(Exception e){}
-                    }
+                    if(fos != null){ try{ fos.close(); }catch(Exception e){ System.out.println(e.getMessage()); }}
                 }
-                
             }
-        	return photoList;
+
+    		photoList = sitePostscriptDao.getPhoto(site_postscript_rownum);
         }
-        
- /* Iterator<String> filenames = multi.getFileNames();
-	    
-	    while(filenames.hasNext()){
-	    	String file = filenames.next();
-	    	String filename = multi.getFile(file).getName();
-	    	String orifilename = multi.getFile(file).getOriginalFilename();
-	    	System.out.println("file : " + file + "/ filename : " + filename + "/ oriname : " + orifilename);
-	    }*/
-		
-		return null;
+        return photoList;
 	}
-	
-	
 }

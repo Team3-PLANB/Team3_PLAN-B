@@ -133,17 +133,10 @@ public interface SitePostScriptDao {
 	
 	/*	
 	 * @description : 사진 가져오기
-	 * @return : 
-	 * @param spec : SitePostscriptPhoto sitePostscriptPhoto 사진 객체
+	 * @return : List<SitePostscriptPhoto> 사진 리스트
+	 * @param spec : int site_postscript_rownum 후기 번호
 	 */
-	public SitePostscriptPhoto getPhoto(int site_postscript_photo_rownum) throws ClassNotFoundException, SQLException;
-	
-	/*	
-	 * @description : 방금 올린 사진 가져오기
-	 * @return : 
-	 * @param spec : SitePostscriptPhoto sitePostscriptPhoto 사진 객체
-	 */
-	public SitePostscriptPhoto getLastPhoto() throws ClassNotFoundException, SQLException;
+	public List<SitePostscriptPhoto> getPhoto(int site_postscript_rownum) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 사진 삭제

@@ -20,7 +20,8 @@
 
 <link rel="stylesheet" href="css/plana_tmap.css">
 
-
+<!-- html2canvas : jquery.js위에-->
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/html2canvas.js"></script>
 
 <!-- Start : 일정부분 적용 링크 -->
 
@@ -144,7 +145,40 @@ $( function() {
 		
 	});
 
-	$(document).on("click","#submit_route_detail", function(event){ 
+	$(document).on("click","#submit_route_image", function(event){
+		
+		//이미지화
+		html2canvas($('.printDiv'), {
+			
+			    proxy: 'https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d',		
+                useCORS: true,
+			    onrendered: function(canvas) {
+                	
+                	console.log('이미지화 시작');
+                	getCanvas = canvas;
+                	//upload();
+                    /* if (typeof FlashCanvas != "undefined") {
+                        FlashCanvas.initElement(canvas);
+                    } */
+                    var image = canvas.toDataURL("image/png");
+                    //   $("#section").html('<img src=' + img + '>');    // section2 영역에 section1 을 이미지 capture 내용이 보여짐
+    
+    
+                    //$('#main').append('<img src='+image+'>');
+                   // alert(image);
+                    
+                    $("#imgData").val(image);
+                    //$("#imgForm").submit();
+                }
+            });
+		
+	});
+	
+	$(document).on("click","#submit_route_detail", function(event){
+		
+		
+		
+		
 		
 		  var lastcustomizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
 			  /* console.log($(el).data('sitedata')); */
@@ -1619,6 +1653,11 @@ div.over {
 <button class="btn btn-warning  btn-link-1 launch-modal" style="width:50px; float:right; padding:10px 0px;" onclick="search()" data-modal-id="modal-register">
           <span class="glyphicon glyphicon-road"></span>
         </button>
+        
+<!-- 이미지 버튼 -->        
+<button class = "btn btn-info" id="submit_route_image">
+		<span class="glyphicon glyphicon-plus"></span>
+	</button>
 
 <%-- ----------------------------------form-------------------------------------------%>
 <form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
@@ -1667,8 +1706,10 @@ div.over {
 
 
 
-
-
+<!-- 이미지화  -->
+<form name="imgForm" id="imgForm" action="${pageContext.request.contextPath}/PLANA.routeimage.insert.do" method="post">
+        <input type="hidden" id="imgData" name="imgData">
+</form>
 
 
 
@@ -1676,7 +1717,7 @@ div.over {
 
 
 <div id="body_map" >
-	<div id="map_div" style="float: left; position:relative; bottom:635px; left:300px;"></div>
+	<div id="map_div" style="float: left; position:relative; bottom:635px; left:300px;" class="printDiv" ></div>
 	
 </div>
 
