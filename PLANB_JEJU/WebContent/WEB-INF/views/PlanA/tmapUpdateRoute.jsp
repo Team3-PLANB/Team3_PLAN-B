@@ -1209,7 +1209,7 @@ div.over {
         </button>
 
 <%-- ----------------------------------form-------------------------------------------%>
-<form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
+<%-- <form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
 	<div id="route_list_form_innerdiv"></div>
 	
 	
@@ -1218,7 +1218,7 @@ div.over {
 		<span class="glyphicon glyphicon-plus"></span>
 	</button>
 
-</form>
+</form> --%>
 
 
 

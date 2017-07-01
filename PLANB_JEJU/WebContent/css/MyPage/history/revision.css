@@ -18,7 +18,7 @@ body {
 	cursor: pointer;
 	color: #fff;
 	padding-left: 15px;
-	background: #008962 url('arrow.png') no-repeat;
+ 	background: #008962 url('arrow.png') no-repeat; 
 	background-position: right 20px top -95px;
 	border-bottom: 1px solid #008962;
 	box-sizing: border-box;
