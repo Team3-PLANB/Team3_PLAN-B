@@ -310,9 +310,13 @@ public class PostScriptController {
 		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
 		sitePostscript.setSitePostscriptTag(sitePostscriptTagList);
 		
+		List<SitePostscriptPhoto> photoList = sitePostscriptservice.getSitePostPhotoList(site_postscript_rownum);
+		
 		System.out.println("sitePostscript : " + sitePostscript);
 		model.addAttribute("sitePostscript", sitePostscript);
 		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
+		model.addAttribute("photoList", photoList);
+		System.out.println("photoList" + photoList);
 		return "PostScript.Site.detail";		
 	}
 	

@@ -15,7 +15,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>PLAN'B JEJU - 후기 게시판</title>
+<title>PLAN'B JEJU - 나의 루트 후기 게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 <meta name="keywords"
@@ -48,8 +48,7 @@
 					<div class="row">
 						<div
 							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-							<h3>루트 후기 게시판</h3>
-							<p>루트 후기 게시판입니다.</p>
+							<h3>나의 루트 후기 게시판</h3>
 						</div>
 					</div>
 					<div class="row row-bottom-padded-md">
