@@ -16,8 +16,8 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
  	<!-- Superfish -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
-	<!-- Magnific Popup -->
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css">
+<%-- 	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/magnific-popup.css"> --%>
 	<!-- Date Picker -->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
 	<!-- CS Select -->
@@ -43,9 +43,9 @@
  	<!-- Superfish -->
 	<script src="${pageContext.request.contextPath}/js/hoverIntent.js"></script>
 	<script src="${pageContext.request.contextPath}/js/superfish.js"></script>
-<%-- 	<!-- Magnific Popup -->
+ 	<!-- Magnific Popup -->
 	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/magnific-popup-options.js"></script> --%>
+	<script src="${pageContext.request.contextPath}/js/magnific-popup-options.js"></script>
 	<!-- Date Picker -->
 	<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
 	<!-- CS Select -->
