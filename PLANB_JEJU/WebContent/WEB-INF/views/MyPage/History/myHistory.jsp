@@ -74,13 +74,9 @@
 		<c:forEach var="myroute" items="${myroutehistory}" varStatus="num">
 			//각 Site마다 ++ 
 			OddEven++;
-
-			console.log('${myroute.route_date}');
 			if(dayOrder != '${myroute.route_date}') {
 
 				dayOrder = '${myroute.route_date}';
-				//console.log("dayOrder > " + dayOrder + "////route_date > " + ${myroute.route_date});
-				console.log("dayOrder" + dayOrder);
 				$ltimeline_heading = $("<li class='timeline-heading text-center animate-box fadeInUp animated-fast' ></li>");
 				$h3 = $("<div><h3>" + dayOrder + " Day</h3></div>");
 				
@@ -92,7 +88,6 @@
 			}
 			var dayOrderId = "#" + dayOrder;
 			index = ${num.index};
-			console.log("제일 위 index : "+index);
 
 			if (OddEven % 2 == 0) { // 짝수:inverted
 				$timeline_unverted = $("<li class='animate-box fadeInUp animated-fast timeline-inverted'></li>");
@@ -114,8 +109,6 @@
 			$item = $("<div class='item "+index+"' id = 'item'></div>");
 			$heading = $("<div class='heading' align='center' id = 'heading' onclick = 'showUpdated(this)'>수정 내역 보기</div><br>");
 
-			console.log("if문 타기 전 numCheck : " + numCheckUpdated);
-
 			if(index == numCheckUpdated) {
 				// index값이 numCheckUpdated랑 같으면 수정이력이 있는 원본 여행지
 				// accordion div에 append
@@ -134,8 +127,6 @@
 				if('${myroute.update_rownum}' != 0) {
 					// 수정된 여행지
 					$timeline_badge = $("<div class='timeline-badge-ch'><i class='icon-map-pin'></i></div>");
-					console.log("update_rownum is not zero");
-					console.log("index > " + index);
 					$item.append($heading);
 					$accordion.append($item);
 					$dtimeline_heading.append($timeline_title).append($timeline_company).append($accordion);
@@ -144,7 +135,6 @@
 					$($timeline).append($timeline_unverted);
 					numCheckUpdated = index+1;
 					// updaterownum이 0이 아니면 numCheckUpdated값을 현재  ${num.index}+1 >);
-					console.log("elseif > if 끝날때 numCheckUpdated : "+numCheckUpdated);
 				} else {
 					$timeline_badge = $("<div class='timeline-badge'><i class='icon-map-pin'></i></div>");
 					// 수정된 이력없는 여행지
@@ -152,13 +142,8 @@
 					$timeline_panel.append($dtimeline_heading).append($timeline_body);
 					$timeline_unverted.append($timeline_badge).append($timeline_panel);
 					$('#timeline').append($timeline_unverted);
-					console.log("elseif > else 끝날 때 numCheckUpdated : " + numCheckUpdated);
 				}
-				console.log("index!=numCheck일때 : " + numCheckUpdated);
 			}
-
-			console.log("if문 다 타고 numCheckUpdated : " + numCheckUpdated);
-
 		</c:forEach>
 
 	});
@@ -177,7 +162,6 @@
 	}
 
 </script>
-<!-- </head> -->
 </head>
 <body>
 <c:set var="routename" value="${routename }" />
