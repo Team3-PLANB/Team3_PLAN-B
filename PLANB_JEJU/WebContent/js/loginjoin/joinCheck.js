@@ -55,7 +55,6 @@ function passwordCheck() {
 
 function authCheck(){
 	var username = $('#username').val();
-	console.log("username : " + username);
 	$.ajax({
 		type : "get",
 		url : 'emailAuth.do',
@@ -96,7 +95,7 @@ function authNumCheck(){
 
 function emailCheck() {
 	var username = $('#username').val();
-	console.log(username);
+
 	$.ajax({
 				url : 'duplicationCheck.do',
 				type : "get",
