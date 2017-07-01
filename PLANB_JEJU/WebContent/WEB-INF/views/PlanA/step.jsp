@@ -473,9 +473,8 @@
 	src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/sticky.js"></script>
 
-<!-- Stellar -->
-<script
-	src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
+ <!-- Stellar -->
+<script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
 <!-- Superfish -->
 <script src="${pageContext.request.contextPath}/js/hoverIntent.js"></script>
 <script src="${pageContext.request.contextPath}/js/superfish.js"></script>
