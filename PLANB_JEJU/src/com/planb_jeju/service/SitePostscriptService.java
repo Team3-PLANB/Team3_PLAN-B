@@ -187,6 +187,20 @@ public class SitePostscriptService {
 	}
 	
 	/*
+	* @date : 2017.07.01
+	* @description : 여행지 후기 사진 가져오기
+	* @parameter : 
+	* @return :  
+	*/
+	public List<SitePostscriptPhoto> getSitePostPhotoList(int site_postscript_rownum) throws ClassNotFoundException, SQLException{
+		System.out.println("여행지 후기 사진 가져오기");
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		List<SitePostscriptPhoto> sitePostscriptPhotoList = sitePostscriptDao.getPhoto(site_postscript_rownum);
+		System.out.println("sitePostscriptPhotoList : " + sitePostscriptPhotoList);
+		return sitePostscriptPhotoList;
+	}
+	
+	/*
 	* @date : 2017. 6. 28
 	* @description : 여행지 후기 등록
 	* @parameter : 
@@ -269,8 +283,7 @@ public class SitePostscriptService {
         	System.out.println("파일 없음");
         }else{
         	for(int i = 0; i < multi.size(); i++) {
-        		try{
-        			
+        		try{        			
         			// 파일 중복명 처리
                     String genId = UUID.randomUUID().toString();
                     System.out.println("파일명 중복 방지 코드 : " + genId);
@@ -286,21 +299,24 @@ public class SitePostscriptService {
                     String savePath = realFolder + saveFileName; // 저장 될 파일 경로
      
                     long fileSize = multi.get(i).getSize(); // 파일 사이즈
-     
-                    multi.get(i).transferTo(new File(savePath)); // 파일 저장
                     
-                    sitePostscriptPhoto.setPhoto_src(saveFileName);
-                    
-                    System.out.println(sitePostscriptPhoto);
-                    
-                    sitePostscriptDao.insertPhoto(sitePostscriptPhoto);        			
-        			
-        			byte fileData[] = multi.get(i).getBytes();
-                     
-                    fos = new FileOutputStream(realFolder + saveFileName);
-                     
-                    fos.write(fileData);
-                 
+
+                    if(originalfileName.contains(".")){
+                    	// 파일 저장
+                        multi.get(i).transferTo(new File(savePath)); 
+                        
+                        sitePostscriptPhoto.setPhoto_src(saveFileName);
+                        
+                        System.out.println(sitePostscriptPhoto);
+                        
+                        sitePostscriptDao.insertPhoto(sitePostscriptPhoto);        			
+            			
+            			byte fileData[] = multi.get(i).getBytes();
+                         
+                        fos = new FileOutputStream(realFolder + saveFileName);
+                         
+                        fos.write(fileData);
+                    }
                 }catch(Exception e){
                     e.printStackTrace();    
                 }finally{
