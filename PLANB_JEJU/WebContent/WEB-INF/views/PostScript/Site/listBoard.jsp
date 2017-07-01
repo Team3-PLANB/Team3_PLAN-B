@@ -104,8 +104,6 @@
 														<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.site_postscript_rownum}">
 														<input type="hidden" id="site_like" value="${sitePostscript.site_like}">
 													</span>
-													<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.getSite_postscript_rownum()}">
-													<input type="hidden" id="site_like" value="${sitePostscript.getSite_like()}">
 												</span>
 												<span class="posted_by">${sitePostscript.getUsername()}</span> 
 												<span class="posted_by" style="float:right;">${sitePostscript.getWritetime()}</span> 

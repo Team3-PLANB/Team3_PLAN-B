@@ -50,7 +50,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="param2 != null"> t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
 		</where>
 		GROUP BY rp.route_postscript_rownum
-		ORDER BY rp.writetime desc
+		ORDER BY rp.route_postscript_rownum desc
 	</select>
 	
 	<!-- 내 루트 후기 리스트 -->
@@ -60,6 +60,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN route r
 		ON rp.route_code = r.route_code
 		WHERE rp.username = #{param1}
+		ORDER BY rp.route_postscript_rownum desc
 	</select>
 	
 	
@@ -76,14 +77,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		LEFT OUTER JOIN route_postscript_tag t
 		ON rp.route_postscript_rownum = t.route_postscript_rownum
 		WHERE rp.route_like = 'true'
-		<where>
-			<if test="param2 != null">AND t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
-		</where>
+		<if test="param2 != null">AND t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
 		GROUP BY rp.route_postscript_rownum
-		ORDER BY rp.writetime desc
-	</select>
-	
-	
+		ORDER BY rp.route_postscript_rownum desc
+	</select>	
 	
 	<!-- 루트 후기 상세보기 -->
 	<select id="getRoutePost" resultType="com.planb_jeju.dto.RoutePostscript">	
