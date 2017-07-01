@@ -207,7 +207,7 @@ div.over {
 			$('#sitePost').addClass('active');
 			$('#site').empty();
 			$('#site').val(site.getAttribute("value"));
-			console.log('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}');
+			/* console.log('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}'); */
 			console.log('${route_code}');
 
 			$.ajax({

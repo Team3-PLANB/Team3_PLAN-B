@@ -143,36 +143,11 @@ $( function() {
 		//Tmap POI 호출 로직
     	searchPOI();
 		
+    	// input 태그 값
+		$("#searchWord").val('');
 	});
 
-	$(document).on("click","#submit_route_image", function(event){
-		
-		//이미지화
-		html2canvas($('.printDiv'), {
-			
-			    proxy: 'https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d',		
-                useCORS: true,
-			    onrendered: function(canvas) {
-                	
-                	console.log('이미지화 시작');
-                	getCanvas = canvas;
-                	//upload();
-                    /* if (typeof FlashCanvas != "undefined") {
-                        FlashCanvas.initElement(canvas);
-                    } */
-                    var image = canvas.toDataURL("image/png");
-                    //   $("#section").html('<img src=' + img + '>');    // section2 영역에 section1 을 이미지 capture 내용이 보여짐
-    
-    
-                    //$('#main').append('<img src='+image+'>');
-                   // alert(image);
-                    
-                    $("#imgData").val(image);
-                    //$("#imgForm").submit();
-                }
-            });
-		
-	});
+
 	
 	$(document).on("click","#submit_route_detail", function(event){
 		
@@ -186,7 +161,7 @@ $( function() {
 	      }).get()
 	      
 	      //input태그에 들어가는 Site정보 확인용 
-	      alert(JSON.stringify(lastcustomizedRouteList)); 
+	      //alert(JSON.stringify(lastcustomizedRouteList)); 
 		  
 		  // 현재 저장되어 있는 data empty
 		  $('#route_list_form_innerdiv').empty();
@@ -208,6 +183,8 @@ $( function() {
 				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
 						
 			});
+		  
+		  $('#route_list_form').submit();
        
   	});
 	/* $('#accordion2').accordion('refresh'); */
@@ -581,11 +558,7 @@ $( function() {
         	// 일정 Drag 박스 empty 적용
         	$('.sortable').empty();
         	
-        	//pr_3857 인스탄스 생성. (Google Mercator)
-        	var pr_3857 = new Tmap.Projection("EPSG:3857");
-        	 
-        	//pr_4326 인스탄스 생성. (WGS84 GEO)
-        	var pr_4326 = new Tmap.Projection("EPSG:4326");
+        	
         	
         	
         	<c:forEach var="item" items="${requestScope.routeMap}" varStatus="num"> 
@@ -665,7 +638,7 @@ $( function() {
 	    					
 	    					
 	    					var $sch_content = $( "<div class='sch_content' id='"+'${i.site}'+"' style='width: 250px;' ></div>" );
-	    					switch('${i.category}'){
+	    					/* switch('${i.category}'){
 	    					//var $content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
 	    					
 		    					case "자연" : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
@@ -687,7 +660,8 @@ $( function() {
 		    				
 	    						default : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
 			    				
-	    					}
+	    					} */
+	    					var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/"+'${i.category}'+".JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
 	    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
 	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
 	    					var $spot_info = $("<div class='spot_info'></div>");
@@ -744,7 +718,7 @@ $( function() {
 		    					 */
 		    				// 지도 : 마커 추가
 	    					var options = {
-				                label:new Tmap.Label('${i.site}'),
+				                label:new Tmap.Label('<div style="background-color: ivory"><a class="btn btn-defalut">${i.site}<br><${i.category}></a></div>'),
 				                lonlat:new Tmap.LonLat(${i.lon}, ${i.lat}).transform(pr_4326, pr_3857),
 				                id:'Route'
 				            };
@@ -987,7 +961,7 @@ $( function() {
 					  var lonlat = new Tmap.LonLat(value.lon, value.lat).transform(pr_4326, pr_3857);
 					  
 					  var options = {
-					                label:new Tmap.Label(value.route_order+'번째 여행지 : '+value.site),
+					                label:new Tmap.Label('<div style="background-color: ivory; text-align: center;"><a class="btn btn-warning">'+value.route_order+'번째 여행지</a><br><span>'+value.site+'</span></div>'),
 					                lonlat:new Tmap.LonLat(lonlat.lon, lonlat.lat)
 					            };
 					  addSchContentMarkers(options);
@@ -1654,20 +1628,21 @@ div.over {
           <span class="glyphicon glyphicon-road"></span>
         </button>
         
-<!-- 이미지 버튼 -->        
-<button class = "btn btn-info" id="submit_route_image">
-		<span class="glyphicon glyphicon-plus"></span>
-	</button>
 
 <%-- ----------------------------------form-------------------------------------------%>
-<form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
-	<div id="route_list_form_innerdiv"></div>
-	
-	
-	
-	<button class = "btn btn-warning" id="submit_route_detail">
+
+<button class = "btn btn-warning" id="submit_route_detail">
 		<span class="glyphicon glyphicon-plus"></span>
-	</button>
+</button>
+
+<form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
+	
+	
+	
+	
+	
+	
+	<div id="route_list_form_innerdiv"></div>
 
 </form>
 
@@ -1701,15 +1676,6 @@ div.over {
 
 
 
-
-
-
-
-
-<!-- 이미지화  -->
-<form name="imgForm" id="imgForm" action="${pageContext.request.contextPath}/PLANA.routeimage.insert.do" method="post">
-        <input type="hidden" id="imgData" name="imgData">
-</form>
 
 
 

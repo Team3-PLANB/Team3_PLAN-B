@@ -53,10 +53,11 @@ public class RouteDetailService {
 			// Mybatis 적용
 			RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
 			// routeDetail key값을 routeList에 넣고 각 경로의 모든 site값 가져오기
-			List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i));
+			//List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i));
 			
+			List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(routeList.get(i).getRoute_code(), routeList.get(i).getUsername());
 			for(RouteDetail routeDetail : routeDetailList){
-				routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
+				routeDetail.setCategory(PersonalParse.code2shortcode(routeDetail.getCategory()));
 			}
 			
 			// 경로의 Name값을 key값으로 설정, value는 해당 경로의 각 Site List
@@ -73,7 +74,7 @@ public class RouteDetailService {
 		Route route = new Route();
 		route.setRoute_code(route_code);
 		route.setUsername(username);
-		List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(route);
+		List<RouteDetail> routeDetailList = routeDetailDao.getRouteDetailList(route_code, username);
 		return routeDetailList;
 	}
 	

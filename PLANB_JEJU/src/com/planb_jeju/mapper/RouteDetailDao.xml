@@ -39,11 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	 <!-- 루트경로 Detail(하나의 경로안에 Site 정보 전체) 가져오기 --><!-- 좋아요 추가 join -->
-	 <select id="getRouteDetailList" resultType="com.planb_jeju.dto.RouteDetail">
+	 <select id="getRouteDetailList" resultType="com.planb_jeju.dto.RouteDetail" parameterType="map">
 		
 		 SELECT 
 		 	route_detail.route_order as route_order,
-		 	route_detail.username as username,
+		 	route.username as username,
 		 	route_detail.route_code as route_code,
 		 	route_detail.route_date as route_date,
 		 	route_detail.site as site,

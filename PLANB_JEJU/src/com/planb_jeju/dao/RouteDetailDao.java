@@ -4,6 +4,8 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RouteDetail;
@@ -25,7 +27,7 @@ public interface RouteDetailDao {
 	 * @param spec : x
 	 */
 	// 추천 대상 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함
-	public List<RouteDetail> getRouteDetailList(Route route) throws ClassNotFoundException, SQLException;
+	public List<RouteDetail> getRouteDetailList(@Param(value="route_code") int route_code, @Param(value="username") String username) throws ClassNotFoundException, SQLException;
 	
 	public List<RouteDetail> getMyHistory(int route_code, String username) throws ClassNotFoundException, SQLException;
 	

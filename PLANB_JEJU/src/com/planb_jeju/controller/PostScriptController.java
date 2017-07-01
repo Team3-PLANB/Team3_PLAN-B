@@ -186,10 +186,10 @@ public class PostScriptController {
 		System.out.println("후기 작성");
 		String username = null;
 		if(principal != null){
-			username = principal.getName();
+			username = principal.getName().trim();
 			System.out.println("로그인된 아이디 : " + username);
 		}
-		Route route = routeservice.getRouteInfo(route_code, principal.getName());
+		Route route = routeservice.getRouteInfo(route_code, username);
 		List<RouteDetail> routeDetailList = routeDetailservice.getRouteDetailListForPost(route_code, username);
 		
 		for(RouteDetail routeDetail : routeDetailList){

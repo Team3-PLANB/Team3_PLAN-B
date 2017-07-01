@@ -29,6 +29,13 @@ public class PersonalParse {
 		}
 	}		
 
+	public static String code2shortcode(String personal_code) {
+		String personal = null;
+		personal_code = personal_code.substring(0, 5);
+		
+		return personal_code;
+	}
+	
 	public static String code2string(String personal_code) {
 		String personal = null;
 		personal_code = personal_code.substring(0, 5);
