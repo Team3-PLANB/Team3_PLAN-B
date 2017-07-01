@@ -27,7 +27,7 @@ public interface RouteDetailDao {
 	 * @param spec : x
 	 */
 	// 추천 대상 루트 여러개 가져오기 where에 personal 조건 여러개 or 로 걸려야 함
-	public List<RouteDetail> getRouteDetailList(@Param(value="route_code") int route_code, @Param(value="username") String username) throws ClassNotFoundException, SQLException;
+	public List<RouteDetail> getRouteDetailList(int route_code, String username) throws ClassNotFoundException, SQLException;
 	
 	public List<RouteDetail> getMyHistory(int route_code, String username) throws ClassNotFoundException, SQLException;
 	
