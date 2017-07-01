@@ -52,6 +52,23 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		ORDER BY sp.site_postscript_rownum desc
 	</select>
 	
+	
+	<!-- 찜한 여행지 후기 리스트 -->
+	<select id="getLikeList" resultType="com.planb_jeju.dto.SitePostscript">
+		SELECT *
+		FROM (SELECT *, IF((site_postscript_rownum in (SELECT site_postscript_rownum 
+														 FROM site_postscript_like
+														 WHERE username = #{param1})
+							) AND #{param1} IS NOT NULL,'true','false') as 'site_like'
+			   FROM site_postscript) sp
+		LEFT OUTER JOIN site_postscript_tag t
+		ON sp.site_postscript_rownum = t.site_postscript_rownum
+		WHERE sp.site_like = 'true'
+		<if test="param2 != null">AND t.tag like '%' #{param2, jdbcType=VARCHAR} '%' </if>
+		GROUP BY sp.site_postscript_rownum
+		ORDER BY sp.site_postscript_rownum desc
+	</select>
+	
 	<!--  여행지 후기 상세보기 -->
 	<select id="getSitePost" resultType="com.planb_jeju.dto.SitePostscript">
 		SELECT *, IF((site_postscript_rownum in (SELECT site_postscript_rownum 
@@ -117,21 +134,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- 사진 등록 -->
 	<insert id="insertPhoto" parameterType="com.planb_jeju.dto.SitePostscriptPhoto">
 		INSERT INTO site_postscript_photo (site_postscript_photo_rownum, photo_src, site_postscript_rownum)
-		VALUES (null, {photo_src}, #{site_postscript_rownum})		
+		VALUES (null, #{photo_src}, #{site_postscript_rownum})		
 	</insert>
 	
-	<!-- 사진 가져오기 -->
+	<!-- 사진 리스트 가져오기 -->
 	<select id="getPhoto" resultType="com.planb_jeju.dto.SitePostscriptPhoto">
 		SELECT *
 		FROM site_postscript_photo
 		WHERE site_postscript_photo_rownum = #{param1}
-	</select>
-	
-	<!-- 방금 올린 사진 가져오기 -->
-	<select id="getLastPhoto" resultType="com.planb_jeju.dto.SitePostscriptPhoto">
-		SELECT *
-		FROM site_postscript_photo
-		WHERE site_postscript_photo_rownum = (SELECT MAX(site_postscript_photo_rownum) FROM site_postscript_photo)
 	</select>
 	
 	<!-- 사진 삭제 -->

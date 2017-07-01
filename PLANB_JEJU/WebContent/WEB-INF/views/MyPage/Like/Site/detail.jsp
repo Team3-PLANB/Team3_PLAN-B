@@ -2,12 +2,10 @@
 @Project : PLANB_JEJU
 @File name : detail.jsp 
 @Author : 임정연 & 정다혜
-@Data : 2017.06.16 & 2017.06.22
-@Last Edit Data : 2017.06.22
-@Desc : 여행지 후기 게시판의 상세보기
+@Date : 2017.06.16 & 2017.07.01
+@Last Edit Date : 2017.07.01
+@Desc : 마이페이지 > 찜한 후기 > 찜한 여행지 후기 상세보기
 --%>
-
-
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -16,7 +14,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>PLAN'B JEJU - 후기 게시판</title>
+<title>PLAN'B JEJU - 찜한 여행지 후기 게시판</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
 <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
@@ -53,8 +51,7 @@
 					<div class="row">
 						<div
 							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
-							<h3>여행지 후기 게시판</h3>
-							<p>여행지 후기 게시판입니다.</p>
+							<h3>찜한 여행지 후기 게시판</h3>
 						</div>
 					</div>
 					<div class="row row-bottom-padded-md">
@@ -71,16 +68,40 @@
 							<!-- Loading Screen -->
 							<div data-u="loading" style="position: absolute; top: 0px; left: 0px; background: url('img/loading.gif') no-repeat 50% 50%; background-color: rgba(0, 0, 0, 0.7);"></div>
 							<div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
-								<c:forEach var="photo" items="${sitePostscriptPhotoList}">
-									<div>
-										<img data-u="image" src="${pageContext.request.contextPath}/PostScript/Photo/${photo.site_postscript_photo_rownum}.do" />
-										<div data-u="thumb">
-											<c:forEach var="sitePostscriptTag" items="${sitePostscriptTagList}">
-												&nbsp;#${sitePostscriptTag.tag()}&nbsp;&nbsp;
-											</c:forEach>
-										</div>
+								<div>
+									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_1.jpg" />
+									<div data-u="thumb">
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/MyPage/Like/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+										</c:forEach>
 									</div>
-								</c:forEach>							
+								</div>
+								<div>
+									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_2.jpg" />
+									<div data-u="thumb">
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/MyPage/Like/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+										</c:forEach>
+									</div>
+								</div>
+								<div>
+									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_3.jpg" />
+									<div data-u="thumb">
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/MyPage/Like/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+										</c:forEach>
+									</div>
+								</div>
+								<div>
+									<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_4.png" />
+									<div data-u="thumb">
+										<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
+											<a style="color:white;" href="${pageContext.request.contextPath}/MyPage/Like/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+										</c:forEach>
+									</div>
+								</div>
+								
+								
 								<a data-u="any" href="https://www.jssor.com/wordpress.html"
 									style="display: none">wordpress slider</a>
 							</div>
@@ -122,23 +143,20 @@
 						<br>
 						<div class="col-md-9 animate-box" align="center">
 							<span class="comment" id="like" style="float: right;"> 
-								<span id="siteLikeChange">찜콩 
+								<span>찜콩
 									<c:choose>
-										<c:when test="${sitePostscript.getSite_like()=='true'}">
-											<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width: 30px; height: 30px;">
+										<c:when test="${sitePostscript.site_like=='true'}">
+											<img id="heart" onclick="siteLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/full_like.png" style="width:30px;height:30px;">
 										</c:when>
 										<c:otherwise>
-											<img id="heart" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width: 30px; height: 30px;">
+											<img id="heart" onclick="siteLikeChange(this)" src="${pageContext.request.contextPath}/images/PostScript/empty_like.png" style="width:30px;height:30px;">
 										</c:otherwise>
 									</c:choose>
-								</span> 
-								<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.getSite_postscript_rownum()}"> 
-								<input type="hidden" id="site_like" value="${sitePostscript.getSite_like()}">
+									<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.site_postscript_rownum}">
+									<input type="hidden" id="site_like" value="${sitePostscript.site_like}">
+								</span>
 							</span>
 						</div>
-
-
-
 
 
 
@@ -177,101 +195,8 @@
 					</div>
 				</div>
 			</div>
-
-
-			<%------------------------------이미지 슬라이더 상세 설정----------------------------------------%>
-			<%-- <div id="jssor_1"
-				style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden; visibility: hidden;">
-				<!-- Loading Screen -->
-				<div data-u="loading"
-					style="position: absolute; top: 0px; left: 0px; background: url('img/loading2.gif') no-repeat 50% 50%; background-color: rgba(0, 0, 0, 0.7);"></div>
-				<div data-u="slides"
-					style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/002.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/002.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/003.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/003-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/004.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/004-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/005.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/005-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/006.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/006-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/007.jpg" /> 
-						<img data-u="thumb"	src="${pageContext.request.contextPath}/images/007-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/008.jpg" /> 
-						<img data-u="thumb"	src="${pageContext.request.contextPath}/images/008-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/009.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/009-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/010.jpg" /> 
-						<img data-u="thumb"	src="${pageContext.request.contextPath}/images/010-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="vimages/011.jpg" /> 
-						<img data-u="thumb" src="vimages/011-s62x32.jpg" />
-					</div>
-					<a data-u="any" href="https://www.jssor.com/wordpress.html"
-						style="display: none">wordpress carousel</a>
-				</div>
-				<!-- Thumbnail Navigator -->
-				<div data-u="thumbnavigator" class="jssort03" style="position: absolute; left: 0px; bottom: 0px; width: 600px; height: 60px;" data-autocenter="1">
-					<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; filter: alpha(opacity = 30.0); opacity: 0.3;"></div>
-					<!-- Thumbnail Item Skin Begin -->
-					<div data-u="slides" style="cursor: default;">
-						<div data-u="prototype" class="p">
-							<div class="w">
-								<div data-u="thumbnailtemplate" class="t"></div>
-							</div>
-							<div class="c"></div>
-						</div>
-					</div>
-					<!-- Thumbnail Item Skin End -->
-				</div>
-				<!-- Arrow Navigator -->
-				<span data-u="arrowleft" class="jssora02l"
-					style="top: 0px; left: 8px; width: 55px; height: 55px;"
-					data-autocenter="2"></span> <span data-u="arrowright"
-					class="jssora02r"
-					style="top: 0px; right: 8px; width: 55px; height: 55px;"
-					data-autocenter="2"></span>
-			</div>
-			<script type="text/javascript">
-				jssor_1_slider_init();
-			</script>
-			<!-- #endregion Jssor Slider End --> --%>
-
-
-
-
-
-
-
-
-
-
-
-
-
 		</div>
 		<!-- END fh5co-page -->
-
 	</div>
 	<!-- END fh5co-wrapper -->
 

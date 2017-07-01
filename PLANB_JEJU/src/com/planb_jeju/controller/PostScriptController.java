@@ -150,7 +150,7 @@ public class PostScriptController {
 	* @date : 2017. 6. 21
 	* @description : 루트 후기 찜콩 설정/해제
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
-	* @return : String(View 페이지) 
+	* @return : String 상태
 	*/
 	@RequestMapping(value="Route/Like.do", method=RequestMethod.GET)
 	public @ResponseBody String changLikeRoutePostscript(@RequestParam int route_postscript_rownum, @RequestParam String route_like, Principal principal) throws ClassNotFoundException, SQLException {
@@ -249,11 +249,14 @@ public class PostScriptController {
 		// 태그 등록 
 		List<SitePostscriptTag> tagList = sitePostscriptservice.insertSitePostTag(lastSitePostscript);
 		
+		lastSitePostscript.setSitePostscriptTag(tagList);
+		
 		// 방금 올렸던 후기 넘겨주기
 		model.addAttribute("sitePostscript", lastSitePostscript);
 		
 		// 방금 올렸던 후기 사진 넘겨주기
 		model.addAttribute("sitePostscriptPhotoList", photoList);
+		System.out.println("sitePostscriptPhotoList : " + photoList);
 		
 		// 방금 올렸던 후기 태그 넘겨주기
 		model.addAttribute("sitePostscriptTagList", tagList);
@@ -262,8 +265,8 @@ public class PostScriptController {
 	}
 		
 	/*
-	* @date : 2017. 6. 22
-	* @description : 여행지 후기 게시판 리스트
+	* @date : 2017.06.22
+	* @description : 여행지 후기 리스트
 	* @parameter : principal 로그인한 회원 정보, principal 로그인한 회원 정보, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/
@@ -292,8 +295,8 @@ public class PostScriptController {
 	}
 		
 	/*
-	* @date : 2017. 6. 22
-	* @description : 여행지 후기 게시판 상세보기
+	* @date : 2017.06.22
+	* @description : 여행지 후기 상세보기
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, model 루트 루기 리스트를 저장해 넘겨주기 위한 모델 객체
 	* @return : String(View 페이지) 
 	*/
@@ -315,8 +318,8 @@ public class PostScriptController {
 	
 	
 	/*
-	* @date : 2017. 6. 22
-	* @description : 사이트 후기 찜콩 설정/해제
+	* @date : 2017.06.22
+	* @description : 여행지 후기 찜콩 설정/해제
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
 	* @return : String(View 페이지) 
 	*/
@@ -372,24 +375,22 @@ public class PostScriptController {
 	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
 	* @return : String(View 페이지)
 	*/
-	/*
-
-	@RequestMapping(value = "Site/Photo/{num}.do", method = RequestMethod.GET)
-	public void showPhoto(@PathVariable("num") String num, HttpServletResponse response) throws IOException, SQLException {
-	
-
-	UploadImageVO board = iuploadImageService.uploadView(num);
-
-	response.setHeader("Content-Disposition", "inline;filename=\"" + board.getContentName() + "\"");
-	OutputStream outputStream = response.getOutputStream();
-	response.setContentType(board.getContentType());
-
-	SerialBlob blob = new SerialBlob(board.getContent());
-
-	IOUtils.copy(blob.getBinaryStream(), outputStream);
-
-	outputStream.flush();
-	outputStream.close();
-	}*/
+//	@RequestMapping(value = "Site/Photo/{num}.do", method = RequestMethod.GET)
+//	public void showPhoto(@PathVariable("num") String num, HttpServletResponse response) throws IOException, SQLException {
+//	
+//
+//	UploadImageVO board = iuploadImageService.uploadView(num);
+//
+//	response.setHeader("Content-Disposition", "inline;filename=\"" + board.getContentName() + "\"");
+//	OutputStream outputStream = response.getOutputStream();
+//	response.setContentType(board.getContentType());
+//
+//	SerialBlob blob = new SerialBlob(board.getContent());
+//
+//	IOUtils.copy(blob.getBinaryStream(), outputStream);
+//
+//	outputStream.flush();
+//	outputStream.close();
+//	}
 
 }

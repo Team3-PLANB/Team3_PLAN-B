@@ -7,9 +7,6 @@
 @Desc : 루트 후기 게시판의 리스트 (메인)
 --%>
 
-
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!-- <!DOCTYPE html>
@@ -23,14 +20,14 @@
 <meta name="keywords"
 	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" /> -->
-<link rel="shortcut icon" href="favicon.ico">
+<%-- <link rel="shortcut icon" href="favicon.ico">
 
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css"> --%>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/postscript.css">
@@ -276,7 +273,7 @@
 	</button>
 	<!-- END fh5co-wrapper -->
 
-
+<%-- 
 	<!-- jQuery Easing -->
 	<script src="${pageContext.request.contextPath}/js/jquery.easing.1.3.js"></script>
 	<!-- Bootstrap -->
@@ -301,7 +298,7 @@
 
 	<!-- Main JS -->
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
-
+ --%>
 </body>
 </html>
 

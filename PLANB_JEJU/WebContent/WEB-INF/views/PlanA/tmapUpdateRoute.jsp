@@ -239,104 +239,7 @@ $( function() {
 		fixSitedataVal.lon=markerLonLat.lon;
 		fixSitedataVal.lat=markerLonLat.lat; 
 	      
-	    
-	    
-		//console.log(markerLonLat.lon);
-		//console.log(markerLonLat.lat);
-		
-		//마커 추가하기
-		
-		//검색 값 넣기
-		/* $(".ui-accordion-content").each(function(){  //ui-accordion-content 이걸 가지고 있느놈을 포문을 돌리고
-		
-			var id_hidden =$(this).attr("aria-hidden"); // this() .attr(속성)을  
-			if(id_hidden == "false"){ //열려있는 div 이면
-				var id = $(this).attr("id");
-				
-				
-				var sitedataVal;
-				var newsitedataVal =[];
-				var contentNum=0;
-				$(this).find('.sch_content').each(function(i, el) { // date값, routecode, username, order가져오기 위해서 
-					sitedataVal =  $(el).data('sitedata');
-					contentNum++;
-			      });
-				
-				
-				newsitedataVal.push({
-					"route_code" : sitedataVal.route_code,
-					"username" : sitedataVal.username,
-					"route_order" : contentNum+1,
-					"route_date" : sitedataVal.route_date,
-					"site" : markerId,
-					"lon" : markerLonLat.lon,
-					"lat" : markerLonLat.lat,
-					"category" : '',
-					"stime" : '',
-					"etime" : ''
-				});
-				
-				
-				  //console.log('foreach문 돌리고 나서 sitedataVal값');
-			      //console.log(sitedataVal);
-			      			  
-				var $sch_content = $( "<div class='sch_content' id='"+markerId+"' style='width: 250px;' onclick='sch_contentClick(this)'></div>" );
-				var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/Z0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
-				var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
-				var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+(contentNum+1)+"</div>");
-				var $spot_info = $("<div class='spot_info'></div>");
-				var $tag = $("<div class='tag'>"+markerId+"</div>");
-				var $sinfo_line = $("<div class='sinfo_line'></div>");
-				var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
-				var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
-				
-				
-				
-				// div에 data값 처리
-				$sch_content.data('sitedata', newsitedataVal[0]);
-				
-				
-				//$sinfo_txt_img.appendTo($sinfo_txt); 
-				 
-				 
-				 $tag.appendTo($spot_info);
-				 $sinfo_line.appendTo($spot_info);
-				 $sinfo_txt.appendTo($spot_info);
-				 $delete_tag.appendTo($spot_info);
-				 
-				 $spot_name.appendTo($spot_content_box);
-				 $spot_info.appendTo($spot_content_box);
-				 
-				 $content_img.appendTo($sch_content);
-				 $spot_content_box.appendTo($sch_content);
-			
-				
-				
-				$("#"+id+" .sortable").append($sch_content);
-				
-				//찍어보기
-				$(this).find('.sch_content').each(function(i, el) { // date값, routecode, username, order가져오기 위해서 
-					console.log($(el).data('sitedata'));
-					sitedataVal =  $(el).data('sitedata');
-					
-			      });
-				
-				//copedsitedataVal = sitedataVal; // 값 넣기
-			      
-			      sitedataVal.category='기타';
-			      sitedataVal.etime='';
-			      sitedataVal.stime='';
-			      sitedataVal.route_order=$(contentNum);
-			      sitedataVal.site=markerId;
-			      sitedataVal.lon=markerLonLat.lon;
-			      sitedataVal.lat=markerLonLat.lat; 
-			      
-				
-			}
-		}); */
-		
-	    //getDataFromId(this.idString);
-	    
+	   
 	 	// 지도 : 마커 추가
 		var options = {
             label:new Tmap.Label(markerLabelVal),
@@ -362,19 +265,12 @@ $( function() {
 				data : JSON.stringify(fixSitedataVal),
 				contentType: "application/json; charset=UTF-8",
 				success : function(result){
-					alert('뭐야뭐야');
-						/* console.log(result);
-						if (!result) { 
-							console.log("잘못된 값");
-						}else if (result=='tTf'){
-							console.log("찜콩 해제");
-							$('#heart').attr("src", "../../images/PostScript/empty_like.png");
-							$('#route_like').val("false");
-						}else if (result=='fTt'){
-							console.log("찜콩 설정");
-							$('#heart').attr("src", "../../images/PostScript/full_like.png");
-							$('#route_like').val("true");
-						} */
+					if(result==1){
+						alert('수정 완료');
+					}else{
+						alert('수정 안됨');
+					}
+					
 				},
 				error : function(xhr) {
 					console.log("에러남 : " + xhr);
@@ -1313,7 +1209,7 @@ div.over {
         </button>
 
 <%-- ----------------------------------form-------------------------------------------%>
-<form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
+<%-- <form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">
 	<div id="route_list_form_innerdiv"></div>
 	
 	
@@ -1322,7 +1218,7 @@ div.over {
 		<span class="glyphicon glyphicon-plus"></span>
 	</button>
 
-</form>
+</form> --%>
 
 
 

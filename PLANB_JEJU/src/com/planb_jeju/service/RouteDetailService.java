@@ -33,6 +33,17 @@ public class RouteDetailService {
 	}
 	
 	
+	public int updateRouteDetail(RouteDetail routedetail) throws ClassNotFoundException, SQLException {
+
+		// Mybatis 적용
+		RouteDetailDao routeDetailDao = sqlsession.getMapper(RouteDetailDao.class);
+		int result = routeDetailDao.update(routedetail);
+
+		return result;
+
+	}
+	
+	
 	public HashMap<String, Object> getRouteDetailList(List<Route> routeList) throws ClassNotFoundException, SQLException {
 
 		HashMap<String,Object> routeDetailMap = new HashMap<>();
