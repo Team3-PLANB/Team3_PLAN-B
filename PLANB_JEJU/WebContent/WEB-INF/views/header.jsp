@@ -106,15 +106,29 @@
 <script src="${pageContext.request.contextPath}/js/stomp.min.js"></script>
 
 <script>
-	$(document).ready(() => {
+	//$(document).ready(() => {
+		
+	$(window).load(function(){
+		
 
 	    // websocket init
 		if ('${loginUser}' != '') WebSocket.init();
 
         // message modal handler
         $('#btn-message-modal').on('click', function(e){
+        	
+        	console.log('dididdiid');	
             //e.preventDefault();
             $('#modal-message-register').modal({});
+         
+			 if(sessionStorage.getItem("MessageReceiverId")!=null){
+            	
+            	if(sessionStorage.getItem("MessageReceiverId")!=''){
+            		var receiver_id = sessionStorage.getItem("MessageReceiverId");
+
+            		$('input[name=form-first-name]').val(receiver_id);
+            	}
+            } 
         });
 	});
 
