@@ -94,15 +94,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<!-- 메시지 가져오기 -->
-	<select id="getMessageList" parameterType="String" resultType="com.planb_jeju.dto.Message">
+	<select id="getMessageList" parameterType="map" resultType="com.planb_jeju.dto.Message">
 		SELECT *
 		FROM message
 		WHERE receiver =#{username}
 		AND sender_delete = 0
 		AND receiver_delete = 0
-		ORDER BY sendtime DESC LIMIT 0,5;
-		
-	
+		ORDER BY sendtime DESC LIMIT #{start},#{pagesize};
 	</select>
 	
 	<delete id="delete" parameterType="int">
