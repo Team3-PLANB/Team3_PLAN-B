@@ -28,7 +28,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.planb_jeju.dao.MemberDao;
-import com.planb_jeju.dao.MessageDao;
 import com.planb_jeju.dao.RoutePostScriptDao;
 import com.planb_jeju.dao.SitePostScriptDao;
 import com.planb_jeju.dto.Member;
@@ -52,7 +51,6 @@ import com.planb_jeju.service.SitePostscriptService;
 public class MyPageController {
    
    private static MemberDao memberDao;
-   private static MessageDao messageDao;
    private static Member member;
    
    @Autowired
@@ -61,8 +59,8 @@ public class MyPageController {
    @Autowired
    private MemberService memberservice;
    
-   @Autowired
-   private MessageService messageService;
+	@Autowired
+	private MessageService messageService;
    
    @Autowired
 	private RouteService routeservice;
@@ -116,9 +114,6 @@ public class MyPageController {
    @RequestMapping("PostScript/Route/List.do")
    public String listMyRoutePost(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws ClassNotFoundException, SQLException{
 	   List<RoutePostscriptTag> routePostscriptTagList = null;
-	   
-	   System.out.println("내 루트 후기 리스트");
-	   System.out.println("로그인된 아이디 : " + principal.getName());
 	   List<RoutePostscript> routePostscriptList = routePostscriptservice.listMyRoutePostscript(principal.getName(), searchWord);
 	   
 	   for(RoutePostscript post : routePostscriptList){
@@ -126,7 +121,6 @@ public class MyPageController {
 			post.setRoutePostscriptTag(routePostscriptTagList);
 	   }
 	   
-	   System.out.println("routePostscriptList : " + routePostscriptList);
 	   model.addAttribute("routePostscriptList", routePostscriptList); 
 	   
 	   return "MyPage.PostScript.Route.listBoard";
@@ -139,17 +133,14 @@ public class MyPageController {
     */
     @RequestMapping("PostScript/Route/Detail.do")
     public String detailMyRoutePost(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
-    	System.out.println("나의 루트 후기 게시판 상세보기");
 		String username = null;
 		if(principal != null){
 			username = principal.getName();
-			System.out.println("로그인된 아이디 : " + username);
 		}
 		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, username);
 		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptservice.getRoutePostTagList(routePostscript.getRoute_postscript_rownum());
 		routePostscript.setRoutePostscriptTag(routePostscriptTagList);
-		
-		System.out.println("routePostscript : " + routePostscript);
+
 		model.addAttribute("routePostscript", routePostscript);
 		
 		return "MyPage.PostScript.Route.detail";
@@ -167,7 +158,6 @@ public class MyPageController {
 		
 		if (principal != null) {
 			username = principal.getName();
-			System.out.println("로그인된 아이디 : " + username);
 		}
 		
 		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listMyRoutePost(username, searchWord);
@@ -219,7 +209,6 @@ public class MyPageController {
        */
       @RequestMapping("PostScript/Site/updateMyRoute.do")
       public String editMyRoutePost(Principal principal, Model model) throws ClassNotFoundException, SQLException{
-       	
          return "MyPage.PostScript.Site.detail";
       }
      
@@ -230,7 +219,6 @@ public class MyPageController {
       */
       @RequestMapping("PostScript/Site/deleteMySite.do")
       public @ResponseBody int deleteMySitePost(Principal principal, @RequestParam int site_rouwnum) throws ClassNotFoundException, SQLException{
-
       	SitePostScriptDao sitepostscriptdao = sqlsession.getMapper(SitePostScriptDao.class);
            return sitepostscriptdao.delete(site_rouwnum);
       }
@@ -241,8 +229,7 @@ public class MyPageController {
        * @return : String (view page) 
        */
        @RequestMapping("PostScript/Site/update.do")
-       public String editMySitePost(Principal principal, Model model) throws ClassNotFoundException, SQLException{
-       	
+       public String editMySitePost(Principal principal, Model model) throws ClassNotFoundException, SQLException{      	
           return "MyPage.PostScript.Site.detail";
        }
      
@@ -290,17 +277,14 @@ public class MyPageController {
     	*/
     	@RequestMapping(value="Like/Route/Detail.do", method=RequestMethod.GET)
     	public String detailLikeRoutePost(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
-    		System.out.println("찜한 루트 후기 상세보기");
     		String username = null;
     		if(principal != null){
     			username = principal.getName();
-    			System.out.println("로그인된 아이디 : " + username);
     		}
     		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, username);
     		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptservice.getRoutePostTagList(routePostscript.getRoute_postscript_rownum());
     		routePostscript.setRoutePostscriptTag(routePostscriptTagList);
     		
-    		System.out.println("routePostscript : " + routePostscript);
     		model.addAttribute("routePostscript", routePostscript);
     		
     		return "MyPage.Like.Route.detail";
@@ -319,16 +303,12 @@ public class MyPageController {
     		String change = "";
     		
     		if(route_like.equals("true")){
-    			System.out.println("찜콩 설정되어 있음");
     			routePostscriptservice.deleteLike(routePostscriptLike);
     			routePostscriptservice.downLikeNum(routePostscriptLike);
-    			System.out.println("찜콩 해제 완료");
     			change = "tTf"; //true to false
     		}else{
-    			System.out.println("찜콩 해제되어 있음");
     			routePostscriptservice.insertLike(routePostscriptLike);
     			routePostscriptservice.upLikeNum(routePostscriptLike);
-    			System.out.println("찜콩 설정 완료");
     			change = "fTt"; //false to true
     		}
     		
@@ -395,16 +375,12 @@ public class MyPageController {
     		String change = "";
     		
     		if(site_like.equals("true")){
-    			System.out.println("찜콩 설정되어 있음");
     			sitePostscriptservice.deleteLike(sitePostscriptLike);
     			sitePostscriptservice.downLikeNum(sitePostscriptLike);
-    			System.out.println("찜콩 해제 완료");
     			change = "tTf"; //true to false
     		}else{
-    			System.out.println("찜콩 해제되어 있음");
     			sitePostscriptservice.insertLike(sitePostscriptLike);
     			sitePostscriptservice.upLikeNum(sitePostscriptLike);
-    			System.out.println("찜콩 설정 완료");
     			change = "fTt"; //false to true
     		}
     		
@@ -445,6 +421,7 @@ public class MyPageController {
    public @ResponseBody String duplicationNickCheck(String nickname) throws Exception {
       memberDao = sqlsession.getMapper(MemberDao.class);
       String result = memberservice.duplicationNickCheck(nickname, sqlsession);
+      
       return result;
    }
 
@@ -458,6 +435,7 @@ public class MyPageController {
       member = memberservice.getMemberInfo(principal.getName(), sqlsession);
       request.setAttribute("nickname", member.getNickname());
       request.setAttribute("originpwd", member.getPassword());
+
       return "MyPage.Info.infoMain";
    }
 
@@ -474,9 +452,7 @@ public class MyPageController {
       updatemember.setNickname(member.getNickname());
       updatemember.setPassword(member.getPassword());
       memberservice.update(updatemember, sqlsession);
+
       return "Main.mainpage";
-   
    }
-   
-   
 }

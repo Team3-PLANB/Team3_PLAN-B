@@ -137,10 +137,6 @@ public class LoginJoinController {
 		roledao = sqlsession.getMapper(RoleDAO.class);
 		result = memberDao.fbjoin(username,password.substring(0, 10), nickname);
 		roleResult = roledao.insertRole(username);
-
-		System.out.println("insert : " + result);
-		System.out.println("roleresult: " + roleResult);
-		
 		return "true";
 	}
 
@@ -167,7 +163,6 @@ public class LoginJoinController {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		roledao = sqlsession.getMapper(RoleDAO.class);
 		Role role = roledao.getFbRole(username);
-//		String result = memberDao.getFBpassword(username);
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
 		authorities.add(new SimpleGrantedAuthority(role.getROLE_NAME()));
 
@@ -178,7 +173,6 @@ public class LoginJoinController {
 		System.out.println("authRequest" +authRequest);
 		Authentication auth = context.getAuthentication();
 //		UserDetails userinfo = (UserDetails)auth.getPrincipal();
-//		System.out.println(userinfo);
 		return "true";
 	}	
 
