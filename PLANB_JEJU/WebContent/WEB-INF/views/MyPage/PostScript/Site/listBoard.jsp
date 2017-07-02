@@ -11,7 +11,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <html class="no-js">
-
+<head>
 <link rel="shortcut icon" href="favicon.ico">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
@@ -26,7 +26,7 @@
 <script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
 <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/postscript/postscript.js"></script>
-
+</head>
 <body>
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
@@ -63,8 +63,8 @@
 					
 					<%------------------------------리스트 부분 ----------------------------------------%>
 					<div class="container">
-						<div class="row row-bottom-padded-md">
-						<c:forEach var="sitePostscript" items="${sitePostscriptList}">
+						<div class="row row-bottom-padded-md">							
+							<c:forEach var="sitePostscript" items="${sitePostscriptList}">
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
 										<a href="${pageContext.request.contextPath}/MyPage/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}">
@@ -78,7 +78,7 @@
 												<span class="posted_by">${sitePostscript.username}</span> 
 												<span class="posted_by" style="float:right;">${sitePostscript.writetime}</span> 
 												<span>
-													<c:forEach var="postTag" items="${sitePostscript.getSitePostscriptTag()}">
+													<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
 														<a href="${pageContext.request.contextPath}/MyPage/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 													</c:forEach>
 												</span>	
