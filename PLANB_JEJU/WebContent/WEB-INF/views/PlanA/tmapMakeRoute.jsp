@@ -143,6 +143,8 @@ $( function() {
 		//Tmap POI 호출 로직
     	searchPOI();
 		
+		searchWordVal = $("#searchWord").val();
+		
     	// input 태그 값
 		$("#searchWord").val('');
 	});
@@ -212,6 +214,8 @@ $( function() {
 	    this.popup.hide();
 	}
 	function onClickMouse(e){
+		
+		sch_content_layer.clearMarkers();
 		//마커 삭제 this.destroy();
 		// 마커와 일치하는 div찾아서 연결, 마커의 라벨값 -> div의  id값과 같음 
 		var markerLabel = '#'+this.labelHtml;
@@ -262,16 +266,30 @@ $( function() {
 				  //console.log('foreach문 돌리고 나서 sitedataVal값');
 			      //console.log(sitedataVal);
 			      			  
+			      /* var substr  = '${i.site}'.substr(0,9);
+	    					//var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/"+'${i.category}'+".JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
+	    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
+	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer; '><div style='cursor: pointer; float:left; padding-right:8px'>"+${i.route_order}+"</div><div class='tag' style='float: left; width:120px; text-align:center; border: 1px solid #de9541;'>"+substr+"</div></div>");
+	    					var $spot_info = $("<div class='spot_info'></div>");
+	    					//var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
+	    					var $sinfo_line = $("<div class='sinfo_line'></div>");
+	    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px; padding-left:15px'></div>");
+	    					var $sinfo_txt_img = $("<span>"+'${i.category}'+"</span>");
+	    					var $delete_tag = $("<div class='tag route_site_delete_tag' style='float:right; background: #ff6535; border: 1px solid #ff6535; color: #ffffff;'>X</div>");
+	    					 */
+			      
+			      
 				var $sch_content = $( "<div class='sch_content' id='"+markerId+"' style='width: 250px;' onclick='sch_contentClick(this)'></div>" );
 				var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/Z0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
 				var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
-				var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+(contentNum+1)+"</div>");
+				var $spot_name = $("<div class='spot_name' style='cursor: pointer; '><div class='order' style='cursor: pointer; float:left; padding-right:8px'>"+(contentNum+1)+"</div><div class='tag' style='float: left; width:120px; text-align:center; border: 1px solid #de9541;'>"+markerId+"</div></div>");
 				var $spot_info = $("<div class='spot_info'></div>");
-				var $tag = $("<div class='tag'>"+markerId+"</div>");
+				//var $tag = $("<div class='tag'>"+markerId+"</div><br>");
 				var $sinfo_line = $("<div class='sinfo_line'></div>");
-				var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
+				var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px; padding-left:15px;'></div>");
+				var $sinfo_txt_img = $("<span>"+searchWordVal+"</span>");
 				<%-- var $sinfo_txt_img = $("<img src='<%=request.getContextPath()%>/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>"); --%>
-				var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
+				var $delete_tag = $("<div class='tag route_site_delete_tag' style='float:right; background: #ff6535; border: 1px solid #ff6535; color: #ffffff;'>X</div>");
 				
 				
 				
@@ -279,10 +297,10 @@ $( function() {
 				$sch_content.data('sitedata', newsitedataVal[0]);
 				
 				
-				/*  $sinfo_txt_img.appendTo($sinfo_txt); */
+				 $sinfo_txt_img.appendTo($sinfo_txt); 
 				 
 				 
-				 $tag.appendTo($spot_info);
+				 //$tag.appendTo($spot_info);
 				 $sinfo_line.appendTo($spot_info);
 				 $sinfo_txt.appendTo($spot_info);
 				 $delete_tag.appendTo($spot_info);
@@ -379,7 +397,7 @@ $( function() {
 	        jQuery(this.responseXML).find("poiDetailInfo").each(function(){
 	            var name = jQuery(this).text();
 	            
-	            alert(name);
+	           // alert(name);
 	        });
 	    }else {
 	        alert('검색결과가 없습니다.');
@@ -475,7 +493,7 @@ $( function() {
             /* centerLL = new Tmap.LonLat(14145677.4, 4511257.6); */
             centerLL = new Tmap.LonLat(14085866.64992, 3963136.5754785);
             map = new Tmap.Map({div:'map_div',
-                                width:'80%', 
+                                width:'100%', 
                                 height:'610px',
                                 transitionEffect:"resize",
                                 animation:true
@@ -554,6 +572,7 @@ $( function() {
         	//markerLayer 마커들 제거
         	markerLayer.clearMarkers();
         	poi_markerLayer.clearMarkers();
+        	sch_content_layer.clearMarkers();
         	
         	// 일정 Drag 박스 empty 적용
         	$('.sortable').empty();
@@ -661,15 +680,16 @@ $( function() {
 	    						default : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
 			    				
 	    					} 
+	    					var substr  = '${i.site}'.substr(0,9);
 	    					//var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/"+'${i.category}'+".JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
 	    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
-	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
+	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer; '><div class='order' style='cursor: pointer; float:left; padding-right:8px'>"+${i.route_order}+"</div><div class='tag' style='float: left; width:120px; text-align:center; border: 1px solid #de9541;'>"+substr+"</div></div>");
 	    					var $spot_info = $("<div class='spot_info'></div>");
-	    					var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
+	    					//var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
 	    					var $sinfo_line = $("<div class='sinfo_line'></div>");
-	    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
+	    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px; padding-left:15px'></div>");
 	    					var $sinfo_txt_img = $("<span>"+'${i.category}'+"</span>");
-	    					var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
+	    					var $delete_tag = $("<div class='tag route_site_delete_tag' style='float:right; background: #ff6535; border: 1px solid #ff6535; color: #ffffff;'>X</div>");
 	    					
 	    					// 각 Day div id 변수로 선언 / dayOrder + 1 해준 이유 : 위에서 
 	    					var scheduleday = '#'+'ScheduleDay'+(dayOrder+1);
@@ -684,7 +704,7 @@ $( function() {
 	    					 $sinfo_txt_img.appendTo($sinfo_txt);
 	    					 
 	    					 
-	    					 $tag.appendTo($spot_info);
+	    					 //$tag.appendTo($spot_info);
 	    					 $sinfo_line.appendTo($spot_info);
 	    					 $sinfo_txt.appendTo($spot_info);
 	    					 $delete_tag.appendTo($spot_info);
@@ -853,7 +873,7 @@ $( function() {
 			      // 화면 컨텐츠 순서 값 바꾸기
 			      $(this).find('.spot_name').each(function(index, value){
 			    	  // console.log($(this).text()); 
-			    	  $(this).text(new_locations[index].route_order);
+			    	  $(this).find('.order').text(new_locations[index].route_order);
 			    	  
 			      });
 			      
@@ -1610,29 +1630,31 @@ div.over {
 
 
 <!-- 검색창 -->
-<button style="margin-left:10px;float:right;" value="검색하기" class="btn btn-primary " id="searchSiteBtn">
+<button style="margin-left:2px;float:right;" value="검색하기" class="btn btn-primary " id="searchSiteBtn">
 	<span class="glyphicon glyphicon-search"></span>
 </button>
-<input type="text" style="width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">
+<input type="text" style="margin-left:5px;width:300px;float:right;" class="form-control" id="searchWord" name="searchWord" value="${searchWord}" placeholder="검색할 태그를 입력해주세요.">
 	
 	
 
 <!-- class="btn btn-link-1 launch-modal" -->
 
-
+<!-- 루트 길찾기 routeLayer delete 버튼  -->
 <button class="btn btn-warning btn-link-1" style="width:50px; float:right; padding:10px 0px;" onclick="searchRouteDelete()" data-modal-id="modal-register">
-          <span class="glyphicon glyphicon-refresh"></span>
-        </button>
+     <span class="glyphicon glyphicon-refresh"></span>
+</button>
 
+<!-- 루트 길찾기 모달 띄우기 버튼 -->
 <button class="btn btn-warning  btn-link-1 launch-modal" style="width:50px; float:right; padding:10px 0px;" onclick="search()" data-modal-id="modal-register">
-          <span class="glyphicon glyphicon-road"></span>
-        </button>
+     <span class="glyphicon glyphicon-road"></span>
+</button>
         
 
 <%-- ----------------------------------form-------------------------------------------%>
 
 <button class = "btn btn-warning" id="submit_route_detail">
-		<span class="glyphicon glyphicon-plus"></span>
+		<!-- <span class="glyphicon glyphicon-plus"></span> -->
+		 <span class="glyphicon glyphicon-floppy-disk"></span>
 </button>
 
 <form action="${pageContext.request.contextPath}/PLANA.detail.insert.do" method="post" id="route_list_form">

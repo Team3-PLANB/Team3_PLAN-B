@@ -378,6 +378,7 @@ public class PlanAController {
 		model.addAttribute("mytRouteList", mytRouteList);
 
 		return "MyPage.Schedule.scheduleMain";
+		
 
 	}
 	
