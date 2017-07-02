@@ -67,7 +67,7 @@ public interface MessageDao {
 	 */
 	public List<Message> getMessageList(
 			@Param("username") String username, 
-			@Param("cpage") int cpage, 
+			@Param("start") int start, 
 			@Param("pagesize") int pagesize, 
 			@Param("category") String category);
 	

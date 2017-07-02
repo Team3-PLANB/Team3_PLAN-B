@@ -39,8 +39,18 @@
 	href="${pageContext.request.contextPath}/css/cs-skin-border.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/style.css">
-
+ 
 <script>
+
+		
+	var pagesize = "${pagesize}";
+	var category = "${category}";
+	var backpage = "${backpage}";
+	
+	if(backpage > 0){
+		location.href = "${pageContext.request.contextPath}/MyPage/Message/msgMain.do?cp="+backpage+"&ps="+pagesize+"&category="+category;
+	}
+
 	/* 전체 선택   */
 	$(document).ready(function() {
 		$("#checkall1").click(function() {
@@ -233,9 +243,10 @@
 							<thead>
 
 								<th><input type="checkbox" id="checkall2" /></th>
-								<th>닉네임</th>
-								<th>이메일</th>
-								<th>제목</th>
+								<th>New</th>
+								<th>보내는사람</th>
+								<th>받는사람</th>
+								<th>내용</th>
 								<th>날짜</th>
 								<th>Delete</th>
 							</thead>

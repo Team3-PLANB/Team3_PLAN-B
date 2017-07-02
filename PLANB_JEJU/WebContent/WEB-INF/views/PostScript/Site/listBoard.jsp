@@ -22,23 +22,18 @@
 <meta name="keywords"
 	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" />
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<link rel="shortcut icon" href="favicon.ico">
 
+<link rel="shortcut icon" href="favicon.ico">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/postscript.css">
 
-
 <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
-
-
 <script src="${pageContext.request.contextPath}/js/postscript/postscript.js"></script>
 
 
@@ -53,7 +48,6 @@
 						<div
 							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 							<h3>후기 게시판</h3>
-							<p>여행지 후기 게시판입니다.</p>
 							<ul class="portfolio-filter" align="center">
 								<li>
 									<a class="btn btn-default default" href="${pageContext.request.contextPath}/PostScript/Route/List.do"

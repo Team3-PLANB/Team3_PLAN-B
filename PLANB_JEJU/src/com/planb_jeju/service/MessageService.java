@@ -64,11 +64,15 @@ public class MessageService {
 		// 페이지 그룹 번호
 		int numPageGroup = (int) Math.ceil((double) cpage / pageGroupSize);
 		
+		// 페이지 안에 시작과 끝 로우
+		int start = cpage * pagesize - (pagesize); 
+		int end = cpage * pagesize;
+		
 		/* 로직 끝 */
 		
 		// 상세 리스트 조회 
-		List<Message> messages = (List<Message>)messageDao.getMessageList(user.getUsername(), cpage, pagesize, category);
-	
+		List<Message> messages = (List<Message>)messageDao.getMessageList(user.getUsername(), start, pagesize, category);
+
 		model.addAttribute("cpage", cpage);
 		model.addAttribute("pagesize", pagesize);
 		model.addAttribute("pagecount", pagecount);
@@ -78,7 +82,9 @@ public class MessageService {
 		model.addAttribute("pageGroupCount", pageGroupCount);
 		model.addAttribute("numPageGroup", numPageGroup);
 		model.addAttribute("pageGroupSize", pageGroupSize);
-
+		model.addAttribute("backpage", (messages.size()==0 && cpage > 1) ? cpage - 1 : 0);
+		model.addAttribute("category",category);
+		
 		return model;	
 	}
 	

@@ -100,11 +100,11 @@ public class MyPageController {
    
    /*
    * @date : 2017. 6. 16
-   * @description : Mypage 나의후기 main view
+   * @description : Mypage 나의 후기 main view
    * @return : String(view) 
    */
-   @RequestMapping("PostScript/postScriptMain.do")
-   public String postMain(){
+   @RequestMapping("PostScript/postscriptMain.do")
+   public String myPostMain(){
       return "MyPage.PostScript.postScriptMain";
    }
    
@@ -114,11 +114,17 @@ public class MyPageController {
    * @return : String (view page) 
    */
    @RequestMapping("PostScript/Route/List.do")
-   public String routeList(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+   public String listMyRoutePost(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws ClassNotFoundException, SQLException{
+	   List<RoutePostscriptTag> routePostscriptTagList = null;
 	   
 	   System.out.println("내 루트 후기 리스트");
 	   System.out.println("로그인된 아이디 : " + principal.getName());
-	   List<RoutePostscript> routePostscriptList = routePostscriptservice.listMyRoutePostscript(principal.getName());
+	   List<RoutePostscript> routePostscriptList = routePostscriptservice.listMyRoutePostscript(principal.getName(), searchWord);
+	   
+	   for(RoutePostscript post : routePostscriptList){
+			routePostscriptTagList = routePostscriptservice.getRoutePostTagList(post.getRoute_postscript_rownum());
+			post.setRoutePostscriptTag(routePostscriptTagList);
+	   }
 	   
 	   System.out.println("routePostscriptList : " + routePostscriptList);
 	   model.addAttribute("routePostscriptList", routePostscriptList); 
@@ -132,9 +138,21 @@ public class MyPageController {
     * @return : String (view page) 
     */
     @RequestMapping("PostScript/Route/Detail.do")
-    public String routeDetail(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
-    	
-       return "MyPage.PostScript.Route.detail";
+    public String detailMyRoutePost(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
+    	System.out.println("나의 루트 후기 게시판 상세보기");
+		String username = null;
+		if(principal != null){
+			username = principal.getName();
+			System.out.println("로그인된 아이디 : " + username);
+		}
+		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, username);
+		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptservice.getRoutePostTagList(routePostscript.getRoute_postscript_rownum());
+		routePostscript.setRoutePostscriptTag(routePostscriptTagList);
+		
+		System.out.println("routePostscript : " + routePostscript);
+		model.addAttribute("routePostscript", routePostscript);
+		
+		return "MyPage.PostScript.Route.detail";
     }
 
     /*
@@ -143,16 +161,26 @@ public class MyPageController {
      * @return : String (view page) 
      */
     @RequestMapping("PostScript/Site/List.do")
-    public String siteList(Principal principal, String searchWord, Model model) throws ClassNotFoundException, SQLException{
+    public String listMySitePost(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws ClassNotFoundException, SQLException{
+ 		List<SitePostscriptTag> sitePostscriptTagList = null;
+		String username = null;
+		
+		if (principal != null) {
+			username = principal.getName();
+			System.out.println("로그인된 아이디 : " + username);
+		}
+		
+		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listMyRoutePost(username, searchWord);
+
+		for (SitePostscript post : sitePostscriptList) {
+			sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(post);
+			post.setSitePostscriptTag(sitePostscriptTagList);
+		}
+		
+ 		model.addAttribute("sitePostscriptList", sitePostscriptList);
+ 		model.addAttribute("searchWord", searchWord);		
  	   
- 	   System.out.println("내 여행지 후기 리스트");
- 	   System.out.println("로그인된 아이디 : " + principal.getName());
- 	   List<SitePostscript> sitePostscriptList = sitePostscriptservice.listSitePostscript(principal.getName(), searchWord);
- 	   
- 	   System.out.println("sitePostscriptList : " + sitePostscriptList);
- 	   model.addAttribute("sitePostscriptList", sitePostscriptList); 
- 	   
- 	   return "MyPage.PostScript.Site.listBoard";
+		return "MyPage.PostScript.Site.listBoard";
     }
     
     /*
@@ -161,9 +189,15 @@ public class MyPageController {
      * @return : String (view page) 
      */
      @RequestMapping("PostScript/Site/Detail.do")
-     public String siteDetail(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
-     	
-        return "MyPage.PostScript.Site.detail";
+     public String detailMySitePost(@RequestParam("site_postscript_rownum") int site_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
+		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName());
+		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
+		sitePostscript.setSitePostscriptTag(sitePostscriptTagList);
+
+		model.addAttribute("sitePostscript", sitePostscript);
+		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
+
+		return "MyPage.PostScript.Site.detail";
      }
 
      /*
@@ -172,7 +206,7 @@ public class MyPageController {
       * @return : String (view page) 
       */
       @RequestMapping("PostScript/Site/deleteMyRoute.do")
-      public @ResponseBody int deleteMyRoute(Principal principal, @RequestParam int route_rouwnum) throws ClassNotFoundException, SQLException{
+      public @ResponseBody int deleteMyRoutePost(Principal principal, @RequestParam int route_rouwnum) throws ClassNotFoundException, SQLException{
       	RoutePostScriptDao routepostscriptdao = sqlsession.getMapper(RoutePostScriptDao.class);
            //return routepostscriptdao.delete(route_rouwnum);
       	return 0;
@@ -184,7 +218,7 @@ public class MyPageController {
        * @return : String (view page) 
        */
       @RequestMapping("PostScript/Site/updateMyRoute.do")
-      public String updateMyRoute(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+      public String editMyRoutePost(Principal principal, Model model) throws ClassNotFoundException, SQLException{
        	
          return "MyPage.PostScript.Site.detail";
       }
@@ -195,7 +229,7 @@ public class MyPageController {
       * @return : String (view page) 
       */
       @RequestMapping("PostScript/Site/deleteMySite.do")
-      public @ResponseBody int deleteMySite(Principal principal, @RequestParam int site_rouwnum) throws ClassNotFoundException, SQLException{
+      public @ResponseBody int deleteMySitePost(Principal principal, @RequestParam int site_rouwnum) throws ClassNotFoundException, SQLException{
 
       	SitePostScriptDao sitepostscriptdao = sqlsession.getMapper(SitePostScriptDao.class);
            return sitepostscriptdao.delete(site_rouwnum);
@@ -207,7 +241,7 @@ public class MyPageController {
        * @return : String (view page) 
        */
        @RequestMapping("PostScript/Site/update.do")
-       public String updateMySite(Principal principal, Model model) throws ClassNotFoundException, SQLException{
+       public String editMySitePost(Principal principal, Model model) throws ClassNotFoundException, SQLException{
        	
           return "MyPage.PostScript.Site.detail";
        }
@@ -217,7 +251,7 @@ public class MyPageController {
         * @description : Mypage 찜한후기 main view
         * @return : String(view) 
         */
-        @RequestMapping("Like/Like.do")
+        @RequestMapping("Like/likeMain.do")
         public String like(){
            return "MyPage.Like.likeMain";
         }
@@ -229,21 +263,19 @@ public class MyPageController {
         */
         @RequestMapping("Like/Route/List.do")
         public String listLikeRoutePost(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws ClassNotFoundException, SQLException{
-     	   System.out.println("찜한 루트 후기 리스트");
      		List<RoutePostscriptTag> routePostscriptTagList = null;
      		String username = null;
      		if(principal != null){
      			username = principal.getName();
-     			System.out.println("로그인된 아이디 : " + username);
      		}
-     		System.out.println("searchWord : " + searchWord);
+     		
      		List<RoutePostscript> routePostscriptList = routePostscriptservice.listLikeRoutePost(username, searchWord);
      		
      		for(RoutePostscript post : routePostscriptList){
      			routePostscriptTagList = routePostscriptservice.getRoutePostTagList(post.getRoute_postscript_rownum());
      			post.setRoutePostscriptTag(routePostscriptTagList);
      		}
-     		System.out.println("routePostscriptList : " + routePostscriptList);
+     		
      		model.addAttribute("routePostscriptList", routePostscriptList);
      		model.addAttribute("searchWord", searchWord);
      	   
@@ -257,8 +289,8 @@ public class MyPageController {
     	* @return : String(View 페이지) 
     	*/
     	@RequestMapping(value="Like/Route/Detail.do", method=RequestMethod.GET)
-    	public String detailRoutePostscript(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
-    		System.out.println("루트 후기 게시판 상세보기");
+    	public String detailLikeRoutePost(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
+    		System.out.println("찜한 루트 후기 상세보기");
     		String username = null;
     		if(principal != null){
     			username = principal.getName();
@@ -281,7 +313,7 @@ public class MyPageController {
     	* @return : String 상태
     	*/
     	@RequestMapping(value="Like/Route/Like.do", method=RequestMethod.GET)
-    	public @ResponseBody String changLikeRoutePostscript(@RequestParam int route_postscript_rownum, @RequestParam String route_like, Principal principal) throws ClassNotFoundException, SQLException {
+    	public @ResponseBody String changLikeRoutePost(@RequestParam int route_postscript_rownum, @RequestParam String route_like, Principal principal) throws ClassNotFoundException, SQLException {
     		RoutePostscriptLike routePostscriptLike = new RoutePostscriptLike(0, route_postscript_rownum, principal.getName());
     		
     		String change = "";
@@ -304,7 +336,6 @@ public class MyPageController {
     	}
         
         
-
     	/*
     	* @date : 2017.07.01
     	* @description : Mypage 찜한 여행지 후기 리스트
@@ -312,15 +343,13 @@ public class MyPageController {
     	* @return : String(View 페이지) 
     	*/
     	@RequestMapping(value="Like/Site/List.do", method=RequestMethod.GET)
-    	public String listSitePostscript(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
-    		System.out.println("여행지 후기 게시판 들어옴");
+    	public String listLikeSitePost(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
     		List<SitePostscriptTag> sitePostscriptTagList = null;
     		String username = null;
     		if(principal != null){
     			username = principal.getName();
-    			System.out.println("로그인된 아이디 : " + username);
     		}
-    		System.out.println("searchWord : " + searchWord);
+    		
     		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listLikeRoutePost(username, searchWord);
     		
     		for(SitePostscript post : sitePostscriptList){
@@ -328,7 +357,6 @@ public class MyPageController {
     			post.setSitePostscriptTag(sitePostscriptTagList);
     		}
     		
-    		System.out.println("sitePostscriptList : " + sitePostscriptList);
     		model.addAttribute("sitePostscriptList", sitePostscriptList);
     		model.addAttribute("searchWord", searchWord);
     		
@@ -342,18 +370,14 @@ public class MyPageController {
     	* @return : String(View 페이지) 
     	*/
     	@RequestMapping("Like/Site/Detail.do")
-    	public String detailSitePostscript(@RequestParam int site_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
-    		System.out.println("사이트 후기 게시판 상세보기");
-    		System.out.println("로그인된 아이디 : " + principal.getName());
-    		
-    		
+    	public String listLikeSitePost(@RequestParam int site_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
     		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName());
     		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
     		sitePostscript.setSitePostscriptTag(sitePostscriptTagList);
-    		
-    		System.out.println("sitePostscript : " + sitePostscript);
+    		    		
     		model.addAttribute("sitePostscript", sitePostscript);
     		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
+    		
     		return "MyPage.Like.Site.detail";		
     	}
     	

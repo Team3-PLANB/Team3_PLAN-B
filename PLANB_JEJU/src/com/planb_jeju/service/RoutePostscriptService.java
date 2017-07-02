@@ -73,11 +73,11 @@ public class RoutePostscriptService {
 	* @parameter : 
 	* @return : 
 	*/
-	public List<RoutePostscript> listMyRoutePostscript(String username) throws ClassNotFoundException, SQLException {
+	public List<RoutePostscript> listMyRoutePostscript(String username, String searchWord) throws ClassNotFoundException, SQLException {
 		System.out.println("내 루트 후기 리스트 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		System.out.println("username : " + username);
-		List<RoutePostscript> routePostscriptList = routePostscriptDao.getMyList(username);
+		List<RoutePostscript> routePostscriptList = routePostscriptDao.getMyList(username, searchWord);
 		
 		return routePostscriptList;
 	}
