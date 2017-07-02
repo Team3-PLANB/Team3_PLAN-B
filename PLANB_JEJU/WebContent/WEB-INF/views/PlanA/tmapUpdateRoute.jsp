@@ -108,6 +108,7 @@ $( function() {
 	
 	// 여행지 검색 버튼 클릭
 	$("#searchSiteBtn").on("click", function() {
+		
 		// 검색어 저장
 		searchWordSave = $("#searchWord").val();
 		
@@ -120,38 +121,7 @@ $( function() {
 		$("#searchWord").val('');
 	});
 
-	$(document).on("click","#submit_route_detail", function(event){ 
-		
-		  var lastcustomizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
-			  /* console.log($(el).data('sitedata')); */
-		        return $(el).data('sitedata')
-	      }).get()
-	      
-	      //input태그에 들어가는 Site정보 확인용 
-	      alert(JSON.stringify(lastcustomizedRouteList)); 
-		  
-		  // 현재 저장되어 있는 data empty
-		  $('#route_list_form_innerdiv').empty();
-		  
-		  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
-		  $.each(lastcustomizedRouteList, function( index, value ) {
-			
-			    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+(value.route_order)+">");
-				var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
-				var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
-				var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
-				var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
-				var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
-				var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
-				var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
-				var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
-				var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
-				
-				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
-						
-			});
-       
-  	});
+	
 	/* $('#accordion2').accordion('refresh'); */
 	
  } );
@@ -688,6 +658,28 @@ $( function() {
          
          // sortable div안에 각 Site div
          function sch_contentClick(sch_content){
+        	
+        	 
+        	 swal({
+				  title: "수정 요청",
+				  text: "여행지 수정을 원하신다면 \n새로운 여행지를 검색해 선택해주세요!",
+				  confirmButtonText: "OK"
+			},
+			function(isConfirm){
+			  if (isConfirm) {
+				//input box 커서 
+				  $('#searchWord').focus();
+			  } /* else {
+				swal({
+					  title: "회원가입 실패",
+					  text: "다시 회원가입 해주세요",
+					  timer: 2000,
+					  showConfirmButton: false
+				});
+				location.href = "../../LoginJoin/NJoin.do";
+			  } */
+			});
+        	 
         	 
         	 sch_content_layer.clearMarkers();
         	 
@@ -737,8 +729,7 @@ $( function() {
 			  // 최대 줌 상태에서 13레벨로 reZoom
 			  map.zoomTo(13);
 		     
-			  //input box 커서 
-			  $('#searchWord').focus();
+			  
 			  
          }
          
