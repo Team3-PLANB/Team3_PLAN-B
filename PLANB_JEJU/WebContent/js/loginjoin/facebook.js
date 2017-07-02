@@ -53,12 +53,10 @@ function statusChangeCallback(response) {
 }
 
 // facebook 로그인버튼 눌렀을 때 나오는 함수
-//
 function login() {
 	
 	var username; // 이메일 저장할 변수
 	var nickname; // 이름 저장할 변수
-	console.log("FB LOGIN START");
 	FB.login(function(response) { // response 객체를 처리
 		if (response.status === 'connected') {
 		// 페이스북과 앱에 같이 로그인되어 있다.
@@ -89,7 +87,6 @@ function login() {
 									}
 								});
 							} else { // 아이디 없을 경우 > 회원가입(fbjoin.do)
-								console.log(response.authResponse.accessToken);
 								$.ajax({
 									type : "get",
 									url  : "fbjoin.do",

@@ -8,7 +8,6 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.planb_jeju.dao.RouteDetailDao;
 import com.planb_jeju.dao.RouteHistoryDao;
 import com.planb_jeju.dto.RouteHistory;
 
@@ -18,23 +17,30 @@ public class HistoryService {
 	@Autowired
 	private SqlSession sqlsession;
 	
+	/*
+	* @date : 2017. 6. 30
+	* @description : 히스토리 insert
+	* @parameter : 
+	* @return : int
+	*/
 	public int insertRouteHistory(Map<String, Object> map) throws ClassNotFoundException, SQLException {
 
-		// Mybatis 적용
 		RouteHistoryDao routeHistoryDao = sqlsession.getMapper(RouteHistoryDao.class);
 		int result = routeHistoryDao.insert(map);
 
 		return result;
-
 	}
 	
+	/*
+	* @date : 2017. 6. 30
+	* @description : 히스토리 상세보기
+	* @parameter : 
+	* @return : List(history 목록) 
+	*/
 	public List<RouteHistory> getRouteDetail(int route_code, String username) throws ClassNotFoundException, SQLException {
 		RouteHistoryDao routeHistoryDao = sqlsession.getMapper(RouteHistoryDao.class);
-		System.out.println("routecode>>" + route_code +" / username>>"+ username);
 		List<RouteHistory> history = routeHistoryDao.getMyHistory(route_code, username);
-		System.out.println(">>>>>>"+history.toString());
+
 		return history;
-		
 	}
-	
 }

@@ -185,10 +185,9 @@ public class SitePostscriptService {
 	* @return :  
 	*/
 	public List<SitePostscriptTag> getSitePostTagList(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException{
-		System.out.println("여행지 후기 태그 가져오기");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptDao.getSitePostTagList(sitePostscript);
-		System.out.println("sitePostscriptTagList : " + sitePostscriptTagList);
+		
 		return sitePostscriptTagList;
 	}
 	

@@ -62,7 +62,7 @@
 					<%------------------------------리스트 부분 ----------------------------------------%>
 					<div class="container">
 						<div class="row row-bottom-padded-md">
-						<c:forEach var="sitePostscript" items="${sitePostscriptList}">
+							<c:forEach var="sitePostscript" items="${sitePostscriptList}">
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
 										<a href="${pageContext.request.contextPath}/MyPage/Like/Site/Detail.do?site_postscript_rownum=${sitePostscript.getSite_postscript_rownum()}">
@@ -81,9 +81,9 @@
 													</span>
 												</span>
 												<span class="posted_by">${sitePostscript.getUsername()}</span> 
-												<span class="posted_by" style="float:right;">${sitePostscript.getWritetime()}</span> 
+												<span class="posted_by" style="float:right;">${sitePostscript.writetime}</span> 
 												<span>
-													<c:forEach var="postTag" items="${sitePostscript.getSitePostscriptTag()}">
+													<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
 														<a href="${pageContext.request.contextPath}/MyPage/Like/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 													</c:forEach>
 												</span>

@@ -4,9 +4,9 @@ package com.planb_jeju.service;
 * @FileName : MemberService.java
 * @Class : MemberService
 * @Project : PLANB_JEJU
-* @Date : 2017.06.22
-* @LastEditDate : 2017.06.16
-* @Author : 홍단비 
+* @Date : 2017.06.16
+* @LastEditDate : 2017.06.22
+* @Author : 홍단비, 정다혜
 * @Desc : Mypage 컨트롤러
 */
 
@@ -36,12 +36,14 @@ public class MemberService {
 	@Autowired
 	private SqlSession sqlsession;
 	
-	// 7자리 영문+숫자 랜덤코드 만들기
+	/*
+	* @date : 2017. 6. 20
+	* @description : 이메일 인증코드를 위한 7자리 영문+숫자 랜덤코드 생성
+	* @return : stringbuffer
+	*/
 	public String RandomNum() {
-		System.out.println("랜덤 만들기1");
 		Random rnd = new Random();
 		StringBuffer buf = new StringBuffer();
-		System.out.println("랜덤 만들기2");
 		for (int i = 0; i < 7; i++) {
 			if (rnd.nextBoolean()) {
 				buf.append((char) ((int) (rnd.nextInt(26)) + 97));
@@ -49,11 +51,13 @@ public class MemberService {
 				buf.append((rnd.nextInt(10)));
 			}
 		}
-		System.out.println("랜덤 만들기:" + buf.toString());
 		return buf.toString();
 	}
 
-	// 메일 보내기
+	/*
+	* @date : 2017. 6. 20
+	* @description : 이메일 보내기
+	*/
 	public void sendEmail(String username, String authNum) {
 		String host = "smtp.gmail.com"; // smtp 서버
 		String title = "PLAN'B JEJU 이메일 인증 서비스";
@@ -64,7 +68,6 @@ public class MemberService {
 		String content = "인증번호 [ " + authNum + " ] 를 정확하게 입력해주세요.";
 
 		try {
-			System.out.println("sendEmail() 들어옴 : " + to);
 			Properties props = new Properties();
 			// gmail SMTP 사용 시
 			props.put("mail.smtp.user", from); // 구글 계정
@@ -78,15 +81,12 @@ public class MemberService {
 			props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			props.put("mail.smtp.socketFactory.fallback", "false");
 
-			System.out.println("프로퍼티 설정됨");
-
 			Session mailSession = Session.getInstance(props, new Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication("dahye9666", "mphntnmsefesoafw");
 				}
 			});
 
-			System.out.println("[ 상세상황 출력 ]");
 			mailSession.setDebug(true); // 메일을 전송할 때 상세한 상황을 콘솔에 출력한다.
 			Message msg = new MimeMessage(mailSession);
 			msg.setSubject(title); // 제목 설정
@@ -102,9 +102,13 @@ public class MemberService {
 		}
 	}
 	
-	// 회원가입 시 아이디체크
+	/*
+	* @date : 2017. 6. 20
+	* @description : 회원가입시 아이디 중복체크
+	* @return : String
+	*/
 	public String duplicationEmailCheck(String username, SqlSession sqlsession) throws Exception {
-		String result;
+		String result = "";
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		if(memberDao.checkEmail(username) > 0) {
 			result = "false"; // 아이디 중복 O
@@ -114,7 +118,11 @@ public class MemberService {
 		return result;
 	}
 	
-	// 회원가입 시 닉네임체크
+	/*
+	* @date : 2017. 6. 20
+	* @description : 회원가입 시 닉네임 중복체크
+	* @return : string
+	*/
 	public String duplicationNickCheck(String nickname, SqlSession sqlsession) throws Exception {
 		String result;
 		memberDao = sqlsession.getMapper(MemberDao.class);
@@ -126,7 +134,11 @@ public class MemberService {
 		return result;
 	}
 	
-	// 로그인 시 
+	/*
+	* @date : 2017. 6. 20
+	* @description : 로그인 시 id, password 검사
+	* @return : string
+	*/
 	public String loginCheck(String username, String password) throws Exception {
 		String result = "";
 		memberDao = sqlsession.getMapper(MemberDao.class);
@@ -142,19 +154,25 @@ public class MemberService {
 		return result;
 	}
 	
-	// 회원 정보 가져오기
+	/*
+	* @date : 2017. 6. 20
+	* @description : mypage > info > 회원정보수정 위한 member정보 가져오기
+	* @return : member
+	*/
 	public Member getMemberInfo(String username, SqlSession sqlsession) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
 		Member member = memberDao.getMember(username);
 		return member;
 	}
 
-	// 회원 정보 수정
+	/*
+	* @date : 2017. 6. 20
+	* @description : mypage > info > 회원정보 수정
+	* @return : member
+	*/
 	public Member update(Member member, SqlSession sqlsession) throws Exception {
 		memberDao = sqlsession.getMapper(MemberDao.class);
-		System.out.println(member.getPassword());
 		memberDao.update(member);
 		return member;
 	}
-	
 }
