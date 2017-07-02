@@ -27,9 +27,9 @@
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">	
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css"> --%>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/LoginJoin/join.css">
-	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sweetalert.css">
+<%-- 	<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sweetalert.css">
 
-	<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
+	<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script> --%>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/facebook.js" ></script>
 	<script src="${pageContext.request.contextPath}/js/loginjoin/joinCheck.js"></script>
 	<script src="${pageContext.request.contextPath}/js/email.js"></script>

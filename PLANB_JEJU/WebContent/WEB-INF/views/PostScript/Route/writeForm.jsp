@@ -26,20 +26,7 @@
 <meta name="author" content="FREEHTML5.CO" />
 
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-	
-	
-<!-- 
- 추후 수정 (준성)
-<link rel="stylesheet" href="css/animate.css">
-<link rel="stylesheet" href="css/icomoon.css">
-<link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="css/superfish.css">
-<link rel="stylesheet" href="css/magnific-popup.css">
-<link rel="stylesheet" href="css/bootstrap-datepicker.min.css">
-<link rel="stylesheet" href="css/cs-select.css">
-<link rel="stylesheet" href="css/cs-skin-border.css">
-<link rel="stylesheet" href="css/style.css">
- -->
+
  
 <!-- 여행후기작성  -->
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -51,33 +38,11 @@
 
 <script src="${pageContext.request.contextPath}/js/postscript/write.js"></script>
 
-<!-- 
-계속 죽일지는 차후 확인
-<script src="js/jquery.easing.1.3.js"></script>
-<script src="js/jquery.waypoints.min.js"></script>
-<script src="js/sticky.js"></script>
-<script src="js/jquery.stellar.min.js"></script>
-<script src="js/hoverIntent.js"></script>
-<script src="js/superfish.js"></script>
-<script src="js/jquery.magnific-popup.min.js"></script>
-<script src="js/magnific-popup-options.js"></script>
-<script src="js/bootstrap-datepicker.min.js"></script>
-<script src="js/classie.js"></script>
-<script src="js/selectFx.js"></script>
- -->
-
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/jquery-ui.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/demos/style.css">
 
-
-<!-- <script src="/resources/demos/external/jquery-mousewheel/jquery.mousewheel.js"></script> -->
-
-<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script> -->
-
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<!-- <link rel="shortcut icon" href="favicon.ico"> -->
 
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'	rel='stylesheet' type='text/css'>
 
@@ -152,7 +117,7 @@ div.over {
 				if(routeOrder != ${routeDetail.route_order}){
 					dayOrder++;
 					$group = $("<div class='group' style='width:400px;'></div>");
-		     		$h3 = $("<h3>Day " + dayOrder + " : ${routeDetail.getRoute_date()}</h3>");
+		     		$h3 = $("<h3>Day " + dayOrder + " : ${routeDetail.route_date}</h3>");
 		     		$div = $("<div class='ui-accordion-content ui-corner-bottom ui-helper-reset ui-widget-content ui-accordion-content-active'></div>");
 		     		$sortablediv = $("<div class='sortable' id='ScheduleDay"+dayOrder+"'></div>");
 		     		
@@ -207,7 +172,6 @@ div.over {
 			$('#sitePost').addClass('active');
 			$('#site').empty();
 			$('#site').val(site.getAttribute("value"));
-			console.log('${sessionScope.SPRING_SECURITY_CONTEXT.authentication.principal.username}');
 			console.log('${route_code}');
 
 			$.ajax({
@@ -275,9 +239,9 @@ div.over {
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="routePost">
 						<div class="table-responsive">
-							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.getRoute_code()}" method="POST">
+							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.route_code}" method="POST">
 								<div role="tabpanel" class="tab-pane active" id="route">
-									<input type="text" class="form-control" value="${route.getRoutename()}" name="routename" readonly><br>
+									<input type="text" class="form-control" value="${route.routename}" name="routename" readonly><br>
 									<textarea class="form-control" id="route_comment" name="comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
 									<br>
 									<div align="center">
@@ -308,10 +272,10 @@ div.over {
 							
 							<input type="text" class="form-control" id="site" name="site" placeholder="여행지를 선택해주세요" readonly><br>
 							<textarea name="comment" class="form-control" id="site_comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
-							<input type="hidden" id="route_code" name="route_code" value="${route_code}">
-							<input type="hidden" id="route_order" name="route_order" value="${route_order}">
-							<input type="hidden" id="route_date" name="route_date" value="${route_date}">
-							<input type="hidden" id="category" name="category" value="${category}">
+							<input type="hidden" id="route_code" name="route_code" >
+							<input type="hidden" id="route_order" name="route_order" >
+							<input type="hidden" id="route_date" name="route_date">
+							<input type="hidden" id="category" name="category">
 							<br>
 							<div align="center">
 								<div class="checkbox">

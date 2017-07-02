@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 
-  <link rel="shortcut icon" href="${pageContext.request.contextPath}/message/ico/favicon.png">
+  <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png">
 
 	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 	
@@ -44,8 +44,8 @@
 	<script src="${pageContext.request.contextPath}/js/hoverIntent.js"></script>
 	<script src="${pageContext.request.contextPath}/js/superfish.js"></script>
  	<!-- Magnific Popup -->
-	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/magnific-popup-options.js"></script>
+<%-- 	<script src="${pageContext.request.contextPath}/js/jquery.magnific-popup.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/magnific-popup-options.js"></script> --%>
 	<!-- Date Picker -->
 	<script src="${pageContext.request.contextPath}/js/bootstrap-datepicker.min.js"></script>
 	<!-- CS Select -->

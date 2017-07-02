@@ -6,24 +6,15 @@
 @Desc : 일정 수정
 --%>
 
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<script src="https://code.jquery.com/jquery-3.2.1.min.js"
-	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
-	crossorigin="anonymous"></script>
-<script
-	src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d"></script>
-
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=ce6f02bc-1480-3fc6-9622-5a2fb5dc009d"></script>
 <link rel="stylesheet" href="css/plana_tmap.css">
 
-
-
 <!-- Start : 일정부분 적용 링크 -->
-
 
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
@@ -31,25 +22,15 @@
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
-
-<!-- Icomo
-
- Icon Fonts-->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/icomoon.css">
+<!-- Icomo Icon Fonts-->
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/icomoon.css">
 <!-- Bootstrap  -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/bootstrap.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/bootstrap.css">
 <!-- Superfish -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/superfish.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/superfish.css">
 <!-- histroy css -->
-<link rel="stylesheet"
-	href="<%=request.getContextPath()%>/css/history.css">
-	
-	
-	
-	
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/history.css">
+
 <!-- 모달 CSS -->
 <!-- <link rel="stylesheet"
 	href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
@@ -127,6 +108,7 @@ $( function() {
 	
 	// 여행지 검색 버튼 클릭
 	$("#searchSiteBtn").on("click", function() {
+		
 		// 검색어 저장
 		searchWordSave = $("#searchWord").val();
 		
@@ -139,38 +121,7 @@ $( function() {
 		$("#searchWord").val('');
 	});
 
-	$(document).on("click","#submit_route_detail", function(event){ 
-		
-		  var lastcustomizedRouteList = $('.sortable').find('.sch_content').map(function(i, el) {
-			  /* console.log($(el).data('sitedata')); */
-		        return $(el).data('sitedata')
-	      }).get()
-	      
-	      //input태그에 들어가는 Site정보 확인용 
-	      alert(JSON.stringify(lastcustomizedRouteList)); 
-		  
-		  // 현재 저장되어 있는 data empty
-		  $('#route_list_form_innerdiv').empty();
-		  
-		  //submit 할 때 보낼 경로 정보 reload - form 태그 안에 hidden input 값으로 추가
-		  $.each(lastcustomizedRouteList, function( index, value ) {
-			
-			    var $route_order = $("<input type='hidden' name='routeDetailList["+index+"].route_order' value="+(value.route_order)+">");
-				var $username = $("<input type='hidden' name='routeDetailList["+index+"].username' value='"+value.username+"'>");
-				var $route_code = $("<input type='hidden' name='routeDetailList["+index+"].route_code' value="+value.route_code+">");
-				var $route_date = $("<input type='hidden' name='routeDetailList["+index+"].route_date' value='"+value.route_date+"'>");
-				var $site = $("<input type='hidden' name='routeDetailList["+index+"].site' value='"+value.site+"'>");
-				var $lon = $("<input type='hidden' name='routeDetailList["+index+"].lon' value='"+value.lon+"'>");
-				var $lat = $("<input type='hidden' name='routeDetailList["+index+"].lat' value='"+value.lat+"'>");
-				var $category = $("<input type='hidden' name='routeDetailList["+index+"].category' value='"+value.category+"'>");
-				var $stime = $("<input type='hidden' name='routeDetailList["+index+"].stime' value="+value.stime+">");
-				var $etime = $("<input type='hidden' name='routeDetailList["+index+"].etime' value="+value.etime+">");
-				
-				$('#route_list_form_innerdiv').append($route_order).append($username).append($route_code).append($route_date).append($site).append($lon).append($lat).append($category).append($stime).append($etime);
-						
-			});
-       
-  	});
+	
 	/* $('#accordion2').accordion('refresh'); */
 	
  } );
@@ -266,9 +217,9 @@ $( function() {
 				contentType: "application/json; charset=UTF-8",
 				success : function(result){
 					if(result==1){
-						alert('수정 완료');
+						swal('수정 완료');
 					}else{
-						alert('수정 안됨');
+						swal('수정 안됨');
 					}
 					
 				},
@@ -314,7 +265,7 @@ $( function() {
 	            addMarker(options);
 	        });
 	    }else {
-	        alert('검색결과가 없습니다.');
+	        //alert('검색결과가 없습니다.');
 	    }
 	    map.zoomToExtent(poi_markerLayer.getDataExtent());
 	    tdata.events.unregister("onComplete", tdata, onCompleteTData);
@@ -707,6 +658,28 @@ $( function() {
          
          // sortable div안에 각 Site div
          function sch_contentClick(sch_content){
+        	
+        	 
+        	 swal({
+				  title: "수정 요청",
+				  text: "여행지 수정을 원하신다면 \n새로운 여행지를 검색해 선택해주세요!",
+				  confirmButtonText: "OK"
+			},
+			function(isConfirm){
+			  if (isConfirm) {
+				//input box 커서 
+				  $('#searchWord').focus();
+			  } /* else {
+				swal({
+					  title: "회원가입 실패",
+					  text: "다시 회원가입 해주세요",
+					  timer: 2000,
+					  showConfirmButton: false
+				});
+				location.href = "../../LoginJoin/NJoin.do";
+			  } */
+			});
+        	 
         	 
         	 sch_content_layer.clearMarkers();
         	 
@@ -756,8 +729,7 @@ $( function() {
 			  // 최대 줌 상태에서 13레벨로 reZoom
 			  map.zoomTo(13);
 		     
-			  //input box 커서 
-			  $('#searchWord').focus();
+			  
 			  
          }
          

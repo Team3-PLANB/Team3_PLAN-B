@@ -58,13 +58,10 @@ public class SitePostscriptService {
 	* @return : 
 	*/
 	public List<SitePostscript> listSitePostscript(String username, String searchWord) throws ClassNotFoundException, SQLException {
-		System.out.println("여행지 후기게시판 리스트 서비스 들어옴");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
-		System.out.println("username : " + username);
 		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getList(username, searchWord);
 		
 		return sitePostscriptList;
-
 	}
 	
 	/*
@@ -74,15 +71,24 @@ public class SitePostscriptService {
 	* @return : List<SitePostscript> 찜한 여행지 후기 리스트
 	*/
 	public List<SitePostscript> listLikeRoutePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
-		System.out.println("찜한 여행지 후기게시판 리스트 서비스 들어옴");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
-		System.out.println("username : " + username);
 		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getLikeList(username, searchWord);
 		
 		return sitePostscriptList;
-
 	}
 	
+	/*
+	* @date : 2017.07.02
+	* @description : 나의 여행지 후기 리스트
+	* @parameter : String username 로그인한 유저 아이디, String searchWord 검색 태그
+	* @return : List<SitePostscript> 나의 여행지 후기 리스트
+	*/
+	public List<SitePostscript> listMyRoutePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getMyList(username, searchWord);
+		
+		return sitePostscriptList;
+	}
 	
 	/*
 	* @date : 2017. 6. 21
@@ -187,6 +193,20 @@ public class SitePostscriptService {
 	}
 	
 	/*
+	* @date : 2017.07.01
+	* @description : 여행지 후기 사진 가져오기
+	* @parameter : 
+	* @return :  
+	*/
+	public List<SitePostscriptPhoto> getSitePostPhotoList(int site_postscript_rownum) throws ClassNotFoundException, SQLException{
+		System.out.println("여행지 후기 사진 가져오기");
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		List<SitePostscriptPhoto> sitePostscriptPhotoList = sitePostscriptDao.getPhoto(site_postscript_rownum);
+		System.out.println("sitePostscriptPhotoList : " + sitePostscriptPhotoList);
+		return sitePostscriptPhotoList;
+	}
+	
+	/*
 	* @date : 2017. 6. 28
 	* @description : 여행지 후기 등록
 	* @parameter : 
@@ -269,8 +289,7 @@ public class SitePostscriptService {
         	System.out.println("파일 없음");
         }else{
         	for(int i = 0; i < multi.size(); i++) {
-        		try{
-        			
+        		try{        			
         			// 파일 중복명 처리
                     String genId = UUID.randomUUID().toString();
                     System.out.println("파일명 중복 방지 코드 : " + genId);
@@ -286,21 +305,24 @@ public class SitePostscriptService {
                     String savePath = realFolder + saveFileName; // 저장 될 파일 경로
      
                     long fileSize = multi.get(i).getSize(); // 파일 사이즈
-     
-                    multi.get(i).transferTo(new File(savePath)); // 파일 저장
                     
-                    sitePostscriptPhoto.setPhoto_src(saveFileName);
-                    
-                    System.out.println(sitePostscriptPhoto);
-                    
-                    sitePostscriptDao.insertPhoto(sitePostscriptPhoto);        			
-        			
-        			byte fileData[] = multi.get(i).getBytes();
-                     
-                    fos = new FileOutputStream(realFolder + saveFileName);
-                     
-                    fos.write(fileData);
-                 
+
+                    if(originalfileName.contains(".")){
+                    	// 파일 저장
+                        multi.get(i).transferTo(new File(savePath)); 
+                        
+                        sitePostscriptPhoto.setPhoto_src(saveFileName);
+                        
+                        System.out.println(sitePostscriptPhoto);
+                        
+                        sitePostscriptDao.insertPhoto(sitePostscriptPhoto);        			
+            			
+            			byte fileData[] = multi.get(i).getBytes();
+                         
+                        fos = new FileOutputStream(realFolder + saveFileName);
+                         
+                        fos.write(fileData);
+                    }
                 }catch(Exception e){
                     e.printStackTrace();    
                 }finally{

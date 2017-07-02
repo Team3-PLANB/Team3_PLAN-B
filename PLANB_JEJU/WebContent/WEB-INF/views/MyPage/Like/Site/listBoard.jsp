@@ -1,49 +1,30 @@
 <%--
 @Project : PLANB_JEJU
-@File name : listBoard.jsp 
+@File name : MyPage > Like > Site > listBoard.jsp 
 @Author : 임정연 & 정다혜
 @Date : 2017.06.16 & 2017.07.01
 @Last Edit Date : 2017.07.01
 @Desc : 마이페이지 > 찜한 후기 > 찜한 여행지 후기 리스트
 --%>
 
-
-
-
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<html class="no-js">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>PLAN'B JEJU - 찜한 여행지 후기 게시판</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-<meta name="keywords"
-	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-<meta name="author" content="FREEHTML5.CO" />
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<link rel="shortcut icon" href="favicon.ico">
 
+<html class="no-js">
+
+<link rel="shortcut icon" href="favicon.ico">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/postscript.css">
 
-
 <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
-
-
 <script src="${pageContext.request.contextPath}/js/mypage/like/like.js"></script>
 
-
-</head>
 <body>
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
@@ -51,8 +32,7 @@
 				<div class="container">
 					<div class="row">
 						<%------------------------------후기 게시판의 header ----------------------------------------%>
-						<div
-							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+						<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 							<h3>찜한 여행지 후기 게시판</h3>
 							<ul class="portfolio-filter" align="center">
 								<li>
@@ -119,11 +99,8 @@
 					</div>
 				</div>
 			</div>
-
-
 		</div>
 		<!-- END fh5co-page -->
-
 	</div>
 	<!-- END fh5co-wrapper -->
 
@@ -134,7 +111,6 @@
 	<!-- Waypoints -->
 	<script src="${pageContext.request.contextPath}/js/jquery.waypoints.min.js"></script>
 	<script src="${pageContext.request.contextPath}/js/sticky.js"></script>
-
 	<!-- Stellar -->
 	<script src="${pageContext.request.contextPath}/js/jquery.stellar.min.js"></script>
 	<!-- Superfish -->
@@ -148,7 +124,6 @@
 	<!-- CS Select -->
 	<script src="${pageContext.request.contextPath}/js/classie.js"></script>
 	<script src="${pageContext.request.contextPath}/js/selectFx.js"></script>
-
 	<!-- Main JS -->
 	<script src="${pageContext.request.contextPath}/js/main.js"></script>
 

@@ -6,18 +6,15 @@
 @Desc : 마이페이지의 헤더
 --%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<link rel="stylesheet" href="../../css/MyPage/postscript.css">
-<br>
-<br>
-<br>
+<link rel="stylesheet" href="<%= request.getContextPath() %>/css/MyPage/postscript.css">
+<br><br><br>
+
 <div class="container">
 	<div class="row">
-		<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
+		<div class="col-md-8 col-md-offset-2 text-center heading-section animate-box" style="margin-bottom:0px;">
 			<h3>MY PAGE</h3>
-			<p>마이페이지입니다.</p>
 			<ul class="portfolio-filter" align="center">
 				<li>
 					<a class="btn btn-default default" href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do"

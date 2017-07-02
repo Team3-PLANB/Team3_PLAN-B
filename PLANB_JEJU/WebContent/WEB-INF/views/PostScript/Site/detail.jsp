@@ -22,27 +22,21 @@
 <meta name="keywords" content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
 <meta name="author" content="FREEHTML5.CO" />
 
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<link rel="shortcut icon" href="favicon.ico">
 
+<link rel="shortcut icon" href="favicon.ico">
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/postscript.css">
 
 
 <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
-
-
 <script src="${pageContext.request.contextPath}/js/postscript/postscript.js"></script>
-
 <script src="${pageContext.request.contextPath}/js/postscript/jssor.slider-24.1.5.min.js" type="text/javascript"></script>
-
 
 </head>
 <body>
@@ -54,7 +48,6 @@
 						<div
 							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 							<h3>여행지 후기 게시판</h3>
-							<p>여행지 후기 게시판입니다.</p>
 						</div>
 					</div>
 					<div class="row row-bottom-padded-md">
@@ -174,97 +167,6 @@
 					</div>
 				</div>
 			</div>
-
-
-			<%------------------------------이미지 슬라이더 상세 설정----------------------------------------%>
-			<%-- <div id="jssor_1"
-				style="position: relative; margin: 0 auto; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden; visibility: hidden;">
-				<!-- Loading Screen -->
-				<div data-u="loading"
-					style="position: absolute; top: 0px; left: 0px; background: url('img/loading2.gif') no-repeat 50% 50%; background-color: rgba(0, 0, 0, 0.7);"></div>
-				<div data-u="slides"
-					style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/002.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/002.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/003.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/003-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/004.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/004-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/005.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/005-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/006.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/006-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/007.jpg" /> 
-						<img data-u="thumb"	src="${pageContext.request.contextPath}/images/007-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/008.jpg" /> 
-						<img data-u="thumb"	src="${pageContext.request.contextPath}/images/008-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/009.jpg" /> 
-						<img data-u="thumb" src="${pageContext.request.contextPath}/images/009-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="${pageContext.request.contextPath}/images/010.jpg" /> 
-						<img data-u="thumb"	src="${pageContext.request.contextPath}/images/010-s62x32.jpg" />
-					</div>
-					<div>
-						<img data-u="image" src="vimages/011.jpg" /> 
-						<img data-u="thumb" src="vimages/011-s62x32.jpg" />
-					</div>
-					<a data-u="any" href="https://www.jssor.com/wordpress.html"
-						style="display: none">wordpress carousel</a>
-				</div>
-				<!-- Thumbnail Navigator -->
-				<div data-u="thumbnavigator" class="jssort03" style="position: absolute; left: 0px; bottom: 0px; width: 600px; height: 60px;" data-autocenter="1">
-					<div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-color: #000; filter: alpha(opacity = 30.0); opacity: 0.3;"></div>
-					<!-- Thumbnail Item Skin Begin -->
-					<div data-u="slides" style="cursor: default;">
-						<div data-u="prototype" class="p">
-							<div class="w">
-								<div data-u="thumbnailtemplate" class="t"></div>
-							</div>
-							<div class="c"></div>
-						</div>
-					</div>
-					<!-- Thumbnail Item Skin End -->
-				</div>
-				<!-- Arrow Navigator -->
-				<span data-u="arrowleft" class="jssora02l"
-					style="top: 0px; left: 8px; width: 55px; height: 55px;"
-					data-autocenter="2"></span> <span data-u="arrowright"
-					class="jssora02r"
-					style="top: 0px; right: 8px; width: 55px; height: 55px;"
-					data-autocenter="2"></span>
-			</div>
-			<script type="text/javascript">
-				jssor_1_slider_init();
-			</script>
-			<!-- #endregion Jssor Slider End --> --%>
-
-
-
-
-
-
-
-
-
-
-
-
 
 		</div>
 		<!-- END fh5co-page -->

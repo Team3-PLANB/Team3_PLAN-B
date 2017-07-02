@@ -4,8 +4,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="../myPageMain.jsp"></jsp:include>
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sweetalert.css">
-<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script>
+<%-- <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/sweetalert.css">
+<script src="${pageContext.request.contextPath}/js/sweetalert.min.js" ></script> --%>
 <script src="${pageContext.request.contextPath}/js/mypage/updateInfo.js" ></script>
 
 <div class="box-testimony animate-box">
