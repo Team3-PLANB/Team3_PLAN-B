@@ -1,15 +1,5 @@
 package com.planb_jeju.dto;
 
-/*
-* @FileName : LoginJoinController.java
-* @Class : LoginJoinController
-* @Project : PLANB_JEJU
-* @Date : 2017.06.07
-* @LastEditDate : 2017.06.16
-* @Author : 정다혜, 홍단비 
-* @Desc : 회원가입  / 로그인   컨트롤러
-*/
-
 public class MemberRole {
 	private String username; //이메일
 	private String password; //비밀번호
