@@ -10,37 +10,22 @@
 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html>
+
 <html class="no-js">
-<head>
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>PLAN'B JEJU - 후기 게시판</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="Free HTML5 Template by FREEHTML5.CO" />
-<meta name="keywords"
-	content="free html5, free template, free bootstrap, html5, css3, mobile first, responsive" />
-<meta name="author" content="FREEHTML5.CO" />
 
 <link rel="shortcut icon" href="favicon.ico">
-
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/animate.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap-datepicker.min.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-select.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/cs-skin-border.css">
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/style.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/postscript.css">
 
-
 <script src="${pageContext.request.contextPath}/js/modernizr-2.6.2.min.js"></script>
-
-
 <script src="${pageContext.request.contextPath}/js/postscript/postscript.js"></script>
 
-</head>
 <body>
 	<div id="fh5co-wrapper">
 		<div id="fh5co-page">
@@ -50,7 +35,6 @@
 						<div
 							class="col-md-8 col-md-offset-2 text-center heading-section animate-box">
 							<h3>루트 후기 게시판</h3>
-							<p>루트 후기 게시판입니다.</p>
 						</div>
 					</div>
 					<div class="row row-bottom-padded-md">

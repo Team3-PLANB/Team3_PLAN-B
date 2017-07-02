@@ -58,13 +58,10 @@ public class SitePostscriptService {
 	* @return : 
 	*/
 	public List<SitePostscript> listSitePostscript(String username, String searchWord) throws ClassNotFoundException, SQLException {
-		System.out.println("여행지 후기게시판 리스트 서비스 들어옴");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
-		System.out.println("username : " + username);
 		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getList(username, searchWord);
 		
 		return sitePostscriptList;
-
 	}
 	
 	/*
@@ -74,15 +71,24 @@ public class SitePostscriptService {
 	* @return : List<SitePostscript> 찜한 여행지 후기 리스트
 	*/
 	public List<SitePostscript> listLikeRoutePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
-		System.out.println("찜한 여행지 후기게시판 리스트 서비스 들어옴");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
-		System.out.println("username : " + username);
 		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getLikeList(username, searchWord);
 		
 		return sitePostscriptList;
-
 	}
 	
+	/*
+	* @date : 2017.07.02
+	* @description : 나의 여행지 후기 리스트
+	* @parameter : String username 로그인한 유저 아이디, String searchWord 검색 태그
+	* @return : List<SitePostscript> 나의 여행지 후기 리스트
+	*/
+	public List<SitePostscript> listMyRoutePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getMyList(username, searchWord);
+		
+		return sitePostscriptList;
+	}
 	
 	/*
 	* @date : 2017. 6. 21

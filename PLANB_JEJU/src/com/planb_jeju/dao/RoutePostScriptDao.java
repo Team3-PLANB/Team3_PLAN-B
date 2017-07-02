@@ -53,7 +53,7 @@ public interface RoutePostScriptDao {
 	 * @return : List<RoutePostscript> 내 루트 후기 리스트
 	 * @param spec : String username 로그인한 회원 아이디 (찜콩 현황때문에 보내줌), String searchWord 검색 태그
 	 */
-	public List<RoutePostscript> getMyList(String username) throws ClassNotFoundException, SQLException;
+	public List<RoutePostscript> getMyList(String username, String searchWord) throws ClassNotFoundException, SQLException;
 	
 	/*	
 	 * @description : 찜한 루트 후기 리스트

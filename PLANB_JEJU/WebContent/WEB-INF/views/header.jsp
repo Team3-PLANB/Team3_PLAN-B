@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/message/css/sweetalert.css">
 <script src="${pageContext.request.contextPath}/message/js/sweetalert.min.js" ></script>
-  <link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png">
-
-	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/images/favicon.png">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
 
 <header>
 	<nav class="navbar navbar-default" style="margin:0px;">
@@ -31,8 +31,8 @@
 								<a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do" class="fh5co-sub-ddown sf-with-ul">My Page</a>
 								<ul class="fh5co-sub-menu" >
 									<li><a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do">일정 관리</a></li>
-									<li><a href="${pageContext.request.contextPath}/MyPage/PostScript/postScriptMain.do">나의 후기</a></li>
-									<li><a href="${pageContext.request.contextPath}/MyPage/Like/Like.do">찜한 후기</a></li>
+									<li><a href="${pageContext.request.contextPath}/MyPage/PostScript/postscriptMain.do">나의 후기</a></li>
+									<li><a href="${pageContext.request.contextPath}/MyPage/Like/likeMain.do">찜한 후기</a></li>
 									<li><a href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do">쪽지함</a></li>
 									<li><a href="${pageContext.request.contextPath}/MyPage/Info/updateInfo.do">회원정보수정</a></li>
 								</ul>
