@@ -14,7 +14,7 @@ function route_submit() {
 		},
 		function(isConfirm){
 		  if (isConfirm) {
-				$('#routePost').submit();
+				$('#routePostfrm').submit();
 		  }
 		});
 	}
@@ -36,7 +36,7 @@ function site_submit() {
 			},
 			function(isConfirm){
 			  if (isConfirm) {
-					$('#sitePost').submit();
+					$('#sitePostfrm').submit();
 			  }
 			});
 		}

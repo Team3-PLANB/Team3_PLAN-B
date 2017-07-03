@@ -222,13 +222,13 @@ div.over {
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="routePost">
 						<div class="table-responsive">
-							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.route_code}" method="POST" id = "routePost">
+							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.route_code}" method="POST" id = "routePostfrm">
 								<div role="tabpanel" class="tab-pane active" id="route">
 									<input type="text" class="form-control" value="${route.routename}" name="routename" readonly><br>
 									<textarea class="form-control" id="route_comment" name="comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
 									<br>
 									<div align="center">
-										<input type="button" value="작성 완료" onClick="post_submit()" class="btn btn-primary">
+										<input type="button" value="작성 완료" onClick="route_submit()" class="btn btn-primary">
 									</div>
 								</div>
 							</form>
@@ -237,7 +237,7 @@ div.over {
 
 					<!-- 여행지후기 pane -->
 					<div role="tabpanel" class="tab-pane" id="sitePost">
-						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST" enctype="multipart/form-data" id = "sitePost">
+						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST" enctype="multipart/form-data" id = "sitePostfrm">
 						<div class="table-responsive">
 							<section role="main" class="l-main">
 								<div class="uploader__box js-uploader__box l-center-box" id="here">
