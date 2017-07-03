@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
 
-@RestController
-public class SocketController {
+@RestController 
+public class SocketController { //socket에 접속 되어 있는 모든 클라이언트에게 전송하는 타입
 
     private SocketService socketService;
 
@@ -27,8 +27,8 @@ public class SocketController {
      * @return Message
      * @throws Exception
      */
-    @MessageMapping("/sendTo")
-    @SendTo("/topic/all")
+    @MessageMapping("/sendTo") 
+    @SendTo("/topic/all") //받아서 다시 보내주는 설정
     public ModelMap broadcastToAll(Message message) {
         return socketService.broadcastToAll(message);
     }
@@ -40,7 +40,7 @@ public class SocketController {
      * @throws Exception
      */
     @MessageMapping("/sendToUser")
-    @SendTo("/topic/user")
+    @SendTo("/topic/user") //받아서 다시 보내주는 설정 , 보낸사람에 대한 받는 리턴 주소
     //@SendToUser("/topic/user")
     public ModelMap broadcastToUser(Message message) {
         return socketService.broadcastToUser(message);

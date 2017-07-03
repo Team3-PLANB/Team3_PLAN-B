@@ -43,14 +43,14 @@ public class SocketService {
         return response;
     }
 
-    @Transactional
+    @Transactional 
     public ModelMap broadcastToUser(Message message) {
 
         logger.info("> 소켓 메세지를 전체한테 보낼 준비중입니다...");
         logger.info("> message param = "+message);
 
         // 검증
-        if (message.getSender() == null) throw new RuntimeException("로그인 후 사용하세요.");
+        if (message.getSender() == null) throw new RuntimeException("로그인 후 사용하세요."); //서버내에서만 검증
         if (message.getReceiver() == null) throw new RuntimeException("받는 회원을 입력하세요.");
         if (message.getComment() == null) throw new RuntimeException("내용을 입력하세요.");
 

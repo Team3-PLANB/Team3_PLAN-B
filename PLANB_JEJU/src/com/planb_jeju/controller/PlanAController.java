@@ -164,7 +164,7 @@ public class PlanAController {
 	 * @return : String(View 페이지)
 	 */
 	@RequestMapping(value = "PLANA.recommend.do", method = RequestMethod.POST)
-	public String makeRecommendRoute(Principal principal, HttpServletRequest request, Route route, String personal, Model model)
+	public String makeRecommendRoute(Principal principal, HttpServletRequest request, HttpSession session, Route route, String personal, Model model)
 			throws ClassNotFoundException, SQLException, IOException, SAXException, ParserConfigurationException {
 		
 		
@@ -226,6 +226,8 @@ public class PlanAController {
 		request.setAttribute("routeMap", routeDetailMap);
 		request.setAttribute("myRouteInfo", route);
 		request.setAttribute("datesList", datesList);
+		
+		session.setAttribute("MessageReceiverId", "");
 		
 		return "PlanA.tmapMakeRoute";
 

@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/message")
-public class MessageController {
+public class MessageController { //로그인 , 메세지카운트 초기셋팅 
 
 
     @Autowired

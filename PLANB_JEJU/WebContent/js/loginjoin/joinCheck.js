@@ -33,11 +33,18 @@ function frm_submit() {
 	}else if(authnum != check){
 		swal('인증번호를 확인해주세요.');
 	} else {
-		swal('회원가입 완료! 로그인해주세요');
-		$('#joinfrm').submit();
+		swal({
+			  title: "회원가입 완료!",
+			  text: "로그인해주세요!",
+			  confirmButtonText: "OK"
+		},
+		function(isConfirm){
+		  if (isConfirm) {
+				$('#joinfrm').submit();
+		  }
+		});
 	}
 }
-
 function passwordCheck() {
 	if ($('#password').val() != $('#passwordck').val()) {
 		$('.pwdck').css('display', 'block');
@@ -61,11 +68,10 @@ function authCheck(){
 		data : {"username" : username},
 		dataType : "text",
 		success : function(result) {
-				if (!result) { 
+				if (!result) {
 					console.log("잘못된 값");
 				}else {
 					swal('인증번호가 발송되었습니다.');
-					console.log(result);
 					$('#authnum').focus();
 					$('#saveAuthNum').val(result);
 				}

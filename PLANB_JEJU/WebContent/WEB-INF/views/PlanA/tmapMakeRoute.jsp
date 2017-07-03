@@ -56,7 +56,7 @@
 	href="http://fonts.googleapis.com/css?family=Roboto:400,100,300,500">
 <link rel="stylesheet" href="message/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet" href="message/css/form-elements.css">
-<link rel="stylesheet" href="message/css/style.css"> -->
+<link rel="stylesheet" href="message/css/style.css">  -->
 
 <!-- 모달 Favicon and touch icons -->
 <link rel="shortcut icon" href="message/ico/favicon.png">
@@ -594,7 +594,12 @@ $( function() {
     				
     				
     				<c:forEach var="i" items="${item.value}" varStatus="num">
-    					
+    				
+    						// 쪽지 아이디 Session값 설정
+    						//< %Session["MessageReceiverId"] = '${i.username}' %>
+    						sessionStorage.setItem("MessageReceiverId","${i.username}");
+    						
+    						
 	    					if(routedate!='${i.route_date}'){
 	    		         		++dayCount;
 	    		         	}
@@ -1710,7 +1715,7 @@ div.over {
 </div>
 
 <!-- 경로 상세 정보 : 모달 -->
-<div class="modal fade" id="modal-register" tabindex="-1" role="dialog"
+ <div class="modal fade" id="modal-register" tabindex="-1" role="dialog"
 		aria-labelledby="modal-register-label" aria-hidden="true">
 		<div class="modal-dialog" style=float:right>
 			<div class="modal-content">
