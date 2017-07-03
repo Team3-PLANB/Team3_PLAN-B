@@ -39,14 +39,14 @@
 				<div class="row">
 					<c:forEach var="mytRoute" items="${mytRouteList}">
 						<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-							<div href="#"><img src="${pageContext.request.contextPath}/images/MyPage/mypageSchedule.jpg" alt="myroute" class="img-responsive">
+							<div href="#"><img src="${pageContext.request.contextPath}/images/travel/${mytRoute.route_thumbnail}" alt="myroute" class="img-responsive">
 								<div class="desc">
 									<span></span>
-									<h3>${mytRoute.getRoutename()}</h3>
-									<span>${mytRoute.getSday()} ~ ${mytRoute.getEday()}</span>
-									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PLANA.update.do?route_code=${mytRoute.getRoute_code()}">상세보기<i class="icon-arrow-right22"></i></a>
- 									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PostScript/History/history.do?route_code=${mytRoute.getRoute_code()}">히스토리<i class="icon-arrow-right22"></i></a>
-									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PostScript/Route/Write.do?route_code=${mytRoute.getRoute_code()}">후기 작성<i class="icon-arrow-right22"></i></a>
+									<h3>${mytRoute.routename}</h3>
+									<span>${mytRoute.sday} ~ ${mytRoute.eday}</span>
+									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PLANA.update.do?route_code=${mytRoute.route_code}">상세보기<i class="icon-arrow-right22"></i></a>
+ 									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PostScript/History/history.do?route_code=${mytRoute.route_code}">히스토리<i class="icon-arrow-right22"></i></a>
+									<a class="btn btn-primary btn-outline" href="${pageContext.request.contextPath}/PostScript/Route/Write.do?route_code=${mytRoute.route_code}">후기 작성<i class="icon-arrow-right22"></i></a>
 								</div>
 							</div>
 						</div>
