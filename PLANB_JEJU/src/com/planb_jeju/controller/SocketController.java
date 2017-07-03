@@ -9,7 +9,7 @@ import org.springframework.messaging.simp.annotation.SendToUser;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.security.Principal;
+import java.security.Principal;	
 
 @RestController 
 public class SocketController { //socket에 접속 되어 있는 모든 클라이언트에게 전송하는 타입

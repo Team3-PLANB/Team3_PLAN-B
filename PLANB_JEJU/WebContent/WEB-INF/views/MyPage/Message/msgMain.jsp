@@ -164,8 +164,7 @@
 			<ul class="nav nav-tabs" role="tablist">
 				<li role="presentation" class="active"><a href="#step1"
 					aria-controls="flights" role="tab" data-toggle="tab">받은 쪽지함</a></li>
-				<li role="presentation"><a href="#step2" aria-controls="hotels"
-					role="tab" data-toggle="tab">보낸 쪽지함</a></li>
+			
 			</ul>
 
 			<!-- Tab panes -->
@@ -174,23 +173,20 @@
 			<div class="table-responsive">
 				<table id="mytable" class="table table-bordred table-striped">
 					<thead>
-						<th><input type="checkbox" id="checkall1" /></th>
-						<th>New</th>
-						<th>보내는사람</th>
-						<th>받는사람</th>
-						<th>내용</th>
-						<th>날짜</th>
-						<th>Delete</th>
+					
+						<th>　　　　보내는사람</th>
+						<th>　　　　받는사람</th>
+						<th>　　　　내용</th>
+						<th>　　　　보낸시각</th>
+						<th>　　삭제</th>
 					</thead>
 					<tbody>
 						<c:forEach var="msg" items="${messageList}">
 						<tr>
-							<td><input type="checkbox" class="checkthis" /></td>
-							<td><c:if test="${msg.read_status eq 0}"> N </c:if></td>
-							<td>${msg.sender}</td>
-							<td>${msg.receiver}</td>
-							<td>${msg.comment}</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${msg.sendtime}"/></td>
+							<td>　　　　${msg.sender}</td>
+							<td>　　　　${msg.receiver}</td>
+							<td>　　　　${msg.comment}</td>
+							<td>　　　　<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${msg.sendtime}"/></td>
 							<td align="center">
 								<p data-placement="top" data-toggle="tooltip" title="Delete">
 									<button class="btn btn-danger btn-xs" data-title="Delete"
@@ -241,80 +237,6 @@
 								</c:if>
 							</ul>
 						</div>   
-					</div>
-				</div>
-				<div role="tabpanel" class="tab-pane" id="step2">
-					<div class="table-responsive">
-						<table id="mytable" class="table table-bordred table-striped">
-
-							<thead>
-
-								<th><input type="checkbox" id="checkall2" /></th>
-								<th>New</th>
-								<th>보내는사람</th>
-								<th>받는사람</th>
-								<th>내용</th>
-								<th>날짜</th>
-								<th>Delete</th>
-							</thead>
-							<tbody>
-								<c:forEach var="msg" items="${messageList}">
-						<tr>
-							<td><input type="checkbox" class="checkthis" /></td>
-							<td><c:if test="${msg.read_status eq 0}"> N </c:if></td>
-							<td>${msg.sender}</td>
-							<td>${msg.sender}</td>
-							<td>${msg.comment}</td>
-							<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${msg.sendtime}"/></td>
-							<td align="center">
-								<p data-placement="top" data-toggle="tooltip" title="Delete">
-									<button class="btn btn-danger btn-xs" data-title="Delete"
-											data-toggle="modal" data-target="#delete">
-									<span class="glyphicon glyphicon-trash"></span>
-									</button>
-								</p>
-							</td>
-						</tr>
-						</c:forEach>							
-						</tbody>
-						</table>
-
-						<div class="page_nb" id="list_page">
-							<ul>
-								<c:if test="${totalMessageCount>0}">
-								    <c:set var="startPage" value="${pageGroupSize*(numPageGroup-1)+1}"/>
-								    <c:set var="endPage" value="${startPage + pageGroupSize-1}"/>
-								
-									<c:if test="${endPage > pagecount}" >
-								     	<c:set var="endPage" value="${pagecount}" />
-								    </c:if>
-									
-									<c:if test="${numPageGroup > 1 }">
-										<li onclick="fnSearchGroupPagebar(${(numPageGroup-2)*pageGroupSize+1})">&lt;&lt;</li>
-									</c:if>
-									<c:if test="${cpage>1}">
-										<li onclick="fnSearchPagebar(${cpage-1},${pagesize})">&lt;</li> 
-									</c:if> 
-									<c:forEach var="i" begin="${startPage}" end="${endPage}" step="1" varStatus="status">
-										<c:choose>
-									    	<c:when test="${status.index eq cpage}">
-									        	<li><span>${status.index}</span></li>
-									    	</c:when>
-											<c:otherwise>
-												<li onclick="fnSearchPagebar(${status.index},${pagesize});">${status.index}</li>
-											</c:otherwise>
-										</c:choose>
-									</c:forEach>
-									<c:if test="${cpage<pagecount}">
-										<li onclick="fnSearchPagebar(${cpage+1},${pagesize})">&gt;</li>
-									</c:if>
-									<c:if test="${numPageGroup < pageGroupCount}">
-										<li onclick="fnSearchGroupPagebar(${numPageGroup*pageGroupSize+1})">&gt;&gt;</li>
-									</c:if>	 
-								</c:if>
-							</ul>
-						</div>   
-
 					</div>
 				</div>
 			</div>

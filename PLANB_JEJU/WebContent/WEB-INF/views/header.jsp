@@ -38,12 +38,13 @@
 								</ul>
 							</li>
 						</security:authorize>
+						<!-- !isAuthenticated() -->
 						<security:authorize access="!isAuthenticated()">
 							<li>
 								<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
 							</li>
 						</security:authorize>
-						<!-- 로그아웃 -->
+						<!-- isAuthenticated() -->
 						<security:authentication property="name" var="loginUser"/>
 						<security:authorize access="isAuthenticated()">
 							<li>

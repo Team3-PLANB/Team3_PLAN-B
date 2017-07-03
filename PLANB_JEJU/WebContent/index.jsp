@@ -57,16 +57,16 @@
 							<div class="display-tc animate-box" data-animate-effect="fadeIn">
 								<h1>PLAN'B JEJU</h1>
 								<h2>낮코밤코</h2>
-								<p>
+								
 									<a href="${pageContext.request.contextPath}/PLANA.make.do" class="btn btn-default btn-sm">일정 만들기</a>
 									<a href="${pageContext.request.contextPath}/PostScript/Route/List.do" class="btn btn-default btn-sm">후기 게시판</a>
 									<security:authorize access="!isAuthenticated()">
-									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do" class="btn btn-default btn-sm">로그인/회원가입</a>
+									<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do" class="btn btn-default btn-sm">로그인 & 회원가입</a>
 									</security:authorize>
 									<security:authorize access="isAuthenticated()">
 									<a href="${pageContext.request.contextPath}/MyPage/Schedule/schedule.do" class="btn btn-default btn-sm">마이 페이지</a>
 			            			</security:authorize>
-								</p>
+								
 							</div>
 						</div>
 					</div>

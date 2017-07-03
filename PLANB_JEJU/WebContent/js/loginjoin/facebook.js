@@ -79,7 +79,29 @@ function login() {
 									data : {"username" : username},
 									success : function(result) { // 로그인성공
 										if (result == 'true') {
-											location.href="../../Index/main.do";
+											swal({
+												title: "",
+												text : username + "님이 아니라면\n현재 PC에서 facebook에 \n로그인 된 아이디를 확인해주세요",
+												type : "warning",
+												showCancelButton: true,
+												confirmButtonText: "저예요!",
+												closeOnConfirm: false
+											},
+											function(isConfirm) {
+												if(isConfirm) {
+													swal({
+														title: "",
+														text: "OK!",
+														timer: 1000,
+														showConfirmButton: false
+													},
+													function() {
+														location.href="../../Index/main.do";
+													});
+												} else {
+													location.href="../../Index/main.do";
+												}
+											});
 										}
 									},
 									error : function(error) { // 로그인실패
@@ -102,12 +124,12 @@ function login() {
 										if (result=='true') {
 											swal({
 												  title: "회원가입 완료!",
-												  text: "로그인해주세요!",
+												  text: "한 번 더 로그인해주세요!",
 												  confirmButtonText: "OK"
 											},
 											function(isConfirm){
 											  if (isConfirm) {
-												  location.href = "../../LoginJoin/NJoin.do";
+												  location.href = "../Join/NJoin.do";
 											  } else {
 												swal({
 													  title: "회원가입 실패",
@@ -115,7 +137,7 @@ function login() {
 													  timer: 2000,
 													  showConfirmButton: false
 												});
-												location.href = "../../LoginJoin/NJoin.do";
+												location.href = "../Join/NJoin.do";
 											  }
 											});
 										}
