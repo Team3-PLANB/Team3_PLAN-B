@@ -37,7 +37,7 @@
                     ' multiple class="js-uploader__file-input uploader__file-input">' +
                     '<label for="secondaryfileinput' + index + '" style="cursor: pointer;" class="js-uploader__file-label uploader__file-label uploader__file-label--secondary">' +
                     options.secondarySelectButtonCopy + '</label>'),
-                fileList: $('<ul class="js-uploader__file-list uploader__file-list"></ul>'),
+                fileList: $('<ul class="js-uploader__file-list uploader__file-list" id = "fileListCk"></ul>'),
                 contentsContainer: $('<div class="js-uploader__contents uploader__contents"></div>'),
                 furtherInstructions: $('<p class="js-uploader__further-instructions uploader__further-instructions uploader__hide">' + options.furtherInstructionsCopy + '</p>')
             };

@@ -87,7 +87,6 @@ div.over {
 
 	<script>
 		$(document).ready(function(){
-
 			var routeOrder = 0;
 			var dayOrder = 0;
 			var $group;
@@ -103,7 +102,6 @@ div.over {
 			var $tag;
 			var $sinfo_line;
 			var $sinfo_txt;
-			var $sinfo_txt_img;
 			var scheduleday;
 			
 			<c:forEach var="routeDetail" items="${routeDetailList}">
@@ -123,16 +121,14 @@ div.over {
 				
 				// 각 Day 안에 Site 순서대로 append
 				$sch_content = $("<div class='sch_content' value=${routeDetail.site} onclick='siteInfo(this)' style='width: 350px;'></div>" );
-				$content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+				$content_img = $("<img src='${pageContext.request.contextPath}/images/category/${routeDetail.category}.JPG' class='spot_img' style='cursor: pointer;'>");
 				$spot_content_box = $("<div class='spot_content_box' style='width: 250px;'></div>");
 				$spot_name = $("<div class='spot_name' style='cursor: pointer;'> ${routeDetail.site} </div>");
 				$spot_info = $("<div class='spot_info'></div>");
-				$tag = $("<div class='tag'> ${routeDetail.category} </div>");
+				$tag = $("<div class='tag'> ${routeDetail.category_name} </div>");
 				$sinfo_line = $("<div class='sinfo_line'></div>");
 				$sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
-				$sinfo_txt_img = $("<img src='${pageContext.request.contextPath}/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
 				
-				$sinfo_txt_img.appendTo($sinfo_txt);
 				$tag.appendTo($spot_info);
 				$sinfo_line.appendTo($spot_info);
 				$sinfo_txt.appendTo($spot_info);

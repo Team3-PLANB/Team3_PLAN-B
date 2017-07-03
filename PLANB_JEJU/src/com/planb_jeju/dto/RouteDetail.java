@@ -15,6 +15,7 @@ public class RouteDetail {
 	private String lon;
 	private String lat;
 	private String category;
+	private String category_name;
 	private String stime;
 	private String etime;
 	
@@ -40,8 +41,8 @@ public class RouteDetail {
 
 
 	public RouteDetail(String routename, int route_code, String username, int route_order, String route_date,
-			String site, String lon, String lat, String category, String stime, String etime, int update_rownum,
-			String update_reason, List<RouteDetail> routeDetailList) {
+			String site, String lon, String lat, String category, String category_name, String stime, String etime,
+			int update_rownum, String update_reason, List<RouteDetail> routeDetailList) {
 		super();
 		this.routename = routename;
 		this.route_code = route_code;
@@ -52,6 +53,7 @@ public class RouteDetail {
 		this.lon = lon;
 		this.lat = lat;
 		this.category = category;
+		this.category_name = category_name;
 		this.stime = stime;
 		this.etime = etime;
 		this.update_rownum = update_rownum;
@@ -150,6 +152,16 @@ public class RouteDetail {
 	}
 
 
+	public String getCategory_name() {
+		return category_name;
+	}
+
+
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
+
+
 	public String getStime() {
 		return stime;
 	}
@@ -204,16 +216,8 @@ public class RouteDetail {
 	public String toString() {
 		return "RouteDetail [routename=" + routename + ", route_code=" + route_code + ", username=" + username
 				+ ", route_order=" + route_order + ", route_date=" + route_date + ", site=" + site + ", lon=" + lon
-				+ ", lat=" + lat + ", category=" + category + ", stime=" + stime + ", etime=" + etime
-				+ ", update_rownum=" + update_rownum + ", update_reason=" + update_reason + ", routeDetailList="
-				+ routeDetailList + "]";
-	}
-
-
-	
-
-
-	
-	
-	
+				+ ", lat=" + lat + ", category=" + category + ", category_name=" + category_name + ", stime=" + stime
+				+ ", etime=" + etime + ", update_rownum=" + update_rownum + ", update_reason=" + update_reason
+				+ ", routeDetailList=" + routeDetailList + "]";
+	}	
 }

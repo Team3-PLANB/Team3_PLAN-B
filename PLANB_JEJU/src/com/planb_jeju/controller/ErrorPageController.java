@@ -43,22 +43,9 @@ public class ErrorPageController {
 	* @param spec : -
 	* @return : View Page
 	*/
-	@RequestMapping("404.do")
+	@RequestMapping("error.do")
 	public String error404Page() throws ClassNotFoundException, SQLException {
-		return "Error.error500";
-	}
-	
-	/*
-	* @method Name : error500Page
-	* @date : 2017.07.02
-	* @author. : 정다혜
-	* @description : 500 에러 시 페이지 연결
-	* @param spec : -
-	* @return : View Page 
-	*/
-	@RequestMapping("500.do")
-	public String error500Page() throws ClassNotFoundException, SQLException {
-		return "Error.error500";
+		return "Error.error";
 	}
 
 }
