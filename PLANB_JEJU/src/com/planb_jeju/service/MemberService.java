@@ -61,7 +61,37 @@ public class MemberService {
 		String from = "dahye9666@gmail.com"; // 보내는 메일
 		String to = username;
 
-		String content = "인증번호 [ " + authNum + " ] 를 정확하게 입력해주세요.";
+		String content = "<p style='text-align:center;' align='center'>"
+							+ "<b>"
+								+ "<span style='font-family:Arial; font-size: 18pt;'>"
+									+ "<span style='font-family:Arial;'>안녕하세요, </span>"
+									+ "<span style='font-family:Arial;'>"
+										+ "<span style='font-family:Arial; color:rgb(255, 108, 0);'>PLAN'B JEJU</span> 입니다!"
+									+ "</span>"
+								+ "</span>"
+								+ "<span style='font-size:18pt; font-family:Arial;'>&nbsp;</span>"
+							+ "</b>"
+						+ "</p>"
+						+ "<p style='text-align:center;' align='center'>"
+							+ "<b>"
+								+ "<span style='font-size:18pt; font-family:Arial;'>"
+									+ "<img src='http://blogfiles.naver.net/MjAxNzA3MDNfMjQ3/MDAxNDk5MDQwODUxNDA2.F7XIkS4Ry_nk-FAko6PlgXKoETd9LBXXb3FnNA-lne8g.JoXRW4CZMfSg5UyYSpZAh9S3coz2Ma0AYphiMMsms_sg.PNG.ekgp840/planb_jeju.png' s_type='attachment' s_subtype='photo' width='500' height='310' rwidth='500' rheight='310' imgqe='true' title='planb_jeju.png' jsonvalue='%7B%7D' style='width:500px; height:310px; border-color:rgb(0, 0, 0); rwidth:500px; rheight:310px;' >"
+								+ "</span>"
+							+ "</b>"
+						+ "</p>"
+						+ "<p style='text-align:center;' align='center'>"
+							+ "<b style='font-family:Arial; font-size:18pt;'>아래의 인증번호를 정확하게 입력해주세요.</b>"
+						+ "</p>"
+						+ "<p style='text-align:center;' align='center'>"
+							+ "<span style='font-family:Arial; background-color:rgb(255, 255, 255); font-size:18pt;'>"
+								+ "<b>[ &nbsp; &nbsp;<span style='font-size:18pt; font-family:Arial; color:rgb(255, 108, 0);'>" + authNum + "&nbsp; &nbsp;</span>]</b>"
+							+ "</span>"
+						+ "</p>"
+						+ "<p style='text-align:center;' align='center'>"
+							+ "<span style='font-family:Arial; font-size:18pt; color:rgb(0, 0, 0);'>"
+								+ "<b>환영합니다 :-&gt;</b>"
+							+ "</span>"
+						+ "</p>";
 
 		try {
 			System.out.println("sendEmail() 들어옴 : " + to);
