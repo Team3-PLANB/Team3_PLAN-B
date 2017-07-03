@@ -23,7 +23,7 @@
 					<a class="btn btn-default" href="${pageContext.request.contextPath}/MyPage/PostScript/postScriptMain.do"
 						data-filter=".c">나의 후기</a></li>
 				<li>
-					<a class="btn btn-default" href="${pageContext.request.contextPath}/MyPage/Like/Like.do"
+					<a class="btn btn-default" href="${pageContext.request.contextPath}/MyPage/Like/likeMain.do"
 						data-filter=".d">찜한 후기</a></li>
 				<li>
 					<a class="btn btn-default"	href="${pageContext.request.contextPath}/MyPage/Message/msgMain.do"

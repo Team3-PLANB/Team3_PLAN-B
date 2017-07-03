@@ -30,8 +30,8 @@ public class PersonalParse {
 	}		
 
 	public static String code2shortcode(String personal_code) {
-		String personal = null;
 		personal_code = personal_code.substring(0, 5);
+		System.out.println(personal_code);
 		
 		return personal_code;
 	}
@@ -49,13 +49,14 @@ public class PersonalParse {
 			case "A0206" : personal = "문화시설"; break;
 			case "A0207" : personal = "축제"; break;
 			case "A0208" : personal = "공연/행사"; break;
+			case "A0301" : personal = "육상 레포츠"; break;
 			case "A0302" : personal = "육상 레포츠"; break;
 			case "A0303" : personal = "수상 레포츠"; break;
 			case "A0304" : personal = "항공 레포츠"; break;
 			case "A0305" : personal = "복합 레포츠"; break;
 			case "A0401" : personal = "쇼핑"; break;
 			case "A0502" : personal = "맛집"; break;
-			case "Z0101" : personal = "기타"; break;
+			default : personal = "기타"; break;
 		}
 
 		return personal;

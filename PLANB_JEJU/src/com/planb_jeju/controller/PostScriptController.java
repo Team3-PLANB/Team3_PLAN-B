@@ -180,7 +180,9 @@ public class PostScriptController {
 		List<RouteDetail> routeDetailList = routeDetailservice.getRouteDetailListForPost(route_code, username);
 		
 		for(RouteDetail routeDetail : routeDetailList){
-			routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
+			System.out.println(routeDetail.getSite() + " : " + routeDetail.getCategory());
+			routeDetail.setCategory(PersonalParse.code2shortcode(routeDetail.getCategory()));
+			routeDetail.setCategory_name(PersonalParse.code2string(routeDetail.getCategory()));
 		}
 		
 		model.addAttribute("route_code", route_code);

@@ -26,38 +26,29 @@
 <meta name="author" content="FREEHTML5.CO" />
 
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300' rel='stylesheet' type='text/css'>
-
- 
 <!-- 여행후기작성  -->
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
- 
 <!-- 갤러리 등록을 위한 css  -->
 <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
 <link href="${pageContext.request.contextPath}/dist/styles.imageuploader.css" rel="stylesheet" type="text/css">
 
 <script src="${pageContext.request.contextPath}/js/postscript/write.js"></script>
 
-
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/jquery-ui.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/demos/style.css">
 
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
 <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,300'	rel='stylesheet' type='text/css'>
 
 <!-- Icomoon Icon Fonts-->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">
-	
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/icomoon.css">	
 <!-- Bootstrap  -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">
-	
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.css">	
 <!-- Superfish -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">
-	
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/superfish.css">	
 <!-- histroy css -->
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/history.css">
-	
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/history.css">	
 <!-- 체크박스 css -->	
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/radio-bootstrap.css">
 
@@ -93,8 +84,6 @@ div.over {
 
 	<script>
 		$(document).ready(function(){
-			
-			
 			var routeOrder = 0;
 			var dayOrder = 0;
 			var $group;
@@ -110,7 +99,6 @@ div.over {
 			var $tag;
 			var $sinfo_line;
 			var $sinfo_txt;
-			var $sinfo_txt_img;
 			var scheduleday;
 			
 			<c:forEach var="routeDetail" items="${routeDetailList}">
@@ -131,16 +119,14 @@ div.over {
 				
 				// 각 Day 안에 Site 순서대로 append
 				$sch_content = $("<div class='sch_content' value=${routeDetail.site} onclick='siteInfo(this)' style='width: 350px;'></div>" );
-				$content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+				$content_img = $("<img src='${pageContext.request.contextPath}/images/category/${routeDetail.category}.JPG' class='spot_img' style='cursor: pointer;'>");
 				$spot_content_box = $("<div class='spot_content_box' style='width: 250px;'></div>");
 				$spot_name = $("<div class='spot_name' style='cursor: pointer;'> ${routeDetail.site} </div>");
 				$spot_info = $("<div class='spot_info'></div>");
-				$tag = $("<div class='tag'> ${routeDetail.category} </div>");
+				$tag = $("<div class='tag'> ${routeDetail.category_name} </div>");
 				$sinfo_line = $("<div class='sinfo_line'></div>");
 				$sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
-				$sinfo_txt_img = $("<img src='${pageContext.request.contextPath}/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
 				
-				$sinfo_txt_img.appendTo($sinfo_txt);
 				$tag.appendTo($spot_info);
 				$sinfo_line.appendTo($spot_info);
 				$sinfo_txt.appendTo($spot_info);
