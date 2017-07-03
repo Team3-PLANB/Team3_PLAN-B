@@ -77,12 +77,13 @@
 												</h3>
 												<span class="posted_by">${routePostscript.username}</span> 
 												<span class="posted_by" style="float:right;">${routePostscript.writetime}</span> 
-												
-												<span id="tag">
-													<c:forEach var="postTag" items="${routePostscript.routePostscriptTag}">
-														<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
-													</c:forEach>
-												</span>
+												<div>
+													<span id="tag" style="width:100%; height:80px">
+														<c:forEach var="postTag" items="${routePostscript.routePostscriptTag}">
+															<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+														</c:forEach>
+													</span>
+												</div>
 												<span id="contentElement">
 												</span>
 												<input type="hidden" id="route_postscript_rownum" value="${routePostscript.route_postscript_rownum}">

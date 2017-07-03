@@ -77,7 +77,7 @@
 												</h3>
 												<span class="posted_by">${sitePostscript.username}</span> 
 												<span class="posted_by" style="float:right;">${sitePostscript.writetime}</span> 
-												<span>
+												<span style="width:100%; height:80px">
 													<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
 														<a href="${pageContext.request.contextPath}/MyPage/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 													</c:forEach>

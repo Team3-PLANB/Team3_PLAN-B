@@ -83,14 +83,13 @@
 												<span class="posted_by">${routePostscript.username}</span>
 												<input id="writer" type="hidden" value="${routePostscript.username}">
 												<span class="posted_by" style="float:right;">${routePostscript.writetime}</span> 
-												<span>
+												<span style="width:100%">
 													<c:forEach var="postTag" items="${routePostscript.routePostscriptTag}">
 														<a href="${pageContext.request.contextPath}/MyPage/Like/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 													</c:forEach>
 												</span>
 												<span id="contentElement">
 												</span>
-												<p><a href="#" id="btn-message-modal">쪽지 쓰기</a></p>
 											</div>
 										</div>
 									</div>

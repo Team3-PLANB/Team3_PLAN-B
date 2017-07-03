@@ -101,14 +101,16 @@
 												</span>
 												<span class="posted_by">${sitePostscript.getUsername()}</span> 
 												<span class="posted_by" style="float:right;">${sitePostscript.getWritetime()}</span> 
-												<span>
-													<c:forEach var="postTag" items="${sitePostscript.getSitePostscriptTag()}">
-														<a href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
-													</c:forEach>
-												</span>
+												
+													
+													<span style="width:100%">
+														<c:forEach var="postTag" items="${sitePostscript.getSitePostscriptTag()}">
+															<a href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+														</c:forEach>
+													</span>
+												
 												<span id="contentElement">
 												</span>
-												<p><a href="#">쪽지 쓰기</a></p>
 											</div>
 										</div>
 									</div>
