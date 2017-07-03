@@ -115,7 +115,7 @@
 						<%------------------------------목록으로 버튼 ----------------------------------------%>
 					</div>
 					<div align="center">
-						<a href="List.do" class="btn btn-primary">목록으로<i class="icon-arrow-right22"></i></a>
+						<a href="${pageContext.request.contextPath}/MyPage/PostScript/Site/List.do" class="btn btn-primary">목록으로<i class="icon-arrow-right22"></i></a>
 					</div>
 				</div>
 			</div>

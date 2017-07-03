@@ -161,7 +161,7 @@ public class MyPageController {
 			username = principal.getName();
 		}
 		
-		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listMyRoutePost(username, searchWord);
+		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listMySitePost(username, searchWord);
 
 		for (SitePostscript post : sitePostscriptList) {
 			sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(post);
@@ -348,6 +348,7 @@ public class MyPageController {
     		model.addAttribute("sitePostscriptList", sitePostscriptList);
     		model.addAttribute("searchWord", searchWord);
     		
+    		
     		return "MyPage.Like.Site.listBoard";	
     	}
     		
@@ -365,6 +366,10 @@ public class MyPageController {
     		    		
     		model.addAttribute("sitePostscript", sitePostscript);
     		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
+    		
+    		// 사진 절대 경로
+    		String path = "/kosta151/Spring/Spring_Labs_STS/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/PLANB_JEJU";
+    		model.addAttribute("path", path);
     		
     		return "MyPage.Like.Site.detail";		
     	}
