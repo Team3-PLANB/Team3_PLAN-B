@@ -132,16 +132,16 @@
 										<div class="col-xxs-12 col-xs-6 mt" >
 											<div class="input-field" >
 												<input type="text"	class="form-control" id="authnum" name="authnum"
-														placeholder="인증 번호 7자리를 입력해주세요" style="margin-left:30%;" autocomplete="off">
+														placeholder="　　인증 번호 7자리를 입력해주세요" style="margin-left:30%;" autocomplete="off">
 												<input type="button" onclick="authNumCheck()" class="btn btn-primary btn-block" style="margin-top:20px;width:220%;height:60px;" id = "authNumCheck" value="이메일 인증하기">
 												
 											</div>
 										</div>
 										<div class="col-xxs-12 col-xs-6 mt" style="clear: both;margin-top:20px;">
-											<div class="input-field" >
+											<div class="input-field">
 												<label for="password">소셜 계정으로 회원가입</label> 
 												<a onclick="login()">
-													<img src="<%=request.getContextPath() %>/images/logo/facebook-login-blue.png">
+													　　　　<img src="<%=request.getContextPath() %>/images/logo/facebook-login-blue.png">
 												</a>
 												<%-- <a href="">
 													<img src="<%=request.getContextPath() %>/images/logo/005-google-plus.png">

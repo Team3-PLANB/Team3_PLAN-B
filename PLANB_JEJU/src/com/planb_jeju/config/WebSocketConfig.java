@@ -18,7 +18,14 @@ import javax.servlet.http.HttpServletRequest;
  * http://heowc.tistory.com/10
  *
  *	웹소켓 관련 설정 클래스 
+ *	@Class : WebSocketController
+  	@Date : 2017.06.30
+  	@Author : 이준성
+  	@Board : 2017. 06. 30.
+  	@Desc : 웹소켓 설정 클래스
  */
+  
+
 @Configuration
 @EnableWebSocketMessageBroker	
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
@@ -33,6 +40,4 @@ public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
     	registry.addEndpoint("/websocket").withSockJS(); //웹소켓 서버 접속을 위한 url 설정 정의 [withSockJS] 라이브러리를 사용
     }
-
-  
 }
