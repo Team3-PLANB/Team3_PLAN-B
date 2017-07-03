@@ -25,9 +25,11 @@ function site_submit() {
 	if($('#site_comment').val() == null || $('#site_comment').val() == ''){
 		swal("한 글자의 후기도 소중해요!");
 		$('#route_comment').focus();
-	}else {
+	} else {
 		if($('#fileListCk').children("li").size() <= 0 ) {
 			swal("한 장의 사진도 소중해요!");
+		} else if ($('#site').val() == null || $('#site').val() == '') {
+			swal("여행지를 선택해주세요!");
 		} else {
 			swal({
 				  title: "작성 완료",
