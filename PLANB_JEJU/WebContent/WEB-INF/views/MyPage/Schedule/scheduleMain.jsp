@@ -39,7 +39,7 @@
 				<div class="row">
 					<c:forEach var="mytRoute" items="${mytRouteList}">
 						<div class="col-md-4 col-sm-6 fh5co-tours animate-box fadeInUp animated" data-animate-effect="fadeIn">
-							<div href="#"><img src="${pageContext.request.contextPath}/images/travel/${mytRoute.route_thumbnail}" alt="myroute" class="img-responsive">
+							<div href="#"><img src="${pageContext.request.contextPath}/images/travel/${mytRoute.route_thumbnail}" alt="myroute" class="img-responsive" style="width:359px; height:359px;">
 								<div class="desc">
 									<span></span>
 									<h3>${mytRoute.routename}</h3>
