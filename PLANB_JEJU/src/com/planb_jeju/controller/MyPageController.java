@@ -161,7 +161,7 @@ public class MyPageController {
 			username = principal.getName();
 		}
 		
-		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listMyRoutePost(username, searchWord);
+		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listMySitePost(username, searchWord);
 
 		for (SitePostscript post : sitePostscriptList) {
 			sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(post);

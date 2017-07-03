@@ -86,7 +86,7 @@ public class SitePostscriptService {
 	* @parameter : String username 로그인한 유저 아이디, String searchWord 검색 태그
 	* @return : List<SitePostscript> 나의 여행지 후기 리스트
 	*/
-	public List<SitePostscript> listMyRoutePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
+	public List<SitePostscript> listMySitePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getMyList(username, searchWord);
 		
