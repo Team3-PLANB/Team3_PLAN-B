@@ -18,7 +18,6 @@ public class MainPageController {
 	/* mainpage가기 */
 	@RequestMapping("Index/main.do")
 	public String mainpage() {
-		System.out.println("Index/main.do 컨트롤러 들어옴");
 		return "Main.mainpage";
 
 	}

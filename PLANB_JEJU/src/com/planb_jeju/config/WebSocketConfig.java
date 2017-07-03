@@ -16,29 +16,23 @@ import javax.servlet.http.HttpServletRequest;
  * https://www.phychode.com/sprt/blog/sprtBlogPost.pem?blogSeq=346
  * http://clearpal7.blogspot.kr/2016/07/18-websocekt-stomp_25.html
  * http://heowc.tistory.com/10
+ *
+ *	웹소켓 관련 설정 클래스 
  */
 @Configuration
-@EnableWebSocketMessageBroker
+@EnableWebSocketMessageBroker	
 public class WebSocketConfig extends AbstractWebSocketMessageBrokerConfigurer {
-
+									
     @Override
     public void configureMessageBroker(MessageBrokerRegistry config) {
-        config.enableSimpleBroker("/topic");
-        config.setApplicationDestinationPrefixes("/stomp");
+        config.enableSimpleBroker("/topic");  //보내는 사람 프리픽스
+        config.setApplicationDestinationPrefixes("/stomp"); // 받는사람 프리픽스 역할
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
-    	registry.addEndpoint("/websocket").withSockJS();
+    	registry.addEndpoint("/websocket").withSockJS(); //웹소켓 서버 접속을 위한 url 설정 정의 [withSockJS] 라이브러리를 사용
     }
 
-    @Override
-    public void configureClientInboundChannel(ChannelRegistration registration) {
-        super.configureClientInboundChannel(registration);
-    }
-
-    @Override
-    public void configureClientOutboundChannel(ChannelRegistration registration) {
-        registration.taskExecutor().corePoolSize(2);
-    }
+  
 }
