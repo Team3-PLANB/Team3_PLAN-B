@@ -217,7 +217,7 @@ $( function() {
 				contentType: "application/json; charset=UTF-8",
 				success : function(result){
 					if(result==1){
-						swal('수정 완료');
+						swal('경로가 수정 되었습니다');
 					}else{
 						swal('수정 안됨');
 					}
