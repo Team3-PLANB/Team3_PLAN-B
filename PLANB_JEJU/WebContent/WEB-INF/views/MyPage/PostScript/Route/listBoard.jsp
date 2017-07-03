@@ -68,7 +68,7 @@
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
 										<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}">
-											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Route.jpg" alt="">
+											<img class="img-responsive" src="${pageContext.request.contextPath}/travel/${routePostscript.route_thumbnail}" alt="">
 										</a>
 										<div class="blog-text"  style="height:400px;">
 											<div class="prod-title">

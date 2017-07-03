@@ -381,7 +381,6 @@ public class PlanAController {
 
 		return "MyPage.Schedule.scheduleMain";
 		
-
 	}
 	
 	
@@ -433,6 +432,9 @@ public class PlanAController {
 	public void insertRouteAndPersonal(Route route, String personal, String username) throws ClassNotFoundException, SQLException {
 		// principal 가져오기
 		route.setUsername(username);
+		
+		// 대표 사진 등록
+		route.setRoute_thumbnail(routeService.getRandomImg());
 
 		// route DB insert
 		routeService.insertRoute(route);

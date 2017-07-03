@@ -279,30 +279,28 @@ public class SitePostscriptService {
 				
 		FileOutputStream fos = null;
 		
-		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
+		/*String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";*/
+		String realFolder = "upload/";
 		String rootPath = mhsq.getSession().getServletContext().getRealPath("/");
         
         // 넘어온 파일을 리스트로 저장
         List<MultipartFile> multi = mhsq.getFiles("file");
-        System.out.println(multi);
         if(multi.size() == 1 && multi.get(0).getOriginalFilename().equals("")) {
-        	System.out.println("파일 없음");
         }else{
         	for(int i = 0; i < multi.size(); i++) {
         		try{        			
         			// 파일 중복명 처리
                     String genId = UUID.randomUUID().toString();
-                    System.out.println("파일명 중복 방지 코드 : " + genId);
                     
                     // 본래 파일명
                     String originalfileName = multi.get(i).getOriginalFilename();
-                    System.out.println("원래 파일 이름 : " + originalfileName);
                     
                     // 저장되는 파일 이름
-                    String saveFileName = genId + "_" + originalfileName; 
-                    System.out.println("저장되는 파일 이름 : " + saveFileName);
+                    String saveFileName = genId + "_" + originalfileName;
      
-                    String savePath = realFolder + saveFileName; // 저장 될 파일 경로
+                    String savePath = rootPath + realFolder + saveFileName; // 저장 될 파일 경로
+                    
+                    System.out.println(savePath);
      
                     long fileSize = multi.get(i).getSize(); // 파일 사이즈
                     
@@ -317,7 +315,7 @@ public class SitePostscriptService {
             			
             			byte fileData[] = multi.get(i).getBytes();
                          
-                        fos = new FileOutputStream(realFolder + saveFileName);
+                        fos = new FileOutputStream(savePath);
                          
                         fos.write(fileData);
                     }
@@ -329,7 +327,6 @@ public class SitePostscriptService {
             }
 
     		photoList = sitePostscriptDao.getPhoto(site_postscript_rownum);
-    		System.out.println(photoList);
         }
         return photoList;
 	}

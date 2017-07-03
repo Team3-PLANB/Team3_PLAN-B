@@ -180,7 +180,9 @@ public class PostScriptController {
 		List<RouteDetail> routeDetailList = routeDetailservice.getRouteDetailListForPost(route_code, username);
 		
 		for(RouteDetail routeDetail : routeDetailList){
-			routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
+			System.out.println(routeDetail.getSite() + " : " + routeDetail.getCategory());
+			routeDetail.setCategory(PersonalParse.code2shortcode(routeDetail.getCategory()));
+			routeDetail.setCategory_name(PersonalParse.code2string(routeDetail.getCategory()));
 		}
 		
 		model.addAttribute("route_code", route_code);
@@ -217,6 +219,8 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
 	public String writeSitePostscriptOk(MultipartHttpServletRequest mhsq, Principal principal, SitePostscript sitePostscript, Model model) throws Exception {
+		sitePostscript.setUsername(principal.getName());
+		
 		// 사진 절대 경로
 		String path = "/kosta151/Spring/Spring_Labs_STS/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/PLANB_JEJU";
 		
