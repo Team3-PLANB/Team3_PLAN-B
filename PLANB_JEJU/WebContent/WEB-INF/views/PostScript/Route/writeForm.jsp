@@ -185,22 +185,17 @@ div.over {
 				}
 			});
 		}
-				
+
 	</script>
-
 </head>
-
-
 
 
 <%----------------------------------일정 짜기 부분 ----------------------------------------%>
 
 <div style="background-color: white; width: 450px;" id="schedulebox2">
 	<div id="accordion" style="overflow: auto; width: 450px; height: 650px;">
-		
 	</div>
 </div>
-
 
 <div class="container"
 	style="float: left; position: relative; bottom: 522px; left: 450px;width:67%">
