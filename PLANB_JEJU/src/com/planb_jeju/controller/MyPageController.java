@@ -195,10 +195,6 @@ public class MyPageController {
 		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
 		model.addAttribute("sitePostscriptPhotoList", sitePostscriptPhotoList);
 		
-		// 사진 절대 경로
-				String path = "/kosta151/Spring/Spring_Labs_STS/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/PLANB_JEJU";
-				model.addAttribute("path", path);
-		
 		return "MyPage.PostScript.Site.detail";
      }
 
