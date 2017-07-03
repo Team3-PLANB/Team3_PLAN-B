@@ -86,7 +86,7 @@
 							<div class="col-md-12 animate-box" align="center">
 								<div align="center">
 									<a href="${pageContext.request.contextPath}/MyPage/PostScript/History/history.do?route_code=${routePostscript.route_code}" class="btn btn-primary">히스토리</a>
-									<a href="List.do" class="btn btn-primary">목록으로<i class="icon-arrow-right22"></i></a>
+									<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/List.do" class="btn btn-primary">목록으로<i class="icon-arrow-right22"></i></a>
 								</div>
 							</div>
 						</div>

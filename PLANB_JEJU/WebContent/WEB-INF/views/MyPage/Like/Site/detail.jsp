@@ -51,7 +51,7 @@
 							<div data-u="slides" style="cursor: default; position: relative; top: 0px; left: 0px; width: 600px; height: 300px; overflow: hidden;">
 								<c:forEach var="photo" items="${sitePostscriptPhotoList}">
 									<div>
-										<img data-u="image" src="${pageContext.request.contextPath}/images/PostScript/slider_1.jpg" />
+										<img data-u="image" src="${path}/upload/${photo.photo_src}" />
 										<div data-u="thumb">
 											<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
 												<a style="color:white;" href="${pageContext.request.contextPath}/MyPage/Like/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;

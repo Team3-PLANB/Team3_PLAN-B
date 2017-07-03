@@ -251,7 +251,9 @@ public class SitePostscriptService {
 		String extracHashTag = null;
 		
 		while(m.find()){
+			System.out.println(m.group());
 			extracHashTag = StringUtils.replace(m.group(), "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~) ", "");
+			System.out.println(extracHashTag);
 			
 			if(extracHashTag != null){
 				sitePostscriptTag.setTag(extracHashTag.substring(1));
@@ -277,10 +279,8 @@ public class SitePostscriptService {
 				
 		FileOutputStream fos = null;
 		
-		/*String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";*/
+		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
 		String rootPath = mhsq.getSession().getServletContext().getRealPath("/");
-		String realFolder = "upload";
-		System.out.println("rootPath" + rootPath);
         
         // 넘어온 파일을 리스트로 저장
         List<MultipartFile> multi = mhsq.getFiles("file");
@@ -312,8 +312,6 @@ public class SitePostscriptService {
                         multi.get(i).transferTo(new File(savePath)); 
                         
                         sitePostscriptPhoto.setPhoto_src(saveFileName);
-                        
-                        System.out.println(sitePostscriptPhoto);
                         
                         sitePostscriptDao.insertPhoto(sitePostscriptPhoto);        			
             			
