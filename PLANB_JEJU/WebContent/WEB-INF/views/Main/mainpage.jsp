@@ -198,7 +198,7 @@
 								</a></li>
 
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/yb.png);"><a
+									style="background-image: url(../images/main/LeeYB.jpeg);"><a
 									href="#">
 										<div class="case-studies-summary">
 											<h2>YeBin Lee</h2>
@@ -220,7 +220,7 @@
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/js.jpg);"><a
+									style="background-image: url(../images/main/LeeJS.jpeg);"><a
 									href="#">
 										<div class="case-studies-summary">
 											<h2>JunSeong Lee</h2>

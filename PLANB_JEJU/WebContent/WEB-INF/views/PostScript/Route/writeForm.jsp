@@ -7,15 +7,9 @@
 @Desc : 후기 작성 페이지
 --%>
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
-<!DOCTYPE html>
-
-<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -235,7 +229,7 @@ div.over {
 					</li>
 				</ul>
 
-				<!-- Tab panes -->
+				<!-- 루트후기 pane -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="routePost">
 						<div class="table-responsive">
@@ -245,14 +239,14 @@ div.over {
 									<textarea class="form-control" id="route_comment" name="comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
 									<br>
 									<div align="center">
-										<input type="submit" value="작성 완료" class="btn btn-primary">
+										<input type="submit" value="작성 완료" onClick="post_submit()" class="btn btn-primary">
 									</div>
 								</div>
 							</form>
 						</div>
 					</div>
 
-
+					<!-- 여행지후기 pane -->
 					<div role="tabpanel" class="tab-pane" id="sitePost">
 						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST" enctype="multipart/form-data">
 						<div class="table-responsive">
@@ -318,7 +312,6 @@ div.over {
 							<div align="center">
 								<input type="submit" value="작성 완료" class="btn btn-primary btn-block">
 							</div>
-							
 						</div>
 						</form>
 					</div>
@@ -329,6 +322,3 @@ div.over {
 </div>
 
 </body>
-
-</html>
-
