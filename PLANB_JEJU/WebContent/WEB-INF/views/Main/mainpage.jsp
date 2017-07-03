@@ -179,18 +179,18 @@
 						<div class="col-md-12">
 							<ul id="fh5co-destination-list" class="animate-box">
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/ANNA.PNG);"><a
+									style="background-image: url(${pageContext.request.contextPath}/images/main/ANNA.PNG);"><a
 									href="https://www.instagram.com/annagang1105/">
 										<div class="case-studies-summary">
 											<h2>NaYeong Kang</h2>
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/wa1.png);">
+									style="background-image: url(${pageContext.request.contextPath}/images/main/wa1.png);">
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/wa2.jpg);">
+									style="background-image: url(${pageContext.request.contextPath}/images/main/wa2.jpg);">
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/jy.jpg);"><a
+									style="background-image: url(${pageContext.request.contextPath}/images/main/jy.jpg);"><a
 									href="https://www.instagram.com/lim_c_1118/">
 										<div class="case-studies-summary">
 											<h2>JeongYeon Lim</h2>
@@ -198,7 +198,7 @@
 								</a></li>
 
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/LeeYB.jpeg);"><a
+									style="background-image: url(${pageContext.request.contextPath}/images/main/LeeYB.jpg);"><a
 									href="#">
 										<div class="case-studies-summary">
 											<h2>YeBin Lee</h2>
@@ -213,25 +213,25 @@
 									</div>
 								</li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/HYE.PNG);"><a
+									style="background-image: url(${pageContext.request.contextPath}/images/main/HYE.PNG);"><a
 									href="https://www.instagram.com/hye_0216/">
 										<div class="case-studies-summary">
 											<h2>DaHye Jeong</h2>
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/LeeJS.jpeg);"><a
+									style="background-image: url(${pageContext.request.contextPath}/images/main/LeeJS.jpg);"><a
 									href="#">
 										<div class="case-studies-summary">
 											<h2>JunSeong Lee</h2>
 										</div>
 								</a></li>
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/wa3.jpg);">
+									style="background-image: url(${pageContext.request.contextPath}/images/main/wa3.jpg);">
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/wa4.jpg);">
+									style="background-image: url(${pageContext.request.contextPath}/images/main/wa4.jpg);">
 								<li class="one-forth text-center"
-									style="background-image: url(../images/main/DANBI.png);"><a
+									style="background-image: url(${pageContext.request.contextPath}/images/main/DANBI.png);"><a
 									href="https://www.instagram.com/_ddaa_n/">
 										<div class="case-studies-summary">
 											<h2>DanBi Hong</h2>
