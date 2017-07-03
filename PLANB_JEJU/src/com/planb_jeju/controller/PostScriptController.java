@@ -102,21 +102,17 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Route/List.do")
 	public String listRoutePostscript(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
-		System.out.println("루트 후기 리스트");
 		List<RoutePostscriptTag> routePostscriptTagList = null;
 		String username = null;
 		if(principal != null){
 			username = principal.getName();
-			System.out.println("로그인된 아이디 : " + username);
 		}
-		System.out.println("searchWord : " + searchWord);
 		List<RoutePostscript> routePostscriptList = routePostscriptservice.listRoutePostscript(username, searchWord);
 		
 		for(RoutePostscript post : routePostscriptList){
 			routePostscriptTagList = routePostscriptservice.getRoutePostTagList(post.getRoute_postscript_rownum());
 			post.setRoutePostscriptTag(routePostscriptTagList);
 		}
-		System.out.println("routePostscriptList : " + routePostscriptList);
 		model.addAttribute("routePostscriptList", routePostscriptList);
 		model.addAttribute("searchWord", searchWord);
 		return "PostScript.Route.listBoard";	
@@ -130,17 +126,14 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Route/Detail.do", method=RequestMethod.GET)
 	public String detailRoutePostscript(@RequestParam("route_postscript_rownum") int route_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
-		System.out.println("루트 후기 게시판 상세보기");
 		String username = null;
 		if(principal != null){
 			username = principal.getName();
-			System.out.println("로그인된 아이디 : " + username);
 		}
 		RoutePostscript routePostscript = routePostscriptservice.detailRoutePostscript(route_postscript_rownum, username);
 		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptservice.getRoutePostTagList(routePostscript.getRoute_postscript_rownum());
 		routePostscript.setRoutePostscriptTag(routePostscriptTagList);
 		
-		System.out.println("routePostscript : " + routePostscript);
 		model.addAttribute("routePostscript", routePostscript);
 		return "PostScript.Route.detail";	
 
@@ -159,16 +152,12 @@ public class PostScriptController {
 		String change = "";
 		
 		if(route_like.equals("true")){
-			System.out.println("찜콩 설정되어 있음");
 			routePostscriptservice.deleteLike(routePostscriptLike);
 			routePostscriptservice.downLikeNum(routePostscriptLike);
-			System.out.println("찜콩 해제 완료");
 			change = "tTf"; //true to false
 		}else{
-			System.out.println("찜콩 해제되어 있음");
 			routePostscriptservice.insertLike(routePostscriptLike);
 			routePostscriptservice.upLikeNum(routePostscriptLike);
-			System.out.println("찜콩 설정 완료");
 			change = "fTt"; //false to true
 		}
 		
@@ -183,11 +172,9 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Route/Write.do", method=RequestMethod.GET)
 	public String writeRoutePostscript(@RequestParam int route_code, Principal principal, Model model) throws Exception {
-		System.out.println("후기 작성");
 		String username = null;
 		if(principal != null){
 			username = principal.getName().trim();
-			System.out.println("로그인된 아이디 : " + username);
 		}
 		Route route = routeservice.getRouteInfo(route_code, username);
 		List<RouteDetail> routeDetailList = routeDetailservice.getRouteDetailListForPost(route_code, username);
@@ -196,8 +183,6 @@ public class PostScriptController {
 			routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
 		}
 		
-		System.out.println("route : " + route);
-		System.out.println("routeDetailList : " + routeDetailList);
 		model.addAttribute("route_code", route_code);
 		model.addAttribute("route", route);
 		model.addAttribute("routeDetailList", routeDetailList);
@@ -213,13 +198,9 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Route/WriteOk.do", method=RequestMethod.POST)
 	public String writeRoutePostscriptOk(@RequestParam int route_code, Principal principal, RoutePostscript routePostscript, Model model) throws Exception {
-		System.out.println("루트 후기 작성 ok");
-		System.out.println("로그인된 아이디 : " + principal.getName());
-		System.out.println("넘어온 객체 : " + routePostscript);
 		routePostscript.setUsername(principal.getName());
 		
 		RoutePostscript lastRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript);
-		
 		routePostscriptservice.insertRoutePostTag(lastRoutePostscript);
 		
 		model.addAttribute("routePostscript", lastRoutePostscript);
@@ -236,9 +217,8 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Site/WriteOk.do", method=RequestMethod.POST)
 	public String writeSitePostscriptOk(MultipartHttpServletRequest mhsq, Principal principal, SitePostscript sitePostscript, Model model) throws Exception {
-		System.out.println("로그인된 아이디 : " + principal.getName());
-		sitePostscript.setUsername(principal.getName());
-		System.out.println("넘어온 객체 : " + sitePostscript);
+		// 사진 절대 경로
+		String path = "/kosta151/Spring/Spring_Labs_STS/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/PLANB_JEJU/";
 		
 		// 사이트 후기 등록 
 		SitePostscript lastSitePostscript = sitePostscriptservice.writeSitePostscript(sitePostscript);
@@ -256,10 +236,11 @@ public class PostScriptController {
 		
 		// 방금 올렸던 후기 사진 넘겨주기
 		model.addAttribute("sitePostscriptPhotoList", photoList);
-		System.out.println("sitePostscriptPhotoList : " + photoList);
 		
 		// 방금 올렸던 후기 태그 넘겨주기
 		model.addAttribute("sitePostscriptTagList", tagList);
+		
+		model.addAttribute("path", path);
 
 		return "MyPage.PostScript.Site.detail";
 	}
@@ -272,22 +253,17 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="Site/List.do", method=RequestMethod.GET)
 	public String listSitePostscript(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
-		System.out.println("여행지 후기 게시판 들어옴");
 		List<SitePostscriptTag> sitePostscriptTagList = null;
 		String username = null;
 		if(principal != null){
 			username = principal.getName();
-			System.out.println("로그인된 아이디 : " + username);
 		}
-		System.out.println("searchWord : " + searchWord);
 		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listSitePostscript(username, searchWord);
 		
 		for(SitePostscript post : sitePostscriptList){
 			sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(post);
 			post.setSitePostscriptTag(sitePostscriptTagList);
 		}
-		
-		System.out.println("sitePostscriptList : " + sitePostscriptList);
 		model.addAttribute("sitePostscriptList", sitePostscriptList);
 		model.addAttribute("searchWord", searchWord);
 		
@@ -302,9 +278,8 @@ public class PostScriptController {
 	*/
 	@RequestMapping("Site/Detail.do")
 	public String detailSitePostscript(@RequestParam int site_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException {
-		System.out.println("사이트 후기 게시판 상세보기");
-		System.out.println("로그인된 아이디 : " + principal.getName());
-		
+		// 사진 절대 경로
+		String path = "/kosta151/Spring/Spring_Labs_STS/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/PLANB_JEJU/";
 		
 		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName());
 		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
@@ -312,11 +287,10 @@ public class PostScriptController {
 		
 		List<SitePostscriptPhoto> photoList = sitePostscriptservice.getSitePostPhotoList(site_postscript_rownum);
 		
-		System.out.println("sitePostscript : " + sitePostscript);
 		model.addAttribute("sitePostscript", sitePostscript);
 		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
 		model.addAttribute("photoList", photoList);
-		System.out.println("photoList" + photoList);
+		model.addAttribute("path", path);
 		return "PostScript.Site.detail";		
 	}
 	
@@ -334,16 +308,12 @@ public class PostScriptController {
 		String change = "";
 		
 		if(site_like.equals("true")){
-			System.out.println("찜콩 설정되어 있음");
 			sitePostscriptservice.deleteLike(sitePostscriptLike);
 			sitePostscriptservice.downLikeNum(sitePostscriptLike);
-			System.out.println("찜콩 해제 완료");
 			change = "tTf"; //true to false
 		}else{
-			System.out.println("찜콩 해제되어 있음");
 			sitePostscriptservice.insertLike(sitePostscriptLike);
 			sitePostscriptservice.upLikeNum(sitePostscriptLike);
-			System.out.println("찜콩 설정 완료");
 			change = "fTt"; //false to true
 		}
 		
@@ -359,42 +329,12 @@ public class PostScriptController {
 	*/
 	@RequestMapping(value="History/history.do", method=RequestMethod.GET)
 	public String detailHistory(@RequestParam int route_code, Principal principal, Model model) throws ClassNotFoundException, SQLException {
-		System.out.println("히스토리 상세보기");
-		System.out.println("로그인된 아이디 : " + principal.getName());
-
 		List<RouteHistory> myroutehistory = historyservice.getRouteDetail(route_code, principal.getName());
 		Route routename = routeservice.getRouteInfo(route_code, principal.getName());
 		
-		System.out.println(myroutehistory);
-		System.out.println(routename.getRoutename());
-
 		model.addAttribute("myroutehistory", myroutehistory);
 		model.addAttribute("routename", routename);
 		return "MyPage.History.myHistory";	
 	}
 	
-	/*
-	* @date : 2017. 6. 24
-	* @description : 사진 파일 불러오기
-	* @parameter : request url에 함께 들어온 request 파라메터를  받기위해 사용, principal 로그인한 회원 정보
-	* @return : String(View 페이지)
-	*/
-//	@RequestMapping(value = "Site/Photo/{num}.do", method = RequestMethod.GET)
-//	public void showPhoto(@PathVariable("num") String num, HttpServletResponse response) throws IOException, SQLException {
-//	
-//
-//	UploadImageVO board = iuploadImageService.uploadView(num);
-//
-//	response.setHeader("Content-Disposition", "inline;filename=\"" + board.getContentName() + "\"");
-//	OutputStream outputStream = response.getOutputStream();
-//	response.setContentType(board.getContentType());
-//
-//	SerialBlob blob = new SerialBlob(board.getContent());
-//
-//	IOUtils.copy(blob.getBinaryStream(), outputStream);
-//
-//	outputStream.flush();
-//	outputStream.close();
-//	}
-
 }

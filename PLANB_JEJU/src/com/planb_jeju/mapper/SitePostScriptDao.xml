@@ -153,7 +153,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="getPhoto" resultType="com.planb_jeju.dto.SitePostscriptPhoto">
 		SELECT *
 		FROM site_postscript_photo
-		WHERE site_postscript_photo_rownum = #{param1}
+		WHERE site_postscript_rownum = #{param1}
 	</select>
 	
 	<!-- 사진 삭제 -->

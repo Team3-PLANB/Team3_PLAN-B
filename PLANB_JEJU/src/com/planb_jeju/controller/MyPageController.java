@@ -38,6 +38,7 @@ import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
+import com.planb_jeju.dto.SitePostscriptPhoto;
 import com.planb_jeju.dto.SitePostscriptTag;
 import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.MessageService;
@@ -182,11 +183,18 @@ public class MyPageController {
      public String detailMySitePost(@RequestParam("site_postscript_rownum") int site_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
 		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName());
 		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
+		List<SitePostscriptPhoto> sitePostscriptPhotoList = sitePostscriptservice.getSitePostPhotoList(site_postscript_rownum);
+		
 		sitePostscript.setSitePostscriptTag(sitePostscriptTagList);
+		
+		System.out.println("sitePostscript" + sitePostscript);
+		System.out.println("sitePostscriptTagList" + sitePostscriptTagList);
+		System.out.println("sitePostscriptPhotoList" + sitePostscriptPhotoList);
 
 		model.addAttribute("sitePostscript", sitePostscript);
 		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
-
+		model.addAttribute("sitePostscriptPhotoList", sitePostscriptPhotoList);
+		
 		return "MyPage.PostScript.Site.detail";
      }
 

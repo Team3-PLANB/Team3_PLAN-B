@@ -22,6 +22,9 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -236,12 +239,9 @@ public class SitePostscriptService {
 	* @return :  
 	*/
 	public List<SitePostscriptTag> insertSitePostTag(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException{
-		System.out.println("여행지 후기 태그 만들기");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		
 		String comment = sitePostscript.getComment();
-		System.out.println("comment : " + comment);
-		
 		SitePostscriptTag sitePostscriptTag = new SitePostscriptTag();
 		sitePostscriptTag.setSite_postscript_rownum(sitePostscript.getSite_postscript_rownum());
 		
@@ -254,9 +254,7 @@ public class SitePostscriptService {
 			extracHashTag = StringUtils.replace(m.group(), "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~) ", "");
 			
 			if(extracHashTag != null){
-				System.out.println("추출 해시태그 : " + extracHashTag);
 				sitePostscriptTag.setTag(extracHashTag.substring(1));
-				System.out.println("sitePostscriptTag : " + sitePostscriptTag);
 				sitePostscriptDao.insertTag(sitePostscriptTag);
 			}
 		}
@@ -279,7 +277,10 @@ public class SitePostscriptService {
 				
 		FileOutputStream fos = null;
 		
-		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
+		/*String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";*/
+		String rootPath = mhsq.getSession().getServletContext().getRealPath("/");
+		String realFolder = "upload";
+		System.out.println("rootPath" + rootPath);
         
         // 넘어온 파일을 리스트로 저장
         List<MultipartFile> multi = mhsq.getFiles("file");
@@ -330,6 +331,7 @@ public class SitePostscriptService {
             }
 
     		photoList = sitePostscriptDao.getPhoto(site_postscript_rownum);
+    		System.out.println(photoList);
         }
         return photoList;
 	}

@@ -272,7 +272,7 @@ div.over {
 							
 							<input type="text" class="form-control" id="site" name="site" placeholder="여행지를 선택해주세요" readonly><br>
 							<textarea name="comment" class="form-control" id="site_comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
-							<input type="hidden" id="route_code" name="route_code" >
+							<input type="hidden" id="route_code" name="route_code" value="${route.route_code}">
 							<input type="hidden" id="route_order" name="route_order" >
 							<input type="hidden" id="route_date" name="route_date">
 							<input type="hidden" id="category" name="category">
