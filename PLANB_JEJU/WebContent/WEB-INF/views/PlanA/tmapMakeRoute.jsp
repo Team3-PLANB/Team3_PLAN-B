@@ -810,6 +810,7 @@ $( function() {
            
            // 수동으로 sortable 트리거 함수 생성
            $('.sortable').on('sortupdate',function(event, ui) {
+        	   sch_content_layer.clearMarkers();
         	   	
         	   	  // 각 Day 별  Site 배열 정리
 			      new_locations = $(this).find('.sch_content').map(function(i, el) {
@@ -921,7 +922,7 @@ $( function() {
 		     map.zoomToExtent(sch_content_layer.getDataExtent(), false); 
 			 //map.zoomToMinExtent(sch_content_layer.getDataExtent()); // 변동 없음
 			 // 최대 줌 상태에서 13레벨로 reZoom
-			 map.zoomTo(13);
+			 map.zoomTo(12);
 		     
 			  
          }
