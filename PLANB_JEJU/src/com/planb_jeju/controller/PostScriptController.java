@@ -206,6 +206,9 @@ public class PostScriptController {
 		RoutePostscript lastRoutePostscript = routePostscriptservice.writeRoutePostscript(routePostscript);
 		routePostscriptservice.insertRoutePostTag(lastRoutePostscript);
 		
+		List<RoutePostscriptTag> routePostscriptTagList = routePostscriptservice.getRoutePostTagList(lastRoutePostscript.getRoute_postscript_rownum());
+		lastRoutePostscript.setRoutePostscriptTag(routePostscriptTagList);
+		
 		model.addAttribute("routePostscript", lastRoutePostscript);
 		
 		return "MyPage.PostScript.Route.detail";	
