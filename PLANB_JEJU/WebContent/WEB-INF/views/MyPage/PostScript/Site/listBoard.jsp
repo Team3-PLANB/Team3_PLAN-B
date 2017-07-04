@@ -86,8 +86,8 @@
 												</span>										
 											</div>
 											<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.site_postscript_rownum}">
-											<input type = "button" class="btn btn-primary" id="edit" onclick="location.href='Edit.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}'" value="수정하기">
- 											<input type = "button" class="btn btn-primary" id="delete" onclick ="deletSitePost(this)" value ="삭제하기" style="margin-left:78px">
+											<%-- <input type = "button" class="btn btn-primary" id="edit" onclick="location.href='Edit.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}'" value="수정하기">
+ 											<input type = "button" class="btn btn-primary" id="delete" onclick ="deletSitePost(this)" value ="삭제하기" style="margin-left:78px"> --%>
  										</div>
 									</div>
 								</div>

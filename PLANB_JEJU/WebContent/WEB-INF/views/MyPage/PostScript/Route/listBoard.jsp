@@ -87,8 +87,8 @@
 												<span id="contentElement">
 												</span>
 												<input type="hidden" id="route_postscript_rownum" value="${routePostscript.route_postscript_rownum}">
-												<input type = "button" class="btn btn-primary" id="edit" onclick="location.href='Edit.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}'" value="수정하기">
-	 											<input type = "button" class="btn btn-primary" id="delete" onclick ="deletRoutePost(this)" value ="삭제하기" style="margin-left:78px">
+												<%-- <input type = "button" class="btn btn-primary" id="edit" onclick="location.href='Edit.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}'" value="수정하기">
+	 											<input type = "button" class="btn btn-primary" id="delete" onclick ="deletRoutePost(this)" value ="삭제하기" style="margin-left:78px"> --%>
 											</div>
 										</div>
 									</div>
