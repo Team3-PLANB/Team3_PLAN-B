@@ -68,7 +68,7 @@
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
 										<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}">
-											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Route.jpg" alt="">
+											<img class="img-responsive" src="${pageContext.request.contextPath}/images/travel/${routePostscript.route_thumbnail}" alt="" style="width:359px; height:359px;">
 										</a>
 										<div class="blog-text"  style="height:400px;">
 											<div class="prod-title">
@@ -77,17 +77,18 @@
 												</h3>
 												<span class="posted_by">${routePostscript.username}</span> 
 												<span class="posted_by" style="float:right;">${routePostscript.writetime}</span> 
-												
-												<span id="tag">
-													<c:forEach var="postTag" items="${routePostscript.routePostscriptTag}">
-														<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
-													</c:forEach>
-												</span>
+												<div>
+													<span id="tag" style="width:100%; height:80px">
+														<c:forEach var="postTag" items="${routePostscript.routePostscriptTag}">
+															<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+														</c:forEach>
+													</span>
+												</div>
 												<span id="contentElement">
 												</span>
 												<input type="hidden" id="route_postscript_rownum" value="${routePostscript.route_postscript_rownum}">
-												<input type = "button" class="btn btn-primary" id="edit" onclick="location.href='Edit.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}'" value="수정하기">
-	 											<input type = "button" class="btn btn-primary" id="delete" onclick ="deletRoutePost(this)" value ="삭제하기" style="margin-left:78px">
+												<%-- <input type = "button" class="btn btn-primary" id="edit" onclick="location.href='Edit.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}'" value="수정하기">
+	 											<input type = "button" class="btn btn-primary" id="delete" onclick ="deletRoutePost(this)" value ="삭제하기" style="margin-left:78px"> --%>
 											</div>
 										</div>
 									</div>

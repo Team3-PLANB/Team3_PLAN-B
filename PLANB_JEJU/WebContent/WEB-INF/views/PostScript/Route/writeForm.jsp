@@ -7,15 +7,9 @@
 @Desc : 후기 작성 페이지
 --%>
 
-
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-
-<!DOCTYPE html>
-
-<html>
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -37,7 +31,7 @@
 <link href="${pageContext.request.contextPath}/dist/styles.imageuploader.css" rel="stylesheet" type="text/css">
 
 <script src="${pageContext.request.contextPath}/js/postscript/write.js"></script>
-
+<script src="${pageContext.request.contextPath}/js/postscript/postValidation.js"></script>
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/PostScript/jquery-ui.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/demos/style.css">
@@ -93,8 +87,6 @@ div.over {
 
 	<script>
 		$(document).ready(function(){
-			
-			
 			var routeOrder = 0;
 			var dayOrder = 0;
 			var $group;
@@ -110,7 +102,6 @@ div.over {
 			var $tag;
 			var $sinfo_line;
 			var $sinfo_txt;
-			var $sinfo_txt_img;
 			var scheduleday;
 			
 			<c:forEach var="routeDetail" items="${routeDetailList}">
@@ -125,22 +116,19 @@ div.over {
 		     		$group.append($h3).append($div);
 		     		$('#accordion').append($group);
 		     		routeOrder=1;
-		     		
-		     		console.log(routeOrder);
+
 				}
 				
 				// 각 Day 안에 Site 순서대로 append
 				$sch_content = $("<div class='sch_content' value=${routeDetail.site} onclick='siteInfo(this)' style='width: 350px;'></div>" );
-				$content_img = $("<img src='http://img.earthtory.com/img/place_img/312/7505_0_et.jpg' class='spot_img' style='cursor: pointer;'>");
+				$content_img = $("<img src='${pageContext.request.contextPath}/images/category/${routeDetail.category}.JPG' class='spot_img' style='cursor: pointer;'>");
 				$spot_content_box = $("<div class='spot_content_box' style='width: 250px;'></div>");
 				$spot_name = $("<div class='spot_name' style='cursor: pointer;'> ${routeDetail.site} </div>");
 				$spot_info = $("<div class='spot_info'></div>");
-				$tag = $("<div class='tag'> ${routeDetail.category} </div>");
+				$tag = $("<div class='tag'> ${routeDetail.category_name} </div>");
 				$sinfo_line = $("<div class='sinfo_line'></div>");
 				$sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
-				$sinfo_txt_img = $("<img src='${pageContext.request.contextPath}/css/history/like.png' style='height: 20px'> 6 / 10 <span>좋아요</span>");
 				
-				$sinfo_txt_img.appendTo($sinfo_txt);
 				$tag.appendTo($spot_info);
 				$sinfo_line.appendTo($spot_info);
 				$sinfo_txt.appendTo($spot_info);
@@ -150,11 +138,9 @@ div.over {
 				$spot_content_box.appendTo($sch_content);
 				
 				scheduleday = "#ScheduleDay" + dayOrder;
-				console.log(scheduleday);
 				$(scheduleday).append($sch_content);
 				
 				routeOrder ++;
-				console.log(routeOrder);
 			</c:forEach>
 			$("#accordion").accordion("refresh");
 			
@@ -164,15 +150,13 @@ div.over {
 		
 
 		function siteInfo(site){
-			console.log("눌러짐");
-			console.log(site.getAttribute("value"));
+
 			$('#routePostNav').removeClass('active');
 			$('#sitePostNav').addClass('active');
 			$('#routePost').removeClass('active');
 			$('#sitePost').addClass('active');
 			$('#site').empty();
 			$('#site').val(site.getAttribute("value"));
-			console.log('${route_code}');
 
 			$.ajax({
 				type : "get",
@@ -182,7 +166,6 @@ div.over {
 						"site" : $('#site').val()
 						},
 				success : function(result){
-						console.log(result);
 						$("#route_order").val(result.route_order);
 						$("#route_date").val(result.route_date);
 						$("#category").val(result.category);
@@ -198,26 +181,21 @@ div.over {
 						
 				},
 				error : function(xhr) {
-					console.log("에러남 : " + xhr);
+					console.log("Error! : " + xhr);
 				}
 			});
 		}
-				
+
 	</script>
-
 </head>
-
-
 
 
 <%----------------------------------일정 짜기 부분 ----------------------------------------%>
 
 <div style="background-color: white; width: 450px;" id="schedulebox2">
 	<div id="accordion" style="overflow: auto; width: 450px; height: 650px;">
-		
 	</div>
 </div>
-
 
 <div class="container"
 	style="float: left; position: relative; bottom: 522px; left: 450px;width:67%">
@@ -235,26 +213,26 @@ div.over {
 					</li>
 				</ul>
 
-				<!-- Tab panes -->
+				<!-- 루트후기 pane -->
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane active" id="routePost">
 						<div class="table-responsive">
-							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.route_code}" method="POST">
+							<form action="${pageContext.request.contextPath}/PostScript/Route/WriteOk.do?route_code=${route.route_code}" method="POST" id = "routePostfrm">
 								<div role="tabpanel" class="tab-pane active" id="route">
 									<input type="text" class="form-control" value="${route.routename}" name="routename" readonly><br>
 									<textarea class="form-control" id="route_comment" name="comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
 									<br>
 									<div align="center">
-										<input type="submit" value="작성 완료" class="btn btn-primary">
+										<input type="button" value="작성 완료" onClick="route_submit()" class="btn btn-primary">
 									</div>
 								</div>
 							</form>
 						</div>
 					</div>
 
-
+					<!-- 여행지후기 pane -->
 					<div role="tabpanel" class="tab-pane" id="sitePost">
-						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST" enctype="multipart/form-data">
+						<form action="${pageContext.request.contextPath}/PostScript/Site/WriteOk.do" method="POST" enctype="multipart/form-data" id = "sitePostfrm">
 						<div class="table-responsive">
 							<section role="main" class="l-main">
 								<div class="uploader__box js-uploader__box l-center-box" id="here">
@@ -272,7 +250,7 @@ div.over {
 							
 							<input type="text" class="form-control" id="site" name="site" placeholder="여행지를 선택해주세요" readonly><br>
 							<textarea name="comment" class="form-control" id="site_comment" cols="30" rows="7" placeholder="후기를 작성해주세요.( #해쉬태그 사용가능 )"></textarea>
-							<input type="hidden" id="route_code" name="route_code" >
+							<input type="hidden" id="route_code" name="route_code" value="${route.route_code}">
 							<input type="hidden" id="route_order" name="route_order" >
 							<input type="hidden" id="route_date" name="route_date">
 							<input type="hidden" id="category" name="category">
@@ -281,7 +259,7 @@ div.over {
 								<div class="checkbox">
 									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/003-sun.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="inoutside" type="radio" value="실내" onclick="doOpenCheck(this);"> 
+										<input name="inoutside" type="radio" value="실내" checked="checked" onclick="doOpenCheck(this);"> 
 										<span class="checkbox-placeholder"></span> 실내
 									</label>&nbsp;&nbsp;&nbsp; 
 									<label class="checkbox-bootstrap checkbox-lg"> 
@@ -297,7 +275,7 @@ div.over {
 											<span class="checkbox-placeholder"></span> 비쌈
 									</label>&nbsp;&nbsp;&nbsp; 
 									<label class="checkbox-bootstrap checkbox-lg"> 
-										<input name="cost" type="radio" value="저렴" onclick="doOpenCheck2(this);"> 
+										<input name="cost" type="radio" value="저렴" checked="checked" onclick="doOpenCheck2(this);"> 
 										<span class="checkbox-placeholder"></span> 저렴
 									</label>
 								</div>
@@ -305,7 +283,7 @@ div.over {
 								<div class="checkbox" >
 									<img alt="" src="${pageContext.request.contextPath}/images/PostScript/001-hospital.png" width="30">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 									<label class="checkbox-bootstrap checkbox-lg"> 
-									<input name="health" type="radio" value="완만" onclick="doOpenCheck3(this);"> 
+									<input name="health" type="radio" value="완만" checked="checked" onclick="doOpenCheck3(this);"> 
 										<span class="checkbox-placeholder"></span> 완만
 									</label>&nbsp;&nbsp;&nbsp; 
 									<label class="checkbox-bootstrap checkbox-lg"> 
@@ -316,9 +294,8 @@ div.over {
 							</div>
 							<br>
 							<div align="center">
-								<input type="submit" value="작성 완료" class="btn btn-primary btn-block">
+								<input type="button" value="작성 완료" onClick = "site_submit()" class="btn btn-primary btn-block">
 							</div>
-							
 						</div>
 						</form>
 					</div>
@@ -329,6 +306,3 @@ div.over {
 </div>
 
 </body>
-
-</html>
-

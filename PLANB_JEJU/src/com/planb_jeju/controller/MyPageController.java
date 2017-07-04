@@ -38,6 +38,7 @@ import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
+import com.planb_jeju.dto.SitePostscriptPhoto;
 import com.planb_jeju.dto.SitePostscriptTag;
 import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.MessageService;
@@ -154,18 +155,23 @@ public class MyPageController {
     @RequestMapping("PostScript/Site/List.do")
     public String listMySitePost(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws ClassNotFoundException, SQLException{
  		List<SitePostscriptTag> sitePostscriptTagList = null;
+ 		SitePostscriptPhoto sitePostscriptPhoto = null;
 		String username = null;
 		
 		if (principal != null) {
 			username = principal.getName();
 		}
 		
-		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listMyRoutePost(username, searchWord);
+		List<SitePostscript> sitePostscriptList = sitePostscriptservice.listMySitePost(username, searchWord);
 
 		for (SitePostscript post : sitePostscriptList) {
 			sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(post);
 			post.setSitePostscriptTag(sitePostscriptTagList);
+			
+			sitePostscriptPhoto = sitePostscriptservice.getSitePostOnePhoto(post.getSite_postscript_rownum());
+			post.setSitePostPhoto_src(sitePostscriptPhoto.getPhoto_src());
 		}
+		
 		
  		model.addAttribute("sitePostscriptList", sitePostscriptList);
  		model.addAttribute("searchWord", searchWord);		
@@ -182,11 +188,18 @@ public class MyPageController {
      public String detailMySitePost(@RequestParam("site_postscript_rownum") int site_postscript_rownum, Principal principal, Model model) throws ClassNotFoundException, SQLException{
 		SitePostscript sitePostscript = sitePostscriptservice.detailSitePostscript(site_postscript_rownum, principal.getName());
 		List<SitePostscriptTag> sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(sitePostscript);
+		List<SitePostscriptPhoto> sitePostscriptPhotoList = sitePostscriptservice.getSitePostPhotoList(site_postscript_rownum);
+		
 		sitePostscript.setSitePostscriptTag(sitePostscriptTagList);
+		
+		System.out.println("sitePostscript" + sitePostscript);
+		System.out.println("sitePostscriptTagList" + sitePostscriptTagList);
+		System.out.println("sitePostscriptPhotoList" + sitePostscriptPhotoList);
 
 		model.addAttribute("sitePostscript", sitePostscript);
 		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
-
+		model.addAttribute("sitePostscriptPhotoList", sitePostscriptPhotoList);
+		
 		return "MyPage.PostScript.Site.detail";
      }
 
@@ -325,6 +338,7 @@ public class MyPageController {
     	@RequestMapping(value="Like/Site/List.do", method=RequestMethod.GET)
     	public String listLikeSitePost(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
     		List<SitePostscriptTag> sitePostscriptTagList = null;
+    		SitePostscriptPhoto sitePostscriptPhoto = null;
     		String username = null;
     		if(principal != null){
     			username = principal.getName();
@@ -335,10 +349,14 @@ public class MyPageController {
     		for(SitePostscript post : sitePostscriptList){
     			sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(post);
     			post.setSitePostscriptTag(sitePostscriptTagList);
+    			
+    			sitePostscriptPhoto = sitePostscriptservice.getSitePostOnePhoto(post.getSite_postscript_rownum());
+    			post.setSitePostPhoto_src(sitePostscriptPhoto.getPhoto_src());
     		}
     		
     		model.addAttribute("sitePostscriptList", sitePostscriptList);
     		model.addAttribute("searchWord", searchWord);
+    		
     		
     		return "MyPage.Like.Site.listBoard";	
     	}
@@ -357,6 +375,10 @@ public class MyPageController {
     		    		
     		model.addAttribute("sitePostscript", sitePostscript);
     		model.addAttribute("sitePostscriptTagList", sitePostscriptTagList);
+    		
+    		// 사진 절대 경로
+    		String path = "/kosta151/Spring/Spring_Labs_STS/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/PLANB_JEJU";
+    		model.addAttribute("path", path);
     		
     		return "MyPage.Like.Site.detail";		
     	}

@@ -22,6 +22,9 @@ import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,7 +86,7 @@ public class SitePostscriptService {
 	* @parameter : String username 로그인한 유저 아이디, String searchWord 검색 태그
 	* @return : List<SitePostscript> 나의 여행지 후기 리스트
 	*/
-	public List<SitePostscript> listMyRoutePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
+	public List<SitePostscript> listMySitePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		List<SitePostscript> sitePostscriptList = sitePostscriptDao.getMyList(username, searchWord);
 		
@@ -198,11 +201,22 @@ public class SitePostscriptService {
 	* @return :  
 	*/
 	public List<SitePostscriptPhoto> getSitePostPhotoList(int site_postscript_rownum) throws ClassNotFoundException, SQLException{
-		System.out.println("여행지 후기 사진 가져오기");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		List<SitePostscriptPhoto> sitePostscriptPhotoList = sitePostscriptDao.getPhoto(site_postscript_rownum);
 		System.out.println("sitePostscriptPhotoList : " + sitePostscriptPhotoList);
 		return sitePostscriptPhotoList;
+	}
+	
+	/*
+	* @date : 2017.07.04
+	* @description : 여행지 후기 대표 사진 한장 가져오기
+	* @parameter : 
+	* @return :  
+	*/
+	public SitePostscriptPhoto getSitePostOnePhoto(int site_postscript_rownum) throws ClassNotFoundException, SQLException{
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		SitePostscriptPhoto photo = sitePostscriptDao.getOnePhoto(site_postscript_rownum);
+		return photo;
 	}
 	
 	/*
@@ -236,12 +250,9 @@ public class SitePostscriptService {
 	* @return :  
 	*/
 	public List<SitePostscriptTag> insertSitePostTag(SitePostscript sitePostscript) throws ClassNotFoundException, SQLException{
-		System.out.println("여행지 후기 태그 만들기");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		
 		String comment = sitePostscript.getComment();
-		System.out.println("comment : " + comment);
-		
 		SitePostscriptTag sitePostscriptTag = new SitePostscriptTag();
 		sitePostscriptTag.setSite_postscript_rownum(sitePostscript.getSite_postscript_rownum());
 		
@@ -251,12 +262,12 @@ public class SitePostscriptService {
 		String extracHashTag = null;
 		
 		while(m.find()){
+			System.out.println(m.group());
 			extracHashTag = StringUtils.replace(m.group(), "-_+=!@#$%^&*()[]{}|\\;:'\"<>,.?/~) ", "");
+			System.out.println(extracHashTag);
 			
 			if(extracHashTag != null){
-				System.out.println("추출 해시태그 : " + extracHashTag);
 				sitePostscriptTag.setTag(extracHashTag.substring(1));
-				System.out.println("sitePostscriptTag : " + sitePostscriptTag);
 				sitePostscriptDao.insertTag(sitePostscriptTag);
 			}
 		}
@@ -279,29 +290,28 @@ public class SitePostscriptService {
 				
 		FileOutputStream fos = null;
 		
-		String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";
+		/*String realFolder = "C:/Users/dahye/git/Team3_PLAN-B/PLANB_JEJU/WebContent/upload/";*/
+		String realFolder = "upload/";
+		String rootPath = mhsq.getSession().getServletContext().getRealPath("/");
         
         // 넘어온 파일을 리스트로 저장
         List<MultipartFile> multi = mhsq.getFiles("file");
-        System.out.println(multi);
         if(multi.size() == 1 && multi.get(0).getOriginalFilename().equals("")) {
-        	System.out.println("파일 없음");
         }else{
         	for(int i = 0; i < multi.size(); i++) {
         		try{        			
         			// 파일 중복명 처리
                     String genId = UUID.randomUUID().toString();
-                    System.out.println("파일명 중복 방지 코드 : " + genId);
                     
                     // 본래 파일명
                     String originalfileName = multi.get(i).getOriginalFilename();
-                    System.out.println("원래 파일 이름 : " + originalfileName);
                     
                     // 저장되는 파일 이름
-                    String saveFileName = genId + "_" + originalfileName; 
-                    System.out.println("저장되는 파일 이름 : " + saveFileName);
+                    String saveFileName = genId + "_" + originalfileName;
      
-                    String savePath = realFolder + saveFileName; // 저장 될 파일 경로
+                    String savePath = rootPath + realFolder + saveFileName; // 저장 될 파일 경로
+                    
+                    System.out.println(savePath);
      
                     long fileSize = multi.get(i).getSize(); // 파일 사이즈
                     
@@ -312,13 +322,11 @@ public class SitePostscriptService {
                         
                         sitePostscriptPhoto.setPhoto_src(saveFileName);
                         
-                        System.out.println(sitePostscriptPhoto);
-                        
                         sitePostscriptDao.insertPhoto(sitePostscriptPhoto);        			
             			
             			byte fileData[] = multi.get(i).getBytes();
                          
-                        fos = new FileOutputStream(realFolder + saveFileName);
+                        fos = new FileOutputStream(savePath);
                          
                         fos.write(fileData);
                     }

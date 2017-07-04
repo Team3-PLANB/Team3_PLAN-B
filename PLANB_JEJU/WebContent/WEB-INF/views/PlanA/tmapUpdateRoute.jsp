@@ -175,7 +175,7 @@ $( function() {
 		console.log(schId);
 		
 		
-		$('#'+schId).find('.sitename_tag').html(markerId);
+		$('#'+schId).find('.spot_name').find('.tag').html(markerId);
 		$('#'+schId).find('span').html(searchWordSave);
 		///PLANB_JEJU/images/category/A0206.JPG
 		$('#'+schId).find('img').attr('src','${pageContext.request.contextPath}/images/category/Z0101.JPG');
@@ -205,8 +205,7 @@ $( function() {
 		 // poi마커 삭제
 		 poi_markerLayer.clearMarkers();
 		 
-		 console.log('json대상 한번 찍어보기');
-		 console.log(JSON.stringify(fixSitedataVal));
+		 
 		 //비동기 route_detail update, route_history insert
 		 $.ajax({
 				type : "post",
@@ -326,7 +325,7 @@ $( function() {
             /* centerLL = new Tmap.LonLat(14145677.4, 4511257.6); */
             centerLL = new Tmap.LonLat(14085866.64992, 3963136.5754785);
             map = new Tmap.Map({div:'map_div',
-                                width:'80%', 
+                                width:'100%', 
                                 height:'610px',
                                 transitionEffect:"resize",
                                 animation:true
@@ -461,14 +460,18 @@ $( function() {
 	    						default : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
 			    				
 	    					}
+	    					var substr  = '${i.site}'.substr(0,8);
+	    				    
+	    	    			
+	    					//var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/"+'${i.category}'+".JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
 	    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
-	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer;'>"+${i.route_order}+"</div>");
+	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer; '><div class='order' style='cursor: pointer; float:left; padding-right:8px'>"+${i.route_order}+"</div><div class='tag' style='float: left; width:120px; text-align:center; border: 1px solid #de9541;'>"+substr+"</div></div>");
 	    					var $spot_info = $("<div class='spot_info'></div>");
-	    					var $tag = $("<div class='tag sitename_tag'>"+'${i.site}'+"</div>");
+	    					//var $tag = $("<div class='tag'>"+'${i.site}'+"</div>");
 	    					var $sinfo_line = $("<div class='sinfo_line'></div>");
-	    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px'></div>");
+	    					var $sinfo_txt = $("<div class='sinfo_txt' style='padding: 0px; padding-left:15px'></div>");
 	    					var $sinfo_txt_img = $("<span>"+'${i.category}'+"</span>");
-	    					var $delete_tag = $("<div class='tag route_site_delete_tag'>X</div>");
+	    					var $delete_tag = $("<div class='tag route_site_delete_tag' style='float:right; background: #ff6535; border: 1px solid #ff6535; color: #ffffff;'>X</div>");
 	    					
 	    					// 각 Day div id 변수로 선언 / dayOrder + 1 해준 이유 : 위에서 
 	    					var scheduleday = '#'+'ScheduleDay'+(dayCount);
@@ -481,7 +484,7 @@ $( function() {
 	    					 $sinfo_txt_img.appendTo($sinfo_txt);
 	    					 
 	    					 
-	    					 $tag.appendTo($spot_info);
+	    					 //$tag.appendTo($spot_info);
 	    					 $sinfo_line.appendTo($spot_info);
 	    					 $sinfo_txt.appendTo($spot_info);
 	    					 $delete_tag.appendTo($spot_info);

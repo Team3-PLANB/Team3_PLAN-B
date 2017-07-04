@@ -662,7 +662,9 @@ $( function() {
 	    						default : var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/A0101.JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>"); break;
 			    				
 	    					} 
-	    					var substr  = '${i.site}'.substr(0,9);
+	    					var substr  = '${i.site}'.substr(0,8);
+	    
+	    			
 	    					//var $content_img = $("<img src='${pageContext.request.contextPath}/images/category/"+'${i.category}'+".JPG' class='spot_img' style='cursor: pointer;' onclick='sch_contentClick(this)'>");
 	    					var $spot_content_box = $("<div class='spot_content_box' style='width: 150px;'></div>");
 	    					var $spot_name = $("<div class='spot_name' style='cursor: pointer; '><div class='order' style='cursor: pointer; float:left; padding-right:8px'>"+${i.route_order}+"</div><div class='tag' style='float: left; width:120px; text-align:center; border: 1px solid #de9541;'>"+substr+"</div></div>");
@@ -808,6 +810,7 @@ $( function() {
            
            // 수동으로 sortable 트리거 함수 생성
            $('.sortable').on('sortupdate',function(event, ui) {
+        	   sch_content_layer.clearMarkers();
         	   	
         	   	  // 각 Day 별  Site 배열 정리
 			      new_locations = $(this).find('.sch_content').map(function(i, el) {
@@ -919,7 +922,7 @@ $( function() {
 		     map.zoomToExtent(sch_content_layer.getDataExtent(), false); 
 			 //map.zoomToMinExtent(sch_content_layer.getDataExtent()); // 변동 없음
 			 // 최대 줌 상태에서 13레벨로 reZoom
-			 map.zoomTo(13);
+			 map.zoomTo(12);
 		     
 			  
          }

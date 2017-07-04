@@ -77,13 +77,13 @@
 						<c:forEach var="sitePostscript" items="${sitePostscriptList}">
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
-										<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.getSite_postscript_rownum()}">
-											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Site.jpg" alt="">
+										<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}">
+											<img class="img-responsive" src="${pageContext.request.contextPath}/upload/${sitePostscript.sitePostPhoto_src}" alt="">
 										</a>
 										<div class="blog-text" style="height:400px;">
 											<div class="prod-title">
 												<h3>
-													<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.getSite_postscript_rownum()}">${sitePostscript.getSite()}</a>
+													<a href="${pageContext.request.contextPath}/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}">${sitePostscript.getSite()}</a>
 												</h3>
 												<span class="comment" id="like" style="float:right;">
 													<span>찜콩
@@ -101,14 +101,16 @@
 												</span>
 												<span class="posted_by">${sitePostscript.getUsername()}</span> 
 												<span class="posted_by" style="float:right;">${sitePostscript.getWritetime()}</span> 
-												<span>
-													<c:forEach var="postTag" items="${sitePostscript.getSitePostscriptTag()}">
-														<a href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
-													</c:forEach>
-												</span>
+												
+													
+													<span style="width:100%">
+														<c:forEach var="postTag" items="${sitePostscript.getSitePostscriptTag()}">
+															<a href="${pageContext.request.contextPath}/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
+														</c:forEach>
+													</span>
+												
 												<span id="contentElement">
 												</span>
-												<p><a href="#">쪽지 쓰기</a></p>
 											</div>
 										</div>
 									</div>

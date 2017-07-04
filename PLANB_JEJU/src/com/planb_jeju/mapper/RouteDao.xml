@@ -163,8 +163,8 @@ where lastT.rownum<10; -->
 			select ifnull((select count(route_code)+1 from route where username=#{username} group by username), 1)
 		</selectKey>
 		
-		INSERT INTO route(route_code, username, routename, partner_code, sday, eday)
-	    VALUES( #{route_code}, #{username}, #{routename}, #{partner_code}, #{sday}, #{eday})
+		INSERT INTO route(route_code, username, routename, partner_code, sday, eday, route_thumbnail)
+	    VALUES( #{route_code}, #{username}, #{routename}, #{partner_code}, #{sday}, #{eday}, #{route_thumbnail})
 	</insert>
 	
 	<!-- 취향 입력 -->

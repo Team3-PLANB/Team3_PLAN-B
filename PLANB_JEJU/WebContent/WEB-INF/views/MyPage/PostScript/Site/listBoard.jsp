@@ -68,7 +68,7 @@
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
 										<a href="${pageContext.request.contextPath}/MyPage/PostScript/Site/Detail.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}">
-											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Site.jpg" alt="">
+											<img class="img-responsive" src="${pageContext.request.contextPath}/upload/${sitePostscript.sitePostPhoto_src}" alt="">
 										</a>
 										<div class="blog-text" style="height:400px;">
 											<div class="prod-title">
@@ -77,7 +77,7 @@
 												</h3>
 												<span class="posted_by">${sitePostscript.username}</span> 
 												<span class="posted_by" style="float:right;">${sitePostscript.writetime}</span> 
-												<span>
+												<span style="width:100%; height:80px">
 													<c:forEach var="postTag" items="${sitePostscript.sitePostscriptTag}">
 														<a href="${pageContext.request.contextPath}/MyPage/PostScript/Site/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 													</c:forEach>
@@ -86,8 +86,8 @@
 												</span>										
 											</div>
 											<input type="hidden" id="site_postscript_rownum" value="${sitePostscript.site_postscript_rownum}">
-											<input type = "button" class="btn btn-primary" id="edit" onclick="location.href='Edit.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}'" value="수정하기">
- 											<input type = "button" class="btn btn-primary" id="delete" onclick ="deletSitePost(this)" value ="삭제하기" style="margin-left:78px">
+											<%-- <input type = "button" class="btn btn-primary" id="edit" onclick="location.href='Edit.do?site_postscript_rownum=${sitePostscript.site_postscript_rownum}'" value="수정하기">
+ 											<input type = "button" class="btn btn-primary" id="delete" onclick ="deletSitePost(this)" value ="삭제하기" style="margin-left:78px"> --%>
  										</div>
 									</div>
 								</div>

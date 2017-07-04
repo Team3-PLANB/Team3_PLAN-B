@@ -51,6 +51,16 @@
 	<!-- 에러 페이지 설정 -->
 	<error-page>
 		<error-code>404</error-code>
-		<location>/WEB-INF/views/Error/error500.jsp</location>
+		<location>/Error/error.do</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>400</error-code>
+		<location>/Error/error.do</location>
+	</error-page>
+	
+	<error-page>
+		<error-code>500</error-code>
+		<location>/Error/error.do</location>
 	</error-page>
 </web-app>

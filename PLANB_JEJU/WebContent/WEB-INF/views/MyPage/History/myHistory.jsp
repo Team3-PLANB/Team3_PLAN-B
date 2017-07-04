@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%-- <jsp:include page="../myPageMain.jsp"></jsp:include> --%>
 <head>
@@ -114,7 +113,11 @@
 				// accordion div에 append
 				$content = $("<div class = 'content' style='width: 500px; height: 350px;'></div>");
 				$plana = $("<div style = 'width: 150px'><h2 align = 'center'>PLAN-A</h2><img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' style='width:150px; height:150px' /><br> <br><p align='center'>${myroute.site}</p></div>");
-				$reason = $("<div style='width: 70px; position: relative; left: 180px; bottom: 200px;'><img src='${pageContext.request.contextPath}/images/MyPage/arrow.png' align='center' width='80px' height='80px' /><br> <br> <p>&nbsp;&nbsp;&nbsp;&nbsp;${myroutehistory[num.index-1].update_reason}</p> </div>");
+				if('${myroute.update_reason}' !== '0') {
+					$reason = $("<div style='width: 70px; position: relative; left: 180px; bottom: 200px;'><img src='${pageContext.request.contextPath}/images/MyPage/arrow.png' align='center' width='80px' height='80px' /><br> <br> <p>&nbsp;&nbsp;&nbsp;&nbsp;${myroutehistory[num.index-1].update_reason}</p> </div>");
+				} else {
+					$reason = $("<div style='width: 70px; position: relative; left: 180px; bottom: 200px;'><img src='${pageContext.request.contextPath}/images/MyPage/arrow.png' align='center' width='80px' height='80px' /><br> <br> <p>&nbsp;&nbsp;&nbsp;&nbsp;</p> </div>");					
+				}
 				$planb = $("<div style='width: 150px; position: relative; left: 300px; bottom: 446px;'> <h2 align='center'>PLAN-B</h2> <img src='${pageContext.request.contextPath}/images/MyPage/history.jpg' align='center' style='width:150px; height:150px'/><br> <br> <p align='center'>${myroutehistory[num.index-1].site}</p> </div><br>");
 				var idx = '.' + (index-1);
 				$content.append($plana).append($reason).append($planb);

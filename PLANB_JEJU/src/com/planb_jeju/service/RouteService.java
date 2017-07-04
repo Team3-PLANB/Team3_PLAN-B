@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
@@ -89,7 +90,7 @@ public class RouteService {
 	
 	
 	/*
-	* @date : 2017. 6. 23
+	* @date : 2017.06.23
 	* @Author : 정다혜
 	* @description : 루트 정보 가져오기
 	* @parameter : int route_code 루트 코드, String username 접속자 아이디
@@ -99,6 +100,21 @@ public class RouteService {
 		RouteDao routeDao = sqlsession.getMapper(RouteDao.class);
 		Route route = routeDao.getRoute(route_code, username);
 		return route;
+	}
+	
+	/*
+	* @date : 2017.07.03
+	* @Author : 정다혜
+	* @description : 랜덤 루트 대표 이미지 뽑기
+	* @parameter : 
+	* @return : String 랜덤으로 뽑힌 이미지 이름
+	*/
+	public String getRandomImg() throws ClassNotFoundException, SQLException {
+		Random generator = new Random();
+        int randnum = generator.nextInt(7) + 1;
+        System.out.println("travel" + randnum + ".jpg");
+        
+		return "travel" + randnum + ".jpg" ;
 	}
 	
 }

@@ -38,12 +38,13 @@
 								</ul>
 							</li>
 						</security:authorize>
+						<!-- !isAuthenticated() -->
 						<security:authorize access="!isAuthenticated()">
 							<li>
 								<a href="${pageContext.request.contextPath}/LoginJoin/Join/NJoin.do">LOGIN</a>
 							</li>
 						</security:authorize>
-						<!-- 로그아웃 -->
+						<!-- isAuthenticated() -->
 						<security:authentication property="name" var="loginUser"/>
 						<security:authorize access="isAuthenticated()">
 							<li>
@@ -158,7 +159,33 @@
 			// 받는 회원만 진행
 			if (obj.receiver == '${loginUser}') {
 				$('#messageBadge').text(obj.unread_count).fadeIn(1000);
-				swal("[ from ] " + obj.sender + "\n[ 받은 쪽지 ]\n" + obj.comment);
+				//swal("[ from ] " + obj.sender + "\n[ 받은 쪽지 ]\n" + obj.comment);
+				
+				swal({
+					  title: "[ from ]"+obj.sender,
+					  text: "[ 받은 쪽지 ]" + obj.comment,
+					  confirmButtonText: "읽음"
+				},
+				function(isConfirm){
+				  if (isConfirm) {
+					  $.ajax({
+							type : "post",
+							url : '${pageContext.request.contextPath}/message/unread/count/up',
+							
+							dataType : "json",
+							data : JSON.stringify({"sender":obj.sender, "receiver":obj.receiver, "comment":obj.comment}),
+							contentType: "application/json; charset=UTF-8",
+							success : function(result){
+								//결과값 전달 후에 뱃지 다시 띄우기
+								init();
+							},
+							error : function(xhr) {
+								console.log("에러남 : " + xhr);
+							}
+						});
+				  } 
+				});
+				
 			}
 
 			$('#modal-message-register').modal('hide');

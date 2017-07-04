@@ -11,6 +11,14 @@
 		AND    sendtime > adddate(now(), -7) /*일주일이내*/
 	</select>
 
+	<select id="updateMessageUnreadCount" parameterType="com.planb_jeju.dto.Message" >
+		UPDATE message 
+		SET read_status = 1
+
+		where sender = #{sender} and receiver = #{receiver} and comment = #{comment}
+		
+	</select>
+
 	<select id="isMember" parameterType="String" resultType="boolean">
 		SELECT count(*) cnt
 		FROM   member

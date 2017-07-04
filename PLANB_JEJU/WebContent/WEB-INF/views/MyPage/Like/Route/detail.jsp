@@ -43,7 +43,7 @@
 
 						<%------------------------------이미지와 태그 부분 ----------------------------------------%>
 						<div class="col-md-6 animate-box" align="center">
-							<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/detail_Root.jpg" alt="travel">
+							<img class="img-responsive" src="${pageContext.request.contextPath}/images/travel/${routePostscript.route_thumbnail}" alt="travel">
 							<div class="flight-book">
 								<div class="plane-name">
 									<span class="p-flight">태그</span>

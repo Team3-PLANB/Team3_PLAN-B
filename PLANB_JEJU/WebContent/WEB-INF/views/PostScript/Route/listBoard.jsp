@@ -157,7 +157,7 @@
 								<div class="col-lg-4 col-md-4 col-sm-6" >
 									<div class="fh5co-blog animate-box">
 										<a href="${pageContext.request.contextPath}/PostScript/Route/Detail.do?route_postscript_rownum=${routePostscript.route_postscript_rownum}">
-											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Route.jpg" alt="">
+											<img class="img-responsive" src="${pageContext.request.contextPath}/images/travel/${routePostscript.route_thumbnail}" alt="" style="width:359px; height:359px;">
 										</a>
 										<div class="blog-text" style="height:400px;">
 											<div class="prod-title">
@@ -181,14 +181,14 @@
 												<span class="posted_by">${routePostscript.username}</span>
 												<input id="writer" type="hidden" value="${routePostscript.username}">
 												<span class="posted_by" style="float:right;">${routePostscript.writetime}</span> 
-												<span>
+												<span style="width:100%">
 													<c:forEach var="postTag" items="${routePostscript.routePostscriptTag}">
 														<a href="${pageContext.request.contextPath}/PostScript/Route/List.do?searchWord=${postTag.tag}">#${postTag.tag}</a>&nbsp;
 													</c:forEach>
 												</span>
 												<span id="contentElement">
 												</span>
-												<p><a href="#" id="btn-message-modal">쪽지 쓰기</a></p>
+												
 											</div>
 										</div>
 									</div>

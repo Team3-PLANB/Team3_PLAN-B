@@ -43,7 +43,7 @@
 
 						<%------------------------------이미지와 태그 부분 ----------------------------------------%>
 						<div class="col-md-6 animate-box" align="center">
-							<img class="img-responsive"	src="${pageContext.request.contextPath}/images/PostScript/detail_Root.jpg" alt="travel">
+							<img class="img-responsive"	src="${pageContext.request.contextPath}/images/travel/${routePostscript.route_thumbnail}" alt="travel">
 							<div class="flight-book">
 								<div class="plane-name">
 									<span class="p-flight">태그</span>
@@ -86,7 +86,7 @@
 							<div class="col-md-12 animate-box" align="center">
 								<div align="center">
 									<a href="${pageContext.request.contextPath}/MyPage/PostScript/History/history.do?route_code=${routePostscript.route_code}" class="btn btn-primary">히스토리</a>
-									<a href="List.do" class="btn btn-primary">목록으로<i class="icon-arrow-right22"></i></a>
+									<a href="${pageContext.request.contextPath}/MyPage/PostScript/Route/List.do" class="btn btn-primary">목록으로<i class="icon-arrow-right22"></i></a>
 								</div>
 							</div>
 						</div>
