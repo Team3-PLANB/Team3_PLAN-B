@@ -156,6 +156,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE site_postscript_rownum = #{param1}
 	</select>
 	
+	<!-- 대표 사진 가져오기 -->
+	<select id="getOnePhoto" resultType="com.planb_jeju.dto.SitePostscriptPhoto">
+		SELECT *
+		FROM site_postscript_photo
+		WHERE site_postscript_photo_rownum = (SELECT MAX(p.site_postscript_photo_rownum)
+									  		  FROM (SELECT *
+													FROM site_postscript_photo
+													WHERE site_postscript_rownum = #{param1}) p)
+	</select>
+	
 	<!-- 사진 삭제 -->
 	<delete id="deletePhoto" parameterType="Integer">
 		DELETE FROM site_postscript_photo

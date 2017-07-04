@@ -20,6 +20,9 @@ public class SitePostscript {
 	
 	// 태그 리스트
 	private List<SitePostscriptTag> sitePostscriptTag;
+	
+	// 대표 사진 하나
+	private String sitePostPhoto_src;
 		
 	// 로그인한 사용자의 찜콩 여부
 	private String site_like;
@@ -28,7 +31,7 @@ public class SitePostscript {
 
 	public SitePostscript(int site_postscript_rownum, String site, String category, String health, String inoutside,
 			String cost, String comment, Date writetime, int hitnum, int likenum, String username, int route_code,
-			List<SitePostscriptTag> sitePostscriptTag, String site_like) {
+			List<SitePostscriptTag> sitePostscriptTag, String sitePostPhoto_src, String site_like) {
 		super();
 		this.site_postscript_rownum = site_postscript_rownum;
 		this.site = site;
@@ -43,6 +46,7 @@ public class SitePostscript {
 		this.username = username;
 		this.route_code = route_code;
 		this.sitePostscriptTag = sitePostscriptTag;
+		this.sitePostPhoto_src = sitePostPhoto_src;
 		this.site_like = site_like;
 	}
 
@@ -150,6 +154,14 @@ public class SitePostscript {
 		this.sitePostscriptTag = sitePostscriptTag;
 	}
 
+	public String getSitePostPhoto_src() {
+		return sitePostPhoto_src;
+	}
+
+	public void setSitePostPhoto_src(String sitePostPhoto_src) {
+		this.sitePostPhoto_src = sitePostPhoto_src;
+	}
+
 	public String getSite_like() {
 		return site_like;
 	}
@@ -163,8 +175,10 @@ public class SitePostscript {
 		return "SitePostscript [site_postscript_rownum=" + site_postscript_rownum + ", site=" + site + ", category="
 				+ category + ", health=" + health + ", inoutside=" + inoutside + ", cost=" + cost + ", comment="
 				+ comment + ", writetime=" + writetime + ", hitnum=" + hitnum + ", likenum=" + likenum + ", username="
-				+ username + ", route_code=" + route_code + ", sitePostscriptTag=" + sitePostscriptTag + ", site_like="
-				+ site_like + "]";
-	}	
+				+ username + ", route_code=" + route_code + ", sitePostscriptTag=" + sitePostscriptTag
+				+ ", sitePostPhoto_src=" + sitePostPhoto_src + ", site_like=" + site_like + "]";
+	}
+
+	
 	
 }

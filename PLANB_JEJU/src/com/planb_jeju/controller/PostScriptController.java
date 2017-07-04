@@ -259,6 +259,7 @@ public class PostScriptController {
 	@RequestMapping(value="Site/List.do", method=RequestMethod.GET)
 	public String listSitePostscript(Principal principal, Model model, @RequestParam(value="searchWord", required=false) String searchWord) throws Exception {
 		List<SitePostscriptTag> sitePostscriptTagList = null;
+		SitePostscriptPhoto sitePostscriptPhoto = null;
 		String username = null;
 		if(principal != null){
 			username = principal.getName();
@@ -268,6 +269,9 @@ public class PostScriptController {
 		for(SitePostscript post : sitePostscriptList){
 			sitePostscriptTagList = sitePostscriptservice.getSitePostTagList(post);
 			post.setSitePostscriptTag(sitePostscriptTagList);
+			
+			sitePostscriptPhoto = sitePostscriptservice.getSitePostOnePhoto(post.getSite_postscript_rownum());
+			post.setSitePostPhoto_src(sitePostscriptPhoto.getPhoto_src());
 		}
 		model.addAttribute("sitePostscriptList", sitePostscriptList);
 		model.addAttribute("searchWord", searchWord);

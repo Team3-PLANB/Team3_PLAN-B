@@ -66,7 +66,7 @@
 								<div class="col-lg-4 col-md-4 col-sm-6">
 									<div class="fh5co-blog animate-box">
 										<a href="${pageContext.request.contextPath}/MyPage/Like/Site/Detail.do?site_postscript_rownum=${sitePostscript.getSite_postscript_rownum()}">
-											<img class="img-responsive" src="${pageContext.request.contextPath}/images/PostScript/listBoard_Site.jpg" alt="">
+											<img class="img-responsive" src="${pageContext.request.contextPath}/upload/${sitePostscript.sitePostPhoto_src}" alt="">
 										</a>
 										<div class="blog-text" style="height:400px;">
 											<div class="prod-title">

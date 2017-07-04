@@ -201,11 +201,22 @@ public class SitePostscriptService {
 	* @return :  
 	*/
 	public List<SitePostscriptPhoto> getSitePostPhotoList(int site_postscript_rownum) throws ClassNotFoundException, SQLException{
-		System.out.println("여행지 후기 사진 가져오기");
 		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
 		List<SitePostscriptPhoto> sitePostscriptPhotoList = sitePostscriptDao.getPhoto(site_postscript_rownum);
 		System.out.println("sitePostscriptPhotoList : " + sitePostscriptPhotoList);
 		return sitePostscriptPhotoList;
+	}
+	
+	/*
+	* @date : 2017.07.04
+	* @description : 여행지 후기 대표 사진 한장 가져오기
+	* @parameter : 
+	* @return :  
+	*/
+	public SitePostscriptPhoto getSitePostOnePhoto(int site_postscript_rownum) throws ClassNotFoundException, SQLException{
+		sitePostscriptDao = sqlsession.getMapper(SitePostScriptDao.class);
+		SitePostscriptPhoto photo = sitePostscriptDao.getOnePhoto(site_postscript_rownum);
+		return photo;
 	}
 	
 	/*
