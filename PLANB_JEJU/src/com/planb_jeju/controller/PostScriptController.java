@@ -114,6 +114,7 @@ public class PostScriptController {
 			post.setRoutePostscriptTag(routePostscriptTagList);
 		}
 		model.addAttribute("routePostscriptList", routePostscriptList);
+		System.out.println(routePostscriptList);
 		model.addAttribute("searchWord", searchWord);
 		return "PostScript.Route.listBoard";	
 	}

@@ -59,9 +59,7 @@ public class RoutePostscriptService {
 	* @return : 
 	*/
 	public List<RoutePostscript> listRoutePostscript(String username, String searchWord) throws ClassNotFoundException, SQLException {
-		System.out.println("루트 후기게시판 리스트 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
-		System.out.println("username : " + username);
 		List<RoutePostscript> routePostscriptList = routePostscriptDao.getList(username, searchWord);
 		
 		return routePostscriptList;
@@ -74,9 +72,7 @@ public class RoutePostscriptService {
 	* @return : 
 	*/
 	public List<RoutePostscript> listMyRoutePostscript(String username, String searchWord) throws ClassNotFoundException, SQLException {
-		System.out.println("내 루트 후기 리스트 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
-		System.out.println("username : " + username);
 		List<RoutePostscript> routePostscriptList = routePostscriptDao.getMyList(username, searchWord);
 		
 		return routePostscriptList;
@@ -89,9 +85,7 @@ public class RoutePostscriptService {
 	* @return : 
 	*/
 	public List<RoutePostscript> listLikeRoutePost(String username, String searchWord) throws ClassNotFoundException, SQLException {
-		System.out.println("찜한 루트 후기 리스트 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
-		System.out.println("username : " + username);
 		List<RoutePostscript> routePostscriptList = routePostscriptDao.getLikeList(username, searchWord);
 		
 		return routePostscriptList;
@@ -105,9 +99,7 @@ public class RoutePostscriptService {
 	* @return :  
 	*/
 	public RoutePostscript detailRoutePostscript(int route_postscript_rownum, String username) throws ClassNotFoundException, SQLException {
-		System.out.println("루트 후기게시판 상세보기 서비스 들어옴");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
-		System.out.println("username : " + username);
 		RoutePostscript routePostscript = routePostscriptDao.getRoutePost(route_postscript_rownum, username);
 		
 		return routePostscript;
@@ -121,7 +113,6 @@ public class RoutePostscriptService {
 	* @return :  
 	*/
 	public void insertLike(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException{
-		System.out.println("루트 후기 찜콩 설정");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		int check = routePostscriptDao.insertLike(routePostscriptLike);
 		
@@ -139,7 +130,6 @@ public class RoutePostscriptService {
 	* @return :  
 	*/
 	public void deleteLike(RoutePostscriptLike routePostscriptLike) throws ClassNotFoundException, SQLException{
-		System.out.println("루트 후기 찜콩 해제");
 		routePostscriptDao = sqlsession.getMapper(RoutePostScriptDao.class);
 		int check = routePostscriptDao.deleteLike(routePostscriptLike);
 		
