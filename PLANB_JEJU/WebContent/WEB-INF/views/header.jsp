@@ -177,7 +177,8 @@
 							contentType: "application/json; charset=UTF-8",
 							success : function(result){
 								//결과값 전달 후에 뱃지 다시 띄우기
-								init();
+								//init();
+								location.reload(true);
 							},
 							error : function(xhr) {
 								console.log("에러남 : " + xhr);

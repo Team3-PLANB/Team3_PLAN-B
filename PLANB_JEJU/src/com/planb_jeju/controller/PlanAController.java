@@ -140,18 +140,6 @@ public class PlanAController {
 		java.util.List<RouteDetail> siteList = TourApiService.getListOfSite(baseUrl, new StringBuilder(searchWord));
 		siteLists.addAll(siteList);
 		
-		// 취향 마다 요청 따로 보내야 함 -> 취향 하나에 요청 한번, 각 요청에 응답 데이터 저장
-		/*for (String personalcode : personalList) {
-			java.util.List<RouteDetail> siteList = TourApiService.getListOfSite(baseUrl,
-					new StringBuilder(personalcode));
-
-			siteLists.addAll(siteList);
-		}*/
-		
-		//request.setAttribute("siteList", siteLists);
-	
-		System.out.println("return하는 리스트:"+siteLists.toString());
-
 		return siteLists;
 
 	}
@@ -181,10 +169,8 @@ public class PlanAController {
 		// 여행 일자 시작 날짜 부터 마침 날짜 까지 String 타입 리스트로 정리
 		java.util.List<String> datesList =  DateParse.DateToList(route.getSday(), route.getEday());
 		
-		System.out.println(datesList.toString());
 		// 여행루트 추천 DB 가져오기
 		// RouteDao mapper 사용해서 루트 코드리스트 가져온 다음 코드 리스트에 부합하는 routeDetail list 또 가져오기  -> mapper 2개
-		//route.getPartner_code();
 		String[] personalList = CheckBoxParse.parseString(personal);
 		
 		// session객체에 personalList담기
@@ -192,12 +178,6 @@ public class PlanAController {
 		
 		
 		Map<String, Object> map = new HashMap<String, Object>();
-		
-		System.out.println("확인");
-		System.out.println(route.getPartner_code());
-		System.out.println(personalList.toString());
-		System.out.println(principal.getName());
-		System.out.println(personalList.length);
 		
 		map.put("partner_code", route.getPartner_code());
 		map.put("personal_code", personalList);
@@ -209,8 +189,7 @@ public class PlanAController {
 		
 		// 조건에 맞는 RouteDto를 List로 받기 (조건 : 파트너 코드, 취향 코드를 map에 저장, 파라메터로 전달)
 		java.util.List<Route> routeList = routeService.getRouteList(map);
-		System.out.println("여행지 경로 결과");
-		System.out.println(routeList);
+		
 		// view에 보낼 정보 저장할 Map생성
 		Map<String, Object> routeDetailMap = new HashMap<>();
 		
@@ -219,8 +198,7 @@ public class PlanAController {
 			routeDetailMap = routeDetailService.getRouteDetailList(routeList);
 		}
 		
-		System.out.println("여행지 경로 상세 결과");
-		System.out.println(routeDetailMap.toString());
+		
 		
 		request.setAttribute("pageCase", "routeRecommendPage");
 		request.setAttribute("routeMap", routeDetailMap);
@@ -241,27 +219,8 @@ public class PlanAController {
 	*/
 	@RequestMapping(value="PLANA.update.do", method=RequestMethod.GET)
 	public String updatePlanA(@RequestParam int route_code, Principal principal, Model model) throws Exception {
-		/*System.out.println("후기 작성");
-		String username = null;
-		if(principal != null){
-			username = principal.getName();
-			System.out.println("로그인된 아이디 : " + username);
-		}
-		Route route = routeService.getRouteInfo(route_code, principal.getName());
-		java.util.List<RouteDetail> routeDetailList = routeDetailService.getRouteDetailListForPost(route_code, username);
 		
-		for(RouteDetail routeDetail : routeDetailList){
-			routeDetail.setCategory(PersonalParse.code2string(routeDetail.getCategory()));
-		}
-		
-		System.out.println("route : " + route);
-		System.out.println("routeDetailList : " + routeDetailList);
-		model.addAttribute("route_code", route_code);
-		model.addAttribute("route", route);
-		model.addAttribute("routeDetailList", routeDetailList);*/
-		
-		
-		// 나영 코드화
+	
 		// view에 보낼 정보 저장할 Map생성
 		ArrayList<Route> routeList = new ArrayList<>();
 		Route route = routeService.getRouteInfo(route_code, principal.getName());
@@ -292,20 +251,13 @@ public class PlanAController {
 	*/
 	@RequestMapping(value="PLANA.updateOk.do", method=RequestMethod.POST)
 	public @ResponseBody int updatePlanAOk(@RequestBody RouteDetail routedetail) throws Exception {
-		
-		System.out.println(routedetail.toString());
-		//RouteDetail [routename=null, route_code=79, username=b@naver.com, route_order=1, route_date=2017-06-30,
-		//site=테라로사 서귀포점, lon=126.61888443363014, lat=33.24943726067356, category=기타, stime=, etime=, update_rownum=0, update_reason=null, routeDetailList=null]
-
-		//update_reason값 확인
-		
+			
 		//routedetail update_rownum +1 하고 
 		routedetail.setUpdate_rownum(routedetail.getUpdate_rownum()+1);
 		
 		// 취향 한국말 설명 -> 코드성 변경
 		routedetail.setCategory(PersonalParse.string2code(routedetail.getCategory()));
 		
-		//
 		ArrayList<RouteDetail> routeList = new ArrayList<RouteDetail>();
 		
 		routeList.add(routedetail);
@@ -318,7 +270,6 @@ public class PlanAController {
 		int result = routeDetailService.updateRouteDetail(routedetail);
 		int historyresult = 0;
 		if(result>0){
-			System.out.println("update완료");
 			// history insert
 			historyresult = historyService.insertRouteHistory(map);
 			
@@ -342,13 +293,6 @@ public class PlanAController {
 		// 화면 단에서 RouteDetail List 타입으로 정보 다 담아서 넣어서 전달 되어짐
 		// routedetail.routeDetailList 에 담긴 정보 가져와서 hashMap에 담아서 insert 호출
 
-		//Integer[] route_order, String[] username, Integer[] route_code, Date[] route_date, String[] site, String[] lon, String[] lat, String[] category, Time[] stime, Time[] etime
-		// route_detail DB insert
-		// routeDetailService.insert(route);
-
-
-		System.out.println(routeDetail.toString());
-		
 		Map<String, Object> map = new HashMap();
 		
 		ArrayList<RouteDetail> routeList = (ArrayList<RouteDetail>) routeDetail.getRouteDetailList();
@@ -372,9 +316,6 @@ public class PlanAController {
 		// history insert
 		int historyresult = historyService.insertRouteHistory(map);
 
-		if(result>0){
-			System.out.println("루트 상세 저장 완료");
-		}
 		
 		java.util.List<Route> mytRouteList = routeService.getMyRouteList(principal.getName());
 		model.addAttribute("mytRouteList", mytRouteList);
@@ -395,21 +336,11 @@ public class PlanAController {
             ByteArrayInputStream inputStream = new ByteArrayInputStream(file);
             BufferedImage bufferedImage = ImageIO.read(inputStream);
 
-            //File path = new File(".");
-            //System.out.println(path.getAbsolutePath());
             String path = PlanAController.class.getResource("").getPath(); // 현재 클래스의 절대 경로를 가져온다.
-            System.out.println(path);
-            
+                       
             ImageIO.write(bufferedImage, "png", new File(path+"/upload/routeImage")); //저장하고자 하는 파일 경로를 입력합니다.
 
-        
-            
-            /*response.setContentType("image/png");
-            response.setHeader("Content-Disposition", "attachment; filename=report.png");
- 
-            IOUtils.copy(is, response.getOutputStream());
-            response.flushBuffer();
- */       } catch (IOException e) {
+            } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
