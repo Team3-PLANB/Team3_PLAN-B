@@ -85,21 +85,40 @@
 	
 	
 	function msgdelete(message_rownum) {
-		
-	 	if(!confirm("메시지를 삭제 하시겠습니까?")){
+/*		swal({
+			title : "",
+			text : "메시지를 삭제하시겠습니까?",
+			timer : 1000,
+			type : "warning",
+			showCancelButton: true,
+			confirmButtonText: "OK",
+			closeOnConfirm: false
+		},
+		function() {
+			if(!isConfirm) {
+				return;
+			}
+		});
+/* 	 	if(!confirm("메시지를 삭제 하시겠습니까?")){
 	      return;
 	      
 	   	}
-		  
+ */		  
 	   $.ajax({
 	      url:"msgdelete.do",
 	      data:{"message_rownum":message_rownum},
 	      success:function(data){
 	         console.log(data);
-	         alert("삭제되었습니다.");
-	         
-	         //새로고침
-	         location.reload();
+	         swal({
+	        	 title : "",
+	        	 text : "삭제되었습니다.",
+	        	 timer: 1000,
+				 showConfirmButton: false
+	         },
+	         function() {
+		         //새로고침
+		         location.reload();	        	 
+	         });
 	      },
 	      error:function(e){
 	         alert(e.responseText);
