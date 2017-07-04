@@ -141,7 +141,7 @@
 											<div class="input-field">
 												<label for="password">소셜 계정으로 회원가입</label> 
 												<a onclick="login()">
-													　　　　<img src="<%=request.getContextPath() %>/images/logo/facebook-login-blue.png">
+													　　　　<div><img src="<%=request.getContextPath() %>/images/logo/facebook-login-blue.png"></div>
 												</a>
 												<%-- <a href="">
 													<img src="<%=request.getContextPath() %>/images/logo/005-google-plus.png">
