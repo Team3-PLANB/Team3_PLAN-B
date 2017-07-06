@@ -1,8 +1,5 @@
 package com.planb_jeju.dto;
 
-import java.sql.Time;
-import java.util.Date;
-
 public class Personal {
 	private String personal_code;
 	private String personal;

@@ -5,16 +5,6 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-/*
-* @FileName : LoginJoinController.java
-* @Class : LoginJoinController
-* @Project : PLANB_JEJU
-* @Date : 2017.06.07
-* @LastEditDate : 2017.06.16
-* @Author : 정다혜, 홍단비 
-* @Desc : 회원가입  / 로그인   컨트롤러
-*/
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.ibatis.session.SqlSession;
@@ -82,7 +72,7 @@ public class LoginJoinController {
 	/*
 	 * @date : 2017. 6. 21
 	 * @description : 로그아웃
-	 * @return : 
+	 * @return : String(View 페이지) 
 	 */
 	@RequestMapping("Join/Logout.do")
 	public String logout() {

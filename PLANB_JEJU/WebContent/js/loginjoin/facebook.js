@@ -1,3 +1,6 @@
+/**
+ * facebook login/join 
+ */
 // 자바스크립트 SDK를 초기화 후  FB.getLoginStatus()를 호출
 //웹페이지를 로드할때 로그인 상태인지 체크해준다.
 //load the SDK asynchronously

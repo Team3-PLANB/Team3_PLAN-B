@@ -1,5 +1,13 @@
 package com.planb_jeju.controller;
-//주석 추가
+/*
+* @FileName : MyPageController.java
+* @Class : MyPageController
+* @Project : PLANB_JEJU
+* @Date : 2017.06.20
+* @LastEditDate : 2017.06.30
+* @Author : 정다혜, 홍단비
+* @Desc : 마이페이지 컨트롤러
+*/
 import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
@@ -410,71 +418,73 @@ public class MyPageController {
     	}
 
    
-   /*
-   * @date : 2017. 6. 16
-   * @description : Mypage 쪽지함 view
-   * @return : String(view) 
-   */
-   @RequestMapping("Message/msgMain.do")
-   public String msg(Model model, 
-		 @RequestParam(value="cp", defaultValue="1") String cp,
-		 @RequestParam(value="ps", defaultValue="5") String ps,
-		 @RequestParam(value="category", defaultValue="receive") String category) throws Exception{
-	  
-	  model = messageService.messageList(model, cp, ps, category);
-      
-	  return "MyPage.Message.msgMain";
-   }
+	   /*
+	   * @date : 2017. 6. 24
+	   * @description : Mypage 쪽지함 view
+	   * @return : String(view) 
+	   */
+	   @RequestMapping("Message/msgMain.do")
+	   public String msg(Model model, 
+			 @RequestParam(value="cp", defaultValue="1") String cp,
+			 @RequestParam(value="ps", defaultValue="5") String ps,
+			 @RequestParam(value="category", defaultValue="receive") String category) throws Exception{
+		  
+		  model = messageService.messageList(model, cp, ps, category);
+	      
+		  return "MyPage.Message.msgMain";
+	   }
  
-   /**
-    * 
-    */
-   @RequestMapping("Message/msgdelete.do")
-   public @ResponseBody int delete(Principal principal, @RequestParam int message_rownum) throws Exception{
-      return messageService.delete(message_rownum);
-   }
-   
-   /*
-   * @date : 2017. 6. 16
-   * @description : 회원정보수정 닉네임 체크 (비동기)
-   * @return : String(t/f) 
-   */
-   @RequestMapping("Info/duplicationNCheck.do")
-   public @ResponseBody String duplicationNickCheck(String nickname) throws Exception {
-      memberDao = sqlsession.getMapper(MemberDao.class);
-      String result = memberservice.duplicationNickCheck(nickname, sqlsession);
-      
-      return result;
-   }
-
-   /*
-   * @date : 2017. 6. 22
-   * @description : 회원정보 get
-   * @return : String(View) 
-   */
-   @RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.GET)
-   public String getUserInfo(HttpServletRequest request, Principal principal) throws Exception {
-      member = memberservice.getMemberInfo(principal.getName(), sqlsession);
-      request.setAttribute("nickname", member.getNickname());
-      request.setAttribute("originpwd", member.getPassword());
-
-      return "MyPage.Info.infoMain";
-   }
-
-   /*
-   * @date : 2017. 6. 22
-   * @description : 회원정보수정 
-   * @return : String(View) 
-   */
-   @RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.POST)
-   public String updateInfo(Member member, Principal principal) throws Exception {
-      
-      Member updatemember = memberservice.getMemberInfo(principal.getName(), sqlsession);
-
-      updatemember.setNickname(member.getNickname());
-      updatemember.setPassword(member.getPassword());
-      memberservice.update(updatemember, sqlsession);
-
-      return "Main.mainpage";
-   }
+	   /*
+	   * @date : 2017. 6. 26
+	   * @description : Mypage 쪽지 delete
+	   * @return : String(view) 
+	   */
+	   @RequestMapping("Message/msgdelete.do")
+	   public @ResponseBody int delete(Principal principal, @RequestParam int message_rownum) throws Exception{
+	      return messageService.delete(message_rownum);
+	   }
+	   
+	   /*
+	   * @date : 2017. 6. 16
+	   * @description : 회원정보수정 닉네임 체크 (비동기)
+	   * @return : String(t/f) 
+	   */
+	   @RequestMapping("Info/duplicationNCheck.do")
+	   public @ResponseBody String duplicationNickCheck(String nickname) throws Exception {
+	      memberDao = sqlsession.getMapper(MemberDao.class);
+	      String result = memberservice.duplicationNickCheck(nickname, sqlsession);
+	      
+	      return result;
+	   }
+	
+	   /*
+	   * @date : 2017. 6. 22
+	   * @description : 회원정보 get
+	   * @return : String(View) 
+	   */
+	   @RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.GET)
+	   public String getUserInfo(HttpServletRequest request, Principal principal) throws Exception {
+	      member = memberservice.getMemberInfo(principal.getName(), sqlsession);
+	      request.setAttribute("nickname", member.getNickname());
+	      request.setAttribute("originpwd", member.getPassword());
+	
+	      return "MyPage.Info.infoMain";
+	   }
+	
+	   /*
+	   * @date : 2017. 6. 22
+	   * @description : 회원정보수정 
+	   * @return : String(View) 
+	   */
+	   @RequestMapping(value = "Info/updateInfo.do", method=RequestMethod.POST)
+	   public String updateInfo(Member member, Principal principal) throws Exception {
+	      
+	      Member updatemember = memberservice.getMemberInfo(principal.getName(), sqlsession);
+	
+	      updatemember.setNickname(member.getNickname());
+	      updatemember.setPassword(member.getPassword());
+	      memberservice.update(updatemember, sqlsession);
+	
+	      return "Main.mainpage";
+	   }
 }

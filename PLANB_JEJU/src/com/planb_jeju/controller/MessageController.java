@@ -1,12 +1,12 @@
 package com.planb_jeju.controller;
 /*
-* @FileName : 수정 필
-* @Class : LoginJoinController
+* @FileName : MessageController.java
+* @Class : MessageController
 * @Project : PLANB_JEJU
-* @Date : 2017.06.07
-* @LastEditDate : 2017.06.16
-* @Author : 정다혜, 홍단비 
-* @Desc : 회원가입  / 로그인   컨트롤러
+* @Date : 2017.06.20
+* @LastEditDate : 2017.06.30
+* @Author : 이준성 
+* @Desc : 쪽지 컨트롤러
 */
 
 import com.planb_jeju.dao.SocketDao;
@@ -47,10 +47,4 @@ public class MessageController { //로그인 , 메세지카운트 초기셋팅
 		
 		return 1;
     }
-	
-	
-
 }
-	
-		
-

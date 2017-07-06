@@ -3,7 +3,6 @@ package com.planb_jeju.dao;
 import java.sql.SQLException;
 import java.util.List;
 
-import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.dto.SitePostscript;
 import com.planb_jeju.dto.SitePostscriptLike;
 import com.planb_jeju.dto.SitePostscriptPhoto;

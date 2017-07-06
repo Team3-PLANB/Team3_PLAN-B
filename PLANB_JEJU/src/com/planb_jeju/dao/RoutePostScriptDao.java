@@ -1,10 +1,8 @@
 package com.planb_jeju.dao;
 
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
 
-import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.RoutePostscript;
 import com.planb_jeju.dto.RoutePostscriptLike;
 import com.planb_jeju.dto.RoutePostscriptTag;

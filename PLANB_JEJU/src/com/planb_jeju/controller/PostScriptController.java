@@ -1,56 +1,28 @@
 package com.planb_jeju.controller;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-
 /*
 * @FileName : PostScriptController.java
 * @Class : PostScriptController
 * @Project : PLANB_JEJU
 * @Date : 2017.06.16
-* @LastEditDate : 2017.06.19
-* @Author : 정다혜
+* @LastEditDate : 2017.07.01
+* @Author : 정다혜, 홍단비
 * @Desc : 후기 게시판 컨트롤러 
 */
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.security.Principal;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import javax.sql.rowset.serial.SerialBlob;
 
 import org.apache.ibatis.session.SqlSession;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MultiValueMap;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.MultipartRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
-import com.planb_jeju.dao.ExDao;
-import com.planb_jeju.dao.MemberDao;
-import com.planb_jeju.dto.Member;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RouteDetail;
 import com.planb_jeju.dto.RouteHistory;
@@ -62,7 +34,6 @@ import com.planb_jeju.dto.SitePostscriptLike;
 import com.planb_jeju.dto.SitePostscriptPhoto;
 import com.planb_jeju.dto.SitePostscriptTag;
 import com.planb_jeju.service.HistoryService;
-import com.planb_jeju.service.MemberService;
 import com.planb_jeju.service.RouteDetailService;
 import com.planb_jeju.service.RoutePostscriptService;
 import com.planb_jeju.service.RouteService;
@@ -73,8 +44,6 @@ import com.planb_jeju.utils.PersonalParse;
 @Controller
 @RequestMapping("/PostScript/")
 public class PostScriptController {
-
-//  private static MemberDao memberDao; 
 
 	@Autowired
 	private SqlSession sqlsession;

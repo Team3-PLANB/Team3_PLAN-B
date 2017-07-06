@@ -1,7 +1,5 @@
 package com.planb_jeju.dto;
 
-import java.sql.Time;
-import java.util.Date;
 
 public class RoutePostscriptLike {	
 	private int route_postscript_like_rownum;

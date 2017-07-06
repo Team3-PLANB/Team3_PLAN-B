@@ -1,4 +1,12 @@
 package com.planb_jeju.service;
+/*
+* @FileName : HistoryService.java
+* @Class : HistoryService
+* @Project : PLANB_JEJU
+* @Date : 2017.06.30
+* @Author : 홍단비
+* @Desc : History 컨트롤러
+*/
 
 import java.sql.SQLException;
 import java.util.List;

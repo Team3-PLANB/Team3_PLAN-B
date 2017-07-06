@@ -56,7 +56,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
-import com.planb_jeju.dao.ExDao;
 import com.planb_jeju.dao.RouteDao;
 import com.planb_jeju.dto.Route;
 import com.planb_jeju.dto.RouteDetail;

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
-import com.planb_jeju.dao.MemberDao;
 import com.planb_jeju.dao.MessageDao;
 import com.planb_jeju.dto.Message;
 import com.planb_jeju.dto.SessionUser;

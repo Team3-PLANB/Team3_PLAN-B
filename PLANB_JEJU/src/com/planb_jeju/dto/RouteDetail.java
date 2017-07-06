@@ -1,7 +1,5 @@
 package com.planb_jeju.dto;
 
-import java.sql.Time;
-import java.util.Date;
 import java.util.List;
 
 public class RouteDetail {
@@ -19,19 +17,8 @@ public class RouteDetail {
 	private String stime;
 	private String etime;
 	
-	// 히스토리
-//	private int route_code;
-//	private String username;
-//	private int route_order;
-//	private Date route_date;
 	private int update_rownum;
 	private String update_reason;
-//	private String site;
-//	private String lon;
-//	private String lat;
-//	private String category;
-//	private Time stime;
-//	private Time etime;
 	
 	//화면 단에서 java(서버 controller)로 경로 순서대로 여러개 넘길 때 json 타입으로 전달, 받을 수 있는 list필요***
 	private List<RouteDetail> routeDetailList;
